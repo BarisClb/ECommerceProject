@@ -1,0 +1,23 @@
+.main-sidebar {
+	position: relative;
+	margin-right: 250px;
+}
+
+.router-link {
+	text-decoration: none;
+	color: rgb(220, 1, 1) !important;
+}
+
+.router-link:hover {
+	text-decoration: none;
+	cursor: pointer;
+	color: rgb(150, 0, 0) !important;
+}
+
+.white {
+	color: rgb(255, 255, 255, 0.9) !important;
+}
+
+.white:hover {
+	color: rgb(134, 134, 134, 1) !important;
+}

@@ -1,0 +1,61 @@
+.table-body {
+	/* margin-left: 270px !important; */
+	margin: 20px;
+}
+
+.thead-buttons {
+	margin-right: 10px;
+}
+
+.minicart-button {
+	padding: 5px 10px !important;
+}
+
+.table-buttons {
+	padding-top: 7px !important;
+	padding-bottom: 7px !important;
+}
+
+.table-buttons > .btn {
+	padding: 5px 10px !important;
+	margin-right: 10px;
+}
+
+.navbar-buttons {
+	display: flex;
+	align-items: center;
+	font-size: 1.25rem;
+	color: rgba(0, 0, 0, 0.9);
+	gap: 10px;
+}
+
+.navbar-buttons > .btn {
+	padding: 5px 10px !important;
+}
+
+.nav-search {
+	display: flex;
+	gap: 10px;
+}
+
+.form-input {
+	width: 250px;
+}
+
+#trashIcon {
+	margin-right: 10px;
+	margin-left: -3px;
+}
+
+#miniCartBadge {
+	margin-left: auto;
+}
+
+.miniCartDropdownItem {
+	display: flex !important;
+	justify-content: space-between;
+}
+
+#miniCartLink {
+	text-decoration: none;
+}

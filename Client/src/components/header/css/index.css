@@ -1,0 +1,35 @@
+.header-body {
+	/* margin-left: 250px; */
+	background-color: gray;
+	display: flex;
+	align-items: center;
+	padding: 10px 25px;
+	margin-bottom: 10px;
+}
+
+.font {
+	font-size: 2rem;
+	margin-right: 10px;
+}
+
+.header-body > h1 {
+	margin: 0;
+	margin-right: auto;
+}
+
+.header-body > button {
+	background-color: rgb(43, 90, 177);
+	border-color: rgb(43, 90, 177);
+	padding: 5px 15px;
+}
+
+.header-buttons {
+	display: flex;
+	/* align-items: center; */
+	justify-content: end;
+	gap: 10px;
+}
+
+.header-buttons > .btn {
+	padding: 5px 10px;
+}

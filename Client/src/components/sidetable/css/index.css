@@ -1,0 +1,8 @@
+#sideCategoryListBody {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+#sideCategoryListBody > ul > li {
+	background: rgb(0, 0, 0, 0.25) !important;
+}
