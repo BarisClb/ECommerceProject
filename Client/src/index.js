@@ -12,6 +12,7 @@ import Products from "./screens/Products";
 import Categories from "./screens/Categories";
 import Cart from "./screens/Cart";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 
 ReactDOM.render(
 	<Provider store={storeManager.createStore()}>
