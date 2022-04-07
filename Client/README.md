@@ -1,1 +1,1 @@
-# ECommerceProject - Store    
+# ECommerceProject - Client    
