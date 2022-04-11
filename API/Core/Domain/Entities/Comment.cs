@@ -11,12 +11,18 @@ namespace Domain.Entities
     {
         public string Title { get; set; }
         public string Text { get; set; }
+        public int Rating { get; set; }
 
-        // User
+        //// References
+
+        //// Comments Likes
+        //public ICollection<Like>? Likes { get; set; }
 
         // Product
+        public Product CommentedTo { get; set; }
 
-        // Likes
+        // User 
+        public User WrittenBy { get; set; }
 
     }
 }

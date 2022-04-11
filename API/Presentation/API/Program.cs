@@ -6,6 +6,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ImplementPersistenceServices();
 
+// Adding CORS Options
+
+// Cors Options
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ECommerceProject",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000",
+                                       "http://localhost:3001")
+                                       .AllowAnyHeader()
+                                       .AllowAnyMethod();
+        });
+});
+
 
 // Add services to the container.
 
@@ -22,6 +37,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Using Cors
+app.UseCors("ECommerceProject");
 
 app.UseHttpsRedirection();
 

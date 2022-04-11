@@ -9,11 +9,18 @@ namespace Domain.Entities
 {
     public class Order : BaseEntity
     {
-        // Products
+        public string Description { get; set; }
+
+        public string Address { get; set; }
+        public byte OrderStatus { get; set; }
+
+        //// References
 
         // Created by User
+        public User OrderedBy { get; set; }
 
-        // User Address
+        // Products
+        public ICollection<Product> Products { get; set; }
 
     }
 }
