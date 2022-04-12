@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace Persistence.Repository
 {
-    internal class ProductWriteRepository : WriteRepository<Product>, IProductWriteRepository
+    public class ProductWriteRepository : WriteRepository<Product>, IProductWriteRepository
     {
         public ProductWriteRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

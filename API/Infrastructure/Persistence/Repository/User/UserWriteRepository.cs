@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class UserWriteRepository : WriteRepository<User>, IUserWriteRepository
     {
         public UserWriteRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

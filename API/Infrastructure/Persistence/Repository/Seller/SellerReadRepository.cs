@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class SellerReadRepository : ReadRepository<Seller>, ISellerReadRepository
     {
         public SellerReadRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

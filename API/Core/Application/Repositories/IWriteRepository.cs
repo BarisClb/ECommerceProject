@@ -15,8 +15,6 @@ namespace Application.Repositories
         bool RemoveRange(List<T> datas);
         Task<bool> RemoveAsync(int id);
         bool Update(T model);
-
         Task<int> SaveAsync();
-
     }
 }

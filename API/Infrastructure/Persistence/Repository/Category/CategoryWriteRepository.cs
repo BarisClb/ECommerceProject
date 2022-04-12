@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class CategoryWriteRepository : WriteRepository<Category>, ICategoryWriteRepository
     {
         public CategoryWriteRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

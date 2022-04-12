@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class SellerWriteRepository : WriteRepository<Seller>, ISellerWriteRepository
     {
         public SellerWriteRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

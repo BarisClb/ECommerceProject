@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class LikeReadRepository : ReadRepository<Like>, ILikeReadRepository
     {
         public LikeReadRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

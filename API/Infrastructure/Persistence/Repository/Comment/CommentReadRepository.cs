@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class CommentReadRepository : ReadRepository<Comment>, ICommentReadRepository
     {
         public CommentReadRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

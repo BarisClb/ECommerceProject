@@ -22,7 +22,6 @@ namespace Persistence.Repository
 
         public DbSet<T> Table => _context.Set<T>();
 
-
         public async Task<bool> AddAsync(T model)
         {
             EntityEntry<T> entityEntry = await Table.AddAsync(model);

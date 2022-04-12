@@ -42,17 +42,11 @@ namespace Persistence.Contexts
         {
             //// Category
 
-            //modelBuilder.Entity<Category>()
-            //    .HasMany(c => c.Products)
-            //    .WithOne(p => p.Category)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            // modelBuilder.Entity<Category>()
 
             //// Comment
 
-            //modelBuilder.Entity<Comment>()
-            //    .HasOne(c => c.WrittenBy)
-            //    .WithMany(u => u.Comments)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            // modelBuilder.Entity<Comment>()
 
             // Like
 
@@ -63,17 +57,11 @@ namespace Persistence.Contexts
 
             //// Order
 
-            //modelBuilder.Entity<Order>()
-            //    .HasOne(o => o.OrderedBy)
-            //    .WithMany(u => u.Orders)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            // modelBuilder.Entity<Order>()
 
             //// Product
 
-            //modelBuilder.Entity<Product>()
-            //    .HasOne(p => p.CreatedBy)
-            //    .WithMany(u => u.Products)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            // modelBuilder.Entity<Product>()
 
             //// Seller
 
@@ -81,10 +69,7 @@ namespace Persistence.Contexts
 
             //// User
 
-            //modelBuilder.Entity<User>()
-
+            // modelBuilder.Entity<User>()
         }
-
     }
-
 }

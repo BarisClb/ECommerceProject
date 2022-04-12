@@ -22,14 +22,12 @@ namespace Persistence.Repository
 
         public DbSet<T> Table => _context.Set<T>();
 
-
         public IQueryable<T> GetAll(bool tracking = true)
         {
             var query = Table.AsQueryable();
             if (!tracking)
-            {
                 query = query.AsNoTracking();
-            }
+
             return query;
         }
 
@@ -37,9 +35,8 @@ namespace Persistence.Repository
         {
             var query = Table.AsQueryable();
             if (!tracking)
-            {
                 query = Table.AsNoTracking();
-            }
+
             return await query.FirstOrDefaultAsync(data => data.Id == id);
             
             // return await Table.FindAsync(id); // => doesn't work with 'tracking'
@@ -49,9 +46,8 @@ namespace Persistence.Repository
         {
             var query = Table.AsQueryable();
             if (!tracking)
-            {
                 query = Table.AsNoTracking();
-            }
+
             return await Table.FirstOrDefaultAsync(method);
         }
 
@@ -59,11 +55,9 @@ namespace Persistence.Repository
         {
             var query = Table.Where(method);
             if (!tracking)
-            {
                 query = query.AsNoTracking();
-            }
+
             return query;
         }
-
     }
 }

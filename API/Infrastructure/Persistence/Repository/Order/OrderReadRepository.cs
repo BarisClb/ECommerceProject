@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class OrderReadRepository : ReadRepository<Order>, IOrderReadRepository
     {
         public OrderReadRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

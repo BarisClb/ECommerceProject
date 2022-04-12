@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class ProductReadRepository : ReadRepository<Product>, IProductReadRepository
     {
         public ProductReadRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

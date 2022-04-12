@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class LikeWriteRepository : WriteRepository<Like>, ILikeWriteRepository
     {
         public LikeWriteRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }

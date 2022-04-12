@@ -2,13 +2,10 @@ using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adding Custom Services
-
+// MsSQL Connection
 builder.Services.ImplementPersistenceServices(builder.Configuration.GetConnectionString("MsSQL"));
 
-// Adding CORS Options
-
-// Cors Options
+// Adding CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ECommerceProject",
@@ -21,17 +18,12 @@ builder.Services.AddCors(options =>
         });
 });
 
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -42,9 +34,6 @@ if (app.Environment.IsDevelopment())
 app.UseCors("ECommerceProject");
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

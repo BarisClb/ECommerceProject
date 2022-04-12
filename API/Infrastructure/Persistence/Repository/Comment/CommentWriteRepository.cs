@@ -12,8 +12,6 @@ namespace Persistence.Repository
     public class CommentWriteRepository : WriteRepository<Comment>, ICommentWriteRepository
     {
         public CommentWriteRepository(ECommerceProjectDbContext context) : base(context)
-        {
-        }
-
+        { }
     }
 }
