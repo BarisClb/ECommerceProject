@@ -57,7 +57,7 @@ namespace API.Controllers
                 WrittenBy = user
             });
 
-            await _commentWriteRepository.SaveAsync()
+            await _commentWriteRepository.SaveAsync();
             return Ok();
         }
 

@@ -29,13 +29,10 @@ namespace Persistence.Contexts
             foreach (var data in datas)
             {
                 if (data.State == EntityState.Added)
-                {
                     data.Entity.DateCreated = DateTime.UtcNow;
-                }
+
                 if (data.State == EntityState.Modified)
-                {
                     data.Entity.DateUpdated = DateTime.UtcNow;
-                }
             }
 
             return await base.SaveChangesAsync(cancellationToken);
