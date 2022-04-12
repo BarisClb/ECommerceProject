@@ -55,7 +55,8 @@ namespace API.Controllers
                 LikedComment = comment
             });
 
-            return Ok(await _likeWriteRepository.SaveAsync());
+            await _likeWriteRepository.SaveAsync();
+            return Ok();
         }
 
         [HttpDelete("{id}")]

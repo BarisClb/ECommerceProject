@@ -57,7 +57,8 @@ namespace API.Controllers
                 Product = product
             });
 
-            return Ok(await _orderWriteRepository.SaveAsync());
+            await _orderWriteRepository.SaveAsync();
+            return Ok();
         }
 
         [HttpPut]

@@ -59,7 +59,8 @@ namespace API.Controllers
                 CreatedBy = seller
             });
 
-            return Ok(await _productWriteRepository.SaveAsync());
+            await _productWriteRepository.SaveAsync();
+            return Ok();
         }
 
         [HttpPut]

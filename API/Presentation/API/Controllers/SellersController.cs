@@ -44,7 +44,8 @@ namespace API.Controllers
                 Password = modelSeller.Password
             });
 
-            return Ok(await _sellerWriteRepository.SaveAsync());
+            await _sellerWriteRepository.SaveAsync();
+            return Ok();
         }
 
         [HttpPut]

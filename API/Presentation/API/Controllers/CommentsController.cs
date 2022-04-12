@@ -57,7 +57,8 @@ namespace API.Controllers
                 WrittenBy = user
             });
 
-            return Ok(await _commentWriteRepository.SaveAsync());
+            await _commentWriteRepository.SaveAsync()
+            return Ok();
         }
 
         [HttpPut]

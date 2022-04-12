@@ -54,7 +54,8 @@ namespace API.Controllers
                 Admin = modelUser.Admin
             });
 
-            return Ok(await _userWriteRepository.SaveAsync());
+            await _userWriteRepository.SaveAsync();
+            return Ok();
         }
 
         [HttpPut]

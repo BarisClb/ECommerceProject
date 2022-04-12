@@ -42,7 +42,8 @@ namespace API.Controllers
                 Description = modelCategory.Description
             });
 
-            return Ok(await _categoryWriteRepository.SaveAsync());
+            await _categoryWriteRepository.SaveAsync();
+            return Ok();
         }
 
         [HttpPut]
