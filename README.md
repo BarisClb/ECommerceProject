@@ -2,7 +2,7 @@
   
    Plans:  
   
-   1-) EMail Check for User/Seller Create/Update  
+   1-) EMail Regex Check for User/Seller Create/Update  
    2-) Making Username and Email Unique  
    3-) JWT / Authorization / Authentication  
    4-) Pagination  
