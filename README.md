@@ -2,11 +2,12 @@
   
    Plans:  
   
-   1-) EMail Check for User/Seller Create/Update
-   2-) JWT / Authorization / Authentication  
-   3-) Pagination  
-   4-) Sort By (Name, Price, Date)  
-   5-) EMail Notification for Orders (It will be implemented but it will probably stay disabled.)  
+   1-) EMail Check for User/Seller Create/Update  
+   2-) Making Username and Email Unique  
+   3-) JWT / Authorization / Authentication  
+   4-) Pagination  
+   5-) Sort By (Name, Price, Date)  
+   6-) EMail Notification for Orders (It will be implemented but it will probably stay disabled.)  
   
    Maybe:  
    1-) User Mail  
