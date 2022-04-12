@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Adding Custom Services
 
-builder.Services.ImplementPersistenceServices();
+builder.Services.ImplementPersistenceServices(builder.Configuration.GetConnectionString("MsSQL"));
 
 // Adding CORS Options
 

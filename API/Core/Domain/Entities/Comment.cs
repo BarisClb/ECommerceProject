@@ -15,8 +15,8 @@ namespace Domain.Entities
 
         //// References
 
-        //// Comments Likes
-        //public ICollection<Like>? Likes { get; set; }
+        // Comments Likes
+        public ICollection<Like>? Likes { get; set; }
 
         // Product
         public Product CommentedTo { get; set; }

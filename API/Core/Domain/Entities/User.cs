@@ -20,8 +20,8 @@ namespace Domain.Entities
         // Written Comments -> Comments will have 'CreatedBy' User data, maybe We can get the 'Comment History' that way.
         public ICollection<Comment>? Comments { get; set; }
 
-        //// Liked Comments
-        //public ICollection<Like>? Likes { get; set; }
+        // Liked Comments
+        public ICollection<Like>? Likes { get; set; }
 
         // Orders -> Orders will have 'OrderedBy' User data, maybe We can get the 'Order History' that way.
         public ICollection<Order>? Orders { get; set; }

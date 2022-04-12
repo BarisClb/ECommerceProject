@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,35 @@ namespace Persistence.Contexts
 {
     public class ECommerceProjectDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server = (localdb)\mssqllocaldb; Database = ECommerceProjectDB; Trusted_Connection = true;");
-        }
+        public ECommerceProjectDbContext(DbContextOptions options) : base(options) 
+        { }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        // public DbSet<Like> Likes { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Seller> Sellers { get; set; }
         public DbSet<User> Users { get; set; }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var datas = ChangeTracker.Entries<BaseEntity>();
+
+            foreach (var data in datas)
+            {
+                if (data.State == EntityState.Added)
+                {
+                    data.Entity.DateCreated = DateTime.UtcNow;
+                }
+                if (data.State == EntityState.Modified)
+                {
+                    data.Entity.DateUpdated = DateTime.UtcNow;
+                }
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,9 +57,12 @@ namespace Persistence.Contexts
             //    .WithMany(u => u.Comments)
             //    .OnDelete(DeleteBehavior.NoAction);
 
-            //// Like
+            // Like
 
-            // modelBuilder.Entity<Like>()
+            modelBuilder.Entity<Like>()
+                .HasOne(l => l.LikedBy)
+                .WithMany(u => u.Likes)
+                .OnDelete(DeleteBehavior.NoAction);
 
             //// Order
 

@@ -25,22 +25,44 @@ namespace Persistence.Repository
 
         public IQueryable<T> GetAll(bool tracking = true)
         {
-            return Table;
+            var query = Table.AsQueryable();
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return query;
         }
 
         public async Task<T> GetByIdAsync(int id, bool tracking = true)
         {
-            return await Table.FindAsync(id);
+            var query = Table.AsQueryable();
+            if (!tracking)
+            {
+                query = Table.AsNoTracking();
+            }
+            return await query.FirstOrDefaultAsync(data => data.Id == id);
+            
+            // return await Table.FindAsync(id); // => doesn't work with 'tracking'
         }
 
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true)
         {
+            var query = Table.AsQueryable();
+            if (!tracking)
+            {
+                query = Table.AsNoTracking();
+            }
             return await Table.FirstOrDefaultAsync(method);
         }
 
         public IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true)
         {
-            return Table.Where(method);
+            var query = Table.Where(method);
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return query;
         }
 
     }

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.ViewModels;
+using Application.Repositories;
+using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -7,5 +10,61 @@ namespace API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
+        readonly private ICategoryWriteRepository _categoryWriteRepository;
+        readonly private ICategoryReadRepository _categoryReadRepository;
+
+        public CategoriesController(
+            ICategoryWriteRepository categoryWriteRepository,
+            ICategoryReadRepository categoryReadRepository)
+        {
+            _categoryWriteRepository = categoryWriteRepository;
+            _categoryReadRepository = categoryReadRepository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(_categoryReadRepository.GetAll(false));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _categoryReadRepository.GetByIdAsync(id, false));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(VM_Create_Category modelCategory)
+        {
+            await _categoryWriteRepository.AddAsync(new()
+            {
+                Name = modelCategory.Name,
+                Description = modelCategory.Description
+            });
+
+            return Ok(await _categoryWriteRepository.SaveAsync());
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(VM_Update_Category modelCategory)
+        {
+            Category category = await _categoryReadRepository.GetByIdAsync(modelCategory.CategoryId);
+
+            if (modelCategory.Name != null)
+                category.Name = modelCategory.Name;
+            if (modelCategory.Description != null)
+                category.Description = modelCategory.Description;
+
+            await _categoryWriteRepository.SaveAsync();
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _categoryWriteRepository.RemoveAsync(id);
+            await _categoryWriteRepository.SaveAsync();
+            return Ok();
+        }
     }
 }

@@ -9,8 +9,7 @@ namespace Domain.Entities
 {
     public class Order : BaseEntity
     {
-        public string Description { get; set; }
-
+        public string? Description { get; set; }
         public string Address { get; set; }
         public byte OrderStatus { get; set; }
 
@@ -20,7 +19,7 @@ namespace Domain.Entities
         public User OrderedBy { get; set; }
 
         // Products
-        public ICollection<Product> Products { get; set; }
+        public Product Product { get; set; }
 
     }
 }
