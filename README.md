@@ -9,8 +9,9 @@
    5-) Sort By (Name, Price, Date)  
    6-) EMail Notification for Orders (It will be implemented but it will probably stay disabled.)  
   
-   Maybe:  
-   1-) User Mail  
+   Maybe (Far off in the future):  
+   1-) User Personal Mail  
    2-) Mails between Users  
    3-) Reply System (Comment to Comment)  
    4-) Notifications in User Mail  (Replies to Comments, Comments to Product, Order Status...)  
+  
