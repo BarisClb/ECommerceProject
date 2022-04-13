@@ -11,7 +11,6 @@ namespace Application.ViewModels
     {
         public string? Description { get; set; }
         public string Address { get; set; }
-        public byte OrderStatus { get; set; } = 1;
         public int OrderedBy { get; set; }
         public int ProductId { get; set; }
     }

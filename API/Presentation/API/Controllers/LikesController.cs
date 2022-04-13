@@ -39,31 +39,61 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _likeReadRepository.GetByIdAsync(id, false));
+            Like like = await _likeReadRepository.GetByIdAsync(id, false);
+            if (like == null)
+                return NotFound("Like does not exist.");
+
+            return Ok(like);
+        }
+
+        [HttpGet("ByComment/{id}")]
+        public async Task<IActionResult> ByComment(int id)
+        {
+            if (await _commentReadRepository.GetByIdAsync(id, false) == null)
+                return NotFound("Comment does not exist.");
+
+            return Ok(_likeReadRepository.GetWhere(like => like.CommentId == id, false));
+        }
+
+        [HttpGet("ByUser/{id}")]
+        public async Task<IActionResult> ByUser(int id)
+        {
+            if (await _userReadRepository.GetByIdAsync(id, false) == null)
+                return NotFound("User does not exist.");
+
+            return Ok(_likeReadRepository.GetWhere(like => like.UserId == id, false));
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(VM_Create_Like modelLike)
         {
             Comment comment = await _commentReadRepository.GetByIdAsync(modelLike.CommentId);
+            if (comment == null)
+                return NotFound("Comment does not exist.");
+
             User user = await _userReadRepository.GetByIdAsync(modelLike.UserId);
+            if (user == null)
+                return NotFound("User does not exist.");
 
             await _likeWriteRepository.AddAsync(new()
             {
-                LikedBy = user,
-                LikedComment = comment
+                User = user,
+                Comment = comment
             });
 
             await _likeWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Like created.");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (await _likeReadRepository.GetByIdAsync(id, false) == null)
+                return NotFound("Like does not exist.");
+
             await _likeWriteRepository.RemoveAsync(id);
             await _likeWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Like deleted.");
         }
 
     }

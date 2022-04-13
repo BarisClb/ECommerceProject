@@ -13,16 +13,21 @@ namespace Domain.Entities
         public string Text { get; set; }
         public int Rating { get; set; }
 
-        //// References
+        //// Relations
 
-        // Comments Likes
+        // Comment Replies
+        public ICollection<CommentReply>? CommentReplies { get; set; }
+
+        // Comment Likes
         public ICollection<Like>? Likes { get; set; }
 
-        // Product
-        public Product CommentedTo { get; set; }
+        // Product - Commented Product
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
-        // User 
-        public User WrittenBy { get; set; }
+        // User - Commenter User
+        public int UserId { get; set; }
+        public User User { get; set; }
 
     }
 }

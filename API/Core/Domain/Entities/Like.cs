@@ -9,13 +9,15 @@ namespace Domain.Entities
 {
     public class Like : BaseEntity
     {
-        //// References
-
-        // Comment Liked By
-        public User LikedBy { get; set; }
+        //// Relations
 
         // Liked Comment
-        public Comment LikedComment { get; set; }
+        public int CommentId { get; set; }
+        public Comment Comment { get; set; }
+
+        // Comment Liked By
+        public int UserId { get; set; }
+        public User User { get; set; }
 
     }
 }

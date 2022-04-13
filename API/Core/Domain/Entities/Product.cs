@@ -14,19 +14,24 @@ namespace Domain.Entities
         public decimal Price { get; set; }
         public int Stock { get; set; }
 
-        //// References
+        //// Relations
 
-        // Category
+        // Category it belongs to
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
 
         // Comments
         public ICollection<Comment>? Comments { get; set; }
 
-        // Created By Seller
-        public Seller CreatedBy { get; set; }
+        // Comment Replies
+        public ICollection<CommentReply>? CommentReplies { get; set; }
 
         // Orders
         public ICollection<Order>? Orders { get; set; }
+
+        // Created By Seller
+        public int SellerId { get; set; }
+        public Seller Seller { get; set; }
 
     }
 }

@@ -48,7 +48,7 @@ namespace Persistence.Repository
             if (!tracking)
                 query = Table.AsNoTracking();
 
-            return await Table.FirstOrDefaultAsync(method);
+            return await query.FirstOrDefaultAsync(method);
         }
 
         public IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true)

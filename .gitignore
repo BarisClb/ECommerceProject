@@ -1,3 +1,10 @@
+# Personal
+
+# Database Files
+
+Database/ECommerceProjectDB.mdf
+Database/ECommerceProjectDB_log.ldf
+
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,react,aspnetcore
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,visualstudiocode,react,aspnetcore
 

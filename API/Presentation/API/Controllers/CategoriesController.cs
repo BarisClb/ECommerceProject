@@ -30,7 +30,11 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _categoryReadRepository.GetByIdAsync(id, false));
+            Category category = await _categoryReadRepository.GetByIdAsync(id, false);
+            if (category == null)
+                return NotFound("Category does not exist.");
+
+            return Ok(category);
         }
 
         [HttpPost]
@@ -43,13 +47,15 @@ namespace API.Controllers
             });
 
             await _categoryWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Category created.");
         }
 
         [HttpPut]
         public async Task<IActionResult> Put(VM_Update_Category modelCategory)
         {
             Category category = await _categoryReadRepository.GetByIdAsync(modelCategory.CategoryId);
+            if (category == null)
+                return NotFound("Category does not exist.");
 
             if (modelCategory.Name != null)
                 category.Name = modelCategory.Name;
@@ -57,15 +63,18 @@ namespace API.Controllers
                 category.Description = modelCategory.Description;
 
             await _categoryWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Category updated.");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (await _categoryReadRepository.GetByIdAsync(id, false) == null)
+                return NotFound("Category does not exist.");
+
             await _categoryWriteRepository.RemoveAsync(id);
             await _categoryWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Category deleted.");
         }
     }
 }

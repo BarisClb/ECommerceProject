@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Repositories
 {
-    public interface ICategoryWriteRepository : IWriteRepository<Category>
+    public interface ICommentReplyWriteRepository : IWriteRepository<CommentReply>
     { }
 }

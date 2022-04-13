@@ -28,6 +28,10 @@ namespace Persistence
             services.AddScoped<ICommentReadRepository, CommentReadRepository>();
             services.AddScoped<ICommentWriteRepository, CommentWriteRepository>();
 
+            // Comment
+            services.AddScoped<ICommentReplyReadRepository, CommentReplyReadRepository>();
+            services.AddScoped<ICommentReplyWriteRepository, CommentReplyWriteRepository>();
+
             // Like
             services.AddScoped<ILikeReadRepository, LikeReadRepository>();
             services.AddScoped<ILikeWriteRepository, LikeWriteRepository>();

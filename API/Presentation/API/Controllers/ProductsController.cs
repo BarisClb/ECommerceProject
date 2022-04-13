@@ -40,14 +40,41 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _productReadRepository.GetByIdAsync(id, false));
+            Product product = await _productReadRepository.GetByIdAsync(id, false);
+            if (product == null)
+                return NotFound("Product does not exist.");
+
+            return Ok(product);
+        }
+
+        [HttpGet("ByCategory/{id}")]
+        public async Task<IActionResult> ByCategory(int id)
+        {
+            if (await _categoryReadRepository.GetByIdAsync(id, false) == null)
+                return NotFound("Category does not exist.");
+
+            return Ok(_productReadRepository.GetWhere(product => product.CategoryId == id, false));
+        }
+
+        [HttpGet("BySeller/{id}")]
+        public async Task<IActionResult> BySeller(int id)
+        {
+            if (await _sellerReadRepository.GetByIdAsync(id, false) == null)
+                return NotFound("Seller does not exist.");
+
+            return Ok(_productReadRepository.GetWhere(product => product.SellerId == id, false));
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(VM_Create_Product modelProduct)
         {
             Category category = await _categoryReadRepository.GetByIdAsync(modelProduct.CategoryId);
+            if (category == null)
+                return NotFound("Category does not exist.");
+
             Seller seller = await _sellerReadRepository.GetByIdAsync(modelProduct.SellerId);
+            if (seller == null)
+                return NotFound("Seller does not exist.");
 
             await _productWriteRepository.AddAsync(new()
             {
@@ -56,43 +83,48 @@ namespace API.Controllers
                 Price = modelProduct.Price,
                 Stock = modelProduct.Stock,
                 Category = category,
-                CreatedBy = seller
+                Seller = seller
             });
 
             await _productWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Product created.");
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_Product model)
+        public async Task<IActionResult> Put(VM_Update_Product modelProduct)
         {
-            Product product = await _productReadRepository.GetByIdAsync(model.ProductId);
+            Product product = await _productReadRepository.GetByIdAsync(modelProduct.ProductId);
+            if (product == null)
+                return NotFound("Product does not exist.");
 
-            if (model.Name != null)
-                product.Name = model.Name;
-            if (model.Description != null)
-                product.Description = model.Description;
-            if (model.Price != null)
-                product.Price = (decimal)model.Price;
-            if (model.Stock != null)
-                product.Stock = (int)model.Stock;
-            if (model.CategoryId != null)
+            if (modelProduct.Name != null)
+                product.Name = modelProduct.Name;
+            if (modelProduct.Description != null)
+                product.Description = modelProduct.Description;
+            if (modelProduct.Price != null)
+                product.Price = (decimal)modelProduct.Price;
+            if (modelProduct.Stock != null)
+                product.Stock = (int)modelProduct.Stock;
+            if (modelProduct.CategoryId != null)
             {
-                int categoryId = (int)model.CategoryId;
+                int categoryId = (int)modelProduct.CategoryId;
                 Category category = await _categoryReadRepository.GetByIdAsync(categoryId);
                 product.Category = category;
             }
 
             await _productWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Product updated.");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (await _productReadRepository.GetByIdAsync(id, false) == null)
+                return NotFound("Product does not exist.");
+
             await _productWriteRepository.RemoveAsync(id);
             await _productWriteRepository.SaveAsync();
-            return Ok();
+            return Ok("Product deleted.");
         }
     }
 }

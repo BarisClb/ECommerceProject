@@ -15,12 +15,12 @@ namespace Domain.Entities
         public string Password { get; set; }
         public bool Admin { get; set; }
 
-        //// References
+        //// Relations
 
-        // Written Comments
+        // Comments Written
         public ICollection<Comment>? Comments { get; set; }
 
-        // Liked Comments
+        // Comments Liked
         public ICollection<Like>? Likes { get; set; }
 
         // Orders

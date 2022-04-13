@@ -8,7 +8,5 @@ using System.Threading.Tasks;
 namespace Application.Repositories
 {
     public interface ICommentReadRepository : IReadRepository<Comment>
-    {
-
-    }
+    { }
 }

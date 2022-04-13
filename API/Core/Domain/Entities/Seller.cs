@@ -14,7 +14,13 @@ namespace Domain.Entities
         public string EMail { get; set; }
         public string Password { get; set; }
 
-        //// References
+        //// Relations
+
+        // Comment Replies
+        public ICollection<CommentReply>? CommentReplies { get; set; }
+
+        // Orders of Sold Products
+        public ICollection<Order>? Orders { get; set; }
 
         // Products
         public ICollection<Product>? Products { get; set; }

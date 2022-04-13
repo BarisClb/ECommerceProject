@@ -7,25 +7,24 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Order : BaseEntity
+    public class CommentReply : BaseEntity
     {
-        public string? Description { get; set; }
-        public string Address { get; set; }
-        public byte OrderStatus { get; set; }
+        public string Text { get; set; }
 
         //// Relations
 
-        // Product
+        // Replied Comment
+        public int CommentId { get; set; }
+        public Comment Comment { get; set; }
+
+        // Replied Comment's Product => to get them all at once
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        // Seller of the Product => For the Seller Page
+        // Commenter Seller
         public int SellerId { get; set; }
         public Seller Seller { get; set; }
 
-        // Created by User - User that Ordered
-        public int UserId { get; set; }
-        public User User { get; set; }
 
     }
 }

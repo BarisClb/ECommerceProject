@@ -16,6 +16,7 @@ namespace Persistence.Contexts
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<CommentReply> CommentReplies { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -48,16 +49,31 @@ namespace Persistence.Contexts
 
             // modelBuilder.Entity<Comment>()
 
-            // Like
+            //// CommentReply
+
+            modelBuilder.Entity<CommentReply>()
+                .HasOne(cr => cr.Product)
+                .WithMany(p => p.CommentReplies)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<CommentReply>()
+                .HasOne(cr => cr.Seller)
+                .WithMany(s => s.CommentReplies)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //// Like
 
             modelBuilder.Entity<Like>()
-                .HasOne(l => l.LikedBy)
+                .HasOne(l => l.User)
                 .WithMany(u => u.Likes)
                 .OnDelete(DeleteBehavior.NoAction);
 
             //// Order
 
-            // modelBuilder.Entity<Order>()
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Seller)
+                .WithMany(s => s.Orders)
+                .OnDelete(DeleteBehavior.NoAction);
 
             //// Product
 
@@ -70,6 +86,7 @@ namespace Persistence.Contexts
             //// User
 
             // modelBuilder.Entity<User>()
+
         }
     }
 }
