@@ -2,17 +2,29 @@
   
    Plans:  
   
-   1-) EMail Regex Check for User/Seller Create/Update  
-   2-) Making Username and Email Unique  
-   3-) JWT / Authorization / Authentication  
-   4-) Pagination  
-   5-) Sort By (Name, Price, Date)  
-   6-) EMail Notification for Orders (It will be implemented but it will probably stay disabled.)  
+   1-) JWT / Authorization / Authentication  
+   2-) Pagination  
+   3-) Sort By (Name, Price, Date)  
+   4-) EMail Notification for Orders (It will be implemented but it will probably be disabled.)  
   
-   Maybe (Far off in the future):  
+   Future:  
   
    1-) User Personal Mail  
    2-) Mails between Users  
-   3-) Reply System (Comment to Comment)  
-   4-) Notifications in User Mail  (Replies to Comments, Comments to Product, Order Status...)  
+   3-) Notifications for User EMail and in Personal Mail (Replies to Comments, Comments to Product, Order Status...)  
+  
+   Maybe:  
+  
+   ~ Nothing yet.
+  
+   Done:  
+  
+   ~ Validations:  
+      EMail Regex Check for User and Seller Accounts, when Creating and Updating.  
+      Unique Username and Email check, for User and Seller Accounts, when Creating and Updating.  
+   ~ Seller Reply System (Replies to Comments on Seller's own products.)  
+  
+   Need To Check:  
+  
+   ~ More optimization for Delete/deActivate interactions. For Example; When a Product gets deleted, Orders tied to it should change to 'Status: 0', which should mean 'Cancelled', instead of being deleted along with it.   
   
