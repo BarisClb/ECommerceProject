@@ -1,6 +1,6 @@
 import MainLayout from "../components/layout/MainLayout";
 
-const HomeScreen = () => {
+const Profile = () => {
 	return (
 		<MainLayout>
 			<div></div>
@@ -8,4 +8,4 @@ const HomeScreen = () => {
 	);
 };
 
-export default HomeScreen;
+export default Profile;

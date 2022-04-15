@@ -5,7 +5,7 @@ import "./css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-export default function DeleteProductForm(props) {
+const DeleteProductForm = (props) => {
 	// FORM DATA
 	const [idValue, setIdValue] = useState("");
 	const idValueUpdate = (newWord) => {
@@ -83,4 +83,6 @@ export default function DeleteProductForm(props) {
 			</Modal>
 		</>
 	);
-}
+};
+
+export default DeleteProductForm;

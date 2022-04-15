@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import "./css/index.css";
 
-export default function MiniCart() {
+const MiniCart = () => {
 	// Data
 	const cart = useSelector((state) => state.cart.currentCart);
 
@@ -76,4 +76,6 @@ export default function MiniCart() {
 			</Dropdown>
 		</th>
 	);
-}
+};
+
+export default MiniCart;

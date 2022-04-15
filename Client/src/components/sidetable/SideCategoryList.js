@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import "./css/index.css";
 
-export default function SideCategoryList(props) {
+const SideCategoryList = (props) => {
 	// const clickCategory = (category) => {
 	// 	if (category) {
 	// 		chooseCategory(category.id);
@@ -50,4 +50,6 @@ export default function SideCategoryList(props) {
 			</ListGroup>
 		</div>
 	);
-}
+};
+
+export default SideCategoryList;

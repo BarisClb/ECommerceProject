@@ -9,7 +9,7 @@ import { cartActions } from "../store/actions/cartActions";
 import SideCategoryList from "../components/sidetable/SideCategoryList";
 import { categoryActions } from "../store/actions/categoryActions";
 
-export default function Products() {
+const Products = () => {
 	// Data
 	const products = useSelector((state) => state.product.products);
 	const categories = useSelector((state) => state.category.categories);
@@ -95,4 +95,6 @@ export default function Products() {
 			</MainLayout>
 		</div>
 	);
-}
+};
+
+export default Products;

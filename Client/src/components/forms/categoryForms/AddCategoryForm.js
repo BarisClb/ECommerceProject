@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { categoryActions } from "../../../store/actions/categoryActions";
 import "./css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-export default function AddCategoryForm(props) {
+const AddCategoryForm = (props) => {
 	// FORM DATA
 	const [nameValue, setNameValue] = useState("");
 	const [descriptionValue, setDescriptionValue] = useState("");
@@ -91,4 +91,6 @@ export default function AddCategoryForm(props) {
 			</Modal>
 		</>
 	);
-}
+};
+
+export default AddCategoryForm;

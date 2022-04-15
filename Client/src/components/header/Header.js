@@ -1,28 +1,18 @@
 import React, { useState } from "react";
 import "./css/index.css";
 
-export default function Header(props) {
+const Header = (props) => {
 	// Header Title
-	const [title, setTitle] = useState(props.title);
+	const [title] = useState(props.title);
 	// Header Icon
 
 	// Header Buttons
-	const [headerButtons, setHeaderButtons] = useState(props.headerButtons);
-	const [headerAddButton, setHeaderAddButton] = useState(
-		props.headerAddButton
-	);
-	const [headerUpdateButton, setHeaderUpdateButton] = useState(
-		props.headerUpdateButton
-	);
-	const [headerDeleteButton, setHeaderDeleteButton] = useState(
-		props.headerDeleteButton
-	);
-	const [headerCustomButton, setHeaderCustomButton] = useState(
-		props.headerCustomButton
-	);
-	const [headerCustomButtonColor, setheaderCustomButtonColor] = useState(
-		props.headerCustomButtonColor
-	);
+	const [headerButtons] = useState(props.headerButtons);
+	const [headerAddButton] = useState(props.headerAddButton);
+	const [headerUpdateButton] = useState(props.headerUpdateButton);
+	const [headerDeleteButton] = useState(props.headerDeleteButton);
+	const [headerCustomButton] = useState(props.headerCustomButton);
+	const [headerCustomButtonColor] = useState(props.headerCustomButtonColor);
 	// header Button Clicks
 	const headerAddButtonClick = () => {
 		if (props.headerAddButtonClick) {
@@ -91,4 +81,6 @@ export default function Header(props) {
 			)}
 		</div>
 	);
-}
+};
+
+export default Header;

@@ -5,7 +5,7 @@ import "./css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-export default function DeleteCategory(props) {
+const DeleteCategoryForm = (props) => {
 	// FORM DATA
 	const [idValue, setIdValue] = useState(-1);
 	const idValueUpdate = (newCategoryId) => {
@@ -81,4 +81,6 @@ export default function DeleteCategory(props) {
 			</Modal>
 		</>
 	);
-}
+};
+
+export default DeleteCategoryForm;

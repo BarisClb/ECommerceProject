@@ -8,46 +8,36 @@ import UpdateCategoryForm from "../forms/categoryForms/UpdateCategoryForm";
 import DeleteCategoryForm from "../forms/categoryForms/DeleteCategoryForm";
 import MiniCart from "./MiniCart";
 
-export default function Table(props) {
+const Table = (props) => {
 	// Data
 	const [apiData, setApiData] = useState(props.apiData);
 	// This Is For Search
 	const [originalApiData, setOriginalApiData] = useState(props.apiData);
-	const [instaSearch, setInstaSearch] = useState(props.instaSearch);
+	const [instaSearch] = useState(props.instaSearch);
 	// Table Content
 	// Table Headers
-	const [tableHead, setTableHead] = useState(props.tableHead);
-	const [tableHead2, setTableHead2] = useState(props.tableHead2);
-	const [tableHead3, setTableHead3] = useState(props.tableHead3);
-	const [tableHead4, setTableHead4] = useState(props.tableHead4);
-	const [buttonHeadName, setButtonHeadName] = useState(props.buttonHeadName);
+	const [tableHead] = useState(props.tableHead);
+	const [tableHead2] = useState(props.tableHead2);
+	const [tableHead3] = useState(props.tableHead3);
+	const [tableHead4] = useState(props.tableHead4);
+	const [buttonHeadName] = useState(props.buttonHeadName);
 	// Table Data
-	const [tableData, setTableData] = useState(props.tableData);
-	const [tableData2, setTableData2] = useState(props.tableData2);
-	const [tableData3, setTableData3] = useState(props.tableData3);
-	const [tableData4, setTableData4] = useState(props.tableData4);
+	const [tableData] = useState(props.tableData);
+	const [tableData2] = useState(props.tableData2);
+	const [tableData3] = useState(props.tableData3);
+	const [tableData4] = useState(props.tableData4);
 	// Special
-	const [isCategories, setIsCategories] = useState(props.isCategories);
-	const [isNav, setIsNav] = useState(props.isNav);
-	const [isCart, setIsCart] = useState(props.isCart);
+	const [isCategories] = useState(props.isCategories);
+	const [isNav] = useState(props.isNav);
+	const [isCart] = useState(props.isCart);
 	// Table Buttons
-	const [tableButtons, setTableButtons] = useState(props.tableButtons);
-	const [tableAddButton, setTableAddButton] = useState(props.tableAddButton);
-	const [tableUpdateButton, setTableUpdateButton] = useState(
-		props.tableUpdateButton
-	);
-	const [tableDeleteButton, setTableDeleteButton] = useState(
-		props.tableDeleteButton
-	);
-	const [tableCustomButton, setTableCustomButton] = useState(
-		props.tableCustomButton
-	);
-	const [tableCustomButton2, setTableCustomButton2] = useState(
-		props.tableCustomButton2
-	);
-	const [tableCustomButton3, setTableCustomButton3] = useState(
-		props.tableCustomButton3
-	);
+	const [tableButtons] = useState(props.tableButtons);
+	const [tableAddButton] = useState(props.tableAddButton);
+	const [tableUpdateButton] = useState(props.tableUpdateButton);
+	const [tableDeleteButton] = useState(props.tableDeleteButton);
+	const [tableCustomButton] = useState(props.tableCustomButton);
+	const [tableCustomButton2] = useState(props.tableCustomButton2);
+	const [tableCustomButton3] = useState(props.tableCustomButton3);
 	// Table Button Clicks / Functions
 	const tableAddButtonClick = (newData) => {
 		if (props.tableAddButtonClick) {
@@ -80,26 +70,14 @@ export default function Table(props) {
 		}
 	};
 	// Custom Button Colors
-	const [tableCustomButtonColor, setTableCustomButtonColor] = useState(
-		props.tableCustomButtonColor
-	);
-	const [tableCustomButtonColor2, setTableCustomButtonColor2] = useState(
-		props.tableCustomButtonColor2
-	);
-	const [tableCustomButtonColor3, setTableCustomButtonColor3] = useState(
-		props.tableCustomButtonColor3
-	);
+	const [tableCustomButtonColor] = useState(props.tableCustomButtonColor);
+	const [tableCustomButtonColor2] = useState(props.tableCustomButtonColor2);
+	const [tableCustomButtonColor3] = useState(props.tableCustomButtonColor3);
 	// Nav Buttons
-	const [navAddButton, setNavAddButton] = useState(props.navAddButton);
-	const [navUpdateButton, setNavUpdateButton] = useState(
-		props.navUpdateButton
-	);
-	const [navDeleteButton, setNavDeleteButton] = useState(
-		props.navDeleteButton
-	);
-	const [navCustomButton, setNavCustomButton] = useState(
-		props.navCustomButton
-	);
+	const [navAddButton] = useState(props.navAddButton);
+	const [navUpdateButton] = useState(props.navUpdateButton);
+	const [navDeleteButton] = useState(props.navDeleteButton);
+	const [navCustomButton] = useState(props.navCustomButton);
 	// Nav Button Clicks
 	const navAddButtonClick = (newData) => {
 		if (props.navAddButtonClick) {
@@ -131,9 +109,7 @@ export default function Table(props) {
 		}
 	};
 	// Nav Custom Button Color
-	const [navCustomButtonColor, setNavCustomButtonColor] = useState(
-		props.navCustomButtonColor
-	);
+	const [navCustomButtonColor] = useState(props.navCustomButtonColor);
 	// Nav Search
 	const [searchValue, setSearchValue] = useState("");
 	const searchValueUpdate = (newWord) => {
@@ -365,4 +341,6 @@ export default function Table(props) {
 			</table>
 		</div>
 	);
-}
+};
+
+export default Table;

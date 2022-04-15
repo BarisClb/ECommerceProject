@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-export default function Navigation(props) {
+const Navigation = () => {
 	const toggle = () => {};
 	return (
 		<div>
@@ -52,4 +52,6 @@ export default function Navigation(props) {
 			</Navbar>
 		</div>
 	);
-}
+};
+
+export default Navigation;

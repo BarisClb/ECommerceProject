@@ -5,7 +5,7 @@ import MainLayout from "../components/layout/MainLayout";
 import Table from "../components/table/Table";
 import { categoryActions } from "../store/actions/categoryActions";
 
-export default function Deneme() {
+const Deneme = () => {
 	const dispatch = useDispatch();
 
 	const capitalize = (word) =>
@@ -81,4 +81,6 @@ export default function Deneme() {
 			/>
 		</MainLayout>
 	);
-}
+};
+
+export default Deneme;

@@ -5,7 +5,7 @@ import Header from "../components/header/Header";
 import Table from "../components/table/Table";
 import { cartActions } from "../store/actions/cartActions";
 
-export default function Cart() {
+const Cart = () => {
 	// Cart
 	const cart = useSelector((state) => state.cart.currentCart);
 
@@ -61,4 +61,6 @@ export default function Cart() {
 			/>
 		</MainLayout>
 	);
-}
+};
+
+export default Cart;

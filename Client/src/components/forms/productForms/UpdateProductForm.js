@@ -5,7 +5,7 @@ import "./css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-export default function UpdateProductForm(props) {
+const UpdateProductForm = (props) => {
 	// FORM DATA
 	const [nameValue, setNameValue] = useState("");
 	const nameValueUpdate = (newName) => {
@@ -200,4 +200,6 @@ export default function UpdateProductForm(props) {
 			</Modal>
 		</>
 	);
-}
+};
+
+export default UpdateProductForm;

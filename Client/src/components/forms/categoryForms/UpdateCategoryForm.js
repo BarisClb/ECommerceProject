@@ -5,7 +5,7 @@ import "./css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-export default function UpdateCategoryForm(props) {
+const UpdateCategoryForm = (props) => {
 	// FORM DATA
 	const [idValue, setIdValue] = useState(-1);
 	const idValueUpdate = (newCategoryId) => {
@@ -141,4 +141,6 @@ export default function UpdateCategoryForm(props) {
 			</Modal>
 		</>
 	);
-}
+};
+
+export default UpdateCategoryForm;

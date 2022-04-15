@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { categoryActions } from "../store/actions/categoryActions";
 import { useSelector } from "react-redux";
 
-export default function Categories() {
+const Categories = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -66,4 +66,6 @@ export default function Categories() {
 			</MainLayout>
 		</div>
 	);
-}
+};
+
+export default Categories;

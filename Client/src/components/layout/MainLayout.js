@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { commonAction } from "../../store/actions";
 import Loading from "../common/Loading";
 import Navigation from "../navigation/Navigation";
+import MainNavigation from "../navigation/MainNavigation";
+import AdminNavigation from "../navigation/AdminNavigation";
 import "./css/index.css";
 
 const MainLayout = ({ children }) => {
@@ -13,7 +15,7 @@ const MainLayout = ({ children }) => {
 	}, []);
 	return (
 		<>
-			<Navigation />
+			<MainNavigation />
 			{common.IsLoading && <Loading />}
 			{children}
 		</>
