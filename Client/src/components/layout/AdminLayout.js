@@ -14,8 +14,6 @@ const AdminLayout = ({ children }) => {
 	return (
 		<>
 			<AdminNavigation />
-			<button onClick={() => dispatch(commonAction.asyncEnd())}></button>
-			<div>Hello world</div>
 			{common.IsLoading && <Loading />}
 			{children}
 		</>

@@ -6,7 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import reportWebVitals from "./reportWebVitals";
 import storeManager from "./store/index";
 import HomeScreen from "./screens/HomeScreen";
-import Profile from "./screens/Profile";
+import Profile from "./screens/admin/Profile";
 import Deneme from "./screens/Deneme";
 import Products from "./screens/Products";
 import Categories from "./screens/Categories";
@@ -15,6 +15,12 @@ import Cart from "./screens/Cart";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import AdminLikes from "./screens/admin/AdminLikes";
+import AdminUsers from "./screens/admin/AdminUsers";
+import AdminComments from "./screens/admin/AdminComments";
+import AdminCommentReplies from "./screens/admin/AdminCommentReplies";
+import AdminProducts from "./screens/admin/AdminProducts";
+import AdminSellers from "./screens/admin/AdminSellers";
+import AdminLayout from "./components/layout/AdminLayout";
 
 ReactDOM.render(
 	<Provider store={storeManager.createStore()}>
@@ -23,42 +29,48 @@ ReactDOM.render(
 				<Routes>
 					{/* WORKSPACE */}
 					<Route path="/" element={<HomeScreen />} />
-					<Route path="/Categories" element={<Categories />} />
-					<Route path="/Products" element={<Products />} />
-					<Route path="/Cart" element={<Cart />} />
-					<Route path="/Deneme" element={<Deneme />} />
-					<Route path="/Profile" element={<Profile />} />
+					<Route path="categories" element={<Categories />} />
+					<Route path="products" element={<Products />} />
+					<Route path="cart" element={<Cart />} />
+					<Route path="deneme" element={<Deneme />} />
+					<Route path="profile" element={<Profile />} />
 
 					{/* ADMIN SIDE */}
-					<Route path="/Admin" element={<HomeScreen />} />
-					<Route path="/Admin/Categories" element={<AdminCategories />} />
-					<Route path="/Admin/Products" element={<HomeScreen />} />
-					<Route path="/Admin/Comments" element={<HomeScreen />} />
-					<Route path="/Admin/CommentReplies" element={<HomeScreen />} />
-					<Route path="/Admin/Likes" element={<AdminLikes />} />
-					<Route path="/Admin/Users" element={<HomeScreen />} />
-					<Route path="/Admin/Sellers" element={<HomeScreen />} />
+					<Route path="Admin" element={<AdminLayout />}>
+						<Route path="categories" element={<AdminCategories />} />
+						<Route path="products" element={<AdminProducts />} />
+						<Route path="comments" element={<AdminComments />} />
+						<Route
+							path="CommentReplies"
+							element={<AdminCommentReplies />}
+						/>
+						<Route path="Likes" element={<AdminLikes />} />
+						<Route path="Users" element={<AdminUsers />} />
+						<Route path="Sellers" element={<AdminSellers />} />
+					</Route>
 
 					{/* SELLER SIDE */}
-					<Route path="/Seller" element={<Profile />} />
-					<Route path="/Seller/Profile" element={<Profile />} />
-					<Route path="/Seller/Products" element={<Products />} />
-					<Route path="/Seller/Orders" element={<Products />} />
-					<Route path="/Seller/Comments" element={<Products />} />
-					<Route path="/Seller/CommentReplies" element={<Products />} />
+					<Route path="seller" element={<Profile />}>
+						<Route path="profile" element={<Profile />} />
+						<Route path="products" element={<Products />} />
+						<Route path="orders" element={<Products />} />
+						<Route path="comments" element={<Products />} />
+						<Route path="commentReplies" element={<Products />} />
+					</Route>
 
 					{/* STORE SIDE */}
-					<Route path="/Store" element={<HomeScreen />} />
-					<Route path="/Store/Products" element={<Products />} />
-					<Route path="/Store/Products/:id" element={<Products />} />
-					<Route
-						path="/Store/Products/:id/Comments"
-						element={<Products />}
-					/>
-					<Route path="/Store/Cart" element={<Cart />} />
-					<Route path="/Store/Profile" element={<Profile />} />
-					<Route path="/Store/Profile/Orders" element={<Profile />} />
-					<Route path="/Store/Profile/Coments" element={<Profile />} />
+					<Route path="store" element={<HomeScreen />}>
+						<Route path="products" element={<Products />}>
+							<Route path=":id" element={<Products />}>
+								<Route path="comments" element={<Products />} />
+							</Route>
+						</Route>
+						<Route path="cart" element={<Cart />} />
+						<Route path="profile" element={<Profile />}>
+							<Route path="orders" element={<Profile />} />
+							<Route path="comments" element={<Profile />} />
+						</Route>
+					</Route>
 				</Routes>
 			</BrowserRouter>
 		</PersistGate>

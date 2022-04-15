@@ -11,12 +11,10 @@ const SellerLayout = ({ children }) => {
 		dispatch(commonAction.asyncEnd());
 	}, []);
 	return (
-		<>
-			<MainLayout>
-				<SellerNavigation />
-				{children}
-			</MainLayout>
-		</>
+		<MainLayout>
+			<SellerNavigation />
+			{children}
+		</MainLayout>
 	);
 };
 
