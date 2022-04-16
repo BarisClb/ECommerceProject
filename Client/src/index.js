@@ -29,6 +29,9 @@ import SellerCommentReplies from "./screens/seller/SellerCommentReplies";
 import SellerProducts from "./screens/seller/SellerProducts";
 import SellerProfile from "./screens/seller/SellerProfile";
 import SellerLayout from "./components/layout/SellerLayout";
+import StoreSingleProduct from "./screens/store/StoreSingleProduct";
+import StoreProducts from "./screens/store/StoreProducts";
+import StoreLayout from "./components/layout/StoreLayout";
 
 ReactDOM.render(
 	<Provider store={storeManager.createStore()}>
@@ -57,6 +60,20 @@ ReactDOM.render(
 						<Route path="Sellers" element={<AdminSellers />} />
 					</Route>
 
+					{/* STORE SIDE */}
+					<Route path="store" element={<StoreLayout />}>
+						<Route path="products" element={<StoreProducts />}>
+							<Route path=":id" element={<StoreSingleProduct />}>
+								<Route path="comments" element={<Products />} />
+							</Route>
+						</Route>
+						<Route path="cart" element={<Cart />} />
+						<Route path="profile" element={<Profile />}>
+							<Route path="orders" element={<Profile />} />
+							<Route path="comments" element={<Profile />} />
+						</Route>
+					</Route>
+
 					{/* SELLER SIDE */}
 					<Route path="seller" element={<SellerLayout />}>
 						<Route path="profile" element={<SellerProfile />} />
@@ -67,20 +84,6 @@ ReactDOM.render(
 							path="commentReplies"
 							element={<SellerCommentReplies />}
 						/>
-					</Route>
-
-					{/* STORE SIDE */}
-					<Route path="store" element={<HomeScreen />}>
-						<Route path="products" element={<Products />}>
-							<Route path=":id" element={<Products />}>
-								<Route path="comments" element={<Products />} />
-							</Route>
-						</Route>
-						<Route path="cart" element={<Cart />} />
-						<Route path="profile" element={<Profile />}>
-							<Route path="orders" element={<Profile />} />
-							<Route path="comments" element={<Profile />} />
-						</Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>

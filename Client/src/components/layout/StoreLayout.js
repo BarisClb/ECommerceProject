@@ -13,7 +13,7 @@ const StoreLayout = ({ children }) => {
 	}, []);
 	return (
 		<MainLayout>
-			<StoreNavigation />
+			{/* <StoreNavigation /> */}
 			{children}
 			<Outlet />
 		</MainLayout>
