@@ -30,40 +30,38 @@ const Categories = () => {
 
 	return (
 		<div className="">
-			<MainLayout>
-				<Header title={"Categories"} />
-				<div className="container-fluid">
-					<Table
-						// The Data
-						apiData={categories}
-						// Table Content
-						// Table Headings
-						tableHead={"Category"}
-						tableHead2={"Description"}
-						// Table Datas
-						tableData={"name"}
-						tableData2={"description"}
-						// Special
-						isCategories={true}
-						instaSearch={false}
-						// Table Buttons
-						tableButtons={false}
-						tableAddButton={false}
-						tableDeleteButton={false}
-						tableUpdateButton={false}
-						// Table Button Clicks
-						// Nav
-						isNav={true}
-						navAddButton={true}
-						navUpdateButton={true}
-						navDeleteButton={true}
-						// Nav Actions
-						navAddButtonClick={navAddCategoryComp}
-						navUpdateButtonClick={navUpdateCategoryComp}
-						navDeleteButtonClick={navDeleteCategoryComp}
-					/>
-				</div>
-			</MainLayout>
+			<Header title={"Categories"} />
+			<div className="container-fluid">
+				<Table
+					// The Data
+					apiData={categories}
+					// Table Content
+					// Table Headings
+					tableHead={"Category"}
+					tableHead2={"Description"}
+					// Table Datas
+					tableData={"name"}
+					tableData2={"description"}
+					// Special
+					isCategories={true}
+					instaSearch={false}
+					// Table Buttons
+					tableButtons={false}
+					tableAddButton={false}
+					tableDeleteButton={false}
+					tableUpdateButton={false}
+					// Table Button Clicks
+					// Nav
+					isNav={true}
+					navAddButton={true}
+					navUpdateButton={true}
+					navDeleteButton={true}
+					// Nav Actions
+					navAddButtonClick={navAddCategoryComp}
+					navUpdateButtonClick={navUpdateCategoryComp}
+					navDeleteButtonClick={navDeleteCategoryComp}
+				/>
+			</div>
 		</div>
 	);
 };

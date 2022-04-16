@@ -6,9 +6,7 @@ import Categories from "../Categories";
 const AdminCategories = () => {
 	return (
 		<>
-			<MainLayout>
-				<Categories />
-			</MainLayout>
+			<Categories />
 		</>
 	);
 };

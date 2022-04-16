@@ -3,22 +3,21 @@
    Plans:  
   
    1-) JWT / Authorization / Authentication  
-   2-) Pagination  
-   3-) Sort By (Name, Price, Date)  
-   4-) EMail Notification for Orders (It will be implemented but it will probably be disabled.)  
-   5-) Password Hashing  
-   6-) Unique URL Generator  
+   2-) Password Hashing  
+   3-) Unique URLs  
   
    Future:  
   
-   1-) User Personal Mail  
-   2-) Mails between Users  
-   3-) Notifications for User EMail and in Personal Mail (Replies to Comments, Comments to Product, Order Status...)  
+   1-) Pagination  
+   2-) Sort By (Name, Price, Date)  
+   3-) EMail Notification for Orders (It will be implemented but it will probably be disabled.)  
    4-) Light / Dark Mode Toggle  
   
    Maybe:  
   
-   ~ Nothing yet.  
+   1-) User Personal Mail  
+   2-) Mails between Users  
+   3-) Notifications for User EMail and in Personal Mail (Replies to Comments, Comments to Product, Order Status...)  
   
    Need To Check:  
   

@@ -1,4 +1,5 @@
 import React from "react";
+import "./css/index.css";
 
 function AdminSideNavigation() {
 	return (
@@ -9,7 +10,7 @@ function AdminSideNavigation() {
 					alt="AdminLTE Logo"
 					className="brand-image img-circle elevation-3"
 				/>
-				<span className="brand-text font-weight-light">AdminLTE 3</span>
+				<span className="brand-text font-weight-light ">Admin Front</span>
 			</a>
 
 			<div className="sidebar">
@@ -18,12 +19,12 @@ function AdminSideNavigation() {
 						<img
 							src="/adminLTE/dist/img/user2-160x160.jpg"
 							className="img-circle elevation-2"
-							alt="User Image"
+							alt="Admin"
 						/>
 					</div>
 					<div className="info">
 						<a href="#" className="d-block">
-							Alexander Pierce
+							Admin Name
 						</a>
 					</div>
 				</div>
@@ -37,56 +38,70 @@ function AdminSideNavigation() {
 					>
 						<li className="nav-header">DATABASE</li>
 						<li className="nav-item">
-							<a href="categories" className="nav-link">
+							<a href="/admin/categories" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Categories
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>
-							<a href="products" className="nav-link">
+						</li>
+						<li className="nav-item">
+							<a href="/admin/products" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Products
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>
-							<a href="users" className="nav-link">
+						</li>
+						<li className="nav-item">
+							<a href="/admin/users" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Users
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>
-							<a href="sellers" className="nav-link">
+						</li>
+						<li className="nav-item">
+							<a href="/admin/sellers" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Sellers
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>
-							<a href="comments" className="nav-link">
+						</li>
+						<li className="nav-item">
+							<a href="/admin/comments" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Comments
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>
-							<a href="commentReplies" className="nav-link">
+						</li>
+						<li className="nav-item">
+							<a href="/admin/commentReplies" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Comment Replies
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>
-							<a href="orders" className="nav-link">
+						</li>
+						<li className="nav-item">
+							<a href="/admin/orders" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Orders
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>
-							<a href="likes" className="nav-link">
+						</li>
+						<li className="nav-item">
+							<a href="/admin/likes" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
 									Likes

@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const Navigation = () => {
+const OldNavigation = () => {
 	const toggle = () => {};
 	return (
 		<div>
@@ -54,4 +54,4 @@ const Navigation = () => {
 	);
 };
 
-export default Navigation;
+export default OldNavigation;

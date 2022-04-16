@@ -1,7 +1,7 @@
 import AdminLayout from "../../components/layout/AdminLayout";
 
-const Profile = () => {
+const AdminProfile = () => {
 	return <AdminLayout></AdminLayout>;
 };
 
-export default Profile;
+export default AdminProfile;

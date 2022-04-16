@@ -11,7 +11,7 @@ namespace Application.ViewModels
     {
         public string? Description { get; set; }
         public string Address { get; set; }
-        public int OrderedBy { get; set; }
+        public int UserId { get; set; }
         public int ProductId { get; set; }
     }
 }

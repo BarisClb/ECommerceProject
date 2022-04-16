@@ -4,6 +4,7 @@ import Header from "../components/header/Header";
 import MainLayout from "../components/layout/MainLayout";
 import Table from "../components/table/Table";
 import { categoryActions } from "../store/actions/categoryActions";
+import { commentActions } from "../store/actions/commentActions";
 
 const Deneme = () => {
 	const dispatch = useDispatch();
@@ -63,7 +64,9 @@ const Deneme = () => {
 				tableCustomButtonColor2={"warning"}
 				tableCustomButtonColor3={"danger"}
 				// Table Button Clicks
-				tableAddButtonClick={helloWorld}
+				tableAddButtonClick={true}
+				tableUpdateButtonClick={true}
+				tableDeleteButtonClick={true}
 				tableCustomButtonClick={tableCustomButtonClick}
 				// Nav
 				isNav={true}

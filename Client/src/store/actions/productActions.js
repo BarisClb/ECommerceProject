@@ -1,6 +1,26 @@
 import { productTypes } from "../types/productTypes";
 import { commonTypes } from "../types";
 
+// // ORDER VM
+
+// const productCreate = {
+// 	Name: "",
+// 	Description: "",
+// 	Price: 0,
+// 	Stock: 0,
+// 	CategoryId: 0,
+// 	SellerId: 0,
+// };
+
+// const productUpdate = {
+// 	ProductId: 0,
+// 	Name: "", // OPTINAL
+// 	Description: "", // OPTINAL
+// 	Stock: 0, // OPTINAL
+// 	CategoryId: 0, // OPTINAL
+// 	SellerId: 0, // OPTINAL
+// };
+
 // GET PRODUCTS
 
 const getProducts = (productID) => {
@@ -10,10 +30,32 @@ const getProducts = (productID) => {
 		let url = "https://localhost:7000/api/Products/";
 
 		if (productID) {
-			url += `getProductById?productId=${productID}`;
-		} else {
-			url += `all`;
+			url += `${productID}`;
 		}
+
+		try {
+			let response = await fetch(url);
+			let data = await response.json();
+			if (productID) {
+				dispatch({ type: productTypes.GetSingleProduct, payload: data });
+			} else {
+				dispatch({ type: productTypes.GetProducts, payload: data });
+			}
+		} catch (error) {
+			console.log(error);
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+	};
+};
+
+// GET PRODUCTS BY CATEGORY
+
+const getProductsByCategory = (categoryId) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let url = `https://localhost:7000/api/Products/ByCategory/${categoryId}`;
 
 		try {
 			let response = await fetch(url);
@@ -27,13 +69,13 @@ const getProducts = (productID) => {
 	};
 };
 
-// GET PRODUCTS
+// GET PRODUCTS BY SELLER
 
-const getProductsByCategory = (categoryName) => {
+const getProductsBySeller = (sellerId) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Products/getProductsByCategory?categoryName=${categoryName}`;
+		let url = `https://localhost:7000/api/Products/BySeller/${sellerId}`;
 
 		try {
 			let response = await fetch(url);
@@ -53,7 +95,7 @@ const addProduct = (newProduct) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Products/addProduct";
+		let url = "https://localhost:7000/api/Products";
 
 		try {
 			let response = await fetch(url, {
@@ -62,10 +104,7 @@ const addProduct = (newProduct) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					name: newProduct.name,
-					category: newProduct.category,
-					unitPrice: newProduct.price,
-					unitsInStock: newProduct.stock,
+					...newProduct,
 				}),
 			});
 			console.log(response);
@@ -84,24 +123,19 @@ const updateProduct = (updatedProductId, newProduct) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Products/updateProduct`;
+		let url = `https://localhost:7000/api/Products`;
 
 		try {
-			let response = await fetch(url, {
-				method: "POST",
+			await fetch(url, {
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
 					id: updatedProductId,
-					name: newProduct.name,
-					category: newProduct.category,
-					unitPrice: newProduct.unitPrice,
-					unitsInStock: newProduct.unitsInStock,
+					...newProduct,
 				}),
 			});
-			let data = await response.json();
-			console.log(data);
 			dispatch({ type: productTypes.UpdateProduct });
 		} catch (error) {
 			console.log(error);
@@ -117,12 +151,11 @@ const deleteProduct = (productID) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Products/deleteProduct?productId=${productID}`;
+		let url = `https://localhost:7000/api/Products/${productID}`;
 		try {
-			let response = await fetch(url, {
-				method: "POST",
+			await fetch(url, {
+				method: "DELETE",
 			});
-			console.log(response);
 			dispatch({ type: productTypes.DeleteProduct });
 		} catch (error) {
 			console.log(error);
@@ -135,6 +168,7 @@ const deleteProduct = (productID) => {
 export const productActions = {
 	getProducts,
 	getProductsByCategory,
+	getProductsBySeller,
 	addProduct,
 	updateProduct,
 	deleteProduct,

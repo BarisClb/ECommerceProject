@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { commonAction } from "../../store/actions";
 import Loading from "../common/Loading";
-import Navigation from "../navigation/Navigation";
+import OldNavigation from "../navigation/OldNavigation";
 import MainNavigation from "../navigation/MainNavigation";
 import AdminNavigation from "../navigation/AdminNavigation";
 import "./css/index.css";

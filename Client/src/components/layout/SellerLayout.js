@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { commonAction } from "../../store/actions";
 import MainLayout from "./MainLayout";
 import "./css/index.css";
-import SellerNavigation from "../navigation/SellerNavigation";
+import SellerSideNavigation from "../navigation/SellerSideNavigation";
+import { Outlet } from "react-router-dom";
 
 const SellerLayout = ({ children }) => {
 	const dispatch = useDispatch();
@@ -12,8 +13,11 @@ const SellerLayout = ({ children }) => {
 	}, []);
 	return (
 		<MainLayout>
-			<SellerNavigation />
-			{children}
+			<SellerSideNavigation />
+			<div id="seller-content-wrapper">
+				{children}
+				<Outlet />
+			</div>
 		</MainLayout>
 	);
 };

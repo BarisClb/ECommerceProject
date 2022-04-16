@@ -83,11 +83,11 @@ namespace API.Controllers
             if (product == null)
                 return NotFound("Product does not exist.");
 
-            Seller seller = await _sellerReadRepository.GetByIdAsync(modelOrder.OrderedBy);
+            Seller seller = await _sellerReadRepository.GetByIdAsync(product.SellerId);
             if (seller == null)
                 return NotFound("Seller does not exist.");
 
-            User user = await _userReadRepository.GetByIdAsync(modelOrder.OrderedBy);
+            User user = await _userReadRepository.GetByIdAsync(modelOrder.UserId);
             if (user == null)
                 return NotFound("User does not exist.");
 

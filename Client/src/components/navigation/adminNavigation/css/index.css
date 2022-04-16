@@ -1,0 +1,9 @@
+.navbar-nav {
+	display: flex !important;
+	justify-content: space-around !important;
+	flex-grow: 1;
+}
+
+.navbar-nav li:hover {
+	cursor: pointer;
+}

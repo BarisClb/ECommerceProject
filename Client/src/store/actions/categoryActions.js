@@ -1,6 +1,19 @@
 import { categoryTypes } from "../types/categoryTypes";
 import { commonTypes } from "../types";
 
+// // CATEGORY VM
+
+// const categoryCreate = {
+// 	Name: "",
+// 	Description: "",
+// };
+
+// const categoryUpdate = {
+// 	CategoryId: 0,
+// 	Name: "", // OPTINAL
+// 	Description: "", // OPTINAL
+// };
+
 // GET CATEGORIES
 
 const getCategories = (categoryId) => {
@@ -9,15 +22,17 @@ const getCategories = (categoryId) => {
 
 		let url = "https://localhost:7000/api/Categories/";
 		if (categoryId) {
-			url += `getCategoryById?categoryId=${categoryId}`;
-		} else {
-			url += `all`;
+			url += `${categoryId}`;
 		}
 
 		try {
 			let response = await fetch(url);
 			let data = await response.json();
-			dispatch({ type: categoryTypes.GetCategories, payload: data });
+			if (categoryId) {
+				dispatch({ type: categoryTypes.GetSingleCategory, payload: data });
+			} else {
+				dispatch({ type: categoryTypes.GetCategories, payload: data });
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -32,20 +47,18 @@ const addCategory = (newCategory) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Categories/addCategory";
+		let url = "https://localhost:7000/api/Categories";
 
 		try {
-			let response = await fetch(url, {
+			await fetch(url, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					name: newCategory.name,
-					description: newCategory.description,
+					...newCategory,
 				}),
 			});
-			// console.log(response);
 			dispatch({ type: categoryTypes.AddCategory });
 		} catch (error) {
 			console.log(error);
@@ -61,22 +74,19 @@ const updateCategory = (categoryId, updatedCategory) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Categories/updateCategory";
+		let url = "https://localhost:7000/api/Categories";
 
 		try {
-			let response = await fetch(url, {
-				method: "POST",
+			await fetch(url, {
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					id: categoryId,
-					name: updatedCategory.name,
-					description: updatedCategory.description,
+					categoryId,
+					...updatedCategory,
 				}),
 			});
-			let data = await response.json();
-			// console.log(data);
 			dispatch({ type: categoryTypes.UpdateCategory });
 		} catch (error) {
 			console.log(error);
@@ -92,12 +102,11 @@ const deleteCategory = (categoryID) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Categories/deleteCategory?categoryId=${categoryID}`;
+		let url = `https://localhost:7000/api/Categories/${categoryID}`;
 		try {
-			let response = await fetch(url, {
-				method: "POST",
+			await fetch(url, {
+				method: "DELETE",
 			});
-			// console.log(response);
 			dispatch({ type: categoryTypes.DeleteCategory });
 		} catch (error) {
 			console.log(error);
