@@ -74,7 +74,8 @@ const getProductsByCategory = (categoryId) => {
 const getProductsBySeller = (sellerId) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
-
+		console.log(sellerId);
+		console.log("hey");
 		let url = `https://localhost:7000/api/Products/BySeller/${sellerId}`;
 
 		try {

@@ -150,7 +150,7 @@ const Table = (props) => {
 			searchTheWord();
 		}
 	}, [searchValue]);
-
+	console.log(apiData);
 	return (
 		// NAV
 		<div className="table-body">
@@ -231,7 +231,7 @@ const Table = (props) => {
 						<th scope="col">#</th>
 						<th scope="col">{`${
 							tableHead ? tableHead : "Table Head"
-						} Name`}</th>
+						}`}</th>
 						{/* Optional Headers */}
 						{tableHead2 && <th scope="col">{tableHead2}</th>}
 						{tableHead3 && <th scope="col">{tableHead3}</th>}

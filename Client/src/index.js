@@ -49,15 +49,16 @@ ReactDOM.render(
 					{/* ADMIN SIDE */}
 					<Route path="Admin" element={<AdminLayout />}>
 						<Route path="categories" element={<AdminCategories />} />
-						<Route path="products" element={<AdminProducts />} />
 						<Route path="comments" element={<AdminComments />} />
 						<Route
-							path="CommentReplies"
+							path="commentReplies"
 							element={<AdminCommentReplies />}
 						/>
-						<Route path="Likes" element={<AdminLikes />} />
-						<Route path="Users" element={<AdminUsers />} />
-						<Route path="Sellers" element={<AdminSellers />} />
+						<Route path="likes" element={<AdminLikes />} />
+						<Route path="orders" element={<AdminOrders />} />
+						<Route path="products" element={<AdminProducts />} />
+						<Route path="sellers" element={<AdminSellers />} />
+						<Route path="users" element={<AdminUsers />} />
 					</Route>
 
 					{/* STORE SIDE */}
