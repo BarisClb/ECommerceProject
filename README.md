@@ -30,3 +30,6 @@
       Unique Username and Email check, for User and Seller Accounts, when Creating and Updating.  
    ~ Seller Reply System (Replies to Comments on Seller's own products.)  
   
+  Database Relations:  
+  
+  <img alt="Database-Relations" src="https://raw.githubusercontent.com/BarisClb/ECommerceProject/main/Database/DB%20from%2013-04-2022.jpeg?token=GHSAT0AAAAAABR2QF5RDEF3ONFDZQCUTIO2YS34TCQ">
