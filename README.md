@@ -32,4 +32,4 @@
   
   Database Relations:  
   
-  <img alt="Database-Relations" src="https://raw.githubusercontent.com/BarisClb/ECommerceProject/main/Database/DB%20from%2013-04-2022.jpeg?token=GHSAT0AAAAAABR2QF5RDEF3ONFDZQCUTIO2YS34TCQ">
+  <img alt="Database-Relations" src="/Database/DB from 13-04-2022.jpeg">
