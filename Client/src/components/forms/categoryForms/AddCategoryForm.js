@@ -30,7 +30,6 @@ const AddCategoryForm = (props) => {
 				name: nameValue,
 				description: descriptionValue,
 			});
-			dispatch(categoryActions.getCategories());
 		}
 		setNameValue("");
 		setDescriptionValue("");

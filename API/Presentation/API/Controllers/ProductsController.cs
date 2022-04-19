@@ -66,7 +66,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_Product modelProduct)
+        public async Task<IActionResult> Post(ProductCreateVm modelProduct)
         {
             Category category = await _categoryReadRepository.GetByIdAsync(modelProduct.CategoryId);
             if (category == null)
@@ -91,7 +91,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_Product modelProduct)
+        public async Task<IActionResult> Put(ProductUpdateVm modelProduct)
         {
             Product product = await _productReadRepository.GetByIdAsync(modelProduct.ProductId);
             if (product == null)

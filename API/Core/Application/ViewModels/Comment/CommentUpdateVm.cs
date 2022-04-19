@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModels
 {
-   public class VM_Update_Comment
+   public class CommentUpdateVm
    {
       public int CommentId { get; set; }
       public string? Title { get; set; }

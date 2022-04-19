@@ -1,5 +1,6 @@
 import { commentTypes } from "../types/commentTypes";
 import { commonTypes } from "../types";
+import { actionHelpers } from "./actionHelpers";
 
 // // COMMENT VM
 
@@ -20,25 +21,20 @@ import { commonTypes } from "../types";
 
 // GET COMMENTS
 
-const getComments = (commentId) => {
+const getComments = (commentId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Comments/";
+		let data = await actionHelpers.getHelper("Comments", commentId);
+
 		if (commentId) {
-			url += `${commentId}`;
+			dispatch({ type: commentTypes.GetSingleComment, payload: data });
+		} else {
+			dispatch({ type: commentTypes.GetComments, payload: data });
 		}
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			if (commentId) {
-				dispatch({ type: commentTypes.GetSingleComment, payload: data });
-			} else {
-				dispatch({ type: commentTypes.GetComments, payload: data });
-			}
-		} catch (error) {
-			console.log(error);
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -47,25 +43,16 @@ const getComments = (commentId) => {
 
 // ADD COMMENT
 
-const addComment = (newComment) => {
+const addComment = (newComment, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Comments";
+		let response = await actionHelpers.addHelper("Comments", newComment);
 
-		try {
-			await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...newComment,
-				}),
-			});
-			dispatch({ type: commentTypes.AddComment });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: commentTypes.AddComment });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -74,27 +61,20 @@ const addComment = (newComment) => {
 
 // UPDATE COMMENT
 
-const updateComment = (commentId, updatedComment) => {
+const updateComment = (commentId, updatedComment, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Comments";
+		let response = await actionHelpers.updateHelper(
+			"Comments",
+			commentId,
+			updatedComment
+		);
 
-		try {
-			let response = await fetch(url, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					commentId,
-					...updatedComment,
-				}),
-			});
-			await response.json();
-			dispatch({ type: commentTypes.UpdateComment });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: commentTypes.UpdateComment });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -103,18 +83,16 @@ const updateComment = (commentId, updatedComment) => {
 
 // DELETE COMMENT
 
-const deleteComment = (commentID) => {
+const deleteComment = (commentId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Comments/${commentID}`;
-		try {
-			await fetch(url, {
-				method: "DELETE",
-			});
-			dispatch({ type: commentTypes.DeleteComment });
-		} catch (error) {
-			console.log(error);
+		let response = await actionHelpers.deleteHelper("Comments", commentId);
+
+		dispatch({ type: commentTypes.DeleteComment });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });

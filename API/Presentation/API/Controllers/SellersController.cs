@@ -45,7 +45,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_Seller modelSeller)
+        public async Task<IActionResult> Post(SellerCreateVm modelSeller)
         {
             // Checking if Username and Email are Unique for both Seller and User
             if (await _sellerReadRepository.GetSingleAsync(seller => seller.Username == modelSeller.Username) != null)
@@ -58,7 +58,7 @@ namespace API.Controllers
                 return BadRequest("EMail already exists.");
 
             // EMail Validation with Regex
-            if (!EMailValidation.CheckEMail(modelSeller.EMail))
+            if (!AccountValidator.CheckEMail(modelSeller.EMail))
                 return BadRequest("Invalid EMail.");
 
             await _sellerWriteRepository.AddAsync(new()
@@ -74,7 +74,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_Seller modelSeller)
+        public async Task<IActionResult> Put(SellerUpdateVm modelSeller)
         {
             Seller seller = await _sellerReadRepository.GetByIdAsync(modelSeller.SellerId);
             if (seller == null)
@@ -93,7 +93,7 @@ namespace API.Controllers
             {
                 if (await _sellerReadRepository.GetSingleAsync(seller => seller.EMail == modelSeller.EMail) != null)
                     return BadRequest("EMail already exists.");
-                if (!EMailValidation.CheckEMail(modelSeller.EMail))
+                if (!AccountValidator.CheckEMail(modelSeller.EMail))
                     return BadRequest("Invalid EMail.");
 
                 seller.EMail = modelSeller.EMail;

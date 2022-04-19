@@ -15,16 +15,29 @@ const AdminCategories = () => {
 	const categories = useSelector((state) => state.category.categories);
 
 	const navAddCategoryComp = async (newCategory) => {
-		dispatch(categoryActions.addCategory(newCategory));
-		// dispatch(categoryActions.getCategories());
+		dispatch(
+			categoryActions.addCategory(
+				newCategory,
+				categoryActions.getCategories()
+			)
+		);
 	};
 	const navUpdateCategoryComp = (oldCategory, newCategory) => {
-		dispatch(categoryActions.updateCategory(oldCategory, newCategory));
-		// dispatch(categoryActions.getCategories());
+		dispatch(
+			categoryActions.updateCategory(
+				oldCategory,
+				newCategory,
+				categoryActions.getCategories()
+			)
+		);
 	};
 	const navDeleteCategoryComp = (oldCategory) => {
-		dispatch(categoryActions.deleteCategory(oldCategory));
-		// dispatch(categoryActions.getCategories());
+		dispatch(
+			categoryActions.deleteCategory(
+				oldCategory,
+				categoryActions.getCategories()
+			)
+		);
 	};
 
 	return (

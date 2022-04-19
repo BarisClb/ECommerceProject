@@ -1,5 +1,6 @@
 import { commentReplyTypes } from "../types/commentReplyTypes";
 import { commonTypes } from "../types";
+import { actionHelpers } from "./actionHelpers";
 
 // // COMMENTREPLY VM
 
@@ -17,31 +18,29 @@ import { commonTypes } from "../types";
 
 // GET COMMENTREPLIES
 
-const getCommentReplies = (commentReplyId) => {
+const getCommentReplies = (commentReplyId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/CommentReplies/";
+		let data = await actionHelpers.getHelper(
+			"CommentReplies",
+			commentReplyId
+		);
+
 		if (commentReplyId) {
-			url += `${commentReplyId}`;
+			dispatch({
+				type: commentReplyTypes.GetSingleCommentReply,
+				payload: data,
+			});
+		} else {
+			dispatch({
+				type: commentReplyTypes.GetCommentReplies,
+				payload: data,
+			});
 		}
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			if (commentReplyId) {
-				dispatch({
-					type: commentReplyTypes.GetSingleCommentReply,
-					payload: data,
-				});
-			} else {
-				dispatch({
-					type: commentReplyTypes.GetCommentReplies,
-					payload: data,
-				});
-			}
-		} catch (error) {
-			console.log(error);
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -50,25 +49,19 @@ const getCommentReplies = (commentReplyId) => {
 
 // ADD COMMENTREPLY
 
-const addCommentReply = (newCommentReply) => {
+const addCommentReply = (newCommentReply, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/CommentReplies";
+		let response = await actionHelpers.addHelper(
+			"CommentReplies",
+			newCommentReply
+		);
 
-		try {
-			await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...newCommentReply,
-				}),
-			});
-			dispatch({ type: commentReplyTypes.AddCommentReply });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: commentReplyTypes.AddCommentReply });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -77,27 +70,24 @@ const addCommentReply = (newCommentReply) => {
 
 // UPDATE COMMENTREPLY
 
-const updateCommentReply = (commentReplyId, updatedCommentReply) => {
+const updateCommentReply = (
+	commentReplyId,
+	updatedCommentReply,
+	successCallback
+) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/CommentReplies";
+		let response = actionHelpers.updateHelper(
+			"CommentReplies",
+			commentReplyId,
+			updatedCommentReply
+		);
 
-		try {
-			let response = await fetch(url, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					commentReplyId,
-					...updatedCommentReply,
-				}),
-			});
-			await response.json();
-			dispatch({ type: commentReplyTypes.UpdateCommentReply });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: commentReplyTypes.UpdateCommentReply });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -106,18 +96,19 @@ const updateCommentReply = (commentReplyId, updatedCommentReply) => {
 
 // DELETE COMMENTREPLIES
 
-const deleteCommentReply = (commentReplyID) => {
+const deleteCommentReply = (commentReplyId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/CommentReplies/${commentReplyID}`;
-		try {
-			await fetch(url, {
-				method: "DELETE",
-			});
-			dispatch({ type: commentReplyTypes.DeleteCommentReply });
-		} catch (error) {
-			console.log(error);
+		let response = await actionHelpers.deleteHelper(
+			"CommentReplies",
+			commentReplyId
+		);
+
+		dispatch({ type: commentReplyTypes.DeleteCommentReply });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });

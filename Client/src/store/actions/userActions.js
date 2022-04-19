@@ -1,5 +1,6 @@
 import { userTypes } from "../types/userTypes";
 import { commonTypes } from "../types";
+import { actionHelpers } from "./actionHelpers";
 
 // // USER VM
 
@@ -22,25 +23,20 @@ import { commonTypes } from "../types";
 
 // GET USERS
 
-const getUsers = (userId) => {
+const getUsers = (userId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Users/";
+		let data = await actionHelpers.getHelper("Users", userId);
+
 		if (userId) {
-			url += `${userId}`;
+			dispatch({ type: userTypes.GetSingleUser, payload: data });
+		} else {
+			dispatch({ type: userTypes.GetUsers, payload: data });
 		}
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			if (userId) {
-				dispatch({ type: userTypes.GetSingleUser, payload: data });
-			} else {
-				dispatch({ type: userTypes.GetUsers, payload: data });
-			}
-		} catch (error) {
-			console.log(error);
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -49,25 +45,16 @@ const getUsers = (userId) => {
 
 // ADD USER
 
-const addUser = (newUser) => {
+const addUser = (newUser, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Users";
+		let response = await actionHelpers.addHelper("Users", newUser);
 
-		try {
-			await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...newUser,
-				}),
-			});
-			dispatch({ type: userTypes.AddUser });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: userTypes.AddUser });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -76,27 +63,20 @@ const addUser = (newUser) => {
 
 // UPDATE USER
 
-const updateUser = (userId, updatedUser) => {
+const updateUser = (userId, updatedUser, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Users";
+		let response = await actionHelpers.updateHelper(
+			"Users",
+			userId,
+			updatedUser
+		);
 
-		try {
-			let response = await fetch(url, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					userId,
-					...updatedUser,
-				}),
-			});
-			await response.json();
-			dispatch({ type: userTypes.UpdateUser });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: userTypes.UpdateUser });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -105,18 +85,16 @@ const updateUser = (userId, updatedUser) => {
 
 // DELETE USER
 
-const deleteUser = (userID) => {
+const deleteUser = (userId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Users/${userID}`;
-		try {
-			await fetch(url, {
-				method: "DELETE",
-			});
-			dispatch({ type: userTypes.DeleteUser });
-		} catch (error) {
-			console.log(error);
+		let response = await actionHelpers.deleteHelper("Users", userId);
+
+		dispatch({ type: userTypes.DeleteUser });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModels
 {
-    public class VM_Create_Category
+    public class LikeCreateVm
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int UserId { get; set; }
+        public int CommentId { get; set; }
     }
 }

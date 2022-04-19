@@ -65,7 +65,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_Like modelLike)
+        public async Task<IActionResult> Post(LikeCreateVm modelLike)
         {
             Comment comment = await _commentReadRepository.GetByIdAsync(modelLike.CommentId);
             if (comment == null)

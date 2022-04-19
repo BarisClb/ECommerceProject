@@ -1,5 +1,6 @@
 import { categoryTypes } from "../types/categoryTypes";
 import { commonTypes } from "../types";
+import { actionHelpers } from "./actionHelpers";
 
 // // CATEGORY VM
 
@@ -16,52 +17,38 @@ import { commonTypes } from "../types";
 
 // GET CATEGORIES
 
-const getCategories = (categoryId) => {
+const getCategories = (categoryId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Categories/";
-		if (categoryId) {
-			url += `${categoryId}`;
-		}
+		let data = await actionHelpers.getHelper("Categories", categoryId);
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			if (categoryId) {
-				dispatch({ type: categoryTypes.GetSingleCategory, payload: data });
-			} else {
-				dispatch({ type: categoryTypes.GetCategories, payload: data });
-			}
-		} catch (error) {
-			console.log(error);
+		if (categoryId) {
+			dispatch({ type: categoryTypes.GetSingleCategory, payload: data });
+		} else {
+			dispatch({ type: categoryTypes.GetCategories, payload: data });
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
 	};
 };
 
 // ADD CATEGORY
 
-const addCategory = (newCategory) => {
+const addCategory = (newCategory, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Categories";
+		let response = await actionHelpers.addHelper("Categories", newCategory);
 
-		try {
-			await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...newCategory,
-				}),
-			});
-			dispatch({ type: categoryTypes.AddCategory });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: categoryTypes.AddCategory });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -70,26 +57,20 @@ const addCategory = (newCategory) => {
 
 // UPDATE CATEGORY
 
-const updateCategory = (categoryId, updatedCategory) => {
+const updateCategory = (categoryId, updatedCategory, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Categories";
+		let response = await actionHelpers.updateHelper(
+			"Categories",
+			categoryId,
+			updatedCategory
+		);
 
-		try {
-			await fetch(url, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					categoryId,
-					...updatedCategory,
-				}),
-			});
-			dispatch({ type: categoryTypes.UpdateCategory });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: categoryTypes.UpdateCategory });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -98,21 +79,19 @@ const updateCategory = (categoryId, updatedCategory) => {
 
 // DELETE CATEGORY
 
-const deleteCategory = (categoryID) => {
+const deleteCategory = (categoryId, successCallback) => {
 	return async (dispatch) => {
-		dispatch({ type: commonTypes.AsyncStarted });
+		await dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Categories/${categoryID}`;
-		try {
-			await fetch(url, {
-				method: "DELETE",
-			});
-			dispatch({ type: categoryTypes.DeleteCategory });
-		} catch (error) {
-			console.log(error);
+		let response = await actionHelpers.deleteHelper("Categories", categoryId);
+
+		await dispatch({ type: categoryTypes.DeleteCategory });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
-		dispatch({ type: commonTypes.AsyncEnd });
+		await dispatch({ type: commonTypes.AsyncEnd });
 	};
 };
 

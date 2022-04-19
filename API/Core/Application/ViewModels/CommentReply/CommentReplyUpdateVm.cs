@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModels
 {
-    public class VM_Create_Like
+    public class CommentReplyUpdateVm
     {
-        public int UserId { get; set; }
-        public int CommentId { get; set; }
+        public int CommentReplyId { get; set; }
+        public string? Text { get; set; }
     }
 }

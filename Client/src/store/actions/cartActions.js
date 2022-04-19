@@ -8,8 +8,6 @@ const addOrIncreaseCart = (product, cart) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 		let newCart = [];
 
-		console.log("hey");
-
 		let cartItem = cart.find((item) => item.title === product.title);
 
 		if (cartItem) {

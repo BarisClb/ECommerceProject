@@ -38,7 +38,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_Category modelCategory)
+        public async Task<IActionResult> Post(CategoryCreateVm modelCategory)
         {
             await _categoryWriteRepository.AddAsync(new()
             {
@@ -51,7 +51,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_Category modelCategory)
+        public async Task<IActionResult> Put(CategoryUpdateVm modelCategory)
         {
             Category category = await _categoryReadRepository.GetByIdAsync(modelCategory.CategoryId);
             if (category == null)

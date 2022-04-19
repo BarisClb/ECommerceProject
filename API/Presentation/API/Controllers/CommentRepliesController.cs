@@ -77,7 +77,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_CommentReply modelCommentReply)
+        public async Task<IActionResult> Post(CommentReplyCreateVm modelCommentReply)
         {
             Comment comment = await _commentReadRepository.GetByIdAsync(modelCommentReply.CommentId);
             if (comment == null)
@@ -104,7 +104,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_CommentReply modelCommentReply)
+        public async Task<IActionResult> Put(CommentReplyUpdateVm modelCommentReply)
         {
             CommentReply commentReply = await _commentReplyReadRepository.GetByIdAsync(modelCommentReply.CommentReplyId);
             if (commentReply == null)

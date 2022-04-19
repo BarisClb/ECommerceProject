@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModels
 {
-    public class VM_Create_User
+    public class SellerCreateVm
     {
         public string Name { get; set; }
         public string Username { get; set; }
         public string EMail { get; set; }
         public string Password { get; set; }
-        public string Admin { get; set; }
     }
 }

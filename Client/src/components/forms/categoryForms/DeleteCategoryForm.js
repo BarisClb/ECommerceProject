@@ -24,7 +24,6 @@ const DeleteCategoryForm = (props) => {
 	const navDeleteButtonComp = async () => {
 		if (props.navDeleteButtonClick && idValue >= 0) {
 			await props.navDeleteButtonClick(Number.parseInt(idValue));
-			dispatch(categoryActions.getCategories());
 		}
 		setIdValue(-1);
 		toggle();

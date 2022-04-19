@@ -77,7 +77,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_Order modelOrder)
+        public async Task<IActionResult> Post(OrderCreateVm modelOrder)
         {
             Product product = await _productReadRepository.GetByIdAsync(modelOrder.ProductId);
             if (product == null)
@@ -107,7 +107,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_Order modelOrder)
+        public async Task<IActionResult> Put(OrderUpdateVm modelOrder)
         {
             Order order = await _orderReadRepository.GetByIdAsync(modelOrder.OrderId);
             if (order == null)

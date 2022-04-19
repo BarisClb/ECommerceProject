@@ -1,5 +1,6 @@
 import { orderTypes } from "../types/orderTypes";
 import { commonTypes } from "../types";
+import { actionHelpers } from "./actionHelpers";
 
 // // ORDER VM
 
@@ -19,25 +20,20 @@ import { commonTypes } from "../types";
 
 // GET ORDERS
 
-const getOrders = (orderId) => {
+const getOrders = (orderId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Orders/";
+		let data = await actionHelpers.getHelper("Orders", orderId);
+
 		if (orderId) {
-			url += `${orderId}`;
+			dispatch({ type: orderTypes.GetSingleOrder, payload: data });
+		} else {
+			dispatch({ type: orderTypes.GetOrders, payload: data });
 		}
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			if (orderId) {
-				dispatch({ type: orderTypes.GetSingleOrder, payload: data });
-			} else {
-				dispatch({ type: orderTypes.GetOrders, payload: data });
-			}
-		} catch (error) {
-			console.log(error);
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -46,25 +42,16 @@ const getOrders = (orderId) => {
 
 // ADD ORDER
 
-const addOrder = (newOrder) => {
+const addOrder = (newOrder, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Orders";
+		let response = await actionHelpers.addHelper("Orders", newOrder);
 
-		try {
-			await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...newOrder,
-				}),
-			});
-			dispatch({ type: orderTypes.AddOrder });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: orderTypes.AddOrder });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -73,27 +60,20 @@ const addOrder = (newOrder) => {
 
 // UPDATE ORDER
 
-const updateOrder = (orderId, updatedOrder) => {
+const updateOrder = (orderId, updatedOrder, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Orders";
+		let response = await actionHelpers.updateHelper(
+			"Orders",
+			orderId,
+			updatedOrder
+		);
 
-		try {
-			let response = await fetch(url, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					orderId,
-					...updatedOrder,
-				}),
-			});
-			await response.json();
-			dispatch({ type: orderTypes.UpdateOrder });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: orderTypes.UpdateOrder });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -102,18 +82,16 @@ const updateOrder = (orderId, updatedOrder) => {
 
 // DELETE ORDER
 
-const deleteOrder = (orderID) => {
+const deleteOrder = (orderId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Orders/${orderID}`;
-		try {
-			await fetch(url, {
-				method: "DELETE",
-			});
-			dispatch({ type: orderTypes.DeleteOrder });
-		} catch (error) {
-			console.log(error);
+		let response = await actionHelpers.deleteHelper("Orders", orderId);
+
+		dispatch({ type: orderTypes.DeleteOrder });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });

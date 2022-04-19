@@ -1,5 +1,6 @@
 import { productTypes } from "../types/productTypes";
 import { commonTypes } from "../types";
+import { actionHelpers } from "./actionHelpers";
 
 // // ORDER VM
 
@@ -23,26 +24,20 @@ import { commonTypes } from "../types";
 
 // GET PRODUCTS
 
-const getProducts = (productID) => {
+const getProducts = (productId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Products/";
+		let data = await actionHelpers.getHelper("Products", productId);
 
-		if (productID) {
-			url += `${productID}`;
+		if (productId) {
+			dispatch({ type: productTypes.GetSingleProduct, payload: data });
+		} else {
+			dispatch({ type: productTypes.GetProducts, payload: data });
 		}
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			if (productID) {
-				dispatch({ type: productTypes.GetSingleProduct, payload: data });
-			} else {
-				dispatch({ type: productTypes.GetProducts, payload: data });
-			}
-		} catch (error) {
-			console.log(error);
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -51,7 +46,7 @@ const getProducts = (productID) => {
 
 // GET PRODUCTS BY CATEGORY
 
-const getProductsByCategory = (categoryId) => {
+const getProductsByCategory = (categoryId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
@@ -65,25 +60,30 @@ const getProductsByCategory = (categoryId) => {
 			console.log(error);
 		}
 
+		if (successCallback) {
+			dispatch(successCallback);
+		}
+
 		dispatch({ type: commonTypes.AsyncEnd });
 	};
 };
 
 // GET PRODUCTS BY SELLER
 
-const getProductsBySeller = (sellerId) => {
+const getProductsBySeller = (sellerId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
-		console.log(sellerId);
-		console.log("hey");
-		let url = `https://localhost:7000/api/Products/BySeller/${sellerId}`;
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			dispatch({ type: productTypes.GetProducts, payload: data });
-		} catch (error) {
-			console.log(error);
+		let data = await actionHelpers.getByEntityHelper(
+			"Products",
+			"Seller",
+			sellerId
+		);
+
+		dispatch({ type: productTypes.GetProducts, payload: data });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -92,26 +92,16 @@ const getProductsBySeller = (sellerId) => {
 
 // ADD PRODUCT
 
-const addProduct = (newProduct) => {
+const addProduct = (newProduct, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Products";
+		let response = await actionHelpers.addHelper("Products", newProduct);
 
-		try {
-			let response = await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...newProduct,
-				}),
-			});
-			console.log(response);
-			dispatch({ type: productTypes.AddProduct });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: productTypes.AddProduct });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -120,26 +110,20 @@ const addProduct = (newProduct) => {
 
 // UPDATE PRODUCT
 
-const updateProduct = (updatedProductId, newProduct) => {
+const updateProduct = (updatedProductId, newProduct, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Products`;
+		let response = await actionHelpers.updateHelper(
+			"Products",
+			updatedProductId,
+			newProduct
+		);
 
-		try {
-			await fetch(url, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					id: updatedProductId,
-					...newProduct,
-				}),
-			});
-			dispatch({ type: productTypes.UpdateProduct });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: productTypes.UpdateProduct });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -148,18 +132,16 @@ const updateProduct = (updatedProductId, newProduct) => {
 
 // DELETE PRODUCT
 
-const deleteProduct = (productID) => {
+const deleteProduct = (productId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Products/${productID}`;
-		try {
-			await fetch(url, {
-				method: "DELETE",
-			});
-			dispatch({ type: productTypes.DeleteProduct });
-		} catch (error) {
-			console.log(error);
+		let response = await actionHelpers.deleteHelper("Products", productId);
+
+		dispatch({ type: productTypes.DeleteProduct });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });

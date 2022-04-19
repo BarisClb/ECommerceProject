@@ -1,5 +1,6 @@
 import { likeTypes } from "../types/likeTypes";
 import { commonTypes } from "../types";
+import { actionHelpers } from "./actionHelpers";
 
 // // LIKE VM
 
@@ -10,25 +11,20 @@ import { commonTypes } from "../types";
 
 // GET LIKES
 
-const getlikes = (likeId) => {
+const getlikes = (likeId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Likes/";
+		let data = await actionHelpers.getHelper("Likes", likeId);
+
 		if (likeId) {
-			url += `${likeId}`;
+			dispatch({ type: likeTypes.GetSingleLike, payload: data });
+		} else {
+			dispatch({ type: likeTypes.GetLikes, payload: data });
 		}
 
-		try {
-			let response = await fetch(url);
-			let data = await response.json();
-			if (likeId) {
-				dispatch({ type: likeTypes.GetSinglelike, payload: data });
-			} else {
-				dispatch({ type: likeTypes.Getlikes, payload: data });
-			}
-		} catch (error) {
-			console.log(error);
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -37,25 +33,16 @@ const getlikes = (likeId) => {
 
 // ADD LIKE
 
-const addlike = (newlike) => {
+const addlike = (newLike, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = "https://localhost:7000/api/Likes";
+		let response = await actionHelpers.addHelper("Likes", newLike);
 
-		try {
-			await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...newlike,
-				}),
-			});
-			dispatch({ type: likeTypes.Addlike });
-		} catch (error) {
-			console.log(error);
+		dispatch({ type: likeTypes.AddLike });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -64,18 +51,16 @@ const addlike = (newlike) => {
 
 // DELETE LIKE
 
-const deletelike = (likeID) => {
+const deletelike = (likeId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Likes/${likeID}`;
-		try {
-			await fetch(url, {
-				method: "DELETE",
-			});
-			dispatch({ type: likeTypes.Deletelike });
-		} catch (error) {
-			console.log(error);
+		let response = await actionHelpers.deleteHelper("Likes", likeId);
+
+		dispatch({ type: likeTypes.DeleteLike });
+
+		if (successCallback) {
+			dispatch(successCallback);
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });

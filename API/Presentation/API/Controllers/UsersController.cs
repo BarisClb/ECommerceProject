@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_User modelUser)
+        public async Task<IActionResult> Post(UserCreateVm modelUser)
         {
             // Checking if Username and Email are Unique for both User and Seller
             if (await _userReadRepository.GetSingleAsync(user => user.Username == modelUser.Username) != null)
@@ -65,12 +65,12 @@ namespace API.Controllers
                 return BadRequest("EMail already exists.");
 
             // EMail Validation with Regex
-            if (!EMailValidation.CheckEMail(modelUser.EMail))
+            if (!AccountValidator.CheckEMail(modelUser.EMail))
                 return BadRequest("Invalid EMail.");
 
             // Admin Validation with Custom Admin Password
             bool admin = false;
-            if (AdminValidation.CheckAdmin(modelUser.Admin))
+            if (AccountValidator.CheckAdmin(modelUser.Admin))
                 admin = true;
 
             await _userWriteRepository.AddAsync(new()
@@ -87,7 +87,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_User modelUser)
+        public async Task<IActionResult> Put(UserUpdateVm modelUser)
         {
             User user = await _userReadRepository.GetByIdAsync(modelUser.UserId);
             if (user == null)
@@ -106,7 +106,7 @@ namespace API.Controllers
             {
                 if (await _userReadRepository.GetSingleAsync(user => user.EMail == modelUser.EMail) != null)
                     return BadRequest("EMail already exists.");
-                if (!EMailValidation.CheckEMail(modelUser.EMail))
+                if (!AccountValidator.CheckEMail(modelUser.EMail))
                     return BadRequest("Invalid EMail.");
 
                 user.EMail = modelUser.EMail;
@@ -115,7 +115,7 @@ namespace API.Controllers
                 user.Password = modelUser.Password;
             if (modelUser.Admin != null)
             {
-                if (AdminValidation.CheckAdmin(modelUser.Admin))
+                if (AccountValidator.CheckAdmin(modelUser.Admin))
                     user.Admin = true;
 
                 else { user.Admin = false; }

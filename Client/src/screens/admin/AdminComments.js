@@ -42,7 +42,7 @@ function AdminComments() {
 					tableHead4={false}
 					buttonHeadName={"Operations"}
 					// Table Datas
-					tableData={"name"}
+					tableData={"text"}
 					tableData2={"user"}
 					tableData3={"product"}
 					tableData4={false}
