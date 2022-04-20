@@ -4,17 +4,17 @@ import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-const UpdateCommentForm = (props) => {
+const UpdateUserForm = (props) => {
 	// FORM DATA
 	const [idValue, setIdValue] = useState(-1);
-	const idValueUpdate = (newCommentId) => {
-		setIdValue(newCommentId);
-		if (newCommentId >= 0) {
-			let comment = comments.find(
-				(comment) => comment.id === Number.parseInt(newCommentId)
+	const idValueUpdate = (newUserId) => {
+		setIdValue(newUserId);
+		if (newUserId >= 0) {
+			let user = users.find(
+				(user) => user.id === Number.parseInt(newUserId)
 			);
-			setNameValue(comment.name);
-			setDescriptionValue(comment.description);
+			setNameValue(user.name);
+			setDescriptionValue(user.description);
 		} else {
 			setNameValue("");
 			setDescriptionValue("");
@@ -29,7 +29,7 @@ const UpdateCommentForm = (props) => {
 		setDescriptionValue(newDescriptionValue);
 	};
 
-	const comments = useSelector((state) => state.comment.comments);
+	const users = useSelector((state) => state.user.users);
 
 	// Modal
 	const [modal, setModal] = useState(false);
@@ -58,31 +58,31 @@ const UpdateCommentForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Update Comment</ModalHeader>
+				<ModalHeader className="acdFormItem">Update User</ModalHeader>
 				<ModalBody className="acdForm">
 					<div className="acdFormItem updateFormOldDescription d-flex">
 						<label htmlFor="updateForm-id" className="form-label">
-							Old Comment
+							Old User
 						</label>
 						<Input
 							type="select"
 							className="form-control form-input"
 							id="updateForm-id"
-							placeholder="Comment"
+							placeholder="User"
 							value={idValue}
 							onChange={(event) => idValueUpdate(event.target.value)}
 						>
-							<option value={-1}>Choose a Comment to Update</option>
-							{comments ? (
-								comments.map((comment) => {
+							<option value={-1}>Choose a User to Update</option>
+							{users ? (
+								users.map((user) => {
 									return (
-										<option key={comment.id} value={comment.id}>
-											{comment.name}
+										<option key={user.id} value={user.id}>
+											{user.name}
 										</option>
 									);
 								})
 							) : (
-								<option>No Comments Found</option>
+								<option>No Users Found</option>
 							)}
 						</Input>
 					</div>
@@ -123,7 +123,7 @@ const UpdateCommentForm = (props) => {
 						className="btn btn-warning form-input form-control"
 						onClick={() => navUpdateButtonClick()}
 					>
-						Update Comment
+						Update User
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"
@@ -137,4 +137,4 @@ const UpdateCommentForm = (props) => {
 	);
 };
 
-export default UpdateCommentForm;
+export default UpdateUserForm;

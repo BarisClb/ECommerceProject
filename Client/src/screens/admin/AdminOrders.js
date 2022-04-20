@@ -63,7 +63,7 @@ function AdminOrders() {
 					tableUpdateButton={true}
 					// Table Button Clicks
 					// Nav
-					isNav={true}
+					isNav={"Order"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

@@ -4,13 +4,13 @@ import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-const DeleteCategoryForm = (props) => {
+const DeleteSellerForm = (props) => {
 	// FORM DATA
 	const [idValue, setIdValue] = useState(-1);
-	const idValueUpdate = (newCategoryId) => {
-		setIdValue(newCategoryId);
+	const idValueUpdate = (newSellerId) => {
+		setIdValue(newSellerId);
 	};
-	const categories = useSelector((state) => state.category.categories);
+	const sellers = useSelector((state) => state.seller.sellers);
 
 	// Modal
 	const [modal, setModal] = useState(false);
@@ -29,31 +29,31 @@ const DeleteCategoryForm = (props) => {
 				Delete
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Delete Category</ModalHeader>
+				<ModalHeader className="acdFormItem">Delete Seller</ModalHeader>
 				<ModalBody className="acdForm">
 					<div className="acdFormItem deleteform-id">
 						<label htmlFor="deleteForm-id" className="form-label">
-							Category
+							Seller
 						</label>
 						<Input
 							type="select"
 							className="form-control form-input"
 							id="deleteForm-id"
-							placeholder="Category"
+							placeholder="Seller"
 							value={idValue}
 							onChange={(event) => idValueUpdate(event.target.value)}
 						>
-							<option value={-1}>Choose A Category To Delete</option>
-							{categories ? (
-								categories.map((category) => {
+							<option value={-1}>Choose A Seller To Delete</option>
+							{sellers ? (
+								sellers.map((seller) => {
 									return (
-										<option key={category.id} value={category.id}>
-											{category.name}
+										<option key={seller.id} value={seller.id}>
+											{seller.name}
 										</option>
 									);
 								})
 							) : (
-								<option>No Categories Found</option>
+								<option>No Sellers Found</option>
 							)}
 						</Input>
 					</div>
@@ -63,7 +63,7 @@ const DeleteCategoryForm = (props) => {
 						className="btn btn-danger form-input form-control"
 						onClick={() => navDeleteButtonComp()}
 					>
-						Delete Category
+						Delete Seller
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"
@@ -77,4 +77,4 @@ const DeleteCategoryForm = (props) => {
 	);
 };
 
-export default DeleteCategoryForm;
+export default DeleteSellerForm;

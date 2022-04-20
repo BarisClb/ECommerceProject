@@ -56,7 +56,7 @@ function AdminUsers() {
 					tableUpdateButton={true}
 					// Table Button Clicks
 					// Nav
-					isNav={true}
+					isNav={"User"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

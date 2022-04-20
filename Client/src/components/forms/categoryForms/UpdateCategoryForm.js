@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { categoryActions } from "../../../store/actions/categoryActions";
 import "./css/index.css";
+import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
@@ -40,18 +41,17 @@ const UpdateCategoryForm = (props) => {
 
 	const dispatch = useDispatch();
 
-	const navUpdateButtonClick = async () => {
+	const navUpdateButtonClick = () => {
 		if (
 			props.navUpdateButtonClick &&
 			idValue >= 0 &&
 			nameValue &&
 			descriptionValue
 		) {
-			await props.navUpdateButtonClick(Number.parseInt(idValue), {
+			props.navUpdateButtonClick(Number.parseInt(idValue), {
 				name: nameValue,
 				description: descriptionValue,
 			});
-			dispatch(categoryActions.getCategories());
 		}
 		setNameValue("");
 		setDescriptionValue("");

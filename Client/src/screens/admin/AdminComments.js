@@ -56,7 +56,7 @@ function AdminComments() {
 					tableUpdateButton={true}
 					// Table Button Clicks
 					// Nav
-					isNav={true}
+					isNav={"Comment"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

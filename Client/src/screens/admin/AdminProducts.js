@@ -56,7 +56,7 @@ const AdminProducts = () => {
 					tableUpdateButton={true}
 					// Table Button Clicks
 					// Nav
-					isNav={true}
+					isNav={"Product"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

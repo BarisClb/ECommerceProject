@@ -3,7 +3,7 @@ import "./css/index.css";
 import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const AddCategoryForm = (props) => {
+const AddUserForm = (props) => {
 	// FORM DATA
 	const [nameValue, setNameValue] = useState("");
 	const [descriptionValue, setDescriptionValue] = useState("");
@@ -37,7 +37,7 @@ const AddCategoryForm = (props) => {
 				Add
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Add Category</ModalHeader>
+				<ModalHeader className="acdFormItem">Add User</ModalHeader>
 				<ModalBody className="acdForm">
 					<div className="acdFormItem addFormName d-flex">
 						<label htmlFor="addForm-name" className="form-label">
@@ -73,7 +73,7 @@ const AddCategoryForm = (props) => {
 						className="btn btn-success form-input form-control"
 						onClick={() => navAddButtonComp()}
 					>
-						Add Category
+						Add User
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"
@@ -87,4 +87,4 @@ const AddCategoryForm = (props) => {
 	);
 };
 
-export default AddCategoryForm;
+export default AddUserForm;

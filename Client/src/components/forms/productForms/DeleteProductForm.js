@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { productActions } from "../../../store/actions/productActions";
 import "./css/index.css";
+import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
@@ -18,14 +17,9 @@ const DeleteProductForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	// DISPATCH
-
-	const dispatch = useDispatch();
-
-	const navDeleteButtonComp = async () => {
+	const navDeleteButtonComp = () => {
 		if (props.navDeleteButtonClick && idValue >= 0) {
-			await props.navDeleteButtonClick(Number.parseInt(idValue));
-			dispatch(productActions.getProducts());
+			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
 		setIdValue(-1);
 		toggle();

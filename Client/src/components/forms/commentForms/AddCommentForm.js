@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { productActions } from "../../../store/actions/productActions";
 import "./css/index.css";
+import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
@@ -11,9 +11,9 @@ const AddProductForm = (props) => {
 	const nameValueUpdate = (newWord) => {
 		setNameValue(newWord);
 	};
-	const [categoryNameValue, setCategoryNameValue] = useState("No Category");
-	const categoryNameValueUpdate = (newCategoryId) => {
-		setCategoryNameValue(newCategoryId);
+	const [commentNameValue, setCommentNameValue] = useState("No Comment");
+	const commentNameValueUpdate = (newCommentId) => {
+		setCommentNameValue(newCommentId);
 	};
 	const [unitPriceValue, setUnitPriceValue] = useState(0);
 	const unitPriceValueUpdate = (newWord) => {
@@ -24,28 +24,23 @@ const AddProductForm = (props) => {
 		setUnitsInStockValue(newWord);
 	};
 
-	const categories = useSelector((state) => state.category.categories);
+	const comments = useSelector((state) => state.comment.comments);
 
 	// Modal
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	// DISPATCH
-
-	const dispatch = useDispatch();
-
-	const navAddButtonComp = async () => {
+	const navAddButtonComp = () => {
 		if (props.navAddButtonClick) {
-			await props.navAddButtonClick({
+			props.navAddButtonClick({
 				name: nameValue,
-				category: categoryNameValue,
+				comment: commentNameValue,
 				unitPrice: unitPriceValue,
 				unitsInStock: unitsInStockValue,
 			});
-			dispatch(productActions.getProducts());
 		}
 		setNameValue("");
-		setCategoryNameValue("No Category");
+		setCommentNameValue("No Comment");
 		setUnitPriceValue(0);
 		setUnitsInStockValue(0);
 		toggle();
@@ -72,33 +67,31 @@ const AddProductForm = (props) => {
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem addFormCategory d-flex">
+					<div className="acdFormItem addFormComment d-flex">
 						<label htmlFor="addForm-id" className="form-label">
-							Category
+							Comment
 						</label>
 						<Input
 							type="select"
 							className="form-control form-input"
 							id="addForm-id"
-							placeholder="Category"
-							value={categoryNameValue}
+							placeholder="Comment"
+							value={commentNameValue}
 							onChange={(event) =>
-								categoryNameValueUpdate(event.target.value)
+								commentNameValueUpdate(event.target.value)
 							}
 						>
-							<option value={"No Category"}>Choose a Category</option>
-							{categories ? (
-								categories.map((category) => {
+							<option value={"No Comment"}>Choose a Comment</option>
+							{comments ? (
+								comments.map((comment) => {
 									return (
-										<option key={category.id} value={category.name}>
-											{category.name}
+										<option key={comment.id} value={comment.name}>
+											{comment.name}
 										</option>
 									);
 								})
 							) : (
-								<option value={"No Category"}>
-									No Categories Found
-								</option>
+								<option value={"No Comment"}>No Comments Found</option>
 							)}
 						</Input>
 					</div>

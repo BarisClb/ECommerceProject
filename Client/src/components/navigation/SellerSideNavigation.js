@@ -8,7 +8,7 @@ const SellerSideNavigation = () => {
 			className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar"
 		>
 			<a
-				href=""
+				href="/seller"
 				className="d-flex align-items-center mb-md-0 me-md-auto text-white text-decoration-none seller-sidenav-items"
 			>
 				<i className="bi bi-list"></i>

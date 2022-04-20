@@ -52,7 +52,7 @@ const Categories = () => {
 					tableUpdateButton={false}
 					// Table Button Clicks
 					// Nav
-					isNav={true}
+					isNav={"Category"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

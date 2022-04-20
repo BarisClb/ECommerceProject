@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { productActions } from "../../../store/actions/productActions";
 import "./css/index.css";
+import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
@@ -30,19 +29,14 @@ const AddProductForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	// DISPATCH
-
-	const dispatch = useDispatch();
-
-	const navAddButtonComp = async () => {
+	const navAddButtonComp = () => {
 		if (props.navAddButtonClick) {
-			await props.navAddButtonClick({
+			props.navAddButtonClick({
 				name: nameValue,
 				category: categoryNameValue,
 				unitPrice: unitPriceValue,
 				unitsInStock: unitsInStockValue,
 			});
-			dispatch(productActions.getProducts());
 		}
 		setNameValue("");
 		setCategoryNameValue("No Category");

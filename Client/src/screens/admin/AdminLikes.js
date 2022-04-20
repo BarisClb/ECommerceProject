@@ -63,9 +63,9 @@ const AdminLikes = () => {
 					tableUpdateButton={true}
 					// Table Button Clicks
 					// Nav
-					isNav={true}
+					isNav={"Like"}
 					navAddButton={true}
-					navUpdateButton={true}
+					navUpdateButton={false}
 					navDeleteButton={true}
 					// Nav Actions
 					navAddButtonClick={navAddCommentReplyComp}

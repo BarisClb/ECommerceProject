@@ -4,13 +4,13 @@ import "./css/index.css";
 function AdminSideNavigation() {
 	return (
 		<aside className="main-sidebar sidebar-dark-primary elevation-4">
-			<a href="index3.html" className="brand-link">
+			<a href="/admin" className="brand-link adminNavTopName">
 				<img
 					src="/adminLTE/dist/img/AdminLTELogo.png"
 					alt="AdminLTE Logo"
 					className="brand-image img-circle elevation-3"
 				/>
-				<span className="brand-text font-weight-light ">Admin Front</span>
+				<span className="brand-text font-weight-light">Admin Front</span>
 			</a>
 
 			<div className="sidebar">
@@ -23,7 +23,7 @@ function AdminSideNavigation() {
 						/>
 					</div>
 					<div className="info">
-						<a href="#" className="d-block">
+						<a href="/admin" className="d-block adminNavBottomName">
 							Admin Name
 						</a>
 					</div>
@@ -47,33 +47,6 @@ function AdminSideNavigation() {
 							</a>
 						</li>
 						<li className="nav-item">
-							<a href="/admin/products" className="nav-link">
-								<i className="nav-icon far fa-calendar-alt"></i>
-								<p>
-									Products
-									{/* <span className="badge badge-info right"></span> */}
-								</p>
-							</a>
-						</li>
-						<li className="nav-item">
-							<a href="/admin/users" className="nav-link">
-								<i className="nav-icon far fa-calendar-alt"></i>
-								<p>
-									Users
-									{/* <span className="badge badge-info right"></span> */}
-								</p>
-							</a>
-						</li>
-						<li className="nav-item">
-							<a href="/admin/sellers" className="nav-link">
-								<i className="nav-icon far fa-calendar-alt"></i>
-								<p>
-									Sellers
-									{/* <span className="badge badge-info right"></span> */}
-								</p>
-							</a>
-						</li>
-						<li className="nav-item">
 							<a href="/admin/comments" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
@@ -92,6 +65,15 @@ function AdminSideNavigation() {
 							</a>
 						</li>
 						<li className="nav-item">
+							<a href="/admin/likes" className="nav-link">
+								<i className="nav-icon far fa-calendar-alt"></i>
+								<p>
+									Likes
+									{/* <span className="badge badge-info right"></span> */}
+								</p>
+							</a>
+						</li>
+						<li className="nav-item">
 							<a href="/admin/orders" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
@@ -101,10 +83,28 @@ function AdminSideNavigation() {
 							</a>
 						</li>
 						<li className="nav-item">
-							<a href="/admin/likes" className="nav-link">
+							<a href="/admin/products" className="nav-link">
 								<i className="nav-icon far fa-calendar-alt"></i>
 								<p>
-									Likes
+									Products
+									{/* <span className="badge badge-info right"></span> */}
+								</p>
+							</a>
+						</li>
+						<li className="nav-item">
+							<a href="/admin/sellers" className="nav-link">
+								<i className="nav-icon far fa-calendar-alt"></i>
+								<p>
+									Sellers
+									{/* <span className="badge badge-info right"></span> */}
+								</p>
+							</a>
+						</li>
+						<li className="nav-item">
+							<a href="/admin/users" className="nav-link">
+								<i className="nav-icon far fa-calendar-alt"></i>
+								<p>
+									Users
 									{/* <span className="badge badge-info right"></span> */}
 								</p>
 							</a>

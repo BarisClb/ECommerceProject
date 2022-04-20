@@ -28,16 +28,23 @@ const Products = () => {
 	};
 
 	const navAddProductComp = async (newProduct) => {
-		dispatch(productActions.addProduct(newProduct));
-		// dispatch(productActions.getProducts());
+		dispatch(
+			productActions.addProduct(newProduct, productActions.getProducts())
+		);
 	};
 	const navUpdateProductComp = (oldProductId, newProduct) => {
-		dispatch(productActions.updateProduct(oldProductId, newProduct));
-		// dispatch(productActions.getProducts());
+		dispatch(
+			productActions.updateProduct(
+				oldProductId,
+				newProduct,
+				productActions.getProducts()
+			)
+		);
 	};
 	const navDeleteProductComp = (oldProduct) => {
-		dispatch(productActions.deleteProduct(oldProduct));
-		// dispatch(productActions.getProducts());
+		dispatch(
+			productActions.deleteProduct(oldProduct, productActions.getProducts())
+		);
 	};
 
 	return (
@@ -77,7 +84,7 @@ const Products = () => {
 								// Table Button Actions
 								tableAddButtonClick={addOrIncreaseCartComp}
 								// Nav
-								isNav={true}
+								isNav={"Product"}
 								navAddButton={true}
 								navUpdateButton={true}
 								navDeleteButton={true}

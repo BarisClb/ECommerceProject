@@ -63,7 +63,7 @@ function AdminCommentReplies() {
 					tableUpdateButton={true}
 					// Table Button Clicks
 					// Nav
-					isNav={true}
+					isNav={"CommentReply"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

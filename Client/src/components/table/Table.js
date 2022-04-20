@@ -1,12 +1,36 @@
 import React, { useEffect, useState } from "react";
 import "./css/index.css";
-import AddProductForm from "../forms/productForms/AddProductForm";
-import DeleteProductForm from "../forms/productForms/DeleteProductForm";
-import UpdateProductForm from "../forms/productForms/UpdateProductForm";
-import AddCategoryForm from "../forms/categoryForms/AddCategoryForm";
-import UpdateCategoryForm from "../forms/categoryForms/UpdateCategoryForm";
-import DeleteCategoryForm from "../forms/categoryForms/DeleteCategoryForm";
 import MiniCart from "./MiniCart";
+//#region Add Forms
+import AddCategoryForm from "../forms/categoryForms/AddCategoryForm";
+import AddCommentForm from "../forms/commentForms/AddCommentForm";
+import AddCommentReplyForm from "../forms/commentReplyForms/AddCommentReplyForm";
+import AddLikeForm from "../forms/likeForms/AddLikeForm";
+import AddOrderForm from "../forms/orderForms/AddOrderForm";
+import AddProductForm from "../forms/productForms/AddProductForm";
+import AddSellerForm from "../forms/sellerForms/AddSellerForm";
+import AddUserForm from "../forms/userForms/AddUserForm";
+//#endregion
+//#region Update Forms
+import UpdateCategoryForm from "../forms/categoryForms/UpdateCategoryForm";
+import UpdateCommentForm from "../forms/commentForms/UpdateCommentForm";
+import UpdateCommentReplyForm from "../forms/commentReplyForms/UpdateCommentReplyForm";
+import UpdateLikeForm from "../forms/likeForms/UpdateLikeForm";
+import UpdateOrderForm from "../forms/orderForms/UpdateOrderForm";
+import UpdateProductForm from "../forms/productForms/UpdateProductForm";
+import UpdateSellerForm from "../forms/sellerForms/UpdateSellerForm";
+import UpdateUserForm from "../forms/userForms/UpdateUserForm";
+//#endregion
+//#region Delete Forms
+import DeleteCategoryForm from "../forms/categoryForms/DeleteCategoryForm";
+import DeleteCommentForm from "../forms/commentForms/DeleteCommentForm";
+import DeleteCommentReplyForm from "../forms/commentReplyForms/DeleteCommentReplyForm";
+import DeleteLikeForm from "../forms/likeForms/DeleteLikeForm";
+import DeleteOrderForm from "../forms/orderForms/DeleteOrderForm";
+import DeleteProductForm from "../forms/productForms/DeleteProductForm";
+import DeleteSellerForm from "../forms/sellerForms/DeleteSellerForm";
+import DeleteUserForm from "../forms/userForms/DeleteUserForm";
+//#endregion
 
 const Table = (props) => {
 	// Data
@@ -131,6 +155,120 @@ const Table = (props) => {
 		);
 	};
 	// Modals
+	//#region AddForm
+	const navAddForm = () => {
+		switch (isNav) {
+			case "Category":
+				return <AddCategoryForm navAddButtonClick={navAddButtonClick} />;
+			case "Comment":
+				return <AddCommentForm navAddButtonClick={navAddButtonClick} />;
+			case "CommentReply":
+				return (
+					<AddCommentReplyForm navAddButtonClick={navAddButtonClick} />
+				);
+			case "Like":
+				return <AddLikeForm navAddButtonClick={navAddButtonClick} />;
+			case "Order":
+				return <AddOrderForm navAddButtonClick={navAddButtonClick} />;
+			case "Product":
+				return <AddProductForm navAddButtonClick={navAddButtonClick} />;
+			case "Seller":
+				return <AddSellerForm navAddButtonClick={navAddButtonClick} />;
+			case "User":
+				return <AddUserForm navAddButtonClick={navAddButtonClick} />;
+			default:
+				break;
+		}
+	};
+	//#endregion
+	//#region UpdateForm
+	const navUpdateForm = () => {
+		switch (isNav) {
+			case "Category":
+				return (
+					<UpdateCategoryForm
+						navUpdateButtonClick={navUpdateButtonClick}
+					/>
+				);
+			case "Comment":
+				return (
+					<UpdateCommentForm navUpdateButtonClick={navUpdateButtonClick} />
+				);
+			case "CommentReply":
+				return (
+					<UpdateCommentReplyForm
+						navUpdateButtonClick={navUpdateButtonClick}
+					/>
+				);
+			case "Like":
+				return (
+					<UpdateLikeForm navUpdateButtonClick={navUpdateButtonClick} />
+				);
+			case "Order":
+				return (
+					<UpdateOrderForm navUpdateButtonClick={navUpdateButtonClick} />
+				);
+			case "Product":
+				return (
+					<UpdateProductForm navUpdateButtonClick={navUpdateButtonClick} />
+				);
+			case "Seller":
+				return (
+					<UpdateSellerForm navUpdateButtonClick={navUpdateButtonClick} />
+				);
+			case "User":
+				return (
+					<UpdateUserForm navUpdateButtonClick={navUpdateButtonClick} />
+				);
+			default:
+				break;
+		}
+	};
+	//#endregion
+	//#region DeleteForm
+	const navDeleteForm = () => {
+		switch (isNav) {
+			case "Category":
+				return (
+					<DeleteCategoryForm
+						navDeleteButtonClick={navDeleteButtonClick}
+					/>
+				);
+			case "Comment":
+				return (
+					<DeleteCommentForm navDeleteButtonClick={navDeleteButtonClick} />
+				);
+			case "CommentReply":
+				return (
+					<DeleteCommentReplyForm
+						navDeleteButtonClick={navDeleteButtonClick}
+					/>
+				);
+			case "Like":
+				return (
+					<DeleteLikeForm navDeleteButtonClick={navDeleteButtonClick} />
+				);
+			case "Order":
+				return (
+					<DeleteOrderForm navDeleteButtonClick={navDeleteButtonClick} />
+				);
+			case "Product":
+				return (
+					<DeleteProductForm navDeleteButtonClick={navDeleteButtonClick} />
+				);
+			case "Seller":
+				return (
+					<DeleteSellerForm navDeleteButtonClick={navDeleteButtonClick} />
+				);
+			case "User":
+				return (
+					<DeleteUserForm navDeleteButtonClick={navDeleteButtonClick} />
+				);
+			default:
+				break;
+		}
+	};
+	//#endregion
 
 	// Form Buttons
 	const [addForm, setAddForm] = useState(false);
@@ -159,36 +297,9 @@ const Table = (props) => {
 					<div className="container-fluid">
 						<div className="navbar-buttons">
 							Operations:
-							{navAddButton &&
-								(isCategories ? (
-									<AddCategoryForm
-										navAddButtonClick={navAddButtonClick}
-									/>
-								) : (
-									<AddProductForm
-										navAddButtonClick={navAddButtonClick}
-									/>
-								))}
-							{navUpdateButton &&
-								(isCategories ? (
-									<UpdateCategoryForm
-										navUpdateButtonClick={navUpdateButtonClick}
-									/>
-								) : (
-									<UpdateProductForm
-										navUpdateButtonClick={navUpdateButtonClick}
-									/>
-								))}
-							{navDeleteButton &&
-								(isCategories ? (
-									<DeleteCategoryForm
-										navDeleteButtonClick={navDeleteButtonClick}
-									/>
-								) : (
-									<DeleteProductForm
-										navDeleteButtonClick={navDeleteButtonClick}
-									/>
-								))}
+							{navAddButton && navAddForm()}
+							{navUpdateButton && navUpdateForm()}
+							{navDeleteButton && navDeleteForm()}
 							{navCustomButton && (
 								<button
 									className={`btn btn-${

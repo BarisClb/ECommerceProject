@@ -7,3 +7,8 @@
 .navbar-nav li:hover {
 	cursor: pointer;
 }
+
+.adminNavTopName,
+.adminNavBottomName {
+	text-decoration: none;
+}

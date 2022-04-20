@@ -1,20 +1,22 @@
 import React, { useState } from "react";
+import { commentReplyActions } from "../../../store/actions/commentReplyActions";
 import "./css/index.css";
 import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-const UpdateCommentForm = (props) => {
+const UpdateCommentReplyForm = (props) => {
 	// FORM DATA
 	const [idValue, setIdValue] = useState(-1);
-	const idValueUpdate = (newCommentId) => {
-		setIdValue(newCommentId);
-		if (newCommentId >= 0) {
-			let comment = comments.find(
-				(comment) => comment.id === Number.parseInt(newCommentId)
+	const idValueUpdate = (newCommentReplyId) => {
+		setIdValue(newCommentReplyId);
+		if (newCommentReplyId >= 0) {
+			let commentReply = commentReplies.find(
+				(commentReply) =>
+					commentReply.id === Number.parseInt(newCommentReplyId)
 			);
-			setNameValue(comment.name);
-			setDescriptionValue(comment.description);
+			setNameValue(commentReply.name);
+			setDescriptionValue(commentReply.description);
 		} else {
 			setNameValue("");
 			setDescriptionValue("");
@@ -29,7 +31,9 @@ const UpdateCommentForm = (props) => {
 		setDescriptionValue(newDescriptionValue);
 	};
 
-	const comments = useSelector((state) => state.comment.comments);
+	const commentReplies = useSelector(
+		(state) => state.commentReply.commentReplies
+	);
 
 	// Modal
 	const [modal, setModal] = useState(false);
@@ -58,31 +62,36 @@ const UpdateCommentForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Update Comment</ModalHeader>
+				<ModalHeader className="acdFormItem">
+					Update CommentReply
+				</ModalHeader>
 				<ModalBody className="acdForm">
 					<div className="acdFormItem updateFormOldDescription d-flex">
 						<label htmlFor="updateForm-id" className="form-label">
-							Old Comment
+							Old CommentReply
 						</label>
 						<Input
 							type="select"
 							className="form-control form-input"
 							id="updateForm-id"
-							placeholder="Comment"
+							placeholder="CommentReply"
 							value={idValue}
 							onChange={(event) => idValueUpdate(event.target.value)}
 						>
-							<option value={-1}>Choose a Comment to Update</option>
-							{comments ? (
-								comments.map((comment) => {
+							<option value={-1}>Choose a CommentReply to Update</option>
+							{commentReplies ? (
+								commentReplies.map((commentReply) => {
 									return (
-										<option key={comment.id} value={comment.id}>
-											{comment.name}
+										<option
+											key={commentReply.id}
+											value={commentReply.id}
+										>
+											{commentReply.name}
 										</option>
 									);
 								})
 							) : (
-								<option>No Comments Found</option>
+								<option>No CommentReplies Found</option>
 							)}
 						</Input>
 					</div>
@@ -123,7 +132,7 @@ const UpdateCommentForm = (props) => {
 						className="btn btn-warning form-input form-control"
 						onClick={() => navUpdateButtonClick()}
 					>
-						Update Comment
+						Update CommentReply
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"
@@ -137,4 +146,4 @@ const UpdateCommentForm = (props) => {
 	);
 };
 
-export default UpdateCommentForm;
+export default UpdateCommentReplyForm;
