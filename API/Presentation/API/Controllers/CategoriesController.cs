@@ -1,6 +1,5 @@
-﻿using Application.ViewModels;
-using Application.Repositories;
-using Domain.Entities;
+﻿using Application.Dtos.Request;
+using Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,71 +9,41 @@ namespace API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        readonly private ICategoryWriteRepository _categoryWriteRepository;
-        readonly private ICategoryReadRepository _categoryReadRepository;
+        readonly private CategoryService _categoryService;
 
-        public CategoriesController(
-            ICategoryWriteRepository categoryWriteRepository,
-            ICategoryReadRepository categoryReadRepository)
+        public CategoriesController(CategoryService categoryService)
         {
-            _categoryWriteRepository = categoryWriteRepository;
-            _categoryReadRepository = categoryReadRepository;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(_categoryReadRepository.GetAll(false));
+            return Ok(await _categoryService.Get());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            Category category = await _categoryReadRepository.GetByIdAsync(id, false);
-            if (category == null)
-                return NotFound("Category does not exist.");
-
-            return Ok(category);
+            return Ok(await _categoryService.Get(id));
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(CategoryCreateVm modelCategory)
         {
-            await _categoryWriteRepository.AddAsync(new()
-            {
-                Name = modelCategory.Name,
-                Description = modelCategory.Description
-            });
-
-            await _categoryWriteRepository.SaveAsync();
-            return Ok("Category created.");
+            return Ok(await _categoryService.Post(modelCategory));
         }
 
         [HttpPut]
         public async Task<IActionResult> Put(CategoryUpdateVm modelCategory)
         {
-            Category category = await _categoryReadRepository.GetByIdAsync(modelCategory.CategoryId);
-            if (category == null)
-                return NotFound("Category does not exist.");
-
-            if (modelCategory.Name != null)
-                category.Name = modelCategory.Name;
-            if (modelCategory.Description != null)
-                category.Description = modelCategory.Description;
-
-            await _categoryWriteRepository.SaveAsync();
-            return Ok("Category updated.");
+            return Ok(await _categoryService.Put(modelCategory));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await _categoryReadRepository.GetByIdAsync(id, false) == null)
-                return NotFound("Category does not exist.");
-
-            await _categoryWriteRepository.RemoveAsync(id);
-            await _categoryWriteRepository.SaveAsync();
-            return Ok("Category deleted.");
+            return Ok(await _categoryService.Delete(id));
         }
     }
 }

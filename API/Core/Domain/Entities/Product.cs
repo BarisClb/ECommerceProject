@@ -26,6 +26,9 @@ namespace Domain.Entities
         // Comment Replies
         public ICollection<CommentReply>? CommentReplies { get; set; }
 
+        // Likes
+        public ICollection<Like>? Likes { get; set; }
+
         // Orders
         public ICollection<Order>? Orders { get; set; }
 

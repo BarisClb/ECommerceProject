@@ -15,6 +15,10 @@ namespace Domain.Entities
         public int CommentId { get; set; }
         public Comment Comment { get; set; }
 
+        // Product
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
+
         // Comment Liked By
         public int UserId { get; set; }
         public User User { get; set; }

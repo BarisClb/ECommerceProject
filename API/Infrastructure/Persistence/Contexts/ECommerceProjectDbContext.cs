@@ -68,6 +68,11 @@ namespace Persistence.Contexts
                 .WithMany(u => u.Likes)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Like>()
+                .HasOne(l => l.Product)
+                .WithMany(p => p.Likes)
+                .OnDelete(DeleteBehavior.NoAction);
+
             //// Order
 
             modelBuilder.Entity<Order>()

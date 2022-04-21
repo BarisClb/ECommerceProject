@@ -1,9 +1,13 @@
+using Application;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//// Service Registrations
 // MsSQL Connection
 builder.Services.ImplementPersistenceServices(builder.Configuration.GetConnectionString("MsSQL"));
+builder.Services.ImplementApplicationServices();
+
 
 // Adding CORS
 builder.Services.AddCors(options =>

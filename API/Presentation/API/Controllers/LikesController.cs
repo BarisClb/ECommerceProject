@@ -1,6 +1,5 @@
-﻿using Application.ViewModels;
-using Application.Repositories;
-using Domain.Entities;
+﻿using Application.Dtos.Request;
+using Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,91 +9,47 @@ namespace API.Controllers
     [ApiController]
     public class LikesController : ControllerBase
     {
-        readonly private ILikeWriteRepository _likeWriteRepository;
-        readonly private ILikeReadRepository _likeReadRepository;
+        readonly private LikeService _likeService;
 
-        readonly private ICommentReadRepository _commentReadRepository;
-        readonly private IUserReadRepository _userReadRepository;
-
-        public LikesController(
-            ILikeWriteRepository likeWriteRepository,
-            ILikeReadRepository likeReadRepository,
-
-            ICommentReadRepository commentReadRepository,
-            IUserReadRepository userReadRepository)
+        public LikesController(LikeService likeService)
         {
-            _likeWriteRepository = likeWriteRepository;
-            _likeReadRepository = likeReadRepository;
-
-            _commentReadRepository = commentReadRepository;
-            _userReadRepository = userReadRepository;
+            _likeService = likeService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(_likeReadRepository.GetAll(false));
+            return Ok(await _likeService.Get());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            Like like = await _likeReadRepository.GetByIdAsync(id, false);
-            if (like == null)
-                return NotFound("Like does not exist.");
-
-            return Ok(like);
+            return Ok(await _likeService.Get(id));
         }
 
         [HttpGet("ByComment/{id}")]
         public async Task<IActionResult> ByComment(int id)
         {
-            if (await _commentReadRepository.GetByIdAsync(id, false) == null)
-                return NotFound("Comment does not exist.");
-
-            return Ok(_likeReadRepository.GetWhere(like => like.CommentId == id, false));
+            return Ok(await _likeService.ByComment(id));
         }
 
         [HttpGet("ByUser/{id}")]
         public async Task<IActionResult> ByUser(int id)
         {
-            if (await _userReadRepository.GetByIdAsync(id, false) == null)
-                return NotFound("User does not exist.");
-
-            return Ok(_likeReadRepository.GetWhere(like => like.UserId == id, false));
+            return Ok(await _likeService.ByUser(id));
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(LikeCreateVm modelLike)
         {
-            Comment comment = await _commentReadRepository.GetByIdAsync(modelLike.CommentId);
-            if (comment == null)
-                return NotFound("Comment does not exist.");
-
-            User user = await _userReadRepository.GetByIdAsync(modelLike.UserId);
-            if (user == null)
-                return NotFound("User does not exist.");
-
-            await _likeWriteRepository.AddAsync(new()
-            {
-                User = user,
-                Comment = comment
-            });
-
-            await _likeWriteRepository.SaveAsync();
-            return Ok("Like created.");
+            return Ok(await _likeService.Post(modelLike));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await _likeReadRepository.GetByIdAsync(id, false) == null)
-                return NotFound("Like does not exist.");
-
-            await _likeWriteRepository.RemoveAsync(id);
-            await _likeWriteRepository.SaveAsync();
-            return Ok("Like deleted.");
+            return Ok(await _likeService.Delete(id));
         }
-
     }
 }

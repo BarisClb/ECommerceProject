@@ -7,11 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CQRS\Commands\Response\" />
+    <Folder Include="CQRS\Commands\Request\" />
+    <Folder Include="CQRS\Handlers\CommandHandlers\" />
+    <Folder Include="CQRS\Handlers\QueryHandlers\" />
+    <Folder Include="CQRS\Queries\Response\" />
+    <Folder Include="CQRS\Queries\Request\" />
   </ItemGroup>
 
 </Project>

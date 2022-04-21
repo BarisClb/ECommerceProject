@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Responses
 {
-    public class BaseResponse
+    public abstract class BaseResponse
     {
-
+        public abstract string Message { get; set; }
+        public abstract bool Success { get; set; }
     }
 }
