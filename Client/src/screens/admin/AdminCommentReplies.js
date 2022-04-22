@@ -18,7 +18,6 @@ function AdminCommentReplies() {
 
 	const navAddCommentReplyComp = async (newCommentReply) => {
 		dispatch(commentReplyActions.addCommentReply(newCommentReply));
-		// dispatch(commentReplyActions.getCategories());
 	};
 	const navUpdateCommentReplyComp = (oldCommentReply, newCommentReply) => {
 		dispatch(
@@ -27,11 +26,9 @@ function AdminCommentReplies() {
 				newCommentReply
 			)
 		);
-		// dispatch(commentReplyActions.getCategories());
 	};
 	const navDeleteCommentReplyComp = (oldCommentReply) => {
 		dispatch(commentReplyActions.deleteCommentReply(oldCommentReply));
-		// dispatch(commentReplyActions.getCategories());
 	};
 
 	return (
@@ -43,17 +40,18 @@ function AdminCommentReplies() {
 					apiData={commentReplies}
 					// Table Content
 					// Table Headings
-					tableHead={"Comment Reply"}
-					tableHead2={"Comment"}
-					tableHead3={"Product"}
-					tableHead4={"Seller"}
+					tableHead={"Text"}
+					tableHead2={"CommentId"}
+					tableHead3={"ProductId"}
+					tableHead4={"SellerId"}
 					buttonHeadName={"Operations"}
 					// Table Datas
-					tableData={"name"}
-					tableData2={"comment"}
-					tableData3={"product"}
-					tableData4={"seller"}
+					tableData={"text"}
+					tableData2={"commentId"}
+					tableData3={"productId"}
+					tableData4={"sellerId"}
 					// Special
+					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons

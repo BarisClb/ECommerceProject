@@ -16,15 +16,12 @@ const AdminProducts = () => {
 
 	const navAddProductComp = async (newProduct) => {
 		dispatch(productActions.addProduct(newProduct));
-		// dispatch(productActions.getCategories());
 	};
 	const navUpdateProductComp = (oldProduct, newProduct) => {
 		dispatch(productActions.updateProduct(oldProduct, newProduct));
-		// dispatch(productActions.getCategories());
 	};
 	const navDeleteProductComp = (oldProduct) => {
 		dispatch(productActions.deleteProduct(oldProduct));
-		// dispatch(productActions.getCategories());
 	};
 
 	return (
@@ -37,16 +34,17 @@ const AdminProducts = () => {
 					// Table Content
 					// Table Headings
 					tableHead={"Product"}
-					tableHead2={"Category"}
-					tableHead3={"Unit Price"}
-					tableHead4={"In Stock"}
+					tableHead2={"Price"}
+					tableHead3={"Stock"}
+					tableHead4={"SellerId"}
 					buttonHeadName={"Operations"}
 					// Table Datas
 					tableData={"name"}
-					tableData2={"category"}
-					tableData3={"unitPrice"}
-					tableData4={"unitsInStock"}
+					tableData2={"price"}
+					tableData3={"stock"}
+					tableData4={"sellerId"}
 					// Special
+					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons

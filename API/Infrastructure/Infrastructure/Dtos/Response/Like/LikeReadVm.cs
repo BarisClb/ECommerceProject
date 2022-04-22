@@ -8,7 +8,7 @@ namespace Infrastructure.Dtos.Response
 {
     public class LikeReadVm
     {
-        public int LikeId { get; set; }
+        public int Id { get; set; }
         public int CommentId { get; set; }
         public int ProductId { get; set; }
         public int UserId { get; set; }

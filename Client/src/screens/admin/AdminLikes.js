@@ -2,36 +2,23 @@ import React, { useEffect } from "react";
 import Header from "../../components/header/Header";
 import Table from "../../components/table/Table";
 import { useDispatch } from "react-redux";
-import { commentReplyActions } from "../../store/actions/commentReplyActions";
+import { likeActions } from "../../store/actions/likeActions";
 import { useSelector } from "react-redux";
 
 const AdminLikes = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(commentReplyActions.getCommentReplies());
+		dispatch(likeActions.getLikes());
 	}, []);
 
-	const commentReplies = useSelector(
-		(state) => state.commentReply.commentReplies
-	);
+	const likes = useSelector((state) => state.like.likes);
 
-	const navAddCommentReplyComp = async (newCommentReply) => {
-		dispatch(commentReplyActions.addCommentReply(newCommentReply));
-		// dispatch(commentReplyActions.getCategories());
+	const navAddLikeComp = async (newLike) => {
+		dispatch(likeActions.addLike(newLike));
 	};
-	const navUpdateCommentReplyComp = (oldCommentReply, newCommentReply) => {
-		dispatch(
-			commentReplyActions.updateCommentReply(
-				oldCommentReply,
-				newCommentReply
-			)
-		);
-		// dispatch(commentReplyActions.getCategories());
-	};
-	const navDeleteCommentReplyComp = (oldCommentReply) => {
-		dispatch(commentReplyActions.deleteCommentReply(oldCommentReply));
-		// dispatch(commentReplyActions.getCategories());
+	const navDeleteLikeComp = (oldLike) => {
+		dispatch(likeActions.deleteLike(oldLike));
 	};
 
 	return (
@@ -40,20 +27,19 @@ const AdminLikes = () => {
 			<div className="container-fluid">
 				<Table
 					// The Data
-					apiData={commentReplies}
+					apiData={likes}
 					// Table Content
 					// Table Headings
-					tableHead={"Comment Reply"}
-					tableHead2={"Comment"}
-					tableHead3={"Product"}
-					tableHead4={"Seller"}
+					tableHead={"CommentId"}
+					tableHead2={"ProductId"}
+					tableHead3={"UserId"}
 					buttonHeadName={"Operations"}
 					// Table Datas
-					tableData={"name"}
-					tableData2={"comment"}
-					tableData3={"product"}
-					tableData4={"seller"}
+					tableData={"commentId"}
+					tableData2={"productId"}
+					tableData3={"userId"}
 					// Special
+					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons
@@ -68,9 +54,9 @@ const AdminLikes = () => {
 					navUpdateButton={false}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddCommentReplyComp}
-					navUpdateButtonClick={navUpdateCommentReplyComp}
-					navDeleteButtonClick={navDeleteCommentReplyComp}
+					navAddButtonClick={navAddLikeComp}
+					navUpdateButtonClick={false}
+					navDeleteButtonClick={navDeleteLikeComp}
 				/>
 			</div>
 		</div>

@@ -45,12 +45,12 @@ namespace Service.Services
             _sellerReadRepository = sellerReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<ProductReadVm>>> Get()
         {
-            IQueryable<Product> products = _productReadRepository.GetAll(false);
-            IQueryable<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
+            IList<Product> products = _productReadRepository.GetAll(false).ToList();
+            IList<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
             {
-                ProductId = product.Id,
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
@@ -59,9 +59,9 @@ namespace Service.Services
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<ProductReadVm>>(mappedProducts);
+            return new SuccessfulResponse<IList<ProductReadVm>>(mappedProducts);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -72,7 +72,7 @@ namespace Service.Services
 
             ProductReadVm mappedProduct = new()
             {
-                ProductId = product.Id,
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
@@ -91,10 +91,10 @@ namespace Service.Services
             if (await _categoryReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Category does not exist.");
 
-            IQueryable<Product> products = _productReadRepository.GetWhere(product => product.CategoryId == id, false);
-            IQueryable<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
+            IList<Product> products = _productReadRepository.GetWhere(product => product.CategoryId == id, false).ToList();
+            IList<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
             {
-                ProductId = product.Id,
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
@@ -103,9 +103,9 @@ namespace Service.Services
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<ProductReadVm>>(mappedProducts);
+            return new SuccessfulResponse<IList<ProductReadVm>>(mappedProducts);
         }
 
         public async Task<BaseResponse> BySeller(int id)
@@ -113,10 +113,10 @@ namespace Service.Services
             if (await _sellerReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Seller does not exist.");
 
-            IQueryable<Product> products = _productReadRepository.GetWhere(product => product.SellerId == id, false);
-            IQueryable<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
+            IList<Product> products = _productReadRepository.GetWhere(product => product.SellerId == id, false).ToList();
+            IList<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
             {
-                ProductId = product.Id,
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
@@ -125,9 +125,9 @@ namespace Service.Services
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<ProductReadVm>>(mappedProducts);
+            return new SuccessfulResponse<IList<ProductReadVm>>(mappedProducts);
         }
 
         public async Task<BaseResponse> GetProductPage(int id)
@@ -138,13 +138,13 @@ namespace Service.Services
             Seller seller = await _sellerReadRepository.GetByIdAsync(product.SellerId);
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
-            IQueryable<Comment> comments = _commentReadRepository.GetWhere(comment => comment.ProductId == id);
-            IQueryable<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.ProductId == id);
-            IQueryable<Like> likes = _likeReadRepository.GetWhere(like => like.ProductId == id);
+            IList<Comment> comments = _commentReadRepository.GetWhere(comment => comment.ProductId == id).ToList();
+            IList<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.ProductId == id).ToList();
+            IList<Like> likes = _likeReadRepository.GetWhere(like => like.ProductId == id).ToList();
 
             ProductReadVm mappedProduct = new()
             {
-                ProductId = product.Id,
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
@@ -157,7 +157,7 @@ namespace Service.Services
 
             SellerReadVm mappedSeller = new()
             {
-                SellerId = seller.Id,
+                Id = seller.Id,
                 Name = seller.Name,
                 Username = seller.Username,
                 EMail = seller.EMail,
@@ -166,47 +166,48 @@ namespace Service.Services
                 DateUpdated = seller.DateUpdated,
             };
 
-            IQueryable<CommentReadVm> mappedComments = null;
+            IList<CommentReadVm> mappedComments = null;
             if (comments != null)
             {
                 mappedComments = comments.Select(comment => new CommentReadVm
                 {
-                    CommentId = comment.Id,
+                    Id = comment.Id,
                     Title = comment.Title,
                     Text = comment.Text,
                     Rating = comment.Rating,
                     ProductId = comment.ProductId,
                     DateCreated = comment.DateCreated,
                     DateUpdated = comment.DateUpdated,
-                });
+                }).ToList();
             }
 
-            IQueryable<CommentReplyReadVm> mappedCommentReplies = null;
+            IList<CommentReplyReadVm> mappedCommentReplies = null;
             if (commentReplies != null)
             {
                 mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
                 {
-                    CommentReplyId = commentReply.Id,
+                    Id = commentReply.Id,
+                    Text = commentReply.Text,
                     CommentId = commentReply.CommentId,
                     ProductId = commentReply.ProductId,
                     SellerId = commentReply.SellerId,
                     DateCreated = commentReply.DateCreated,
                     DateUpdated = commentReply.DateUpdated,
-                });
+                }).ToList();
             }
 
-            IQueryable<LikeReadVm> mappedLikes = null;
+            IList<LikeReadVm> mappedLikes = null;
             if (likes != null)
             {
                 mappedLikes = likes.Select(like => new LikeReadVm
                 {
-                    LikeId = like.Id,
+                    Id = like.Id,
                     CommentId = like.CommentId,
                     ProductId = like.ProductId,
                     UserId = like.UserId,
                     DateCreated = like.DateCreated,
                     DateUpdated = like.DateUpdated,
-                });
+                }).ToList();
             } 
 
             ProductPageReadVm data = new()
@@ -247,7 +248,7 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(ProductUpdateVm modelProduct)
         {
-            Product product = await _productReadRepository.GetByIdAsync(modelProduct.ProductId);
+            Product product = await _productReadRepository.GetByIdAsync(modelProduct.Id);
             if (product == null)
                 return new FailResponse("Product does not exist.");
 

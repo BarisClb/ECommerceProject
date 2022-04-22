@@ -25,19 +25,19 @@ namespace Service.Services
             _categoryReadRepository = categoryReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<CategoryReadVm>>> Get()
         {
-            IQueryable<Category> categories = _categoryReadRepository.GetAll(false);
-            IQueryable<CategoryReadVm> mappedCategories = categories.Select(category => new CategoryReadVm
+            IList<Category> categories = _categoryReadRepository.GetAll(false).ToList();
+            IList<CategoryReadVm> mappedCategories = categories.Select(category => new CategoryReadVm
             {
-                CategoryId = category.Id,
+                Id = category.Id,
                 Name = category.Name,
                 Description = category.Description,
                 DateCreated = category.DateCreated,
                 DateUpdated = category.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CategoryReadVm>>(mappedCategories);
+            return new SuccessfulResponse<IList<CategoryReadVm>>(mappedCategories);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -48,7 +48,7 @@ namespace Service.Services
 
             CategoryReadVm mappedCategory = new()
             {
-                CategoryId = category.Id,
+                Id = category.Id,
                 Name = category.Name,
                 Description = category.Description,
                 DateCreated = category.DateCreated,
@@ -58,7 +58,7 @@ namespace Service.Services
             return new SuccessfulResponse<CategoryReadVm>("Category created.", mappedCategory);
         }
 
-        public async Task<BaseResponse> Post(CategoryCreateVm modelCategory)
+        public async Task<SuccessfulResponse<Category>> Post(CategoryCreateVm modelCategory)
         {
             await _categoryWriteRepository.AddAsync(new()
             {
@@ -72,7 +72,7 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(CategoryUpdateVm modelCategory)
         {
-            Category category = await _categoryReadRepository.GetByIdAsync(modelCategory.CategoryId);
+            Category category = await _categoryReadRepository.GetByIdAsync(modelCategory.Id);
             if (category == null)
                 return new FailResponse("Category does not exist.");
 

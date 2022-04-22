@@ -8,7 +8,7 @@ namespace Infrastructure.Dtos.Response
 {
     public class OrderReadVm
     {
-        public int OrderId { get; set; }
+        public int Id { get; set; }
         public string? Description { get; set; }
         public string Address { get; set; }
         public byte OrderStatus { get; set; }

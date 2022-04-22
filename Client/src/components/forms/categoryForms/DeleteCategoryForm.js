@@ -10,6 +10,7 @@ const DeleteCategoryForm = (props) => {
 	const idValueUpdate = (newCategoryId) => {
 		setIdValue(newCategoryId);
 	};
+
 	const categories = useSelector((state) => state.category.categories);
 
 	// Modal
@@ -53,7 +54,7 @@ const DeleteCategoryForm = (props) => {
 									);
 								})
 							) : (
-								<option>No Categories Found</option>
+								<option disabled={true}>No Categories Found</option>
 							)}
 						</Input>
 					</div>

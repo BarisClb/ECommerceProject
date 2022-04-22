@@ -38,12 +38,12 @@ namespace Service.Services
             _sellerReadRepository = sellerReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<UserReadVm>>> Get()
         {
-            IQueryable<User> users = _userReadRepository.GetAll(false);
-            IQueryable<UserReadVm> mappedUsers = users.Select(user => new UserReadVm
+            IList<User> users = _userReadRepository.GetAll(false).ToList();
+            IList<UserReadVm> mappedUsers = users.Select(user => new UserReadVm
             {
-                UserId = user.Id,
+                Id = user.Id,
                 Name = user.Name,
                 Username = user.Username,
                 EMail = user.EMail,
@@ -51,9 +51,9 @@ namespace Service.Services
                 Admin = user.Admin,
                 DateCreated = user.DateCreated,
                 DateUpdated = user.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<UserReadVm>>(mappedUsers);
+            return new SuccessfulResponse<IList<UserReadVm>>(mappedUsers);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -64,7 +64,7 @@ namespace Service.Services
 
             UserReadVm mappedUser = new()
             {
-                UserId = user.Id,
+                Id = user.Id,
                 Name = user.Name,
                 Username = user.Username,
                 EMail = user.EMail,
@@ -113,7 +113,7 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(UserUpdateVm modelUser)
         {
-            User user = await _userReadRepository.GetByIdAsync(modelUser.UserId);
+            User user = await _userReadRepository.GetByIdAsync(modelUser.Id);
             if (user == null)
                 return new FailResponse("User does not exist.");
 

@@ -2,36 +2,26 @@ import React, { useEffect } from "react";
 import Header from "../../components/header/Header";
 import Table from "../../components/table/Table";
 import { useDispatch } from "react-redux";
-import { commentReplyActions } from "../../store/actions/commentReplyActions";
+import { sellerActions } from "../../store/actions/sellerActions";
 import { useSelector } from "react-redux";
 
 function AdminSellers() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(commentReplyActions.getCommentReplies());
+		dispatch(sellerActions.getSellers());
 	}, []);
 
-	const commentReplies = useSelector(
-		(state) => state.commentReply.commentReplies
-	);
+	const sellers = useSelector((state) => state.seller.sellers);
 
-	const navAddCommentReplyComp = async (newCommentReply) => {
-		dispatch(commentReplyActions.addCommentReply(newCommentReply));
-		// dispatch(commentReplyActions.getCategories());
+	const navAddSellerComp = async (newSeller) => {
+		dispatch(sellerActions.addSeller(newSeller));
 	};
-	const navUpdateCommentReplyComp = (oldCommentReply, newCommentReply) => {
-		dispatch(
-			commentReplyActions.updateCommentReply(
-				oldCommentReply,
-				newCommentReply
-			)
-		);
-		// dispatch(commentReplyActions.getCategories());
+	const navUpdateSellerComp = (oldSeller, newSeller) => {
+		dispatch(sellerActions.updateSeller(oldSeller, newSeller));
 	};
-	const navDeleteCommentReplyComp = (oldCommentReply) => {
-		dispatch(commentReplyActions.deleteCommentReply(oldCommentReply));
-		// dispatch(commentReplyActions.getCategories());
+	const navDeleteSellerComp = (oldSeller) => {
+		dispatch(sellerActions.deleteSeller(oldSeller));
 	};
 
 	return (
@@ -40,20 +30,21 @@ function AdminSellers() {
 			<div className="container-fluid">
 				<Table
 					// The Data
-					apiData={commentReplies}
+					apiData={sellers}
 					// Table Content
 					// Table Headings
-					tableHead={"Seller Name"}
-					tableHead2={"Email"}
-					tableHead3={false}
+					tableHead={"Name"}
+					tableHead2={"Username"}
+					tableHead3={"EMail"}
 					tableHead4={false}
 					buttonHeadName={"Operations"}
 					// Table Datas
 					tableData={"name"}
-					tableData2={"email"}
-					tableData3={false}
+					tableData2={"username"}
+					tableData3={"eMail"}
 					tableData4={false}
 					// Special
+					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons
@@ -68,9 +59,9 @@ function AdminSellers() {
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddCommentReplyComp}
-					navUpdateButtonClick={navUpdateCommentReplyComp}
-					navDeleteButtonClick={navDeleteCommentReplyComp}
+					navAddButtonClick={navAddSellerComp}
+					navUpdateButtonClick={navUpdateSellerComp}
+					navDeleteButtonClick={navDeleteSellerComp}
 				/>
 			</div>
 		</div>

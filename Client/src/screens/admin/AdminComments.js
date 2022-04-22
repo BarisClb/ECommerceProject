@@ -16,15 +16,12 @@ function AdminComments() {
 
 	const navAddCommentComp = async (newComment) => {
 		dispatch(commentActions.addComment(newComment));
-		// dispatch(commentActions.getCategories());
 	};
 	const navUpdateCommentComp = (oldComment, newComment) => {
 		dispatch(commentActions.updateComment(oldComment, newComment));
-		// dispatch(commentActions.getCategories());
 	};
 	const navDeleteCommentComp = (oldComment) => {
 		dispatch(commentActions.deleteComment(oldComment));
-		// dispatch(commentActions.getCategories());
 	};
 
 	return (
@@ -36,17 +33,18 @@ function AdminComments() {
 					apiData={comments}
 					// Table Content
 					// Table Headings
-					tableHead={"Comment"}
-					tableHead2={"User"}
-					tableHead3={"Product"}
-					tableHead4={false}
+					tableHead={"Title"}
+					tableHead2={"Text"}
+					tableHead3={"ProductId"}
+					tableHead4={"UserId"}
 					buttonHeadName={"Operations"}
 					// Table Datas
-					tableData={"text"}
-					tableData2={"user"}
-					tableData3={"product"}
-					tableData4={false}
+					tableData={"title"}
+					tableData2={"text"}
+					tableData3={"productId"}
+					tableData4={"userId"}
 					// Special
+					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons

@@ -31,21 +31,21 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<SellerReadVm>>> Get()
         {
-            IQueryable<Seller> sellers = _sellerReadRepository.GetAll(false);
-            IQueryable<SellerReadVm> mappedSellers = sellers.Select(seller => new SellerReadVm
+            IList<Seller> sellers = _sellerReadRepository.GetAll(false).ToList();
+            IList<SellerReadVm> mappedSellers = sellers.Select(seller => new SellerReadVm
             {
-                SellerId = seller.Id,
+                Id = seller.Id,
                 Name = seller.Name,
                 Username = seller.Username,
                 EMail = seller.EMail,
                 Password = seller.Password,
                 DateCreated = seller.DateCreated,
                 DateUpdated = seller.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<SellerReadVm>>(mappedSellers);
+            return new SuccessfulResponse<IList<SellerReadVm>>(mappedSellers);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -56,7 +56,7 @@ namespace Service.Services
 
             SellerReadVm mappedSeller = new()
             {
-                SellerId = seller.Id,
+                Id = seller.Id,
                 Name = seller.Name,
                 Username = seller.Username,
                 EMail = seller.EMail,
@@ -98,7 +98,7 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(SellerUpdateVm modelSeller)
         {
-            Seller seller = await _sellerReadRepository.GetByIdAsync(modelSeller.SellerId);
+            Seller seller = await _sellerReadRepository.GetByIdAsync(modelSeller.Id);
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
 

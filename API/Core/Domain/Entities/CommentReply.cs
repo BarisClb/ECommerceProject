@@ -22,6 +22,7 @@ namespace Domain.Entities
         public Product Product { get; set; }
 
         // Commenter Seller
+        public string Sellername { get; set; }
         public int SellerId { get; set; }
         public Seller Seller { get; set; }
 

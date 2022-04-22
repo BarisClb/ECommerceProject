@@ -22,11 +22,11 @@ const AdminCategories = () => {
 			)
 		);
 	};
-	const navUpdateCategoryComp = (oldCategory, newCategory) => {
+	const navUpdateCategoryComp = (categoryId, updatedCategory) => {
 		dispatch(
 			categoryActions.updateCategory(
-				oldCategory,
-				newCategory,
+				categoryId,
+				updatedCategory,
 				categoryActions.getCategories()
 			)
 		);
@@ -35,6 +35,15 @@ const AdminCategories = () => {
 		dispatch(
 			categoryActions.deleteCategory(
 				oldCategory,
+				categoryActions.getCategories()
+			)
+		);
+	};
+
+	const tableDeleteButtonComp = (oldCategory) => {
+		dispatch(
+			categoryActions.deleteCategory(
+				oldCategory.id,
 				categoryActions.getCategories()
 			)
 		);
@@ -56,14 +65,16 @@ const AdminCategories = () => {
 					tableData={"name"}
 					tableData2={"description"}
 					// Special
+					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonComp}
 					// Nav
 					isNav={"Category"}
 					navAddButton={true}

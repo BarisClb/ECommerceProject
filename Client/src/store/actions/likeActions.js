@@ -11,7 +11,7 @@ import { actionHelpers } from "./actionHelpers";
 
 // GET LIKES
 
-const getlikes = (likeId, successCallback) => {
+const getLikes = (likeId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
@@ -33,7 +33,7 @@ const getlikes = (likeId, successCallback) => {
 
 // ADD LIKE
 
-const addlike = (newLike, successCallback) => {
+const addLike = (newLike, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
@@ -51,7 +51,7 @@ const addlike = (newLike, successCallback) => {
 
 // DELETE LIKE
 
-const deletelike = (likeId, successCallback) => {
+const deleteLike = (likeId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
@@ -68,7 +68,7 @@ const deletelike = (likeId, successCallback) => {
 };
 
 export const likeActions = {
-	getlikes,
-	addlike,
-	deletelike,
+	getLikes,
+	addLike,
+	deleteLike,
 };

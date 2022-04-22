@@ -8,7 +8,7 @@ namespace Infrastructure.Dtos.Response
 {
     public class UserReadVm
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }
         public string EMail { get; set; }

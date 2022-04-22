@@ -36,20 +36,20 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<LikeReadVm>>> Get()
         {
-            IQueryable<Like> likes = _likeReadRepository.GetAll(false);
-            IQueryable<LikeReadVm> mappedLikes = likes.Select(like => new LikeReadVm
+            IList<Like> likes = _likeReadRepository.GetAll(false).ToList();
+            IList<LikeReadVm> mappedLikes = likes.Select(like => new LikeReadVm
             {
-                LikeId = like.Id,
+                Id = like.Id,
                 CommentId = like.CommentId,
                 ProductId = like.ProductId,
                 UserId = like.UserId,
                 DateCreated = like.DateCreated,
                 DateUpdated = like.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<LikeReadVm>>(mappedLikes);
+            return new SuccessfulResponse<IList<LikeReadVm>>(mappedLikes);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -60,7 +60,7 @@ namespace Service.Services
 
             LikeReadVm mappedLike = new()
             {
-                LikeId = like.Id,
+                Id = like.Id,
                 CommentId = like.CommentId,
                 ProductId = like.ProductId,
                 UserId = like.UserId,
@@ -76,18 +76,18 @@ namespace Service.Services
             if (await _commentReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Comment does not exist.");
 
-            IQueryable<Like> likes = _likeReadRepository.GetWhere(like => like.CommentId == id, false);
-            IQueryable<LikeReadVm> mappedLikes = likes.Select(like => new LikeReadVm
+            IList<Like> likes = _likeReadRepository.GetWhere(like => like.CommentId == id, false).ToList();
+            IList<LikeReadVm> mappedLikes = likes.Select(like => new LikeReadVm
             {
-                LikeId = like.Id,
+                Id = like.Id,
                 CommentId = like.CommentId,
                 ProductId = like.ProductId,
                 UserId = like.UserId,
                 DateCreated = like.DateCreated,
                 DateUpdated = like.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<LikeReadVm>>(mappedLikes);
+            return new SuccessfulResponse<IList<LikeReadVm>>(mappedLikes);
         }
 
         public async Task<BaseResponse> ByUser(int id)
@@ -95,18 +95,18 @@ namespace Service.Services
             if (await _userReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("User does not exist.");
 
-            IQueryable<Like> likes = _likeReadRepository.GetWhere(like => like.UserId == id, false);
-            IQueryable<LikeReadVm> mappedLikes = likes.Select(like => new LikeReadVm
+            IList<Like> likes = _likeReadRepository.GetWhere(like => like.UserId == id, false).ToList();
+            IList<LikeReadVm> mappedLikes = likes.Select(like => new LikeReadVm
             {
-                LikeId = like.Id,
+                Id = like.Id,
                 CommentId = like.CommentId,
                 ProductId = like.ProductId,
                 UserId = like.UserId,
                 DateCreated = like.DateCreated,
                 DateUpdated = like.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<LikeReadVm>>(mappedLikes);
+            return new SuccessfulResponse<IList<LikeReadVm>>(mappedLikes);
         }
 
         public async Task<BaseResponse> Post(LikeCreateVm modelLike)
@@ -131,7 +131,7 @@ namespace Service.Services
             });
 
             await _likeWriteRepository.SaveAsync();
-            return new SuccessfulResponse<IQueryable<LikeReadVm>>("Like created.");
+            return new SuccessfulResponse<LikeReadVm>("Like created.");
         }
 
         public async Task<BaseResponse> Delete(int id)
@@ -141,7 +141,7 @@ namespace Service.Services
 
             await _likeWriteRepository.RemoveAsync(id);
             await _likeWriteRepository.SaveAsync();
-            return new SuccessfulResponse<IQueryable<LikeReadVm>>("Like deleted.");
+            return new SuccessfulResponse<LikeReadVm>("Like deleted.");
         }
     }
 }

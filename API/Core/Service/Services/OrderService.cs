@@ -36,12 +36,12 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<OrderReadVm>>> Get()
         {
-            IQueryable<Order> orders = _orderReadRepository.GetAll(false);
-            IQueryable<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
+            IList<Order> orders = _orderReadRepository.GetAll(false).ToList();
+            IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
-                OrderId = order.Id,
+                Id = order.Id,
                 Description = order.Description,
                 Address = order.Address,
                 OrderStatus = order.OrderStatus,
@@ -50,9 +50,9 @@ namespace Service.Services
                 UserId = order.UserId,
                 DateCreated = order.DateCreated,
                 DateUpdated = order.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<OrderReadVm>>(mappedOrders);
+            return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -63,7 +63,7 @@ namespace Service.Services
 
             OrderReadVm mappedOrder = new()
             {
-                OrderId = order.Id,
+                Id = order.Id,
                 Description = order.Description,
                 Address = order.Address,
                 OrderStatus = order.OrderStatus,
@@ -82,10 +82,10 @@ namespace Service.Services
             if (await _productReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Product does not exist.");
 
-            IQueryable<Order> orders = _orderReadRepository.GetWhere(order => order.ProductId == id, false);
-            IQueryable<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
+            IList<Order> orders = _orderReadRepository.GetWhere(order => order.ProductId == id, false).ToList();
+            IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
-                OrderId = order.Id,
+                Id = order.Id,
                 Description = order.Description,
                 Address = order.Address,
                 OrderStatus = order.OrderStatus,
@@ -94,9 +94,9 @@ namespace Service.Services
                 UserId = order.UserId,
                 DateCreated = order.DateCreated,
                 DateUpdated = order.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<OrderReadVm>>(mappedOrders);
+            return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
         }
 
         public async Task<BaseResponse> ByUser(int id)
@@ -104,10 +104,10 @@ namespace Service.Services
             if (await _userReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("User does not exist.");
 
-            IQueryable<Order> orders = _orderReadRepository.GetWhere(order => order.UserId == id, false);
-            IQueryable<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
+            IList<Order> orders = _orderReadRepository.GetWhere(order => order.UserId == id, false).ToList();
+            IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
-                OrderId = order.Id,
+                Id = order.Id,
                 Description = order.Description,
                 Address = order.Address,
                 OrderStatus = order.OrderStatus,
@@ -116,9 +116,9 @@ namespace Service.Services
                 UserId = order.UserId,
                 DateCreated = order.DateCreated,
                 DateUpdated = order.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<OrderReadVm>>(mappedOrders);
+            return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
         }
 
         public async Task<BaseResponse> BySeller(int id)
@@ -126,10 +126,10 @@ namespace Service.Services
             if (await _sellerReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Seller does not exist.");
 
-            IQueryable<Order> orders = _orderReadRepository.GetWhere(order => order.SellerId == id, false);
-            IQueryable<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
+            IList<Order> orders = _orderReadRepository.GetWhere(order => order.SellerId == id, false).ToList();
+            IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
-                OrderId = order.Id,
+                Id = order.Id,
                 Description = order.Description,
                 Address = order.Address,
                 OrderStatus = order.OrderStatus,
@@ -138,9 +138,9 @@ namespace Service.Services
                 UserId = order.UserId,
                 DateCreated = order.DateCreated,
                 DateUpdated = order.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<OrderReadVm>>(mappedOrders);
+            return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
         }
 
         public async Task<BaseResponse> Post(OrderCreateVm modelOrder)
@@ -173,7 +173,7 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(OrderUpdateVm modelOrder)
         {
-            Order order = await _orderReadRepository.GetByIdAsync(modelOrder.OrderId);
+            Order order = await _orderReadRepository.GetByIdAsync(modelOrder.Id);
             if (order == null)
                 return new FailResponse("Order does not exist.");
 

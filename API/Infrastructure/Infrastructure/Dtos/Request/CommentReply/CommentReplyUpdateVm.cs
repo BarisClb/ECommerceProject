@@ -8,7 +8,7 @@ namespace Infrastructure.Dtos.Request
 {
     public class CommentReplyUpdateVm
     {
-        public int CommentReplyId { get; set; }
+        public int Id { get; set; }
         public string? Text { get; set; }
     }
 }

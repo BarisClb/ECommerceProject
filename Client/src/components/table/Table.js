@@ -31,6 +31,7 @@ import DeleteProductForm from "../forms/productForms/DeleteProductForm";
 import DeleteSellerForm from "../forms/sellerForms/DeleteSellerForm";
 import DeleteUserForm from "../forms/userForms/DeleteUserForm";
 //#endregion
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const Table = (props) => {
 	// Data
@@ -51,9 +52,9 @@ const Table = (props) => {
 	const [tableData3] = useState(props.tableData3);
 	const [tableData4] = useState(props.tableData4);
 	// Special
-	const [isCategories] = useState(props.isCategories);
 	const [isNav] = useState(props.isNav);
 	const [isCart] = useState(props.isCart);
+	const [isAdmin] = useState(props.isAdmin);
 	// Table Buttons
 	const [tableButtons] = useState(props.tableButtons);
 	const [tableAddButton] = useState(props.tableAddButton);
@@ -275,6 +276,43 @@ const Table = (props) => {
 	const [updateForm, setUpdateForm] = useState(false);
 	const [deleteForm, setDeleteForm] = useState(false);
 
+	// Modal
+	const [modal, setModal] = useState(false);
+	const [modalData, setModalData] = useState();
+	const [modalAction, setModalAction] = useState();
+
+	const modalToggle = (data, action) => {
+		setModalData(data);
+		setModalAction(action);
+		setModal(!modal);
+	};
+	const modalToggle2 = () => {
+		switch (modalAction) {
+			case "Add":
+				tableAddButtonClick(modalData);
+				break;
+			case "Update":
+				tableUpdateButtonClick(modalData);
+				break;
+			case "Delete":
+				tableDeleteButtonClick(modalData);
+				break;
+			case "CustomButton1":
+				tableCustomButtonClick(modalData);
+				break;
+			case "CustomButton2":
+				tableCustomButton2Click(modalData);
+				break;
+			case "CustomButton3":
+				tableCustomButton3Click(modalData);
+				break;
+
+			default:
+				break;
+		}
+		setModal(!modal);
+	};
+
 	// UseEffect
 	// Updating the Values
 	useEffect(() => {
@@ -326,13 +364,15 @@ const Table = (props) => {
 									searchValueUpdate(event.target.value)
 								}
 							/>
-							<button
-								className="btn btn-primary"
-								type="submit"
-								onClick={() => searchTheWord()}
-							>
-								Search
-							</button>
+							{!instaSearch && (
+								<button
+									className="btn btn-primary"
+									type="submit"
+									onClick={() => searchTheWord()}
+								>
+									Search
+								</button>
+							)}
 						</div>
 					</div>
 				</nav>
@@ -341,7 +381,7 @@ const Table = (props) => {
 			<table className="table table-striped table-secondary">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
+						<th scope="col">{isAdmin ? "#Id" : "#"}</th>
 						<th scope="col">{`${
 							tableHead ? tableHead : "Table Head"
 						}`}</th>
@@ -366,7 +406,7 @@ const Table = (props) => {
 						apiData.map((data, index) => {
 							return (
 								<tr key={data.id ? data.id : index}>
-									<th scope="row">{index + 1}</th>
+									<th scope="row">{isAdmin ? data.id : index + 1}</th>
 									{tableData && <td>{data[tableData]}</td>}
 									{tableData2 && <td>{data[tableData2]}</td>}
 									{tableData3 && <td>{data[tableData3]}</td>}
@@ -376,7 +416,7 @@ const Table = (props) => {
 											{tableAddButton && (
 												<button
 													className="btn btn-success"
-													onClick={() => tableAddButtonClick(data)}
+													onClick={() => modalToggle(data, "Add")}
 												>
 													Add
 												</button>
@@ -385,7 +425,7 @@ const Table = (props) => {
 												<button
 													className="btn btn-warning"
 													onClick={() =>
-														tableUpdateButtonClick(data)
+														modalToggle(data, "Update")
 													}
 												>
 													Update
@@ -395,7 +435,7 @@ const Table = (props) => {
 												<button
 													className="btn btn-danger"
 													onClick={() =>
-														tableDeleteButtonClick(data)
+														modalToggle(data, "Delete")
 													}
 												>
 													Delete
@@ -409,7 +449,7 @@ const Table = (props) => {
 															: "secondary"
 													}`}
 													onClick={() =>
-														tableCustomButtonClick(data)
+														modalToggle((data, "CustomButton1"))
 													}
 												>
 													{tableCustomButton && tableCustomButton}
@@ -423,7 +463,7 @@ const Table = (props) => {
 															: "secondary"
 													}`}
 													onClick={() =>
-														tableCustomButton2Click(data)
+														modalToggle((data, "CustomButton2"))
 													}
 												>
 													{tableCustomButton2 &&
@@ -438,7 +478,7 @@ const Table = (props) => {
 															: "secondary"
 													}`}
 													onClick={() =>
-														tableCustomButton3Click(data)
+														modalToggle((data, "CustomButton3"))
 													}
 												>
 													{tableCustomButton3 &&
@@ -452,6 +492,30 @@ const Table = (props) => {
 						})}
 				</tbody>
 			</table>
+			<Modal isOpen={modal} toggle={modalToggle} centered>
+				<ModalHeader className="acdFormItem">Add Product</ModalHeader>
+				<ModalBody className="acdForm">
+					<div className="acdFormItem d-flex">
+						<label htmlFor="updateForm-id" className="form-label">
+							Are you sure?
+						</label>
+					</div>
+				</ModalBody>
+				<ModalFooter>
+					<button
+						className="btn btn-warning form-input form-control"
+						onClick={modalToggle2}
+					>
+						Yes
+					</button>
+					<button
+						className="btn btn-secondary form-input form-control"
+						onClick={modalToggle}
+					>
+						Close
+					</button>
+				</ModalFooter>
+			</Modal>
 		</div>
 	);
 };

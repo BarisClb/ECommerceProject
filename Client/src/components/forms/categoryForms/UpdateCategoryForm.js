@@ -37,10 +37,6 @@ const UpdateCategoryForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	// DISPATCH
-
-	const dispatch = useDispatch();
-
 	const navUpdateButtonClick = () => {
 		if (
 			props.navUpdateButtonClick &&
@@ -53,6 +49,7 @@ const UpdateCategoryForm = (props) => {
 				description: descriptionValue,
 			});
 		}
+		setIdValue(-1);
 		setNameValue("");
 		setDescriptionValue("");
 		toggle();
@@ -88,7 +85,7 @@ const UpdateCategoryForm = (props) => {
 									);
 								})
 							) : (
-								<option>No Categories Found</option>
+								<option disabled={true}>No Categories Found</option>
 							)}
 						</Input>
 					</div>

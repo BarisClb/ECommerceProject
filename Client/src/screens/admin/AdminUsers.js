@@ -16,15 +16,12 @@ function AdminUsers() {
 
 	const navAddUserComp = async (newUser) => {
 		dispatch(userActions.addUser(newUser));
-		// dispatch(userActions.getCategories());
 	};
 	const navUpdateUserComp = (oldUser, newUser) => {
 		dispatch(userActions.updateUser(oldUser, newUser));
-		// dispatch(UserActions.getCategories());
 	};
 	const navDeleteUserComp = (oldUser) => {
 		dispatch(userActions.deleteUser(oldUser));
-		// dispatch(userActions.getCategories());
 	};
 
 	return (
@@ -36,17 +33,18 @@ function AdminUsers() {
 					apiData={users}
 					// Table Content
 					// Table Headings
-					tableHead={"User Name"}
-					tableHead2={"Email"}
-					tableHead3={false}
+					tableHead={"Name"}
+					tableHead2={"Username"}
+					tableHead3={"Email"}
 					tableHead4={false}
 					buttonHeadName={"Operations"}
 					// Table Datas
 					tableData={"name"}
-					tableData2={"email"}
-					tableData3={false}
+					tableData2={"username"}
+					tableData3={"eMail"}
 					tableData4={false}
 					// Special
+					isAdmin={true}
 					isCategories={false}
 					instaSearch={false}
 					// Table Buttons

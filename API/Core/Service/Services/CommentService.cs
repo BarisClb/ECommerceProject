@@ -33,21 +33,23 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<CommentReadVm>>> Get()
         {
-            IQueryable<Comment> comments = _commentReadRepository.GetAll(false);
-            IQueryable<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
+            IList<Comment> comments = _commentReadRepository.GetAll(false).ToList();
+            IList<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
             {
-                CommentId = comment.Id,
+                Id = comment.Id,
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
                 ProductId = comment.ProductId,
+                UserId = comment.UserId,
+                Username = comment.Username,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CommentReadVm>>(mappedComments);
+            return new SuccessfulResponse<IList<CommentReadVm>>(mappedComments);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -58,11 +60,13 @@ namespace Service.Services
 
             CommentReadVm mappedComment = new()
             {
-                CommentId = comment.Id,
+                Id = comment.Id,
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
                 ProductId = comment.ProductId,
+                UserId = comment.UserId,
+                Username = comment.Username,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
             };
@@ -75,19 +79,21 @@ namespace Service.Services
             if (await _productReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Product does not exist.");
 
-            IQueryable<Comment> comments = _commentReadRepository.GetWhere(comment => comment.ProductId == id, false);
-            IQueryable<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
+            IList<Comment> comments = _commentReadRepository.GetWhere(comment => comment.ProductId == id, false).ToList();
+            IList<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
             {
-                CommentId = comment.Id,
+                Id = comment.Id,
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
                 ProductId = comment.ProductId,
+                UserId = comment.UserId,
+                Username = comment.Username,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CommentReadVm>>(mappedComments);
+            return new SuccessfulResponse<IList<CommentReadVm>>(mappedComments);
         }
 
         public async Task<BaseResponse> ByUser(int id)
@@ -95,19 +101,21 @@ namespace Service.Services
             if (await _userReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("User does not exist.");
 
-            IQueryable<Comment> comments = _commentReadRepository.GetWhere(comment => comment.UserId == id, false);
-            IQueryable<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
+            IList<Comment> comments = _commentReadRepository.GetWhere(comment => comment.UserId == id, false).ToList();
+            IList<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
             {
-                CommentId = comment.Id,
+                Id = comment.Id,
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
                 ProductId = comment.ProductId,
+                UserId = comment.UserId,
+                Username = comment.Username,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CommentReadVm>>(mappedComments);
+            return new SuccessfulResponse<IList<CommentReadVm>>(mappedComments);
         }
 
         public async Task<BaseResponse> Post(CommentCreateVm modelComment)
@@ -126,6 +134,7 @@ namespace Service.Services
                 Text = modelComment.Text,
                 Rating = modelComment.Rating,
                 Product = product,
+                Username = user.Username,
                 User = user
             });
 
@@ -135,7 +144,7 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(CommentUpdateVm modelComment)
         {
-            Comment comment = await _commentReadRepository.GetByIdAsync(modelComment.CommentId);
+            Comment comment = await _commentReadRepository.GetByIdAsync(modelComment.Id);
             if (comment == null)
                 return new FailResponse("Comment does not exist.");
 

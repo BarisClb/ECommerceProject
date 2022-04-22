@@ -16,3 +16,7 @@
 .acdForm > .btn {
 	align-self: center;
 }
+
+.modal-footer {
+	flex-wrap: nowrap !important;
+}

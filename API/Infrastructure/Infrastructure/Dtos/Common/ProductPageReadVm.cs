@@ -11,8 +11,8 @@ namespace Infrastructure.Dtos.Common
     {
         public ProductReadVm Product { get; set; }
         public SellerReadVm Seller { get; set; }
-        public IQueryable<CommentReadVm>? Comments { get; set; }
-        public IQueryable<CommentReplyReadVm>? CommentReplies { get; set; }
-        public IQueryable<LikeReadVm>? Likes { get; set; }
+        public IList<CommentReadVm>? Comments { get; set; }
+        public IList<CommentReplyReadVm>? CommentReplies { get; set; }
+        public IList<LikeReadVm>? Likes { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace Domain.Entities
         public Product Product { get; set; }
 
         // User - Commenter User
+        public string Username { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
 

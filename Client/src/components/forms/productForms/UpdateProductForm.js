@@ -94,7 +94,7 @@ const UpdateProductForm = (props) => {
 									);
 								})
 							) : (
-								<option value={-1}>No Products Found</option>
+								<option disabled={true}>No Products Found</option>
 							)}
 						</Input>
 					</div>

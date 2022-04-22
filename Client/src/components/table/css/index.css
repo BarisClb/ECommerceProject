@@ -59,3 +59,7 @@
 #miniCartLink {
 	text-decoration: none;
 }
+
+.modal-footer {
+	flex-wrap: nowrap !important;
+}

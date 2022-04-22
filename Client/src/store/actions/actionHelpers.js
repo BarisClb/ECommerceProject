@@ -11,7 +11,12 @@ const getHelper = async (entityName, entityId) => {
 
 	try {
 		let response = await fetch(url);
-		return await response.json();
+		let result = await response.json();
+		if (result.success) {
+			return result.data;
+		} else {
+			return entityId ? {} : [];
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -28,7 +33,12 @@ const getByEntityHelper = async (
 
 	try {
 		let response = await fetch(url);
-		return await response.json();
+		let result = await response.json();
+		if (result.success) {
+			return result.data;
+		} else {
+			return [];
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -67,7 +77,7 @@ const updateHelper = async (entityName, entityId, updatedEntity) => {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				entityId,
+				id: entityId,
 				...updatedEntity,
 			}),
 		});

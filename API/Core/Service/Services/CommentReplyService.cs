@@ -36,20 +36,22 @@ namespace Service.Services
             _sellerReadRepository = sellerReadRepository;
         }
 
-        public async Task<BaseResponse> Get()
+        public async Task<SuccessfulResponse<IList<CommentReplyReadVm>>> Get()
         {
-            IQueryable<CommentReply> commentReplies = _commentReplyReadRepository.GetAll(false);
-            IQueryable<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
+            IList<CommentReply> commentReplies = _commentReplyReadRepository.GetAll(false).ToList();
+            IList<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
             {
-                CommentReplyId = commentReply.Id,
+                Id = commentReply.Id,
+                Text = commentReply.Text,
                 CommentId = commentReply.CommentId,
                 ProductId = commentReply.ProductId,
+                Sellername = commentReply.Sellername,
                 SellerId = commentReply.SellerId,
                 DateCreated = commentReply.DateCreated,
                 DateUpdated = commentReply.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CommentReplyReadVm>>(mappedCommentReplies);
+            return new SuccessfulResponse<IList<CommentReplyReadVm>>(mappedCommentReplies);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -60,8 +62,12 @@ namespace Service.Services
 
             CommentReplyReadVm mappedCommentReply = new()
             {
-                CommentReplyId = commentReply.Id,
+                Id = commentReply.Id,
                 Text = commentReply.Text,
+                CommentId = commentReply.CommentId,
+                ProductId = commentReply.ProductId,
+                Sellername = commentReply.Sellername,
+                SellerId = commentReply.SellerId,
                 DateCreated = commentReply.DateCreated,
                 DateUpdated = commentReply.DateUpdated,
             };
@@ -74,18 +80,20 @@ namespace Service.Services
             if (await _commentReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Comment does not exist.");
 
-            IQueryable<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.CommentId == id, false);
-            IQueryable<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
+            IList<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.CommentId == id, false).ToList();
+            IList<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
             {
-                CommentReplyId = commentReply.Id,
+                Id = commentReply.Id,
+                Text = commentReply.Text,
                 CommentId = commentReply.CommentId,
                 ProductId = commentReply.ProductId,
+                Sellername = commentReply.Sellername,
                 SellerId = commentReply.SellerId,
                 DateCreated = commentReply.DateCreated,
                 DateUpdated = commentReply.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CommentReplyReadVm>>(mappedCommentReplies);
+            return new SuccessfulResponse<IList<CommentReplyReadVm>>(mappedCommentReplies);
         }
 
         public async Task<BaseResponse> ByProduct(int id)
@@ -93,18 +101,20 @@ namespace Service.Services
             if (await _productReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Product does not exist.");
 
-            IQueryable<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.ProductId == id, false);
-            IQueryable<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
+            IList<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.ProductId == id, false).ToList();
+            IList<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
             {
-                CommentReplyId = commentReply.Id,
+                Id = commentReply.Id,
+                Text = commentReply.Text,
                 CommentId = commentReply.CommentId,
                 ProductId = commentReply.ProductId,
+                Sellername = commentReply.Sellername,
                 SellerId = commentReply.SellerId,
                 DateCreated = commentReply.DateCreated,
                 DateUpdated = commentReply.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CommentReplyReadVm>>(mappedCommentReplies);
+            return new SuccessfulResponse<IList<CommentReplyReadVm>>(mappedCommentReplies);
         }
 
         public async Task<BaseResponse> BySeller(int id)
@@ -112,18 +122,20 @@ namespace Service.Services
             if (await _sellerReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Seller does not exist.");
 
-            IQueryable<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.SellerId == id, false);
-            IQueryable<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
+            IList<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.SellerId == id, false).ToList();
+            IList<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
             {
-                CommentReplyId = commentReply.Id,
+                Id = commentReply.Id,
+                Text = commentReply.Text,
                 CommentId = commentReply.CommentId,
                 ProductId = commentReply.ProductId,
+                Sellername = commentReply.Sellername,
                 SellerId = commentReply.SellerId,
                 DateCreated = commentReply.DateCreated,
                 DateUpdated = commentReply.DateUpdated,
-            });
+            }).ToList();
 
-            return new SuccessfulResponse<IQueryable<CommentReplyReadVm>>(mappedCommentReplies);
+            return new SuccessfulResponse<IList<CommentReplyReadVm>>(mappedCommentReplies);
         }
 
         public async Task<BaseResponse> Post(CommentReplyCreateVm modelCommentReply)
@@ -145,6 +157,7 @@ namespace Service.Services
                 Text = modelCommentReply.Text,
                 Comment = comment,
                 Product = product,
+                Sellername = seller.Username,
                 Seller = seller
             });
 
@@ -154,7 +167,7 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(CommentReplyUpdateVm modelCommentReply)
         {
-            CommentReply commentReply = await _commentReplyReadRepository.GetByIdAsync(modelCommentReply.CommentReplyId);
+            CommentReply commentReply = await _commentReplyReadRepository.GetByIdAsync(modelCommentReply.Id);
             if (commentReply == null)
                 return new FailResponse("CommentReply does not exist.");
 
