@@ -46,8 +46,10 @@ function SellerProducts() {
 					tableDeleteButton={false}
 					// Table Button Actions
 					tableAddButtonClick={false}
+					tableUpdateButtonClick={false}
+					tableDeleteButtonClick={false}
 					// Nav
-					isNav={true}
+					isNav={"Product"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

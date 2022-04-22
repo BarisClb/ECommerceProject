@@ -296,7 +296,9 @@ const Table = (props) => {
 				<nav className="navbar table-nav navbar-light bg-secondary">
 					<div className="container-fluid">
 						<div className="navbar-buttons">
-							Operations:
+							{(navAddButton || navUpdateButton || navDeleteButton) && (
+								<span>Operations:</span>
+							)}
 							{navAddButton && navAddForm()}
 							{navUpdateButton && navUpdateForm()}
 							{navDeleteButton && navDeleteForm()}

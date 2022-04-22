@@ -45,8 +45,10 @@ function SellerComments() {
 					tableDeleteButton={false}
 					// Table Button Actions
 					tableAddButtonClick={false}
+					tableUpdateButtonClick={false}
+					tableDeleteButtonClick={false}
 					// Nav
-					isNav={true}
+					isNav={"Comment"}
 					navAddButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

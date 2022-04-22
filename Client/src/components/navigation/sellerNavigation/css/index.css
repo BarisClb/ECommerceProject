@@ -1,0 +1,79 @@
+#seller-sidenav {
+	padding: 0.8rem 0.6rem !important;
+}
+
+#seller-topnav a {
+	font-size: 1rem;
+}
+
+.seller-sidebar {
+	position: relative;
+	margin-right: 250px;
+}
+
+#seller-sidenav {
+	position: absolute;
+	width: 250px;
+	height: calc(100vh - (50px));
+	overflow: hidden;
+	transition: all 0.5s ease;
+	padding-left: 10 !important;
+	padding-right: 10 !important;
+}
+
+.seller-sidenav-items {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+}
+
+.seller-sidenav-items i {
+	font-size: 1.2rem;
+}
+
+.seller-sidenav-items p {
+	margin: 0;
+	font-size: 1.2rem;
+}
+
+.seller-sidenav-text {
+	display: block;
+	justify-self: center;
+	justify-content: center;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-left: 1rem;
+}
+
+.seller-sidenav-profile i {
+	font-size: 30px;
+	margin-right: 30px;
+}
+
+@media screen and (min-width: 767px) {
+	#admin-content-wrapper {
+		margin-left: 250px;
+	}
+}
+
+@media (max-width: 766px) {
+	#seller-sidenav {
+		width: 75px;
+		overflow: visible;
+	}
+	.seller-sidenav-text,
+	#dropdownUser1::after {
+		display: none;
+	}
+	.nav-item > .nav-link {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.seller-sidenav-items i {
+		font-size: 2rem;
+	}
+}

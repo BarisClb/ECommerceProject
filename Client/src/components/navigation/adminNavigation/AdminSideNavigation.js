@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/index.css";
+import "../css/index.css";
 
 function AdminSideNavigation() {
 	return (
