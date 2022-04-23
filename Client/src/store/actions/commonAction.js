@@ -15,8 +15,15 @@ const asyncEnd = () => {
 		type: commonTypes.AsyncEnd,
 	};
 };
+const toggleDarkMode = (darkMode) => {
+	return {
+		type: commonTypes.DarkMode,
+		payload: darkMode,
+	};
+};
 export const commonAction = {
 	clearError,
 	asyncStarted,
 	asyncEnd,
+	toggleDarkMode,
 };

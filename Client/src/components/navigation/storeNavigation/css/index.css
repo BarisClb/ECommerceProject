@@ -1,0 +1,77 @@
+#store-top-sitenav a {
+	padding: 0 !important;
+}
+
+#store-top-sitenav a:hover {
+	opacity: 0.7;
+}
+
+.footer-bottom {
+	padding: 5px;
+}
+
+#footer-bottom-credit-cards {
+	display: flex;
+	gap: 2rem;
+}
+
+#footer-bottom-credit-cards i {
+	font-size: 20px;
+}
+
+li {
+	list-style: none;
+	margin-bottom: 0.3rem;
+}
+
+li a {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+h5 {
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.list-menu {
+	padding-top: 0.5rem;
+}
+
+#contact-list span {
+	margin-left: 0.7rem;
+}
+
+.dark-link-text {
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.white-link-text ul a {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.form-check {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.form-switch .form-check-input {
+	position: relative;
+	height: 24px;
+	width: 48px;
+	border: 2px solid #17025f;
+}
+.form-switch .form-check-input:focus {
+	border-color: rgba(0, 0, 0, 0.25);
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+.form-switch .form-check-input:checked {
+	background-color: #17025f;
+	border-color: #17025f;
+	border: none;
+}
+
+.navbar-nav .nav-item {
+	margin-bottom: 0;
+}

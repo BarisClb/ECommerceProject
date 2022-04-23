@@ -12,7 +12,7 @@ const SellerSideNavigation = () => {
 				href="/seller"
 				className="d-flex align-items-center mb-md-0 me-md-auto text-white text-decoration-none seller-sidenav-items"
 			>
-				<div>{/* <i className="bi bi-list"></i> */}</div>
+				<div>{/* <i className="bi bi-list" /> */}</div>
 				<span className="fs-2 seller-sidenav-text">Seller Front</span>
 			</a>
 			<hr />
@@ -21,7 +21,7 @@ const SellerSideNavigation = () => {
 					<a href="/seller/products" className="nav-link text-white">
 						<div className="seller-sidenav-items">
 							<div>
-								<i class="bi bi-cash"></i>
+								<i className="bi bi-cash" />
 							</div>
 							<div className="seller-sidenav-text">
 								<p>Products</p>
@@ -33,7 +33,7 @@ const SellerSideNavigation = () => {
 					<a href="/seller/orders" className="nav-link text-white">
 						<div className="seller-sidenav-items">
 							<div>
-								<i class="bi bi-cash-coin"></i>
+								<i className="bi bi-cash-coin" />
 							</div>
 							<div className="seller-sidenav-text">
 								<p>Orders</p>
@@ -45,7 +45,7 @@ const SellerSideNavigation = () => {
 					<a href="/seller/comments" className="nav-link text-white">
 						<div className="seller-sidenav-items">
 							<div>
-								<i class="bi bi-pen"></i>
+								<i className="bi bi-pen" />
 							</div>
 							<div className="seller-sidenav-text">
 								<p>Comments</p>
@@ -57,7 +57,7 @@ const SellerSideNavigation = () => {
 					<a href="/seller/commentreplies" className="nav-link text-white">
 						<div className="seller-sidenav-items">
 							<div>
-								<i class="bi bi-pen-fill"></i>
+								<i className="bi bi-pen-fill" />
 							</div>
 							<div className="seller-sidenav-text">
 								<p>Comment Replies</p>
@@ -69,12 +69,12 @@ const SellerSideNavigation = () => {
 			<hr />
 			<div className="seller-sidenav-profile dropdown">
 				<a
-					href="#"
+					href="/"
 					className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
 					id="dropdownUser1"
 					data-bs-toggle="dropdown"
 				>
-					<i className="bi bi-person-circle"></i>
+					<i className="bi bi-person-circle" />
 					<strong className="seller-sidenav-text">Seller Name</strong>
 				</a>
 				<ul
@@ -86,12 +86,11 @@ const SellerSideNavigation = () => {
 							Profile
 						</a>
 					</li>
-
 					<li>
 						<hr className="dropdown-divider" />
 					</li>
 					<li>
-						<a className="dropdown-item" href="#">
+						<a className="dropdown-item" href="/">
 							Sign Out
 						</a>
 					</li>

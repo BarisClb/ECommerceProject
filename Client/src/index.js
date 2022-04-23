@@ -5,6 +5,9 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import reportWebVitals from "./reportWebVitals";
 import storeManager from "./store/index";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+//#region OldPages
 import HomeScreen from "./screens/HomeScreen";
 import Profile from "./screens/admin/AdminProfile";
 import Deneme from "./screens/Deneme";
@@ -12,8 +15,8 @@ import Products from "./screens/Products";
 import Categories from "./screens/Categories";
 import AdminCategories from "./screens/admin/AdminCategories";
 import Cart from "./screens/Cart";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.min.js";
+//#endregion
+//#region AdminPages
 import AdminLikes from "./screens/admin/AdminLikes";
 import AdminUsers from "./screens/admin/AdminUsers";
 import AdminComments from "./screens/admin/AdminComments";
@@ -23,15 +26,20 @@ import AdminSellers from "./screens/admin/AdminSellers";
 import AdminLayout from "./components/layout/AdminLayout";
 import AdminProfile from "./screens/admin/AdminProfile";
 import AdminOrders from "./screens/admin/AdminOrders";
+//#endregion
+//#region SellerPages
 import SellerComments from "./screens/seller/SellerComments";
 import SellerOrders from "./screens/seller/SellerOrders";
 import SellerCommentReplies from "./screens/seller/SellerCommentReplies";
 import SellerProducts from "./screens/seller/SellerProducts";
 import SellerProfile from "./screens/seller/SellerProfile";
 import SellerLayout from "./components/layout/SellerLayout";
+//#endregion
+//#region StorePages
 import StoreSingleProduct from "./screens/store/StoreSingleProduct";
 import StoreProducts from "./screens/store/StoreProducts";
 import StoreLayout from "./components/layout/StoreLayout";
+//#endregion
 
 ReactDOM.render(
 	<Provider store={storeManager.createStore()}>

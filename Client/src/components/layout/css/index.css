@@ -91,6 +91,10 @@
 	padding-left: 250px;
 }
 
+#store-content-wrapper {
+	min-height: calc(100vh - (80px + 312px));
+}
+
 @media (max-width: 766px) {
 	#seller-content-wrapper {
 		padding-left: 75px;

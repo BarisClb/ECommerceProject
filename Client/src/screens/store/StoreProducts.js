@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 function StoreProducts() {
-	return <div>StoreProducts</div>;
+	return <></>;
 }
 
 export default StoreProducts;
