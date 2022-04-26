@@ -14,6 +14,7 @@ function SellerCommentReplies() {
 	// Actions
 	const dispatch = useDispatch();
 	useEffect(() => {
+		dispatch(productActions.getProductsBySeller(1));
 		if (typeof id == "number") {
 			dispatch(productActions.getOrdersBySeller(id));
 		}

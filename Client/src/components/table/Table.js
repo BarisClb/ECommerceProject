@@ -326,7 +326,7 @@ const Table = (props) => {
 			searchTheWord();
 		}
 	}, [searchValue]);
-	console.log(apiData);
+
 	return (
 		// NAV
 		<div className="table-body">
@@ -493,10 +493,13 @@ const Table = (props) => {
 				</tbody>
 			</table>
 			<Modal isOpen={modal} toggle={modalToggle} centered>
-				<ModalHeader className="acdFormItem">Add Product</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem d-flex">
-						<label htmlFor="updateForm-id" className="form-label">
+				<ModalHeader className="modal-form-item">Add Product</ModalHeader>
+				<ModalBody className="modal-form">
+					<div className="modal-form-item d-flex">
+						<label
+							htmlFor="modal-form-confirmation"
+							className="form-label"
+						>
 							Are you sure?
 						</label>
 					</div>

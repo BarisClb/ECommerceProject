@@ -1,0 +1,65 @@
+/* WELCOME PAGE */
+
+#store-welcomepage-content-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+#store-welcomepage-content {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+#welcomepage-welcome-text {
+	text-align: center;
+}
+#welcomepage-welcome-text > h1 {
+	font-size: 5rem;
+}
+#welcomepage-dummypage-links {
+	display: flex;
+}
+
+/* PRODUCT LIST */
+
+#productlist-content-container-wrapper {
+	padding: 2rem;
+}
+
+/* SINGLE PRODUCT */
+
+#sinlgeproduct-content-container-wrapper {
+	padding: 2rem;
+}
+
+#sinlgeproduct-content-container {
+	border: 5px solid gray;
+	border-radius: 10px;
+}
+
+@media (min-width: 1200px) {
+	#sinlgeproduct-gallery-container,
+	#sinlgeproduct-info-container {
+		height: 100%;
+		padding: 3rem;
+	}
+}
+
+#sinlgeproduct-image,
+#sinlgeproduct-info {
+	height: 500px;
+}
+
+#sinlgeproduct-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#sinlgeproduct-order {
+	display: flex;
+	justify-content: space-evenly;
+}
+#sinlgeproduct-order button {
+	width: 40%;
+}

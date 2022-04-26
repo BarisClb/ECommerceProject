@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { categoryActions } from "../../../store/actions/categoryActions";
 import "./css/index.css";
 import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
@@ -44,9 +42,18 @@ const UpdateCategoryForm = (props) => {
 			nameValue &&
 			descriptionValue
 		) {
+			let updatedCategory = {};
+			if (changeName) {
+				updatedCategory = { ...updatedCategory, name: nameValue };
+			}
+			if (changeDescription) {
+				updatedCategory = {
+					...updatedCategory,
+					description: descriptionValue,
+				};
+			}
 			props.navUpdateButtonClick(Number.parseInt(idValue), {
-				name: nameValue,
-				description: descriptionValue,
+				...updatedCategory,
 			});
 		}
 		setIdValue(-1);
@@ -55,28 +62,39 @@ const UpdateCategoryForm = (props) => {
 		toggle();
 	};
 
+	// Update or Not
+
+	const [changeName, setChangeName] = useState(true);
+	const [changeDescription, setChangeDescription] = useState(true);
+
 	return (
 		<>
 			<button className="btn btn-warning" onClick={toggle}>
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Update Category</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem updateFormOldDescription d-flex">
-						<label htmlFor="updateForm-id" className="form-label">
+				<ModalHeader className="modal-form-item">
+					Update Category
+				</ModalHeader>
+				<ModalBody className="modal-form">
+					{/* CATEGORY TO CHANGE */}
+					<div className="modal-form-item modal-form-old-category d-flex">
+						<label
+							htmlFor="modal-category-update-form-category"
+							className="form-label"
+						>
 							Old Category
 						</label>
 						<Input
 							type="select"
 							className="form-control form-input"
-							id="updateForm-id"
+							id="modal-category-update-form-category"
 							placeholder="Category"
 							value={idValue}
 							onChange={(event) => idValueUpdate(event.target.value)}
 						>
 							<option value={-1}>Choose a Category to Update</option>
-							{categories ? (
+							{categories[0] ? (
 								categories.map((category) => {
 									return (
 										<option key={category.id} value={category.id}>
@@ -89,22 +107,43 @@ const UpdateCategoryForm = (props) => {
 							)}
 						</Input>
 					</div>
-					<div className="acdFormItem updateFormNewName d-flex">
-						<label htmlFor="updateForm-name" className="form-label">
+					{/* NAME */}
+					<div className="modal-form-item modal-form-name d-flex">
+						<label
+							htmlFor="modal-category-update-form-name"
+							className="form-label"
+						>
 							Name
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="updateForm-name"
+							id="modal-category-update-form-name"
 							placeholder="New Name"
 							value={nameValue}
 							onChange={(event) => nameValueUpdate(event.target.value)}
+							disabled={!changeName}
 						/>
+						<div className="form-check">
+							<input
+								className="form-check-input"
+								type="checkbox"
+								defaultValue
+								id="modal-form-category-update-name-check"
+								onChange={() => setChangeName(!changeName)}
+							/>
+							<label
+								className="form-check-label"
+								htmlFor="modal-form-category-update-name-check"
+							>
+								Don't Change
+							</label>
+						</div>
 					</div>
-					<div className="acdFormItem updateFormNewDescription d-flex">
+					{/* DESCRIPTION */}
+					<div className="modal-form-item modal-form-description d-flex">
 						<label
-							htmlFor="updateForm-description"
+							htmlFor="modal-category-update-form-description"
 							className="form-label"
 						>
 							Description
@@ -112,13 +151,31 @@ const UpdateCategoryForm = (props) => {
 						<input
 							type="text"
 							className="form-control form-input"
-							id="updateForm-description"
+							id="modal-category-update-form-description"
 							placeholder="New Description"
 							value={descriptionValue}
 							onChange={(event) =>
 								descriptionValueUpdate(event.target.value)
 							}
+							disabled={!changeDescription}
 						/>
+						<div className="form-check">
+							<input
+								className="form-check-input"
+								type="checkbox"
+								defaultValue
+								id="modal-form-category-update-description-check"
+								onChange={() =>
+									setChangeDescription(!changeDescription)
+								}
+							/>
+							<label
+								className="form-check-label"
+								htmlFor="modal-form-category-update-description-check"
+							>
+								Don't Change
+							</label>
+						</div>
 					</div>
 				</ModalBody>
 				<ModalFooter>

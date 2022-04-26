@@ -16,10 +16,12 @@ namespace Domain.Entities
         public Comment Comment { get; set; }
 
         // Product
+        public string ProductName { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
         // Comment Liked By
+        public string UserUsername { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
 

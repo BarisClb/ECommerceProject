@@ -37,29 +37,35 @@ const AddCategoryForm = (props) => {
 				Add
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Add Category</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem addFormName d-flex">
-						<label htmlFor="addForm-name" className="form-label">
+				<ModalHeader className="modal-form-item">Add Category</ModalHeader>
+				<ModalBody className="modal-form">
+					<div className="modal-form-item modal-form-name d-flex">
+						<label
+							htmlFor="modal-category-add-form-name"
+							className="form-label"
+						>
 							Name
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="addForm-name"
+							id="modal-category-add-form-name"
 							placeholder="Name"
 							value={nameValue}
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem addFormDescription d-flex">
-						<label htmlFor="addForm-name" className="form-label">
+					<div className="modal-form-item modal-form-description d-flex">
+						<label
+							htmlFor="modal-category-add-form-description"
+							className="form-label"
+						>
 							Description
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="addForm-description"
+							id="modal-category-add-form-description"
 							placeholder="Description"
 							value={descriptionValue}
 							onChange={(event) =>

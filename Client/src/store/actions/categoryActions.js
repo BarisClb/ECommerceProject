@@ -5,14 +5,14 @@ import { actionHelpers } from "./actionHelpers";
 // // CATEGORY VM
 
 // const categoryCreate = {
-// 	Name: "",
-// 	Description: "",
+// 	name: "",
+// 	description: "",
 // };
 
 // const categoryUpdate = {
-// 	CategoryId: 0,
-// 	Name: "", // OPTINAL
-// 	Description: "", // OPTINAL
+// 	id: 0,
+// 	name: "", // OPTINAL
+// 	description: "", // OPTINAL
 // };
 
 // GET CATEGORIES

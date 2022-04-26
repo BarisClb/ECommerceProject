@@ -5,18 +5,18 @@ import { actionHelpers } from "./actionHelpers";
 // // COMMENT VM
 
 // const commentCreate = {
-// 	Title: "",
-// 	Text: "",
-// 	Rating: 0,
-// 	UserId: 0,
-// 	ProductId: 0,
+// 	title: "",
+// 	text: "",
+// 	rating: 0,
+// 	userId: 0,
+// 	productId: 0,
 // };
 
 // const commentUpdate = {
-// 	CommentId: 0,
-// 	Title: "", // OPTINAL
-// 	Text: "", // OPTINAL
-// 	Rating: 0, // OPTINAL
+// 	id: 0,
+// 	title: "", // OPTINAL
+// 	text: "", // OPTINAL
+// 	rating: 0, // OPTINAL
 // };
 
 // GET COMMENTS

@@ -39,6 +39,7 @@ import SellerLayout from "./components/layout/SellerLayout";
 import StoreSingleProduct from "./screens/store/StoreSingleProduct";
 import StoreProducts from "./screens/store/StoreProducts";
 import StoreLayout from "./components/layout/StoreLayout";
+import StoreMainPage from "./screens/store/StoreMainPage";
 //#endregion
 
 ReactDOM.render(
@@ -71,10 +72,10 @@ ReactDOM.render(
 
 					{/* STORE SIDE */}
 					<Route path="store" element={<StoreLayout />}>
-						<Route path="products" element={<StoreProducts />}>
-							<Route path=":id" element={<StoreSingleProduct />}>
-								<Route path="comments" element={<Products />} />
-							</Route>
+						<Route path="" element={<StoreMainPage />} />
+						<Route path="category=:id" element={<StoreProducts />} />
+						<Route path="product=:id" element={<StoreSingleProduct />}>
+							<Route path="comments" element={<div>Comments</div>} />
 						</Route>
 						<Route path="cart" element={<Cart />} />
 						<Route path="profile" element={<Profile />}>

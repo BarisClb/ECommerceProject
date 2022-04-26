@@ -1,5 +1,4 @@
 import MainLayout from "../components/layout/MainLayout";
-import MainNavigation from "../components/navigation/MainNavigation";
 
 const HomeScreen = () => {
 	return (

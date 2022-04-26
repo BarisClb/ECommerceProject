@@ -5,20 +5,20 @@ import { actionHelpers } from "./actionHelpers";
 // // USER VM
 
 // const userCreate = {
-// 	Name: "",
-// 	Username: "",
-// 	EMail: "",
-// 	Password: "",
-// 	Admin: "", // ADMIN PASSWORD CHECK
+// 	name: "",
+// 	username: "",
+// 	eMail: "",
+// 	password: "",
+// 	admin: "", // ADMIN PASSWORD CHECK
 // };
 
 // const userUpdate = {
-// 	UserId: 0,
-// 	Name: "", // OPTINAL
-// 	Username: "", // OPTINAL
-// 	EMail: "", // OPTINAL
-// 	Password: "", // OPTINAL
-// 	Admin: "", // ADMIN PASSWORD CHECK
+// 	id: 0,
+// 	name: "", // OPTINAL
+// 	username: "", // OPTINAL
+// 	eMail: "", // OPTINAL
+// 	password: "", // OPTINAL
+// 	admin: "", // ADMIN PASSWORD CHECK
 // };
 
 // GET USERS

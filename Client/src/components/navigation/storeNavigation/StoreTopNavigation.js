@@ -13,9 +13,11 @@ function StoreTopNavigation() {
 	return (
 		<div>
 			<nav
-				className={`nav nav-pills flex-column flex-sm-row navbar-${
-					darkMode ? "dark" : "light"
-				} bg-${darkMode ? "dark" : "light"}`}
+				className={`nav nav-pills flex-column flex-sm-row ${
+					darkMode
+						? "navbar-dark bg-dark"
+						: "navbar-secondary bg-light store-nav-light"
+				}`}
 				id="store-top-sitenav"
 			>
 				<a className="flex-sm-fill text-sm-center nav-link" href="/admin">
@@ -30,9 +32,12 @@ function StoreTopNavigation() {
 			</nav>
 
 			<nav
-				className={`navbar navbar-expand-lg navbar-${
-					darkMode ? "dark" : "light"
-				} bg-${darkMode ? "dark" : "light"}`}
+				id="store-topnav-second"
+				className={`navbar navbar-expand-lg ${
+					darkMode
+						? "navbar-dark bg-dark"
+						: "navbar-secondary bg-light store-navbar-light"
+				}`}
 			>
 				<a className="navbar-brand" href="/">
 					Celebi Store

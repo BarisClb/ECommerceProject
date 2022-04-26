@@ -1,7 +1,12 @@
 import React from "react";
+import StoreWelcomePage from "../../components/store/StoreWelcomePage";
 
 function StoreMainPage() {
-	return <div>StoreMainPage</div>;
+	return (
+		<>
+			<StoreWelcomePage />
+		</>
+	);
 }
 
 export default StoreMainPage;

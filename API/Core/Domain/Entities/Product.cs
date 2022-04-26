@@ -17,6 +17,7 @@ namespace Domain.Entities
         //// Relations
 
         // Category it belongs to
+        public string CategoryName { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
@@ -33,6 +34,7 @@ namespace Domain.Entities
         public ICollection<Order>? Orders { get; set; }
 
         // Created By Seller
+        public string SellerUsername { get; set; }
         public int SellerId { get; set; }
         public Seller Seller { get; set; }
 

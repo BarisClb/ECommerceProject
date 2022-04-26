@@ -18,11 +18,12 @@ namespace Domain.Entities
         public Comment Comment { get; set; }
 
         // Replied Comment's Product => to get them all at once
+        public string ProductName { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
         // Commenter Seller
-        public string Sellername { get; set; }
+        public string SellerUsername { get; set; }
         public int SellerId { get; set; }
         public Seller Seller { get; set; }
 

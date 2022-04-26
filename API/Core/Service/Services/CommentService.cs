@@ -42,9 +42,10 @@ namespace Service.Services
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
+                ProductName = comment.ProductName,
                 ProductId = comment.ProductId,
+                UserUsername = comment.UserUsername,
                 UserId = comment.UserId,
-                Username = comment.Username,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
             }).ToList();
@@ -64,9 +65,10 @@ namespace Service.Services
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
+                ProductName= comment.ProductName,
                 ProductId = comment.ProductId,
+                UserUsername = comment.UserUsername,
                 UserId = comment.UserId,
-                Username = comment.Username,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
             };
@@ -86,9 +88,10 @@ namespace Service.Services
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
+                ProductName = comment.ProductName,
                 ProductId = comment.ProductId,
                 UserId = comment.UserId,
-                Username = comment.Username,
+                UserUsername = comment.UserUsername,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
             }).ToList();
@@ -108,9 +111,10 @@ namespace Service.Services
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
+                ProductName= comment.ProductName,
                 ProductId = comment.ProductId,
                 UserId = comment.UserId,
-                Username = comment.Username,
+                UserUsername = comment.UserUsername,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
             }).ToList();
@@ -133,8 +137,9 @@ namespace Service.Services
                 Title = modelComment.Title,
                 Text = modelComment.Text,
                 Rating = modelComment.Rating,
+                ProductName = product.Name,
                 Product = product,
-                Username = user.Username,
+                UserUsername = user.Username,
                 User = user
             });
 

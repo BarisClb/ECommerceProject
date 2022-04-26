@@ -55,7 +55,9 @@ namespace Service.Services
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
+                CategoryName = product.CategoryName,
                 CategoryId = product.CategoryId,
+                SellerUsername = product.SellerUsername,
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
@@ -69,6 +71,8 @@ namespace Service.Services
             Product product = await _productReadRepository.GetByIdAsync(id, false);
             if (product == null)
                 return new FailResponse("Product does not exist.");
+            Category category = await _categoryReadRepository.GetByIdAsync(product.CategoryId, false);
+            Seller seller = await _sellerReadRepository.GetByIdAsync(product.SellerId, false);
 
             ProductReadVm mappedProduct = new()
             {
@@ -77,7 +81,9 @@ namespace Service.Services
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
+                CategoryName = product.CategoryName,
                 CategoryId = product.CategoryId,
+                SellerUsername = product.SellerUsername,
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
@@ -99,7 +105,9 @@ namespace Service.Services
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
+                CategoryName = product.CategoryName,
                 CategoryId = product.CategoryId,
+                SellerUsername = product.SellerUsername,
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
@@ -121,7 +129,9 @@ namespace Service.Services
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
+                CategoryName = product.CategoryName,
                 CategoryId = product.CategoryId,
+                SellerUsername = product.SellerUsername,
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
@@ -149,7 +159,9 @@ namespace Service.Services
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
+                CategoryName = product.CategoryName,
                 CategoryId = product.CategoryId,
+                SellerUsername = product.SellerUsername,
                 SellerId = product.SellerId,
                 DateCreated = product.DateCreated,
                 DateUpdated = product.DateUpdated,
@@ -175,7 +187,10 @@ namespace Service.Services
                     Title = comment.Title,
                     Text = comment.Text,
                     Rating = comment.Rating,
+                    ProductName = comment.ProductName,
                     ProductId = comment.ProductId,
+                    UserUsername = comment.UserUsername,
+                    UserId = comment.UserId,
                     DateCreated = comment.DateCreated,
                     DateUpdated = comment.DateUpdated,
                 }).ToList();
@@ -189,7 +204,9 @@ namespace Service.Services
                     Id = commentReply.Id,
                     Text = commentReply.Text,
                     CommentId = commentReply.CommentId,
+                    ProductName = commentReply.ProductName,
                     ProductId = commentReply.ProductId,
+                    SellerUsername = commentReply.SellerUsername,
                     SellerId = commentReply.SellerId,
                     DateCreated = commentReply.DateCreated,
                     DateUpdated = commentReply.DateUpdated,
@@ -203,12 +220,14 @@ namespace Service.Services
                 {
                     Id = like.Id,
                     CommentId = like.CommentId,
+                    ProductName = like.ProductName,
                     ProductId = like.ProductId,
+                    UserUsername = like.UserUsername,
                     UserId = like.UserId,
                     DateCreated = like.DateCreated,
                     DateUpdated = like.DateUpdated,
                 }).ToList();
-            } 
+            }
 
             ProductPageReadVm data = new()
             {
@@ -238,7 +257,9 @@ namespace Service.Services
                 Description = modelProduct.Description,
                 Price = modelProduct.Price,
                 Stock = modelProduct.Stock,
+                CategoryName = category.Name,
                 Category = category,
+                SellerUsername = seller.Username,
                 Seller = seller
             });
 

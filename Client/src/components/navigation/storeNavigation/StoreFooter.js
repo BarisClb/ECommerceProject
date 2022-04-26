@@ -7,8 +7,11 @@ function StoreFooter() {
 	const darkMode = useSelector((state) => state.common.DarkMode);
 	return (
 		<footer
+			id="store-footer"
 			className={`section-footer shadow ${
-				darkMode ? "bg-dark white-link-text" : "bg-white dark-link-text"
+				darkMode
+					? "bg-dark white-link-text"
+					: "bg-light dark-link-text store-nav-light"
 			}`}
 		>
 			<div className="container">

@@ -4,7 +4,6 @@ import Header from "../components/header/Header";
 import MainLayout from "../components/layout/MainLayout";
 import Table from "../components/table/Table";
 import { categoryActions } from "../store/actions/categoryActions";
-import { commentActions } from "../store/actions/commentActions";
 
 const Deneme = () => {
 	const dispatch = useDispatch();

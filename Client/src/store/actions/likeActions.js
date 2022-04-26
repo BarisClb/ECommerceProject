@@ -5,8 +5,9 @@ import { actionHelpers } from "./actionHelpers";
 // // LIKE VM
 
 // const likeCreate = {
-// 	UserId: 0,
-// 	CommentId: 0,
+// 	userId: 0,
+// 	commentId: 0,
+//		productId: 0,
 // };
 
 // GET LIKES

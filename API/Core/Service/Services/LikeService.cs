@@ -43,7 +43,9 @@ namespace Service.Services
             {
                 Id = like.Id,
                 CommentId = like.CommentId,
+                ProductName = like.ProductName,
                 ProductId = like.ProductId,
+                UserUsername = like.UserUsername,
                 UserId = like.UserId,
                 DateCreated = like.DateCreated,
                 DateUpdated = like.DateUpdated,
@@ -62,7 +64,9 @@ namespace Service.Services
             {
                 Id = like.Id,
                 CommentId = like.CommentId,
+                ProductName = like.ProductName,
                 ProductId = like.ProductId,
+                UserUsername = like.UserUsername,
                 UserId = like.UserId,
                 DateCreated = like.DateCreated,
                 DateUpdated = like.DateUpdated,
@@ -81,7 +85,9 @@ namespace Service.Services
             {
                 Id = like.Id,
                 CommentId = like.CommentId,
+                ProductName = like.ProductName,
                 ProductId = like.ProductId,
+                UserUsername = like.UserUsername,
                 UserId = like.UserId,
                 DateCreated = like.DateCreated,
                 DateUpdated = like.DateUpdated,
@@ -100,7 +106,9 @@ namespace Service.Services
             {
                 Id = like.Id,
                 CommentId = like.CommentId,
+                ProductName = like.ProductName,
                 ProductId = like.ProductId,
+                UserUsername = like.UserUsername,
                 UserId = like.UserId,
                 DateCreated = like.DateCreated,
                 DateUpdated = like.DateUpdated,
@@ -111,6 +119,10 @@ namespace Service.Services
 
         public async Task<BaseResponse> Post(LikeCreateVm modelLike)
         {
+            Like like = await _likeReadRepository.GetSingleAsync(like => like.CommentId == modelLike.CommentId && like.UserId == modelLike.UserId && like.ProductId == modelLike.ProductId);
+            if (like != null)
+                return new FailResponse("Like already exist.");
+
             Comment comment = await _commentReadRepository.GetByIdAsync(modelLike.CommentId);
             if (comment == null)
                 return new FailResponse("Comment does not exist.");
@@ -125,8 +137,10 @@ namespace Service.Services
 
             await _likeWriteRepository.AddAsync(new()
             {
+                UserUsername = user.Username,
                 User = user,
                 Comment = comment,
+                ProductName = product.Name,
                 Product = product,
             });
 

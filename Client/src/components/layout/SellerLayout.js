@@ -1,14 +1,15 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { commonAction } from "../../store/actions";
-import MainLayout from "./MainLayout";
 import "./css/index.css";
 import SellerSideNavigation from "../navigation/sellerNavigation/SellerSideNavigation";
 import { Outlet } from "react-router-dom";
 import SellerTopNavigation from "../navigation/sellerNavigation/SellerTopNavigation";
+import Loading from "../common/Loading";
 
 const SellerLayout = ({ children }) => {
 	const dispatch = useDispatch();
+	const common = useSelector((state) => state.common);
 	useEffect(() => {
 		dispatch(commonAction.asyncEnd());
 	}, []);
@@ -16,6 +17,7 @@ const SellerLayout = ({ children }) => {
 		<>
 			<SellerTopNavigation />
 			<SellerSideNavigation />
+			{common.IsLoading && <Loading />}
 			<div id="seller-content-wrapper">
 				{children}
 				<Outlet />

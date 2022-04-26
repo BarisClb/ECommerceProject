@@ -53,12 +53,6 @@
 	margin-right: 30px;
 }
 
-@media screen and (min-width: 767px) {
-	#admin-content-wrapper {
-		margin-left: 250px;
-	}
-}
-
 @media (max-width: 766px) {
 	#seller-sidenav {
 		width: 75px;

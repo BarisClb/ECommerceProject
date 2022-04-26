@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { productActions } from "../../../store/actions/productActions";
 import "./css/index.css";
 import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
@@ -52,23 +51,29 @@ const AddProductForm = (props) => {
 				Add
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Add Product</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem addFormName d-flex">
-						<label htmlFor="addForm-name" className="form-label">
+				<ModalHeader className="modal-form-item">Add Product</ModalHeader>
+				<ModalBody className="modal-form">
+					<div className="modal-form-item modal-form-name d-flex">
+						<label
+							htmlFor="modal-comment-add-form-name"
+							className="form-label"
+						>
 							Name
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="addForm-name"
+							id="modal-comment-add-form-name"
 							placeholder="Name"
 							value={nameValue}
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem addFormComment d-flex">
-						<label htmlFor="addForm-id" className="form-label">
+					<div className="modal-form-item modal-form-comment d-flex">
+						<label
+							htmlFor="modal-comment-add-form-comment"
+							className="form-label"
+						>
 							Comment
 						</label>
 						<Input
@@ -95,7 +100,7 @@ const AddProductForm = (props) => {
 							)}
 						</Input>
 					</div>
-					<div className="acdFormItem addform-unitPrice">
+					<div className="modal-form-item modal-form-unitPrice">
 						<label htmlFor="addForm-unitPrice" className="form-label">
 							Unit Price
 						</label>
@@ -133,7 +138,7 @@ const AddProductForm = (props) => {
 						className="btn btn-success form-input form-control"
 						onClick={() => navAddButtonComp()}
 					>
-						Add Product
+						Add Comment
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"

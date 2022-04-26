@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 import { commonAction } from "../../store/actions";
 import Loading from "../common/Loading";
-import AdminNavigation from "../navigation/AdminNavigation";
+import AdminSideNavigation from "../navigation/adminNavigation/AdminSideNavigation";
+import AdminTopNavigation from "../navigation/adminNavigation/AdminTopNavigation";
 import "./css/index.css";
 
 const AdminLayout = ({ children }) => {
@@ -13,9 +15,13 @@ const AdminLayout = ({ children }) => {
 	}, []);
 	return (
 		<>
-			<AdminNavigation />
+			<AdminTopNavigation />
+			<AdminSideNavigation />
 			{common.IsLoading && <Loading />}
-			{children}
+			<div id="admin-content-wrapper">
+				{children}
+				<Outlet />
+			</div>
 		</>
 	);
 };

@@ -19,6 +19,7 @@ const getHelper = async (entityName, entityId) => {
 		}
 	} catch (error) {
 		console.log(error);
+		return entityId ? {} : [];
 	}
 };
 

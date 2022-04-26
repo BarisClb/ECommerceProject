@@ -5,17 +5,17 @@ import { actionHelpers } from "./actionHelpers";
 // // ORDER VM
 
 // const orderCreate = {
-// 	Description: "", // OPTINAL
-// 	Address: "",
-// 	UserId: 0,
-// 	ProductId: 0,
+// 	description: "", // OPTINAL
+// 	address: "",
+// 	userId: 0,
+// 	productId: 0,
 // };
 
 // const orderUpdate = {
-// 	OrderId: 0,
-// 	Description: "", // OPTINAL
-// 	Address: "", // OPTINAL
-// 	OrderStatus: 0, // OPTINAL
+// 	id: 0,
+// 	description: "", // OPTINAL
+// 	address: "", // OPTINAL
+// 	orderStatus: 0, // OPTINAL
 // };
 
 // GET ORDERS

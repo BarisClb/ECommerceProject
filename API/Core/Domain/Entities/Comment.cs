@@ -22,11 +22,12 @@ namespace Domain.Entities
         public ICollection<Like>? Likes { get; set; }
 
         // Product - Commented Product
+        public string ProductName { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
         // User - Commenter User
-        public string Username { get; set; }
+        public string UserUsername { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
 

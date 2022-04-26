@@ -30,22 +30,27 @@ const DeleteCategoryForm = (props) => {
 				Delete
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Delete Category</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem deleteform-id">
-						<label htmlFor="deleteForm-id" className="form-label">
+				<ModalHeader className="modal-form-item">
+					Delete Category
+				</ModalHeader>
+				<ModalBody className="modal-form">
+					<div className="modal-form-item deleteform-id">
+						<label
+							htmlFor="modal-category-delete-form-category"
+							className="form-label"
+						>
 							Category
 						</label>
 						<Input
 							type="select"
 							className="form-control form-input"
-							id="deleteForm-id"
+							id="modal-category-delete-form-category"
 							placeholder="Category"
 							value={idValue}
 							onChange={(event) => idValueUpdate(event.target.value)}
 						>
 							<option value={-1}>Choose A Category To Delete</option>
-							{categories ? (
+							{categories[0] ? (
 								categories.map((category) => {
 									return (
 										<option key={category.id} value={category.id}>

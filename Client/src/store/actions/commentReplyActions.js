@@ -5,15 +5,15 @@ import { actionHelpers } from "./actionHelpers";
 // // COMMENTREPLY VM
 
 // const commentReplyCreate = {
-// 	Text: "",
-// 	CommentId: 0,
-// 	ProductId: 0,
-// 	SellerId: 0,
+// 	text: "",
+// 	commentId: 0,
+// 	productId: 0,
+// 	sellerId: 0,
 // };
 
 // const commentReplyUpdate = {
-// 	CommentReplyId: 0,
-// 	Text: "", // OPTINAL
+// 	id: 0,
+// 	text: "", // OPTINAL
 // };
 
 // GET COMMENTREPLIES

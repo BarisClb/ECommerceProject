@@ -93,10 +93,21 @@
 
 #store-content-wrapper {
 	min-height: calc(100vh - (80px + 312px));
+	display: flex;
+}
+
+.store-content-wrapper-dark {
+	background-color: gainsboro;
 }
 
 @media (max-width: 766px) {
 	#seller-content-wrapper {
 		padding-left: 75px;
+	}
+}
+
+@media screen and (min-width: 767px) {
+	#admin-content-wrapper {
+		margin-left: 250px;
 	}
 }

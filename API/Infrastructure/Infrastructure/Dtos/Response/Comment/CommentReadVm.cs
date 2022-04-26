@@ -12,9 +12,10 @@ namespace Infrastructure.Dtos.Response
         public string Title { get; set; }
         public string Text { get; set; }
         public int Rating { get; set; }
+        public string ProductName { get; set; }
         public int ProductId { get; set; }
+        public string UserUsername { get; set; }
         public int UserId { get; set; }
-        public string Username { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
     }

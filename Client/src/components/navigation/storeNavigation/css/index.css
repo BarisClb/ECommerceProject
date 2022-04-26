@@ -75,3 +75,19 @@ h5 {
 .navbar-nav .nav-item {
 	margin-bottom: 0;
 }
+
+#store-topnav-second {
+	border-bottom: 2px solid gray;
+}
+
+#store-footer {
+	border-top: 1px solid gray;
+}
+
+.store-nav-light {
+	background: rgba(0, 0, 0, 0.08) !important;
+}
+
+.store-navbar-light {
+	background: rgba(0, 0, 0, 0.1) !important;
+}

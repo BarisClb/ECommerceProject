@@ -5,21 +5,21 @@ import { actionHelpers } from "./actionHelpers";
 // // ORDER VM
 
 // const productCreate = {
-// 	Name: "",
-// 	Description: "",
-// 	Price: 0,
-// 	Stock: 0,
-// 	CategoryId: 0,
-// 	SellerId: 0,
+// 	name: "",
+// 	description: "",
+// 	price: 0,
+// 	stock: 0,
+// 	categoryId: 0,
+// 	sellerId: 0,
 // };
 
 // const productUpdate = {
-// 	ProductId: 0,
-// 	Name: "", // OPTINAL
-// 	Description: "", // OPTINAL
-// 	Stock: 0, // OPTINAL
-// 	CategoryId: 0, // OPTINAL
-// 	SellerId: 0, // OPTINAL
+// 	id: 0,
+// 	name: "", // OPTINAL
+// 	description: "", // OPTINAL
+// 	stock: 0, // OPTINAL
+// 	categoryId: 0, // OPTINAL
+// 	sellerId: 0, // OPTINAL
 // };
 
 // GET PRODUCTS

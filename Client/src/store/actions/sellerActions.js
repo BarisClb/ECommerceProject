@@ -5,18 +5,18 @@ import { actionHelpers } from "./actionHelpers";
 // // SELLER VM
 
 // const sellerCreate = {
-// 	Name: "",
-// 	Username: "",
-// 	EMail: "",
-// 	Password: "",
+// 	name: "",
+// 	username: "",
+// 	eMail: "",
+// 	password: "",
 // };
 
 // const sellerUpdate = {
-// 	SellerId: 0,
-// 	Name: "", // OPTINAL
-// 	Username: "", // OPTINAL
-// 	EMail: "", // OPTINAL
-// 	Password: "", // OPTINAL
+// 	id: 0,
+// 	name: "", // OPTINAL
+// 	username: "", // OPTINAL
+// 	eMail: "", // OPTINAL
+// 	password: "", // OPTINAL
 // };
 
 // GET SELLERS

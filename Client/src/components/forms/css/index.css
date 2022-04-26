@@ -1,4 +1,4 @@
-.acdForm {
+.modal-form {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -6,17 +6,21 @@
 	padding-bottom: 25px !important;
 }
 
-.acdFormItem {
+.modal-form-item {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	font-size: 1.25rem;
 }
 
-.acdForm > .btn {
+.modal-form > .btn {
 	align-self: center;
 }
 
-.modal-footer {
+.modal-form-footer {
 	flex-wrap: nowrap !important;
+}
+
+.form-input {
+	width: 100%;
 }
