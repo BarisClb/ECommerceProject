@@ -286,6 +286,14 @@ namespace Service.Services
                 int categoryId = (int)modelProduct.CategoryId;
                 Category category = await _categoryReadRepository.GetByIdAsync(categoryId);
                 product.Category = category;
+                product.CategoryName = category.Name;
+            }
+            if (modelProduct.SellerId != null)
+            {
+                int sellerId = (int)modelProduct.SellerId;
+                Seller seller = await _sellerReadRepository.GetByIdAsync(sellerId);
+                product.Seller = seller;
+                product.SellerUsername = seller.Username;
             }
 
             await _productWriteRepository.SaveAsync();

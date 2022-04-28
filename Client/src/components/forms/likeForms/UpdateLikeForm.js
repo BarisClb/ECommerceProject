@@ -16,7 +16,7 @@ const UpdateLikeForm = (props) => {
 			<Modal isOpen={modal} toggle={toggle} centered>
 				<ModalHeader className="acdFormItem">Update Like</ModalHeader>
 				<ModalBody className="acdForm">
-					<div className="acdFormItem d-flex">
+					<div className="modal-form-item">
 						<label htmlFor="updateForm-id" className="form-label">
 							Updating Likes is not supported.
 						</label>

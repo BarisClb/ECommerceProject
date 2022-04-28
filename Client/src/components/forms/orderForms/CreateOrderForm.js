@@ -3,7 +3,7 @@ import "./css/index.css";
 import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const AddUserForm = (props) => {
+const CreateOrderForm = (props) => {
 	// FORM DATA
 	const [nameValue, setNameValue] = useState("");
 	const [descriptionValue, setDescriptionValue] = useState("");
@@ -19,9 +19,9 @@ const AddUserForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navAddButtonComp = () => {
-		if (props.navAddButtonClick) {
-			props.navAddButtonClick({
+	const navCreateButtonClick = () => {
+		if (props.navCreateButtonClick) {
+			props.navCreateButtonClick({
 				name: nameValue,
 				description: descriptionValue,
 			});
@@ -37,22 +37,25 @@ const AddUserForm = (props) => {
 				Add
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Add User</ModalHeader>
+				<ModalHeader className="acdFormItem">Add Order</ModalHeader>
 				<ModalBody className="acdForm">
-					<div className="acdFormItem addFormName d-flex">
-						<label htmlFor="addForm-name" className="form-label">
+					<div className="acdFormItem addFormName">
+						<label
+							htmlFor="modal-order-create-form-name"
+							className="form-label"
+						>
 							Name
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="addForm-name"
+							id="modal-order-create-form-name"
 							placeholder="Name"
 							value={nameValue}
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem addFormDescription d-flex">
+					<div className="acdFormItem addFormDescription">
 						<label htmlFor="addForm-name" className="form-label">
 							Description
 						</label>
@@ -71,9 +74,9 @@ const AddUserForm = (props) => {
 				<ModalFooter>
 					<button
 						className="btn btn-success form-input form-control"
-						onClick={() => navAddButtonComp()}
+						onClick={() => navCreateButtonClick()}
 					>
-						Add User
+						Add Order
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"
@@ -87,4 +90,4 @@ const AddUserForm = (props) => {
 	);
 };
 
-export default AddUserForm;
+export default CreateOrderForm;

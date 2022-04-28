@@ -5,7 +5,6 @@ import DummySingleProduct from "../../components/store/DummySingleProduct";
 import ProductNotFound from "../../components/store/ProductNotFound";
 import SingleProduct from "../../components/store/SingleProduct";
 import { productActions } from "../../store/actions/productActions";
-import { categoryActions } from "../../store/actions/categoryActions";
 
 function StoreSingleProduct() {
 	// DATA

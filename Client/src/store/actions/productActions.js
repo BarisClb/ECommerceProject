@@ -92,13 +92,13 @@ const getProductsBySeller = (sellerId, successCallback) => {
 
 // ADD PRODUCT
 
-const addProduct = (newProduct, successCallback) => {
+const createProduct = (newProduct, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.addHelper("Products", newProduct);
+		let response = await actionHelpers.createHelper("Products", newProduct);
 
-		dispatch({ type: productTypes.AddProduct });
+		dispatch({ type: productTypes.CreateProduct });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -152,7 +152,7 @@ export const productActions = {
 	getProducts,
 	getProductsByCategory,
 	getProductsBySeller,
-	addProduct,
+	createProduct,
 	updateProduct,
 	deleteProduct,
 };

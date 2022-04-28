@@ -95,7 +95,9 @@ namespace Service.Services
 
             // Admin Validation with Custom Admin Password
             bool admin = false;
-            if (AccountValidator.CheckAdmin(modelUser.Admin))
+            if (modelUser.Admin != null)
+                admin = (bool)modelUser.Admin;
+            if (modelUser.AdminPassword != null && AccountValidator.CheckAdmin(modelUser.AdminPassword))
                 admin = true;
 
             await _userWriteRepository.AddAsync(new()
@@ -138,8 +140,10 @@ namespace Service.Services
             if (modelUser.Password != null)
                 user.Password = modelUser.Password;
             if (modelUser.Admin != null)
+                user.Admin = (bool)modelUser.Admin;
+            if (modelUser.AdminPassword != null)
             {
-                if (AccountValidator.CheckAdmin(modelUser.Admin))
+                if (AccountValidator.CheckAdmin(modelUser.AdminPassword))
                     user.Admin = true;
 
                 else { user.Admin = false; }

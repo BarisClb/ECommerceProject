@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./css/index.css";
 import MiniCart from "./MiniCart";
-//#region Add Forms
-import AddCategoryForm from "../forms/categoryForms/AddCategoryForm";
-import AddCommentForm from "../forms/commentForms/AddCommentForm";
-import AddCommentReplyForm from "../forms/commentReplyForms/AddCommentReplyForm";
-import AddLikeForm from "../forms/likeForms/AddLikeForm";
-import AddOrderForm from "../forms/orderForms/AddOrderForm";
-import AddProductForm from "../forms/productForms/AddProductForm";
-import AddSellerForm from "../forms/sellerForms/AddSellerForm";
-import AddUserForm from "../forms/userForms/AddUserForm";
+//#region Create Forms
+import CreateCategoryForm from "../forms/categoryForms/CreateCategoryForm";
+import CreateCommentForm from "../forms/commentForms/CreateCommentForm";
+import CreateCommentReplyForm from "../forms/commentReplyForms/CreateCommentReplyForm";
+import CreateLikeForm from "../forms/likeForms/CreateLikeForm";
+import CreateOrderForm from "../forms/orderForms/CreateOrderForm";
+import CreateProductForm from "../forms/productForms/CreateProductForm";
+import CreateSellerForm from "../forms/sellerForms/CreateSellerForm";
+import CreateUserForm from "../forms/userForms/CreateUserForm";
 //#endregion
 //#region Update Forms
 import UpdateCategoryForm from "../forms/categoryForms/UpdateCategoryForm";
@@ -99,14 +99,14 @@ const Table = (props) => {
 	const [tableCustomButtonColor2] = useState(props.tableCustomButtonColor2);
 	const [tableCustomButtonColor3] = useState(props.tableCustomButtonColor3);
 	// Nav Buttons
-	const [navAddButton] = useState(props.navAddButton);
+	const [navCreateButton] = useState(props.navCreateButton);
 	const [navUpdateButton] = useState(props.navUpdateButton);
 	const [navDeleteButton] = useState(props.navDeleteButton);
 	const [navCustomButton] = useState(props.navCustomButton);
 	// Nav Button Clicks
-	const navAddButtonClick = (newData) => {
-		if (props.navAddButtonClick) {
-			props.navAddButtonClick(newData);
+	const navCreateButtonClick = (newData) => {
+		if (props.navCreateButtonClick) {
+			props.navCreateButtonClick(newData);
 		}
 		setAddForm(!addForm);
 		setUpdateForm(false);
@@ -156,27 +156,45 @@ const Table = (props) => {
 		);
 	};
 	// Modals
-	//#region AddForm
-	const navAddForm = () => {
+	//#region CreateForm
+	const navCreateForm = () => {
 		switch (isNav) {
 			case "Category":
-				return <AddCategoryForm navAddButtonClick={navAddButtonClick} />;
+				return (
+					<CreateCategoryForm
+						navCreateButtonClick={navCreateButtonClick}
+					/>
+				);
 			case "Comment":
-				return <AddCommentForm navAddButtonClick={navAddButtonClick} />;
+				return (
+					<CreateCommentForm navCreateButtonClick={navCreateButtonClick} />
+				);
 			case "CommentReply":
 				return (
-					<AddCommentReplyForm navAddButtonClick={navAddButtonClick} />
+					<CreateCommentReplyForm
+						navCreateButtonClick={navCreateButtonClick}
+					/>
 				);
 			case "Like":
-				return <AddLikeForm navAddButtonClick={navAddButtonClick} />;
+				return (
+					<CreateLikeForm navCreateButtonClick={navCreateButtonClick} />
+				);
 			case "Order":
-				return <AddOrderForm navAddButtonClick={navAddButtonClick} />;
+				return (
+					<CreateOrderForm navCreateButtonClick={navCreateButtonClick} />
+				);
 			case "Product":
-				return <AddProductForm navAddButtonClick={navAddButtonClick} />;
+				return (
+					<CreateProductForm navCreateButtonClick={navCreateButtonClick} />
+				);
 			case "Seller":
-				return <AddSellerForm navAddButtonClick={navAddButtonClick} />;
+				return (
+					<CreateSellerForm navCreateButtonClick={navCreateButtonClick} />
+				);
 			case "User":
-				return <AddUserForm navAddButtonClick={navAddButtonClick} />;
+				return (
+					<CreateUserForm navCreateButtonClick={navCreateButtonClick} />
+				);
 			default:
 				break;
 		}
@@ -281,6 +299,7 @@ const Table = (props) => {
 	const [modalData, setModalData] = useState();
 	const [modalAction, setModalAction] = useState();
 
+	//#region ModalToggle
 	const modalToggle = (data, action) => {
 		setModalData(data);
 		setModalAction(action);
@@ -312,6 +331,7 @@ const Table = (props) => {
 		}
 		setModal(!modal);
 	};
+	//#endregion
 
 	// UseEffect
 	// Updating the Values
@@ -334,10 +354,10 @@ const Table = (props) => {
 				<nav className="navbar table-nav navbar-light bg-secondary">
 					<div className="container-fluid">
 						<div className="navbar-buttons">
-							{(navAddButton || navUpdateButton || navDeleteButton) && (
-								<span>Operations:</span>
-							)}
-							{navAddButton && navAddForm()}
+							{(navCreateButton ||
+								navUpdateButton ||
+								navDeleteButton) && <span>Operations:</span>}
+							{navCreateButton && navCreateForm()}
 							{navUpdateButton && navUpdateForm()}
 							{navDeleteButton && navDeleteForm()}
 							{navCustomButton && (
@@ -407,10 +427,11 @@ const Table = (props) => {
 							return (
 								<tr key={data.id ? data.id : index}>
 									<th scope="row">{isAdmin ? data.id : index + 1}</th>
-									{tableData && <td>{data[tableData]}</td>}
-									{tableData2 && <td>{data[tableData2]}</td>}
-									{tableData3 && <td>{data[tableData3]}</td>}
-									{tableData4 && <td>{data[tableData4]}</td>}
+									{/* Used Template Literals to turn Booleans into String, they are not visible otherwise */}
+									{tableData && <td>{`${data[tableData]}`}</td>}
+									{tableData2 && <td>{`${data[tableData2]}`}</td>}
+									{tableData3 && <td>{`${data[tableData3]}`}</td>}
+									{tableData4 && <td>{`${data[tableData4]}`}</td>}
 									{tableButtons && (
 										<td className="table-buttons text-end">
 											{tableAddButton && (
@@ -506,7 +527,9 @@ const Table = (props) => {
 				</ModalBody>
 				<ModalFooter>
 					<button
-						className="btn btn-warning form-input form-control"
+						className={`btn btn-${
+							modalAction === "Delete" ? "danger" : "warning"
+						} form-input form-control`}
 						onClick={modalToggle2}
 					>
 						Yes

@@ -14,14 +14,33 @@ function AdminComments() {
 
 	const comments = useSelector((state) => state.comment.comments);
 
-	const navAddCommentComp = async (newComment) => {
-		dispatch(commentActions.addComment(newComment));
+	const navCreateCommentClick = async (newComment) => {
+		dispatch(
+			commentActions.createComment(newComment, commentActions.getComments())
+		);
 	};
-	const navUpdateCommentComp = (oldComment, newComment) => {
-		dispatch(commentActions.updateComment(oldComment, newComment));
+	const navUpdateCommentClick = (commentId, updatedComment) => {
+		dispatch(
+			commentActions.updateComment(
+				commentId,
+				updatedComment,
+				commentActions.getComments()
+			)
+		);
 	};
-	const navDeleteCommentComp = (oldComment) => {
-		dispatch(commentActions.deleteComment(oldComment));
+	const navDeleteCommentClick = (oldComment) => {
+		dispatch(
+			commentActions.deleteComment(oldComment, commentActions.getComments())
+		);
+	};
+
+	const tableDeleteButtonClick = (oldComment) => {
+		dispatch(
+			commentActions.deleteComment(
+				oldComment.id,
+				commentActions.getComments()
+			)
+		);
 	};
 
 	return (
@@ -31,7 +50,7 @@ function AdminComments() {
 				<Table
 					// The Data
 					apiData={comments}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"Title"}
 					tableHead2={"Text"}
@@ -53,15 +72,16 @@ function AdminComments() {
 					tableDeleteButton={true}
 					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Comment"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={false}
-					navUpdateButtonClick={false}
-					navDeleteButtonClick={false}
+					navCreateButtonClick={navCreateCommentClick}
+					navUpdateButtonClick={navUpdateCommentClick}
+					navDeleteButtonClick={navDeleteCommentClick}
 				/>
 			</div>
 		</div>

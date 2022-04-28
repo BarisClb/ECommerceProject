@@ -66,7 +66,7 @@ const UpdateCommentReplyForm = (props) => {
 					Update CommentReply
 				</ModalHeader>
 				<ModalBody className="acdForm">
-					<div className="acdFormItem updateFormOldDescription d-flex">
+					<div className="acdFormItem updateFormOldDescription">
 						<label htmlFor="updateForm-id" className="form-label">
 							Old CommentReply
 						</label>
@@ -95,7 +95,7 @@ const UpdateCommentReplyForm = (props) => {
 							)}
 						</Input>
 					</div>
-					<div className="acdFormItem updateFormNewName d-flex">
+					<div className="acdFormItem updateFormNewName">
 						<label htmlFor="updateForm-name" className="form-label">
 							Name
 						</label>
@@ -108,7 +108,7 @@ const UpdateCommentReplyForm = (props) => {
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem updateFormNewDescription d-flex">
+					<div className="acdFormItem updateFormNewDescription">
 						<label
 							htmlFor="updateForm-description"
 							className="form-label"

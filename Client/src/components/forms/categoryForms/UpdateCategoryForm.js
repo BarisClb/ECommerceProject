@@ -6,10 +6,12 @@ import { useSelector } from "react-redux";
 
 const UpdateCategoryForm = (props) => {
 	// FORM DATA
-	const [idValue, setIdValue] = useState(-1);
+	const categories = useSelector((state) => state.category.categories);
+
+	const [idValue, setIdValue] = useState(0);
 	const idValueUpdate = (newCategoryId) => {
 		setIdValue(newCategoryId);
-		if (newCategoryId >= 0) {
+		if (newCategoryId > 0) {
 			let category = categories.find(
 				(category) => category.id === Number.parseInt(newCategoryId)
 			);
@@ -21,27 +23,14 @@ const UpdateCategoryForm = (props) => {
 		}
 	};
 	const [nameValue, setNameValue] = useState("");
-	const nameValueUpdate = (newNameValue) => {
-		setNameValue(newNameValue);
-	};
 	const [descriptionValue, setDescriptionValue] = useState("");
-	const descriptionValueUpdate = (newDescriptionValue) => {
-		setDescriptionValue(newDescriptionValue);
-	};
-
-	const categories = useSelector((state) => state.category.categories);
 
 	// Modal
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
 	const navUpdateButtonClick = () => {
-		if (
-			props.navUpdateButtonClick &&
-			idValue >= 0 &&
-			nameValue &&
-			descriptionValue
-		) {
+		if (props.navUpdateButtonClick && idValue > 0) {
 			let updatedCategory = {};
 			if (changeName) {
 				updatedCategory = { ...updatedCategory, name: nameValue };
@@ -56,7 +45,7 @@ const UpdateCategoryForm = (props) => {
 				...updatedCategory,
 			});
 		}
-		setIdValue(-1);
+		setIdValue(0);
 		setNameValue("");
 		setDescriptionValue("");
 		toggle();
@@ -77,13 +66,13 @@ const UpdateCategoryForm = (props) => {
 					Update Category
 				</ModalHeader>
 				<ModalBody className="modal-form">
-					{/* CATEGORY TO CHANGE */}
-					<div className="modal-form-item modal-form-old-category d-flex">
+					{/* CATEGORY ID */}
+					<div className="modal-form-item modal-form-old-category">
 						<label
 							htmlFor="modal-category-update-form-category"
 							className="form-label"
 						>
-							Old Category
+							Category
 						</label>
 						<Input
 							type="select"
@@ -93,7 +82,7 @@ const UpdateCategoryForm = (props) => {
 							value={idValue}
 							onChange={(event) => idValueUpdate(event.target.value)}
 						>
-							<option value={-1}>Choose a Category to Update</option>
+							<option value={0}>Choose a Category to Update</option>
 							{categories[0] ? (
 								categories.map((category) => {
 									return (
@@ -107,8 +96,8 @@ const UpdateCategoryForm = (props) => {
 							)}
 						</Input>
 					</div>
-					{/* NAME */}
-					<div className="modal-form-item modal-form-name d-flex">
+					{/* CATEGORY NAME */}
+					<div className="modal-form-item modal-form-name">
 						<label
 							htmlFor="modal-category-update-form-name"
 							className="form-label"
@@ -121,7 +110,7 @@ const UpdateCategoryForm = (props) => {
 							id="modal-category-update-form-name"
 							placeholder="New Name"
 							value={nameValue}
-							onChange={(event) => nameValueUpdate(event.target.value)}
+							onChange={(event) => setNameValue(event.target.value)}
 							disabled={!changeName}
 						/>
 						<div className="form-check">
@@ -140,8 +129,8 @@ const UpdateCategoryForm = (props) => {
 							</label>
 						</div>
 					</div>
-					{/* DESCRIPTION */}
-					<div className="modal-form-item modal-form-description d-flex">
+					{/* CATEGORY DESCRIPTION */}
+					<div className="modal-form-item modal-form-description">
 						<label
 							htmlFor="modal-category-update-form-description"
 							className="form-label"
@@ -155,7 +144,7 @@ const UpdateCategoryForm = (props) => {
 							placeholder="New Description"
 							value={descriptionValue}
 							onChange={(event) =>
-								descriptionValueUpdate(event.target.value)
+								setDescriptionValue(event.target.value)
 							}
 							disabled={!changeDescription}
 						/>

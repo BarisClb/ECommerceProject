@@ -30,31 +30,31 @@ function SellerProducts() {
 					// Table Content
 					// Table Headings
 					tableHead={"Product"}
-					tableHead2={"Category"}
-					tableHead3={"Unit Price"}
-					tableHead4={"Units In Stock"}
+					tableHead2={"Description"}
+					tableHead3={"Category"}
+					tableHead4={"Seller"}
 					buttonHeadName={"Operations"}
 					// Table Datas
 					tableData={"name"}
-					tableData2={"category"}
-					tableData3={"unitPrice"}
-					tableData4={"unitsInStock"}
+					tableData2={"description"}
+					tableData3={"categoryName"}
+					tableData4={"sellerUsername"}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
 					tableUpdateButton={false}
-					tableDeleteButton={false}
+					tableDeleteButton={true}
 					// Table Button Actions
 					tableAddButtonClick={false}
 					tableUpdateButtonClick={false}
 					tableDeleteButtonClick={false}
 					// Nav
 					isNav={"Product"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Action
-					navAddButtonClick={false}
+					navCreateButtonClick={false}
 					navUpdateButtonClick={false}
 					navDeleteButtonClick={false}
 					// Special

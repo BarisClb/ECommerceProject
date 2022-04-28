@@ -3,7 +3,7 @@ import "./css/index.css";
 import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const AddOrderForm = (props) => {
+const CreateCommentReplyForm = (props) => {
 	// FORM DATA
 	const [nameValue, setNameValue] = useState("");
 	const [descriptionValue, setDescriptionValue] = useState("");
@@ -19,9 +19,9 @@ const AddOrderForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navAddButtonComp = () => {
-		if (props.navAddButtonClick) {
-			props.navAddButtonClick({
+	const navCreateButtonClick = () => {
+		if (props.navCreateButtonClick) {
+			props.navCreateButtonClick({
 				name: nameValue,
 				description: descriptionValue,
 			});
@@ -37,9 +37,9 @@ const AddOrderForm = (props) => {
 				Add
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Add Order</ModalHeader>
+				<ModalHeader className="acdFormItem">Add CommentReply</ModalHeader>
 				<ModalBody className="acdForm">
-					<div className="acdFormItem addFormName d-flex">
+					<div className="acdFormItem addFormName">
 						<label htmlFor="addForm-name" className="form-label">
 							Name
 						</label>
@@ -52,7 +52,7 @@ const AddOrderForm = (props) => {
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem addFormDescription d-flex">
+					<div className="acdFormItem addFormDescription">
 						<label htmlFor="addForm-name" className="form-label">
 							Description
 						</label>
@@ -71,9 +71,9 @@ const AddOrderForm = (props) => {
 				<ModalFooter>
 					<button
 						className="btn btn-success form-input form-control"
-						onClick={() => navAddButtonComp()}
+						onClick={() => navCreateButtonClick()}
 					>
-						Add Order
+						Add CommentReply
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"
@@ -87,4 +87,4 @@ const AddOrderForm = (props) => {
 	);
 };
 
-export default AddOrderForm;
+export default CreateCommentReplyForm;

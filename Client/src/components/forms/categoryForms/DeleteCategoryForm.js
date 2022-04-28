@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const DeleteCategoryForm = (props) => {
 	// FORM DATA
-	const [idValue, setIdValue] = useState(-1);
+	const [idValue, setIdValue] = useState(0);
 	const idValueUpdate = (newCategoryId) => {
 		setIdValue(newCategoryId);
 	};
@@ -17,11 +17,11 @@ const DeleteCategoryForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navDeleteButtonComp = () => {
-		if (props.navDeleteButtonClick && idValue >= 0) {
+	const navDeleteButtonClick = () => {
+		if (props.navDeleteButtonClick && idValue > 0) {
 			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
-		setIdValue(-1);
+		setIdValue(0);
 		toggle();
 	};
 	return (
@@ -34,6 +34,7 @@ const DeleteCategoryForm = (props) => {
 					Delete Category
 				</ModalHeader>
 				<ModalBody className="modal-form">
+					{/* CATEGORY ID */}
 					<div className="modal-form-item deleteform-id">
 						<label
 							htmlFor="modal-category-delete-form-category"
@@ -49,7 +50,7 @@ const DeleteCategoryForm = (props) => {
 							value={idValue}
 							onChange={(event) => idValueUpdate(event.target.value)}
 						>
-							<option value={-1}>Choose A Category To Delete</option>
+							<option value={0}>Choose A Category To Delete</option>
 							{categories[0] ? (
 								categories.map((category) => {
 									return (
@@ -67,7 +68,7 @@ const DeleteCategoryForm = (props) => {
 				<ModalFooter>
 					<button
 						className="btn btn-danger form-input form-control"
-						onClick={() => navDeleteButtonComp()}
+						onClick={() => navDeleteButtonClick()}
 					>
 						Delete Category
 					</button>

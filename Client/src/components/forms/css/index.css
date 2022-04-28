@@ -24,3 +24,10 @@
 .form-input {
 	width: 100%;
 }
+
+.get-entity-to-update-button,
+.get-entity-to-delete-button {
+	margin-top: 0.5rem;
+	padding: 5px 10px;
+	font-size: 0.9rem;
+}

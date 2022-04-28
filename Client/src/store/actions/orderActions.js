@@ -42,13 +42,13 @@ const getOrders = (orderId, successCallback) => {
 
 // ADD ORDER
 
-const addOrder = (newOrder, successCallback) => {
+const createOrder = (newOrder, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.addHelper("Orders", newOrder);
+		let response = await actionHelpers.createHelper("Orders", newOrder);
 
-		dispatch({ type: orderTypes.AddOrder });
+		dispatch({ type: orderTypes.CreateOrder });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -100,7 +100,7 @@ const deleteOrder = (orderId, successCallback) => {
 
 export const orderActions = {
 	getOrders,
-	addOrder,
+	createOrder,
 	updateOrder,
 	deleteOrder,
 };

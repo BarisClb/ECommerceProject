@@ -11,7 +11,7 @@ export default function orderReducer(
 		case orderTypes.GetSingleOrder:
 			return { ...state, singleOrder: action.payload };
 
-		case orderTypes.AddOrder:
+		case orderTypes.CreateOrder:
 			return state;
 
 		case orderTypes.UpdateOrder:

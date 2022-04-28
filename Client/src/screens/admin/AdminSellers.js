@@ -14,14 +14,30 @@ function AdminSellers() {
 
 	const sellers = useSelector((state) => state.seller.sellers);
 
-	const navAddSellerComp = async (newSeller) => {
-		dispatch(sellerActions.addSeller(newSeller));
+	const navCreateSellerClick = async (newSeller) => {
+		dispatch(
+			sellerActions.createSeller(newSeller, sellerActions.getSellers())
+		);
 	};
-	const navUpdateSellerComp = (oldSeller, newSeller) => {
-		dispatch(sellerActions.updateSeller(oldSeller, newSeller));
+	const navUpdateSellerClick = (sellerId, updatedSeller) => {
+		dispatch(
+			sellerActions.updateSeller(
+				sellerId,
+				updatedSeller,
+				sellerActions.getSellers()
+			)
+		);
 	};
-	const navDeleteSellerComp = (oldSeller) => {
-		dispatch(sellerActions.deleteSeller(oldSeller));
+	const navDeleteSellerClick = (oldSeller) => {
+		dispatch(
+			sellerActions.deleteSeller(oldSeller, sellerActions.getSellers())
+		);
+	};
+
+	const tableDeleteButtonClick = (oldSeller) => {
+		dispatch(
+			sellerActions.deleteSeller(oldSeller.id, sellerActions.getSellers())
+		);
 	};
 
 	return (
@@ -31,7 +47,7 @@ function AdminSellers() {
 				<Table
 					// The Data
 					apiData={sellers}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"Name"}
 					tableHead2={"Username"}
@@ -45,23 +61,24 @@ function AdminSellers() {
 					tableData4={false}
 					// Special
 					isAdmin={true}
-					isCategories={true}
+					isSellers={true}
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Seller"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddSellerComp}
-					navUpdateButtonClick={navUpdateSellerComp}
-					navDeleteButtonClick={navDeleteSellerComp}
+					navCreateButtonClick={navCreateSellerClick}
+					navUpdateButtonClick={navUpdateSellerClick}
+					navDeleteButtonClick={navDeleteSellerClick}
 				/>
 			</div>
 		</div>

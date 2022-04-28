@@ -14,16 +14,24 @@ function AdminOrders() {
 
 	const orders = useSelector((state) => state.order.orders);
 
-	const navAddOrderComp = async (newOrder) => {
-		dispatch(orderActions.addOrder(newOrder));
+	const navCreateOrderClick = async (newOrder) => {
+		dispatch(orderActions.createOrder(newOrder, orderActions.getOrders()));
+	};
+	const navUpdateOrderClick = (orderId, updatedOrder) => {
+		dispatch(
+			orderActions.updateOrder(
+				orderId,
+				updatedOrder,
+				orderActions.getOrders()
+			)
+		);
+	};
+	const navDeleteOrderClick = (oldOrder) => {
+		dispatch(orderActions.deleteOrder(oldOrder, orderActions.getOrders()));
 	};
 
-	const navUpdateOrderComp = async (newOrder) => {
-		dispatch(orderActions.updateOrder(newOrder));
-	};
-
-	const navDeleteOrderComp = (oldOrder) => {
-		dispatch(orderActions.deleteOrder(oldOrder));
+	const tableDeleteButtonClick = (oldOrder) => {
+		dispatch(orderActions.deleteOrder(oldOrder.id, orderActions.getOrders()));
 	};
 
 	return (
@@ -33,7 +41,7 @@ function AdminOrders() {
 				<Table
 					// The Data
 					apiData={orders}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"UserId"}
 					tableHead2={"ProductId"}
@@ -55,15 +63,16 @@ function AdminOrders() {
 					tableDeleteButton={true}
 					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Order"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddOrderComp}
-					navUpdateButtonClick={navUpdateOrderComp}
-					navDeleteButtonClick={navDeleteOrderComp}
+					navCreateButtonClick={navCreateOrderClick}
+					navUpdateButtonClick={navUpdateOrderClick}
+					navDeleteButtonClick={navDeleteOrderClick}
 				/>
 			</div>
 		</div>

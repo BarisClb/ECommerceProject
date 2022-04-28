@@ -11,7 +11,7 @@ export default function categoryReducer(
 		case categoryTypes.GetSingleCategory:
 			return { ...state, singleCategory: action.payload };
 
-		case categoryTypes.AddCategory:
+		case categoryTypes.CreateCategory:
 			return state;
 
 		case categoryTypes.UpdateCategory:

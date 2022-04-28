@@ -9,7 +9,8 @@ import { actionHelpers } from "./actionHelpers";
 // 	username: "",
 // 	eMail: "",
 // 	password: "",
-// 	admin: "", // ADMIN PASSWORD CHECK
+//		admin: false, // DIRECT ADMIN ACCESS FOR ADMINS // OPTINAL
+// 	adminPassword: "", // ADMIN PASSWORD CHECK // OPTINAL
 // };
 
 // const userUpdate = {
@@ -18,7 +19,8 @@ import { actionHelpers } from "./actionHelpers";
 // 	username: "", // OPTINAL
 // 	eMail: "", // OPTINAL
 // 	password: "", // OPTINAL
-// 	admin: "", // ADMIN PASSWORD CHECK
+//		admin: false, // OPTINAL -> DIRECT ACCESS FOR ADMINS -> NORMAL USER SHOULD 'TRY' adminPassword
+// 	adminPassword: "", // ADMIN PASSWORD CHECK // OPTINAL
 // };
 
 // GET USERS
@@ -45,13 +47,13 @@ const getUsers = (userId, successCallback) => {
 
 // ADD USER
 
-const addUser = (newUser, successCallback) => {
+const createUser = (newUser, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.addHelper("Users", newUser);
+		let response = await actionHelpers.createHelper("Users", newUser);
 
-		dispatch({ type: userTypes.AddUser });
+		dispatch({ type: userTypes.CreateUser });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -103,7 +105,7 @@ const deleteUser = (userId, successCallback) => {
 
 export const userActions = {
 	getUsers,
-	addUser,
+	createUser,
 	updateUser,
 	deleteUser,
 };

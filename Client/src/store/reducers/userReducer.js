@@ -11,7 +11,7 @@ export default function userReducer(
 		case userTypes.GetSingleUser:
 			return { ...state, singleUser: action.payload };
 
-		case userTypes.AddUser:
+		case userTypes.CreateUser:
 			return state;
 
 		case userTypes.UpdateUser:

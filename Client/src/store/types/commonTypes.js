@@ -5,4 +5,5 @@ export const commonTypes = {
 	ClearError: "COMMON.CLEARERROR",
 	GlobalError: "COMMON.GLOBALERROR",
 	DarkMode: "DARK_MODE_TOGGLE",
+	EntityToUpdate: "ENTITY_TO_UPDATE",
 };

@@ -14,14 +14,33 @@ const AdminProducts = () => {
 
 	const products = useSelector((state) => state.product.products);
 
-	const navAddProductComp = async (newProduct) => {
-		dispatch(productActions.addProduct(newProduct));
+	const navCreateProductClick = async (newProduct) => {
+		dispatch(
+			productActions.createProduct(newProduct, productActions.getProducts())
+		);
 	};
-	const navUpdateProductComp = (oldProduct, newProduct) => {
-		dispatch(productActions.updateProduct(oldProduct, newProduct));
+	const navUpdateProductClick = (productId, updatedProduct) => {
+		dispatch(
+			productActions.updateProduct(
+				productId,
+				updatedProduct,
+				productActions.getProducts()
+			)
+		);
 	};
-	const navDeleteProductComp = (oldProduct) => {
-		dispatch(productActions.deleteProduct(oldProduct));
+	const navDeleteProductClick = (oldProduct) => {
+		dispatch(
+			productActions.deleteProduct(oldProduct, productActions.getProducts())
+		);
+	};
+
+	const tableDeleteButtonClick = (oldProduct) => {
+		dispatch(
+			productActions.deleteProduct(
+				oldProduct.id,
+				productActions.getProducts()
+			)
+		);
 	};
 
 	return (
@@ -31,37 +50,38 @@ const AdminProducts = () => {
 				<Table
 					// The Data
 					apiData={products}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"Product"}
-					tableHead2={"Price"}
-					tableHead3={"Stock"}
-					tableHead4={"SellerId"}
+					tableHead2={"Description"}
+					tableHead3={"Category"}
+					tableHead4={"Seller"}
 					buttonHeadName={"Operations"}
 					// Table Datas
 					tableData={"name"}
-					tableData2={"price"}
-					tableData3={"stock"}
-					tableData4={"sellerId"}
+					tableData2={"description"}
+					tableData3={"categoryName"}
+					tableData4={"sellerUsername"}
 					// Special
 					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Product"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={false}
-					navUpdateButtonClick={false}
-					navDeleteButtonClick={false}
+					navCreateButtonClick={navCreateProductClick}
+					navUpdateButtonClick={navUpdateProductClick}
+					navDeleteButtonClick={navDeleteProductClick}
 				/>
 			</div>
 		</div>

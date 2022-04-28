@@ -49,16 +49,16 @@ const getCommentReplies = (commentReplyId, successCallback) => {
 
 // ADD COMMENTREPLY
 
-const addCommentReply = (newCommentReply, successCallback) => {
+const createCommentReply = (newCommentReply, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.addHelper(
+		let response = await actionHelpers.createHelper(
 			"CommentReplies",
 			newCommentReply
 		);
 
-		dispatch({ type: commentReplyTypes.AddCommentReply });
+		dispatch({ type: commentReplyTypes.CreateCommentReply });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -117,7 +117,7 @@ const deleteCommentReply = (commentReplyId, successCallback) => {
 
 export const commentReplyActions = {
 	getCommentReplies,
-	addCommentReply,
+	createCommentReply,
 	updateCommentReply,
 	deleteCommentReply,
 };

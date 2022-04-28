@@ -4,7 +4,7 @@ import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import { useSelector } from "react-redux";
 
-const AddProductForm = (props) => {
+const CreateCommentForm = (props) => {
 	// FORM DATA
 	const [nameValue, setNameValue] = useState("");
 	const nameValueUpdate = (newWord) => {
@@ -29,9 +29,9 @@ const AddProductForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navAddButtonComp = () => {
-		if (props.navAddButtonClick) {
-			props.navAddButtonClick({
+	const navCreateButtonClick = () => {
+		if (props.navCreateButtonClick) {
+			props.navCreateButtonClick({
 				name: nameValue,
 				comment: commentNameValue,
 				unitPrice: unitPriceValue,
@@ -53,7 +53,7 @@ const AddProductForm = (props) => {
 			<Modal isOpen={modal} toggle={toggle} centered>
 				<ModalHeader className="modal-form-item">Add Product</ModalHeader>
 				<ModalBody className="modal-form">
-					<div className="modal-form-item modal-form-name d-flex">
+					<div className="modal-form-item modal-form-name">
 						<label
 							htmlFor="modal-comment-add-form-name"
 							className="form-label"
@@ -69,7 +69,7 @@ const AddProductForm = (props) => {
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="modal-form-item modal-form-comment d-flex">
+					<div className="modal-form-item modal-form-comment">
 						<label
 							htmlFor="modal-comment-add-form-comment"
 							className="form-label"
@@ -136,7 +136,7 @@ const AddProductForm = (props) => {
 				<ModalFooter>
 					<button
 						className="btn btn-success form-input form-control"
-						onClick={() => navAddButtonComp()}
+						onClick={() => navCreateButtonClick()}
 					>
 						Add Comment
 					</button>
@@ -152,4 +152,4 @@ const AddProductForm = (props) => {
 	);
 };
 
-export default AddProductForm;
+export default CreateCommentForm;

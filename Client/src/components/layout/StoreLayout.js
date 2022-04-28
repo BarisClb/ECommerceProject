@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { commonAction } from "../../store/actions";
+import { commonActions } from "../../store/actions";
 import "./css/index.css";
 import { Outlet } from "react-router-dom";
 import StoreTopNavigation from "../navigation/storeNavigation/StoreTopNavigation";
@@ -11,7 +11,7 @@ const StoreLayout = ({ children }) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
 	useEffect(() => {
-		dispatch(commonAction.asyncEnd());
+		dispatch(commonActions.asyncEnd());
 	}, []);
 	const darkMode = useSelector((state) => state.common.DarkMode);
 	return (

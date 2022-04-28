@@ -18,7 +18,7 @@ const DeleteCommentReplyForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navDeleteButtonComp = () => {
+	const navDeleteButtonClick = () => {
 		if (props.navDeleteButtonClick && idValue >= 0) {
 			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
@@ -68,7 +68,7 @@ const DeleteCommentReplyForm = (props) => {
 				<ModalFooter>
 					<button
 						className="btn btn-danger form-input form-control"
-						onClick={() => navDeleteButtonComp()}
+						onClick={() => navDeleteButtonClick()}
 					>
 						Delete CommentReply
 					</button>

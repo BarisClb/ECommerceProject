@@ -11,7 +11,7 @@ export default function likeReducer(
 		case likeTypes.GetSingleLike:
 			return { ...state, singleLike: action.payload };
 
-		case likeTypes.AddLike:
+		case likeTypes.CreateLike:
 			return state;
 
 		case likeTypes.UpdateLike:

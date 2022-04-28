@@ -49,11 +49,11 @@ function SellerOrders() {
 					tableDeleteButtonClick={false}
 					// Nav
 					isNav={"Order"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Action
-					navAddButtonClick={false}
+					navCreateButtonClick={false}
 					navUpdateButtonClick={false}
 					navDeleteButtonClick={false}
 					// Special

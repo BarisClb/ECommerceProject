@@ -10,10 +10,12 @@ import orderReducer from "./orderReducer";
 import productReducer from "./productReducer";
 import sellerReducer from "./sellerReducer";
 import userReducer from "./userReducer";
+import accountReducer from "./accountReducer";
 
 const createRootReducer = (history) =>
 	combineReducers({
 		router: connectRouter(history),
+		account: accountReducer,
 		cart: cartReducer,
 		category: categoryReducer,
 		comment: commentReducer,

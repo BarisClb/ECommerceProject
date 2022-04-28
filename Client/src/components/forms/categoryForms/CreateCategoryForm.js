@@ -3,25 +3,22 @@ import "./css/index.css";
 import "../css/index.css";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const AddLikeForm = (props) => {
+const CreateCategoryForm = (props) => {
 	// FORM DATA
 	const [nameValue, setNameValue] = useState("");
 	const [descriptionValue, setDescriptionValue] = useState("");
-
-	const nameValueUpdate = (newName) => {
-		setNameValue(newName);
-	};
-	const descriptionValueUpdate = (newDescription) => {
-		setDescriptionValue(newDescription);
-	};
 
 	// Modal
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navAddButtonComp = () => {
-		if (props.navAddButtonClick) {
-			props.navAddButtonClick({
+	const navCreateButtonClick = () => {
+		console.log({
+			name: nameValue,
+			description: descriptionValue,
+		});
+		if (props.navCreateButtonClick) {
+			props.navCreateButtonClick({
 				name: nameValue,
 				description: descriptionValue,
 			});
@@ -34,36 +31,46 @@ const AddLikeForm = (props) => {
 	return (
 		<>
 			<button className="btn btn-success" onClick={toggle}>
-				Add
+				Create
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Add Like</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem addFormName d-flex">
-						<label htmlFor="addForm-name" className="form-label">
+				<ModalHeader className="modal-form-item">
+					Create Category
+				</ModalHeader>
+				<ModalBody className="modal-form">
+					{/* CATEGORY NAME */}
+					<div className="modal-form-item modal-form-name">
+						<label
+							htmlFor="modal-category-create-form-name"
+							className="form-label"
+						>
 							Name
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="addForm-name"
+							id="modal-category-create-form-name"
 							placeholder="Name"
 							value={nameValue}
-							onChange={(event) => nameValueUpdate(event.target.value)}
+							onChange={(event) => setNameValue(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem addFormDescription d-flex">
-						<label htmlFor="addForm-name" className="form-label">
+					{/* CATEGORY DESCRIPTION */}
+					<div className="modal-form-item modal-form-description">
+						<label
+							htmlFor="modal-category-create-form-description"
+							className="form-label"
+						>
 							Description
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="addForm-description"
+							id="modal-category-create-form-description"
 							placeholder="Description"
 							value={descriptionValue}
 							onChange={(event) =>
-								descriptionValueUpdate(event.target.value)
+								setDescriptionValue(event.target.value)
 							}
 						/>
 					</div>
@@ -71,9 +78,9 @@ const AddLikeForm = (props) => {
 				<ModalFooter>
 					<button
 						className="btn btn-success form-input form-control"
-						onClick={() => navAddButtonComp()}
+						onClick={() => navCreateButtonClick()}
 					>
-						Add Like
+						Create Category
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"
@@ -87,4 +94,4 @@ const AddLikeForm = (props) => {
 	);
 };
 
-export default AddLikeForm;
+export default CreateCategoryForm;

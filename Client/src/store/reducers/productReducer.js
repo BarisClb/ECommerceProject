@@ -11,7 +11,7 @@ export default function productReducer(
 		case productTypes.GetSingleProduct:
 			return { ...state, singleProduct: action.payload };
 
-		case productTypes.AddProduct:
+		case productTypes.CreateProduct:
 			return state;
 
 		case productTypes.UpdateProduct:

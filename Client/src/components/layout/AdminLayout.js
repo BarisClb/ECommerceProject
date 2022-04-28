@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { commonAction } from "../../store/actions";
+import { commonActions } from "../../store/actions";
 import Loading from "../common/Loading";
 import AdminSideNavigation from "../navigation/adminNavigation/AdminSideNavigation";
 import AdminTopNavigation from "../navigation/adminNavigation/AdminTopNavigation";
@@ -11,7 +11,7 @@ const AdminLayout = ({ children }) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
 	useEffect(() => {
-		dispatch(commonAction.asyncEnd());
+		dispatch(commonActions.asyncEnd());
 	}, []);
 	return (
 		<>

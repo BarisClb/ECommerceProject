@@ -1,1 +1,1 @@
-export { commonAction } from "./commonAction";
+export { commonActions } from "./commonActions";

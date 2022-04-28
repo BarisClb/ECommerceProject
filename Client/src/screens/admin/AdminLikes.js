@@ -14,11 +14,20 @@ const AdminLikes = () => {
 
 	const likes = useSelector((state) => state.like.likes);
 
-	const navAddLikeComp = async (newLike) => {
-		dispatch(likeActions.addLike(newLike));
+	const navCreateLikeClick = async (newLike) => {
+		dispatch(likeActions.createLike(newLike, likeActions.getLikes()));
 	};
-	const navDeleteLikeComp = (oldLike) => {
-		dispatch(likeActions.deleteLike(oldLike));
+	const navUpdateLikeClick = (likeId, updatedLike) => {
+		dispatch(
+			likeActions.updateLike(likeId, updatedLike, likeActions.getLikes())
+		);
+	};
+	const navDeleteLikeClick = (oldLike) => {
+		dispatch(likeActions.deleteLike(oldLike, likeActions.getLikes()));
+	};
+
+	const tableDeleteButtonClick = (oldLike) => {
+		dispatch(likeActions.deleteLike(oldLike.id, likeActions.getLikes()));
 	};
 
 	return (
@@ -28,7 +37,7 @@ const AdminLikes = () => {
 				<Table
 					// The Data
 					apiData={likes}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"CommentId"}
 					tableHead2={"ProductId"}
@@ -48,15 +57,16 @@ const AdminLikes = () => {
 					tableDeleteButton={true}
 					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Like"}
-					navAddButton={true}
-					navUpdateButton={false}
+					navCreateButton={true}
+					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddLikeComp}
+					navCreateButtonClick={navCreateLikeClick}
 					navUpdateButtonClick={false}
-					navDeleteButtonClick={navDeleteLikeComp}
+					navDeleteButtonClick={navDeleteLikeClick}
 				/>
 			</div>
 		</div>

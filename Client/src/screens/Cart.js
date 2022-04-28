@@ -13,15 +13,15 @@ const Cart = () => {
 
 	const dispatch = useDispatch();
 
-	const addOrIncreaseCartComp = (product) => {
+	const addOrIncreaseCartClick = (product) => {
 		dispatch(cartActions.addOrIncreaseCart(product, cart));
 	};
 
-	const reduceFromCartComp = (product) => {
+	const reduceFromCartClick = (product) => {
 		dispatch(cartActions.reduceFromCart(product, cart));
 	};
 
-	const removeFromCartComp = (cartItem) => {
+	const removeFromCartClick = (cartItem) => {
 		dispatch(cartActions.removeFromCart(cartItem, cart));
 	};
 
@@ -49,9 +49,9 @@ const Cart = () => {
 				tableCustomButton2={"Decrease"}
 				tableCustomButton3={"Delete"}
 				// Custom Button Functions
-				tableCustomButtonClick={addOrIncreaseCartComp}
-				tableCustomButton2Click={reduceFromCartComp}
-				tableCustomButton3Click={removeFromCartComp}
+				tableCustomButtonClick={addOrIncreaseCartClick}
+				tableCustomButton2Click={reduceFromCartClick}
+				tableCustomButton3Click={removeFromCartClick}
 				// Custom Button Colors
 				tableCustomButtonColor={"success"}
 				tableCustomButtonColor2={"warning"}

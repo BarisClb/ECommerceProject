@@ -14,14 +14,20 @@ function AdminUsers() {
 
 	const users = useSelector((state) => state.user.users);
 
-	const navAddUserComp = async (newUser) => {
-		dispatch(userActions.addUser(newUser));
+	const navCreateUserClick = async (newUser) => {
+		dispatch(userActions.createUser(newUser, userActions.getUsers()));
 	};
-	const navUpdateUserComp = (oldUser, newUser) => {
-		dispatch(userActions.updateUser(oldUser, newUser));
+	const navUpdateUserClick = (userId, updatedUser) => {
+		dispatch(
+			userActions.updateUser(userId, updatedUser, userActions.getUsers())
+		);
 	};
-	const navDeleteUserComp = (oldUser) => {
-		dispatch(userActions.deleteUser(oldUser));
+	const navDeleteUserClick = (oldUser) => {
+		dispatch(userActions.deleteUser(oldUser, userActions.getUsers()));
+	};
+
+	const tableDeleteButtonClick = (oldUser) => {
+		dispatch(userActions.deleteUser(oldUser.id, userActions.getUsers()));
 	};
 
 	return (
@@ -31,37 +37,38 @@ function AdminUsers() {
 				<Table
 					// The Data
 					apiData={users}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"Name"}
 					tableHead2={"Username"}
 					tableHead3={"Email"}
-					tableHead4={false}
+					tableHead4={"Admin"}
 					buttonHeadName={"Operations"}
 					// Table Datas
 					tableData={"name"}
 					tableData2={"username"}
 					tableData3={"eMail"}
-					tableData4={false}
+					tableData4={"admin"}
 					// Special
 					isAdmin={true}
 					isCategories={false}
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"User"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={false}
-					navUpdateButtonClick={false}
-					navDeleteButtonClick={false}
+					navCreateButtonClick={navCreateUserClick}
+					navUpdateButtonClick={navUpdateUserClick}
+					navDeleteButtonClick={navDeleteUserClick}
 				/>
 			</div>
 		</div>

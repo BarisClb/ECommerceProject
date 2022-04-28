@@ -23,16 +23,16 @@ const Products = () => {
 		dispatch(categoryActions.getCategories());
 	}, []);
 
-	const addOrIncreaseCartComp = (product) => {
+	const addOrIncreaseCartClick = (product) => {
 		dispatch(cartActions.addOrIncreaseCart(product, cart));
 	};
 
-	const navAddProductComp = async (newProduct) => {
+	const navAddProductClick = async (newProduct) => {
 		dispatch(
 			productActions.addProduct(newProduct, productActions.getProducts())
 		);
 	};
-	const navUpdateProductComp = (oldProductId, newProduct) => {
+	const navUpdateProductClick = (oldProductId, newProduct) => {
 		dispatch(
 			productActions.updateProduct(
 				oldProductId,
@@ -41,7 +41,7 @@ const Products = () => {
 			)
 		);
 	};
-	const navDeleteProductComp = (oldProduct) => {
+	const navDeleteProductClick = (oldProduct) => {
 		dispatch(
 			productActions.deleteProduct(oldProduct, productActions.getProducts())
 		);
@@ -82,16 +82,16 @@ const Products = () => {
 								tableUpdateButton={false}
 								tableDeleteButton={false}
 								// Table Button Actions
-								tableAddButtonClick={addOrIncreaseCartComp}
+								tableAddButtonClick={addOrIncreaseCartClick}
 								// Nav
 								isNav={"Product"}
 								navAddButton={true}
 								navUpdateButton={true}
 								navDeleteButton={true}
 								// Nav Action
-								navAddButtonClick={navAddProductComp}
-								navUpdateButtonClick={navUpdateProductComp}
-								navDeleteButtonClick={navDeleteProductComp}
+								navAddButtonClick={navAddProductClick}
+								navUpdateButtonClick={navUpdateProductClick}
+								navDeleteButtonClick={navDeleteProductClick}
 								// Special
 								isCart={true}
 								instaSearch={true}

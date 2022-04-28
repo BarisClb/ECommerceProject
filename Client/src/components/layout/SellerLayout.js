@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { commonAction } from "../../store/actions";
+import { commonActions } from "../../store/actions";
 import "./css/index.css";
 import SellerSideNavigation from "../navigation/sellerNavigation/SellerSideNavigation";
 import { Outlet } from "react-router-dom";
@@ -11,7 +11,7 @@ const SellerLayout = ({ children }) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
 	useEffect(() => {
-		dispatch(commonAction.asyncEnd());
+		dispatch(commonActions.asyncEnd());
 	}, []);
 	return (
 		<>

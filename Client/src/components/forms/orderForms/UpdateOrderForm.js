@@ -60,7 +60,7 @@ const UpdateOrderForm = (props) => {
 			<Modal isOpen={modal} toggle={toggle} centered>
 				<ModalHeader className="acdFormItem">Update Order</ModalHeader>
 				<ModalBody className="acdForm">
-					<div className="acdFormItem updateFormOldDescription d-flex">
+					<div className="acdFormItem updateFormOldDescription">
 						<label htmlFor="updateForm-id" className="form-label">
 							Old Order
 						</label>
@@ -86,7 +86,7 @@ const UpdateOrderForm = (props) => {
 							)}
 						</Input>
 					</div>
-					<div className="acdFormItem updateFormNewName d-flex">
+					<div className="acdFormItem updateFormNewName">
 						<label htmlFor="updateForm-name" className="form-label">
 							Name
 						</label>
@@ -99,7 +99,7 @@ const UpdateOrderForm = (props) => {
 							onChange={(event) => nameValueUpdate(event.target.value)}
 						/>
 					</div>
-					<div className="acdFormItem updateFormNewDescription d-flex">
+					<div className="acdFormItem updateFormNewDescription">
 						<label
 							htmlFor="updateForm-description"
 							className="form-label"

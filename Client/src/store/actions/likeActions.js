@@ -34,13 +34,13 @@ const getLikes = (likeId, successCallback) => {
 
 // ADD LIKE
 
-const addLike = (newLike, successCallback) => {
+const createLike = (newLike, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.addHelper("Likes", newLike);
+		let response = await actionHelpers.createHelper("Likes", newLike);
 
-		dispatch({ type: likeTypes.AddLike });
+		dispatch({ type: likeTypes.CreateLike });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -70,6 +70,6 @@ const deleteLike = (likeId, successCallback) => {
 
 export const likeActions = {
 	getLikes,
-	addLike,
+	createLike,
 	deleteLike,
 };

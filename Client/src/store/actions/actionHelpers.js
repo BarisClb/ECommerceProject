@@ -1,6 +1,3 @@
-import { cartTypes } from "../types/cartTypes";
-import { commonTypes } from "../types";
-
 // GET
 
 const getHelper = async (entityName, entityId) => {
@@ -45,9 +42,9 @@ const getByEntityHelper = async (
 	}
 };
 
-// ADD
+// CREATE
 
-const addHelper = async (entityName, newEntity) => {
+const createHelper = async (entityName, newEntity) => {
 	let url = `https://localhost:7000/api/${entityName}/`;
 
 	try {
@@ -106,7 +103,7 @@ const deleteHelper = async (entityName, entityId) => {
 export const actionHelpers = {
 	getHelper,
 	getByEntityHelper,
-	addHelper,
+	createHelper,
 	updateHelper,
 	deleteHelper,
 };

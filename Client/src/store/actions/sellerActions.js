@@ -43,13 +43,13 @@ const getSellers = (sellerId, successCallback) => {
 
 // ADD SELLER
 
-const addSeller = (newSeller, successCallback) => {
+const createSeller = (newSeller, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.addHelper("Sellers", newSeller);
+		let response = await actionHelpers.createHelper("Sellers", newSeller);
 
-		dispatch({ type: sellerTypes.AddSeller });
+		dispatch({ type: sellerTypes.CreateSeller });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -70,8 +70,6 @@ const updateSeller = (sellerId, updatedSeller, successCallback) => {
 			sellerId,
 			updatedSeller
 		);
-
-		await response.json();
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -101,7 +99,7 @@ const deleteSeller = (sellerId, successCallback) => {
 
 export const sellerActions = {
 	getSellers,
-	addSeller,
+	createSeller,
 	updateSeller,
 	deleteSeller,
 };

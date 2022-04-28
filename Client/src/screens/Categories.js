@@ -15,15 +15,15 @@ const Categories = () => {
 
 	const categories = useSelector((state) => state.category.categories);
 
-	const navAddCategoryComp = async (newCategory) => {
+	const navAddCategoryClick = async (newCategory) => {
 		dispatch(categoryActions.addCategory(newCategory));
 		// dispatch(categoryActions.getCategories());
 	};
-	const navUpdateCategoryComp = (oldCategory, newCategory) => {
+	const navUpdateCategoryClick = (oldCategory, newCategory) => {
 		dispatch(categoryActions.updateCategory(oldCategory, newCategory));
 		// dispatch(categoryActions.getCategories());
 	};
-	const navDeleteCategoryComp = (oldCategory) => {
+	const navDeleteCategoryClick = (oldCategory) => {
 		dispatch(categoryActions.deleteCategory(oldCategory));
 		// dispatch(categoryActions.getCategories());
 	};
@@ -57,9 +57,9 @@ const Categories = () => {
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddCategoryComp}
-					navUpdateButtonClick={navUpdateCategoryComp}
-					navDeleteButtonClick={navDeleteCategoryComp}
+					navAddButtonClick={navAddCategoryClick}
+					navUpdateButtonClick={navUpdateCategoryClick}
+					navDeleteButtonClick={navDeleteCategoryClick}
 				/>
 			</div>
 		</div>

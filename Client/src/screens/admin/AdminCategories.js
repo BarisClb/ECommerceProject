@@ -14,15 +14,15 @@ const AdminCategories = () => {
 
 	const categories = useSelector((state) => state.category.categories);
 
-	const navAddCategoryComp = async (newCategory) => {
+	const navCreateCategoryClick = async (newCategory) => {
 		dispatch(
-			categoryActions.addCategory(
+			categoryActions.createCategory(
 				newCategory,
 				categoryActions.getCategories()
 			)
 		);
 	};
-	const navUpdateCategoryComp = (categoryId, updatedCategory) => {
+	const navUpdateCategoryClick = (categoryId, updatedCategory) => {
 		dispatch(
 			categoryActions.updateCategory(
 				categoryId,
@@ -31,7 +31,7 @@ const AdminCategories = () => {
 			)
 		);
 	};
-	const navDeleteCategoryComp = (oldCategory) => {
+	const navDeleteCategoryClick = (oldCategory) => {
 		dispatch(
 			categoryActions.deleteCategory(
 				oldCategory,
@@ -40,7 +40,7 @@ const AdminCategories = () => {
 		);
 	};
 
-	const tableDeleteButtonComp = (oldCategory) => {
+	const tableDeleteButtonClick = (oldCategory) => {
 		dispatch(
 			categoryActions.deleteCategory(
 				oldCategory.id,
@@ -56,7 +56,7 @@ const AdminCategories = () => {
 				<Table
 					// The Data
 					apiData={categories}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"Category"}
 					tableHead2={"Description"}
@@ -74,16 +74,16 @@ const AdminCategories = () => {
 					tableUpdateButton={false}
 					tableDeleteButton={true}
 					// Table Button Clicks
-					tableDeleteButtonClick={tableDeleteButtonComp}
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Category"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddCategoryComp}
-					navUpdateButtonClick={navUpdateCategoryComp}
-					navDeleteButtonClick={navDeleteCategoryComp}
+					navCreateButtonClick={navCreateCategoryClick}
+					navUpdateButtonClick={navUpdateCategoryClick}
+					navDeleteButtonClick={navDeleteCategoryClick}
 				/>
 			</div>
 		</div>

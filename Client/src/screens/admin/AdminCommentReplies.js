@@ -16,19 +16,39 @@ function AdminCommentReplies() {
 		(state) => state.commentReply.commentReplies
 	);
 
-	const navAddCommentReplyComp = async (newCommentReply) => {
-		dispatch(commentReplyActions.addCommentReply(newCommentReply));
-	};
-	const navUpdateCommentReplyComp = (oldCommentReply, newCommentReply) => {
+	const navCreateCommentReplyClick = async (newCommentReply) => {
 		dispatch(
-			commentReplyActions.updateCommentReply(
-				oldCommentReply,
-				newCommentReply
+			commentReplyActions.createCommentReply(
+				newCommentReply,
+				commentReplyActions.getCommentReplies()
 			)
 		);
 	};
-	const navDeleteCommentReplyComp = (oldCommentReply) => {
-		dispatch(commentReplyActions.deleteCommentReply(oldCommentReply));
+	const navUpdateCommentReplyClick = (commentReplyId, updatedCommentReply) => {
+		dispatch(
+			commentReplyActions.updateCommentReply(
+				commentReplyId,
+				updatedCommentReply,
+				commentReplyActions.getCommentReplies()
+			)
+		);
+	};
+	const navDeleteCommentReplyClick = (oldCommentReply) => {
+		dispatch(
+			commentReplyActions.deleteCommentReply(
+				oldCommentReply,
+				commentReplyActions.getCommentReplies()
+			)
+		);
+	};
+
+	const tableDeleteButtonClick = (oldCommentReply) => {
+		dispatch(
+			commentReplyActions.deleteCommentReply(
+				oldCommentReply.id,
+				commentReplyActions.getCommentReplies()
+			)
+		);
 	};
 
 	return (
@@ -38,7 +58,7 @@ function AdminCommentReplies() {
 				<Table
 					// The Data
 					apiData={commentReplies}
-					// Table Content
+					//// Table Content
 					// Table Headings
 					tableHead={"Text"}
 					tableHead2={"CommentId"}
@@ -60,15 +80,16 @@ function AdminCommentReplies() {
 					tableDeleteButton={true}
 					tableUpdateButton={true}
 					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"CommentReply"}
-					navAddButton={true}
+					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}
 					// Nav Actions
-					navAddButtonClick={navAddCommentReplyComp}
-					navUpdateButtonClick={navUpdateCommentReplyComp}
-					navDeleteButtonClick={navDeleteCommentReplyComp}
+					navCreateButtonClick={navCreateCommentReplyClick}
+					navUpdateButtonClick={navUpdateCommentReplyClick}
+					navDeleteButtonClick={navDeleteCommentReplyClick}
 				/>
 			</div>
 		</div>

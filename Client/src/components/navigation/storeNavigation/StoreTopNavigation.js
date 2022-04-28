@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./css/index.css";
 import "../css/index.css";
 import { useDispatch, useSelector } from "react-redux";
-import { commonAction } from "../../../store/actions/commonAction";
+import { commonActions } from "../../../store/actions";
 
 function StoreTopNavigation() {
 	const dispatch = useDispatch();
 	const darkMode = useSelector((state) => state.common.DarkMode);
 	const setDarkMode = (darkMode) => {
-		dispatch(commonAction.toggleDarkMode(darkMode));
+		dispatch(commonActions.toggleDarkMode(darkMode));
 	};
 	return (
 		<div>

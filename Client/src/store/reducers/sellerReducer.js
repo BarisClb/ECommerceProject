@@ -11,7 +11,7 @@ export default function sellerReducer(
 		case sellerTypes.GetSingleSeller:
 			return { ...state, singleSeller: action.payload };
 
-		case sellerTypes.AddSeller:
+		case sellerTypes.CreateSeller:
 			return state;
 
 		case sellerTypes.UpdateSeller:

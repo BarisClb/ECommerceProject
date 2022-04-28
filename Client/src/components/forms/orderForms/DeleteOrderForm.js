@@ -16,7 +16,7 @@ const DeleteOrderForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navDeleteButtonComp = () => {
+	const navDeleteButtonClick = () => {
 		if (props.navDeleteButtonClick && idValue >= 0) {
 			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
@@ -61,7 +61,7 @@ const DeleteOrderForm = (props) => {
 				<ModalFooter>
 					<button
 						className="btn btn-danger form-input form-control"
-						onClick={() => navDeleteButtonComp()}
+						onClick={() => navDeleteButtonClick()}
 					>
 						Delete Order
 					</button>

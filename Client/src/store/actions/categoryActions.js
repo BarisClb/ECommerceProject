@@ -39,13 +39,16 @@ const getCategories = (categoryId, successCallback) => {
 
 // ADD CATEGORY
 
-const addCategory = (newCategory, successCallback) => {
+const createCategory = (newCategory, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.addHelper("Categories", newCategory);
+		let response = await actionHelpers.createHelper(
+			"Categories",
+			newCategory
+		);
 
-		dispatch({ type: categoryTypes.AddCategory });
+		dispatch({ type: categoryTypes.CreateCategory });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -97,7 +100,7 @@ const deleteCategory = (categoryId, successCallback) => {
 
 export const categoryActions = {
 	getCategories,
-	addCategory,
+	createCategory,
 	updateCategory,
 	deleteCategory,
 };

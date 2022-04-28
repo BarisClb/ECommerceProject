@@ -1,22 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { productActions } from "../../store/actions/productActions";
+import React from "react";
+import { commonActions } from "../../store/actions";
 
 function DummySingleProduct() {
-	//#region RandomProductImage
-	const randomRgba = () => {
-		let randomNum1 = Math.round(Math.random() * 255);
-		let randomNum2 = Math.round(Math.random() * 255);
-		let randomNum3 = Math.round(Math.random() * 255);
-		return `rgba(${randomNum1},${randomNum2},${randomNum3},1)`;
-	};
-	const randomImage = () => {
-		let rgb1 = randomRgba();
-		let rgb2 = randomRgba();
-		let rgb3 = randomRgba();
-		return `linear-gradient(315deg, ${rgb1} 33%, ${rgb2} 66%, ${rgb3} 100%)`;
-	};
-	//#endregion
+	const randomImage = commonActions.randomImage;
 
 	return (
 		<div id="sinlgeproduct-content-container-wrapper" className="container">

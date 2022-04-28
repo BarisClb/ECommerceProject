@@ -11,7 +11,7 @@ export default function commentReducer(
 		case commentTypes.GetSingleComment:
 			return { ...state, singleComment: action.payload };
 
-		case commentTypes.AddComment:
+		case commentTypes.CreateComment:
 			return state;
 
 		case commentTypes.UpdateComment:
