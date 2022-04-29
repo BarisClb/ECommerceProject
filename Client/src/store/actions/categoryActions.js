@@ -22,6 +22,7 @@ const getCategories = (categoryId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let data = await actionHelpers.getHelper("Categories", categoryId);
+		console.log(data);
 
 		if (categoryId) {
 			dispatch({ type: categoryTypes.GetSingleCategory, payload: data });
@@ -47,6 +48,7 @@ const createCategory = (newCategory, successCallback) => {
 			"Categories",
 			newCategory
 		);
+		console.log(response);
 
 		dispatch({ type: categoryTypes.CreateCategory });
 
@@ -69,6 +71,7 @@ const updateCategory = (categoryId, updatedCategory, successCallback) => {
 			categoryId,
 			updatedCategory
 		);
+		console.log(response);
 
 		dispatch({ type: categoryTypes.UpdateCategory });
 
@@ -87,6 +90,7 @@ const deleteCategory = (categoryId, successCallback) => {
 		await dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.deleteHelper("Categories", categoryId);
+		console.log(response);
 
 		await dispatch({ type: categoryTypes.DeleteCategory });
 

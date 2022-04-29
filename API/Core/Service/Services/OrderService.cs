@@ -42,8 +42,12 @@ namespace Service.Services
             IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
                 Id = order.Id,
-                Description = order.Description,
+                Note = order.Note,
                 Address = order.Address,
+                Price = order.Price,
+                Quantity = order.Quantity,
+                Discount = order.Discount,
+                Total = order.Total,
                 OrderStatus = order.OrderStatus,
                 ProductName = order.ProductName,
                 ProductId = order.ProductId,
@@ -67,8 +71,12 @@ namespace Service.Services
             OrderReadVm mappedOrder = new()
             {
                 Id = order.Id,
-                Description = order.Description,
+                Note = order.Note,
                 Address = order.Address,
+                Price = order.Price,
+                Quantity = order.Quantity,
+                Discount = order.Discount,
+                Total = order.Total,
                 OrderStatus = order.OrderStatus,
                 ProductName = order.ProductName,
                 ProductId = order.ProductId,
@@ -92,8 +100,12 @@ namespace Service.Services
             IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
                 Id = order.Id,
-                Description = order.Description,
+                Note = order.Note,
                 Address = order.Address,
+                Price = order.Price,
+                Quantity = order.Quantity,
+                Discount = order.Discount,
+                Total = order.Total,
                 OrderStatus = order.OrderStatus,
                 ProductName = order.ProductName,
                 ProductId = order.ProductId,
@@ -117,8 +129,12 @@ namespace Service.Services
             IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
                 Id = order.Id,
-                Description = order.Description,
+                Note = order.Note,
                 Address = order.Address,
+                Price = order.Price,
+                Quantity = order.Quantity,
+                Discount = order.Discount,
+                Total = order.Total,
                 OrderStatus = order.OrderStatus,
                 ProductName = order.ProductName,
                 ProductId = order.ProductId,
@@ -142,8 +158,12 @@ namespace Service.Services
             IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
             {
                 Id = order.Id,
-                Description = order.Description,
+                Note = order.Note,
                 Address = order.Address,
+                Price = order.Price,
+                Quantity = order.Quantity,
+                Discount = order.Discount,
+                Total = order.Total,
                 OrderStatus = order.OrderStatus,
                 ProductName = order.ProductName,
                 ProductId = order.ProductId,
@@ -172,10 +192,16 @@ namespace Service.Services
             if (user == null)
                 return new FailResponse("User does not exist.");
 
+            decimal total = (modelOrder.Price * modelOrder.Quantity) / 100 * (100 - modelOrder.Discount);
+
             await _orderWriteRepository.AddAsync(new()
             {
-                Description = modelOrder.Description,
+                Note = modelOrder.Note,
                 Address = modelOrder.Address,
+                Price = modelOrder.Price,
+                Quantity = modelOrder.Quantity,
+                Discount = modelOrder.Discount,
+                Total = total,
                 OrderStatus = 1,
                 ProductName = product.Name,
                 Product = product,
@@ -195,10 +221,21 @@ namespace Service.Services
             if (order == null)
                 return new FailResponse("Order does not exist.");
 
-            if (modelOrder.Description != null)
-                order.Description = modelOrder.Description;
+            if (modelOrder.Note != null)
+                order.Note = modelOrder.Note;
             if (modelOrder.Address != null)
                 order.Address = modelOrder.Address;
+            if (modelOrder.Price != null)
+                order.Price = (decimal)modelOrder.Price;
+            if (modelOrder.Quantity != null)
+                order.Quantity = (int)modelOrder.Quantity;
+            if (modelOrder.Discount != null)
+                order.Discount = (int)modelOrder.Discount;
+            if (modelOrder.Price != null || modelOrder.Quantity != null || modelOrder.Discount != null)
+            {
+                decimal total = (order.Price * order.Quantity) / 100 * (100 - order.Discount);
+                order.Total = total;
+            }
             if (modelOrder.OrderStatus != null)
                 order.OrderStatus = (byte)modelOrder.OrderStatus;
 

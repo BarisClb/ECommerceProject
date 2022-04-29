@@ -76,6 +76,7 @@ function FormTemplate() {
 							}
 							min=""
 							max=""
+							disabled={!changeValue}
 						/>
 						<div className="form-check">
 							<input

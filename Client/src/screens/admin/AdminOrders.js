@@ -43,15 +43,15 @@ function AdminOrders() {
 					apiData={orders}
 					//// Table Content
 					// Table Headings
-					tableHead={"UserId"}
-					tableHead2={"ProductId"}
-					tableHead3={"SellerId"}
+					tableHead={"User"}
+					tableHead2={"Product"}
+					tableHead3={"Seller"}
 					tableHead4={"Status"}
 					buttonHeadName={"Operations"}
 					// Table Datas
-					tableData={"userId"}
-					tableData2={"productId"}
-					tableData3={"sellerId"}
+					tableData={"userUsername"}
+					tableData2={"productName"}
+					tableData3={"sellerUsername"}
 					tableData4={"orderStatus"}
 					// Special
 					isAdmin={true}
@@ -59,9 +59,9 @@ function AdminOrders() {
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
 					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav

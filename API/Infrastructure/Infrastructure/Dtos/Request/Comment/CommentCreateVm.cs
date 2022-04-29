@@ -10,7 +10,7 @@ namespace Infrastructure.Dtos.Request
     {
         public string Title { get; set; }
         public string Text { get; set; }
-        public int Rating { get; set; }
+        public byte Rating { get; set; }
         public int UserId { get; set; }
         public int ProductId { get; set; }
     }

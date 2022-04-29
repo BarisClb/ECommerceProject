@@ -5,16 +5,24 @@ import { actionHelpers } from "./actionHelpers";
 // // ORDER VM
 
 // const orderCreate = {
-// 	description: "", // OPTINAL
+// 	note: "", // OPTINAL
 // 	address: "",
+//		price: 0,
+//		quantity: 0,
+//		discount: 0,
+//		total: 0,	-> INACCESSIBLE, calculated through -> (price * quantity) / 100 * (100 - discount)
 // 	userId: 0,
 // 	productId: 0,
 // };
 
 // const orderUpdate = {
 // 	id: 0,
-// 	description: "", // OPTINAL
+// 	note: "", // OPTINAL
 // 	address: "", // OPTINAL
+//		price: 0, // OPTINAL
+//		quantity: 0, // OPTINAL
+//		discount: 0, // OPTINAL
+//		total: 0,	-> INACCESSIBLE, calculated through -> (price * quantity) / 100 * (100 - discount)
 // 	orderStatus: 0, // OPTINAL
 // };
 
@@ -25,6 +33,7 @@ const getOrders = (orderId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let data = await actionHelpers.getHelper("Orders", orderId);
+		console.log(data);
 
 		if (orderId) {
 			dispatch({ type: orderTypes.GetSingleOrder, payload: data });
@@ -47,6 +56,7 @@ const createOrder = (newOrder, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.createHelper("Orders", newOrder);
+		console.log(response);
 
 		dispatch({ type: orderTypes.CreateOrder });
 
@@ -69,6 +79,7 @@ const updateOrder = (orderId, updatedOrder, successCallback) => {
 			orderId,
 			updatedOrder
 		);
+		console.log(response);
 
 		dispatch({ type: orderTypes.UpdateOrder });
 
@@ -87,6 +98,7 @@ const deleteOrder = (orderId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.deleteHelper("Orders", orderId);
+		console.log(response);
 
 		dispatch({ type: orderTypes.DeleteOrder });
 

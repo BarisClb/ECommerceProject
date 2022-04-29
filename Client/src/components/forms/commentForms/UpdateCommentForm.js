@@ -1,56 +1,89 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/index.css";
 import "../css/index.css";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
-import { useSelector } from "react-redux";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { commonActions } from "../../../store/actions";
 
 const UpdateCommentForm = (props) => {
 	// FORM DATA
-	const [idValue, setIdValue] = useState(-1);
-	const idValueUpdate = (newCommentId) => {
-		setIdValue(newCommentId);
-		if (newCommentId >= 0) {
-			let comment = comments.find(
-				(comment) => comment.id === Number.parseInt(newCommentId)
-			);
-			setNameValue(comment.name);
-			setDescriptionValue(comment.description);
-		} else {
-			setNameValue("");
-			setDescriptionValue("");
-		}
-	};
-	const [nameValue, setNameValue] = useState("");
-	const nameValueUpdate = (newNameValue) => {
-		setNameValue(newNameValue);
-	};
-	const [descriptionValue, setDescriptionValue] = useState("");
-	const descriptionValueUpdate = (newDescriptionValue) => {
-		setDescriptionValue(newDescriptionValue);
+	const [idValue, setIdValue] = useState(0);
+	const [entityFound, setEntityFound] = useState(false);
+
+	const comment = useSelector((state) => state.common.EntityToUpdate);
+
+	const dispatch = useDispatch();
+	const findEntity = () => {
+		dispatch(commonActions.getEntityToUpdate("Comments", idValue));
 	};
 
-	const comments = useSelector((state) => state.comment.comments);
+	useEffect(() => {
+		if (comment.id) {
+			setIdValue(comment.id);
+			setTitleValue(comment.title);
+			setTextValue(comment.text);
+			setRatingValue(comment.rating);
+			setEntityFound(true);
+		} else {
+			setIdValue(0);
+			setTitleValue("");
+			setTextValue("");
+			setRatingValue(0);
+			setEntityFound(false);
+		}
+	}, [comment]);
+
+	const [titleValue, setTitleValue] = useState("");
+	const [textValue, setTextValue] = useState("");
+	const [ratingValue, setRatingValue] = useState(0);
 
 	// Modal
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
 	const navUpdateButtonClick = () => {
-		if (
-			props.navUpdateButtonClick &&
-			idValue >= 0 &&
-			nameValue &&
-			descriptionValue
-		) {
+		if (props.navUpdateButtonClick && idValue > 0) {
+			let updatedComment = {};
+
+			if (changeTitle) {
+				updatedComment = { ...updatedComment, title: titleValue };
+			}
+			if (changeText) {
+				updatedComment = {
+					...updatedComment,
+					text: textValue,
+				};
+			}
+			if (changeRating) {
+				updatedComment = {
+					...updatedComment,
+					rating: ratingValue,
+				};
+			}
+
 			props.navUpdateButtonClick(Number.parseInt(idValue), {
-				name: nameValue,
-				description: descriptionValue,
+				...updatedComment,
 			});
 		}
-		setNameValue("");
-		setDescriptionValue("");
+		setIdValue(0);
+		setTitleValue("");
+		setTextValue("");
+		setRatingValue(0);
+
+		setEntityFound(false);
+		setChangeTitle(true);
+		setChangeText(true);
+		setChangeRating(true);
+
+		dispatch(commonActions.getEntityToUpdate("Comments", 0));
 		toggle();
 	};
+
+	// Update or Not
+
+	const [changeTitle, setChangeTitle] = useState(true);
+	const [changeText, setChangeText] = useState(true);
+	const [changeRating, setChangeRating] = useState(true);
 
 	return (
 		<>
@@ -58,70 +91,138 @@ const UpdateCommentForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Update Comment</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem updateFormOldDescription">
-						<label htmlFor="updateForm-id" className="form-label">
-							Old Comment
-						</label>
-						<Input
-							type="select"
-							className="form-control form-input"
-							id="updateForm-id"
-							placeholder="Comment"
-							value={idValue}
-							onChange={(event) => idValueUpdate(event.target.value)}
-						>
-							<option value={-1}>Choose a Comment to Update</option>
-							{comments ? (
-								comments.map((comment) => {
-									return (
-										<option key={comment.id} value={comment.id}>
-											{comment.name}
-										</option>
-									);
-								})
-							) : (
-								<option>No Comments Found</option>
-							)}
-						</Input>
-					</div>
-					<div className="acdFormItem updateFormNewName">
-						<label htmlFor="updateForm-name" className="form-label">
-							Name
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="updateForm-name"
-							placeholder="New Name"
-							value={nameValue}
-							onChange={(event) => nameValueUpdate(event.target.value)}
-						/>
-					</div>
-					<div className="acdFormItem updateFormNewDescription">
+				<ModalHeader className="modal-form-item">
+					Update Comment
+				</ModalHeader>
+				<ModalBody className="modal-form">
+					{/* COMMENT ID */}
+					<div className="modal-form-item modal-form-id">
 						<label
-							htmlFor="updateForm-description"
+							htmlFor="modal-comment-update-form-id"
 							className="form-label"
 						>
-							Description
+							Id
+						</label>
+						<input
+							type="number"
+							className="form-control form-input"
+							id="modal-comment-update-form-id"
+							placeholder="Id"
+							value={idValue}
+							onChange={(event) => setIdValue(event.target.value)}
+							min="1"
+						/>
+						<button
+							className="btn btn-primary get-entity-to-update-button"
+							onClick={() => findEntity()}
+						>
+							Get Comment
+						</button>
+					</div>
+					{/* COMMENT TITLE */}
+					<div className="modal-form-item modal-form-title">
+						<label
+							htmlFor="modal-comment-update-form-title"
+							className="form-label"
+						>
+							Title
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="updateForm-description"
-							placeholder="New Description"
-							value={descriptionValue}
-							onChange={(event) =>
-								descriptionValueUpdate(event.target.value)
-							}
+							id="modal-comment-update-form-title"
+							placeholder="Title"
+							value={titleValue}
+							onChange={(event) => setTitleValue(event.target.value)}
+							disabled={!changeTitle}
 						/>
+						<div className="form-check">
+							<input
+								className="form-check-input"
+								type="checkbox"
+								id="modal-form-comment-update-title-check"
+								onChange={() => setChangeTitle(!changeTitle)}
+							/>
+							<label
+								className="form-check-label"
+								htmlFor="modal-form-comment-update-title-check"
+							>
+								Don't Change
+							</label>
+						</div>
+					</div>
+					{/* COMMENT TEXT */}
+					<div className="modal-form-item modal-form-text">
+						<label
+							htmlFor="modal-comment-update-form-text"
+							className="form-label"
+						>
+							Text
+						</label>
+						<input
+							type="text"
+							className="form-control form-input"
+							id="modal-comment-update-form-text"
+							placeholder="Text"
+							value={textValue}
+							onChange={(event) => setTextValue(event.target.value)}
+							disabled={!changeText}
+						/>
+						<div className="form-check">
+							<input
+								className="form-check-input"
+								type="checkbox"
+								id="modal-form-comment-update-text-check"
+								onChange={() => setChangeText(!changeText)}
+							/>
+							<label
+								className="form-check-label"
+								htmlFor="modal-form-comment-update-text-check"
+							>
+								Don't Change
+							</label>
+						</div>
+					</div>
+					{/* COMMENT RATING */}
+					<div className="modal-form-item modal-form-rating">
+						<label
+							htmlFor="modal-comment-update-form-rating"
+							className="form-label"
+						>
+							Rating
+						</label>
+						<input
+							type="number"
+							className="form-control form-input"
+							id="modal-comment-update-form-rating"
+							placeholder="Rating"
+							value={ratingValue}
+							onChange={(event) => setRatingValue(event.target.value)}
+							min="0"
+							max="5"
+							disabled={!changeRating}
+						/>
+						<div className="form-check">
+							<input
+								className="form-check-input"
+								type="checkbox"
+								id="modal-form-comment-update-rating-check"
+								onChange={() => setChangeRating(!changeRating)}
+							/>
+							<label
+								className="form-check-label"
+								htmlFor="modal-form-comment-update-rating-check"
+							>
+								Don't Change
+							</label>
+						</div>
 					</div>
 				</ModalBody>
 				<ModalFooter>
 					<button
 						className="btn btn-warning form-input form-control"
 						onClick={() => navUpdateButtonClick()}
+						disabled={!entityFound}
 					>
 						Update Comment
 					</button>

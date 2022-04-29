@@ -296,8 +296,8 @@ const Table = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const [modalData, setModalData] = useState();
-	const [modalAction, setModalAction] = useState();
+	const [modalData, setModalData] = useState([]);
+	const [modalAction, setModalAction] = useState("");
 
 	//#region ModalToggle
 	const modalToggle = (data, action) => {

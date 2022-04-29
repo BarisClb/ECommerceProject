@@ -17,7 +17,7 @@ const DeleteProductForm = (props) => {
 	const toggle = () => setModal(!modal);
 
 	const navDeleteButtonClick = () => {
-		if (props.navDeleteButtonClick && idValue >= 0) {
+		if (props.navDeleteButtonClick && idValue > 0) {
 			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
 		setIdValue(-1);

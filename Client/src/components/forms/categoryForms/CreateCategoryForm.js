@@ -13,10 +13,6 @@ const CreateCategoryForm = (props) => {
 	const toggle = () => setModal(!modal);
 
 	const navCreateButtonClick = () => {
-		console.log({
-			name: nameValue,
-			description: descriptionValue,
-		});
 		if (props.navCreateButtonClick) {
 			props.navCreateButtonClick({
 				name: nameValue,

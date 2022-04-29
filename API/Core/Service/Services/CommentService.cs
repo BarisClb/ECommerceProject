@@ -132,6 +132,9 @@ namespace Service.Services
             if (user == null)
                 return new FailResponse("User does not exist.");
 
+            if (modelComment.Rating > 5)
+                modelComment.Rating = 5;
+
             await _commentWriteRepository.AddAsync(new()
             {
                 Title = modelComment.Title,
@@ -158,7 +161,10 @@ namespace Service.Services
             if (modelComment.Text != null)
                 comment.Text = modelComment.Text;
             if (modelComment.Rating != null)
-                comment.Rating = (int)modelComment.Rating;
+                comment.Rating = (byte)modelComment.Rating;
+            // This checks the rating even if the UpdatedRating is null (if they are updated).
+            if (comment.Rating > 5)
+                comment.Rating = 5;
 
             await _commentWriteRepository.SaveAsync();
             return new SuccessfulResponse<Comment>("Comment updated.");

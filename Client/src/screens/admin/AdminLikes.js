@@ -40,22 +40,22 @@ const AdminLikes = () => {
 					//// Table Content
 					// Table Headings
 					tableHead={"CommentId"}
-					tableHead2={"ProductId"}
-					tableHead3={"UserId"}
+					tableHead2={"Product"}
+					tableHead3={"User"}
 					buttonHeadName={"Operations"}
 					// Table Datas
 					tableData={"commentId"}
-					tableData2={"productId"}
-					tableData3={"userId"}
+					tableData2={"productName"}
+					tableData3={"userUsername"}
 					// Special
 					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
 					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
@@ -65,7 +65,7 @@ const AdminLikes = () => {
 					navDeleteButton={true}
 					// Nav Actions
 					navCreateButtonClick={navCreateLikeClick}
-					navUpdateButtonClick={false}
+					navUpdateButtonClick={navUpdateLikeClick}
 					navDeleteButtonClick={navDeleteLikeClick}
 				/>
 			</div>

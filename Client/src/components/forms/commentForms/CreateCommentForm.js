@@ -1,29 +1,15 @@
 import React, { useState } from "react";
 import "./css/index.css";
 import "../css/index.css";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
-import { useSelector } from "react-redux";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const CreateCommentForm = (props) => {
 	// FORM DATA
-	const [nameValue, setNameValue] = useState("");
-	const nameValueUpdate = (newWord) => {
-		setNameValue(newWord);
-	};
-	const [commentNameValue, setCommentNameValue] = useState("No Comment");
-	const commentNameValueUpdate = (newCommentId) => {
-		setCommentNameValue(newCommentId);
-	};
-	const [unitPriceValue, setUnitPriceValue] = useState(0);
-	const unitPriceValueUpdate = (newWord) => {
-		setUnitPriceValue(newWord);
-	};
-	const [unitsInStockValue, setUnitsInStockValue] = useState(0);
-	const unitsInStockValueUpdate = (newWord) => {
-		setUnitsInStockValue(newWord);
-	};
-
-	const comments = useSelector((state) => state.comment.comments);
+	const [titleValue, setTitleValue] = useState("");
+	const [textValue, setTextValue] = useState("");
+	const [ratingValue, setRatingValue] = useState(0);
+	const [userIdValue, setUserIdValue] = useState(0);
+	const [productIdValue, setProductIdValue] = useState(0);
 
 	// Modal
 	const [modal, setModal] = useState(false);
@@ -32,103 +18,123 @@ const CreateCommentForm = (props) => {
 	const navCreateButtonClick = () => {
 		if (props.navCreateButtonClick) {
 			props.navCreateButtonClick({
-				name: nameValue,
-				comment: commentNameValue,
-				unitPrice: unitPriceValue,
-				unitsInStock: unitsInStockValue,
+				title: titleValue,
+				text: textValue,
+				rating: ratingValue,
+				userId: userIdValue,
+				productId: productIdValue,
 			});
 		}
-		setNameValue("");
-		setCommentNameValue("No Comment");
-		setUnitPriceValue(0);
-		setUnitsInStockValue(0);
+		setTitleValue("");
+		setTextValue("");
+		setRatingValue(0);
+		setUserIdValue(0);
+		setProductIdValue(0);
 		toggle();
 	};
 
 	return (
 		<>
 			<button className="btn btn-success" onClick={toggle}>
-				Add
+				Create
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">Add Product</ModalHeader>
+				<ModalHeader className="modal-form-item">
+					Create Comment
+				</ModalHeader>
 				<ModalBody className="modal-form">
-					<div className="modal-form-item modal-form-name">
+					{/* WARNING */}
+					<div className="modal-form-item">
+						<label className="form-label">
+							Only User Accounts should Create Comments.
+						</label>
+					</div>
+					{/* COMMENT TITLE */}
+					<div className="modal-form-item modal-form-title">
 						<label
-							htmlFor="modal-comment-add-form-name"
+							htmlFor="modal-comment-create-form-title"
 							className="form-label"
 						>
-							Name
+							Title
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="modal-comment-add-form-name"
-							placeholder="Name"
-							value={nameValue}
-							onChange={(event) => nameValueUpdate(event.target.value)}
+							id="modal-comment-create-form-title"
+							placeholder="Title"
+							value={titleValue}
+							onChange={(event) => setTitleValue(event.target.value)}
 						/>
 					</div>
-					<div className="modal-form-item modal-form-comment">
+					{/* COMMENT TEXT */}
+					<div className="modal-form-item modal-form-text">
 						<label
-							htmlFor="modal-comment-add-form-comment"
+							htmlFor="modal-comment-create-form-text"
 							className="form-label"
 						>
-							Comment
+							Text
 						</label>
-						<Input
-							type="select"
+						<input
+							type="text"
 							className="form-control form-input"
-							id="addForm-id"
-							placeholder="Comment"
-							value={commentNameValue}
-							onChange={(event) =>
-								commentNameValueUpdate(event.target.value)
-							}
-						>
-							<option value={"No Comment"}>Choose a Comment</option>
-							{comments ? (
-								comments.map((comment) => {
-									return (
-										<option key={comment.id} value={comment.name}>
-											{comment.name}
-										</option>
-									);
-								})
-							) : (
-								<option value={"No Comment"}>No Comments Found</option>
-							)}
-						</Input>
+							id="modal-comment-create-form-text"
+							placeholder="Text"
+							value={textValue}
+							onChange={(event) => setTextValue(event.target.value)}
+						/>
 					</div>
-					<div className="modal-form-item modal-form-unitPrice">
-						<label htmlFor="addForm-unitPrice" className="form-label">
-							Unit Price
+					{/* COMMENT RATING */}
+					<div className="modal-form-item modal-form-rating">
+						<label
+							htmlFor="modal-comment-create-form-rating"
+							className="form-label"
+						>
+							Rating
 						</label>
 						<input
 							type="number"
 							className="form-control form-input"
-							id="addForm-unitPrice"
-							placeholder="UnitPrice"
-							value={unitPriceValue}
-							onChange={(event) =>
-								unitPriceValueUpdate(event.target.value)
-							}
+							id="modal-comment-create-form-rating"
+							placeholder="Rating"
+							value={ratingValue}
+							onChange={(event) => setRatingValue(event.target.value)}
+							min="0"
+							max="5"
+						/>
+					</div>
+					{/* COMMENT USERID */}
+					<div className="modal-form-item modal-form-userId">
+						<label
+							htmlFor="modal-comment-create-form-userId"
+							className="form-label"
+						>
+							UserId
+						</label>
+						<input
+							type="number"
+							className="form-control form-input"
+							id="modal-comment-create-form-userId"
+							placeholder="UserId"
+							value={userIdValue}
+							onChange={(event) => setUserIdValue(event.target.value)}
 							min="0"
 						/>
 					</div>
-					<div className="acdFormItem addform-unitsInStock">
-						<label htmlFor="addForm-unitsInStock" className="form-label">
-							Units In Stock
+					{/* COMMENT PRODUCT */}
+					<div className="modal-form-item modal-form-productId">
+						<label
+							htmlFor="modal-comment-create-form-productId"
+							className="form-label"
+						>
+							ProductId
 						</label>
 						<input
 							type="number"
 							className="form-control form-input"
-							id="addForm-unitsInStock"
-							placeholder="Units In Stock"
-							value={unitsInStockValue}
-							onChange={(event) =>
-								unitsInStockValueUpdate(event.target.value)
-							}
+							id="modal-comment-create-form-productId"
+							placeholder="ProductId"
+							value={productIdValue}
+							onChange={(event) => setProductIdValue(event.target.value)}
 							min="0"
 						/>
 					</div>
@@ -138,7 +144,7 @@ const CreateCommentForm = (props) => {
 						className="btn btn-success form-input form-control"
 						onClick={() => navCreateButtonClick()}
 					>
-						Add Comment
+						Create Comment
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"

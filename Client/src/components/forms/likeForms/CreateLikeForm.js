@@ -5,15 +5,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const CreateLikeForm = (props) => {
 	// FORM DATA
-	const [nameValue, setNameValue] = useState("");
-	const [descriptionValue, setDescriptionValue] = useState("");
-
-	const nameValueUpdate = (newName) => {
-		setNameValue(newName);
-	};
-	const descriptionValueUpdate = (newDescription) => {
-		setDescriptionValue(newDescription);
-	};
+	const [userIdValue, setUserIdValue] = useState(0);
+	const [commentIdValue, setCommentIdValue] = useState(0);
+	const [productIdValue, setProductIdValue] = useState(0);
 
 	// Modal
 	const [modal, setModal] = useState(false);
@@ -22,49 +16,83 @@ const CreateLikeForm = (props) => {
 	const navCreateButtonClick = () => {
 		if (props.navCreateButtonClick) {
 			props.navCreateButtonClick({
-				name: nameValue,
-				description: descriptionValue,
+				userId: userIdValue,
+				commentId: commentIdValue,
+				productId: productIdValue,
 			});
 		}
-		setNameValue("");
-		setDescriptionValue("");
+		setUserIdValue(0);
+		setCommentIdValue(0);
+		setProductIdValue(0);
 		toggle();
 	};
 
 	return (
 		<>
 			<button className="btn btn-success" onClick={toggle}>
-				Add
+				Create
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">Add Like</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem addFormName">
-						<label htmlFor="addForm-name" className="form-label">
-							Name
+				<ModalHeader className="modal-form-item">Create Like</ModalHeader>
+				<ModalBody className="modal-form">
+					{/* WARNING */}
+					<div className="modal-form-item">
+						<label className="form-label">
+							Only User Accounts should Create Likes.
+						</label>
+					</div>
+					{/* LIKE USERID */}
+					<div className="modal-form-item modal-form-userId">
+						<label
+							htmlFor="modal-like-create-form-userId"
+							className="form-label"
+						>
+							UserId
 						</label>
 						<input
-							type="text"
+							type="number"
 							className="form-control form-input"
-							id="addForm-name"
-							placeholder="Name"
-							value={nameValue}
-							onChange={(event) => nameValueUpdate(event.target.value)}
+							id="modal-like-create-form-userId"
+							placeholder="UserId"
+							value={userIdValue}
+							onChange={(event) => setUserIdValue(event.target.value)}
+							min="0"
 						/>
 					</div>
-					<div className="acdFormItem addFormDescription">
-						<label htmlFor="addForm-name" className="form-label">
-							Description
+					{/* LIKE COMMENTID */}
+					<div className="modal-form-item modal-form-commentId">
+						<label
+							htmlFor="modal-like-create-form-commentId"
+							className="form-label"
+						>
+							CommentId
 						</label>
 						<input
-							type="text"
+							type="number"
 							className="form-control form-input"
-							id="addForm-description"
-							placeholder="Description"
-							value={descriptionValue}
-							onChange={(event) =>
-								descriptionValueUpdate(event.target.value)
-							}
+							id="modal-like-create-form-commentId"
+							placeholder="CommentId"
+							value={commentIdValue}
+							onChange={(event) => setCommentIdValue(event.target.value)}
+							min="0"
+						/>
+					</div>
+					{/* LIKE PRODUCTID */}
+					<div className="modal-form-item modal-form-productId">
+						<label
+							htmlFor="modal-like-create-form-productId"
+							className="form-label"
+						>
+							ProductId
+						</label>
+						<input
+							type="number"
+							className="form-control form-input"
+							id="modal-like-create-form-productId"
+							placeholder="ProductId"
+							value={productIdValue}
+							onChange={(event) => setProductIdValue(event.target.value)}
+							min="0"
 						/>
 					</div>
 				</ModalBody>
@@ -73,7 +101,7 @@ const CreateLikeForm = (props) => {
 						className="btn btn-success form-input form-control"
 						onClick={() => navCreateButtonClick()}
 					>
-						Add Like
+						Create Like
 					</button>
 					<button
 						className="btn btn-secondary form-input form-control"

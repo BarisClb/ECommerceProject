@@ -30,6 +30,7 @@ const getUsers = (userId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let data = await actionHelpers.getHelper("Users", userId);
+		console.log(data);
 
 		if (userId) {
 			dispatch({ type: userTypes.GetSingleUser, payload: data });
@@ -52,6 +53,7 @@ const createUser = (newUser, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.createHelper("Users", newUser);
+		console.log(response);
 
 		dispatch({ type: userTypes.CreateUser });
 
@@ -74,6 +76,7 @@ const updateUser = (userId, updatedUser, successCallback) => {
 			userId,
 			updatedUser
 		);
+		console.log(response);
 
 		dispatch({ type: userTypes.UpdateUser });
 
@@ -92,6 +95,7 @@ const deleteUser = (userId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.deleteHelper("Users", userId);
+		console.log(response);
 
 		dispatch({ type: userTypes.DeleteUser });
 

@@ -26,6 +26,7 @@ const getComments = (commentId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let data = await actionHelpers.getHelper("Comments", commentId);
+		console.log(data);
 
 		if (commentId) {
 			dispatch({ type: commentTypes.GetSingleComment, payload: data });
@@ -48,6 +49,7 @@ const createComment = (newComment, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.createHelper("Comments", newComment);
+		console.log(response);
 
 		dispatch({ type: commentTypes.CreateComment });
 
@@ -70,6 +72,7 @@ const updateComment = (commentId, updatedComment, successCallback) => {
 			commentId,
 			updatedComment
 		);
+		console.log(response);
 
 		dispatch({ type: commentTypes.UpdateComment });
 
@@ -88,6 +91,7 @@ const deleteComment = (commentId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.deleteHelper("Comments", commentId);
+		console.log(response);
 
 		dispatch({ type: commentTypes.DeleteComment });
 

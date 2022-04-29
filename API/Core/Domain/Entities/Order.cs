@@ -9,8 +9,12 @@ namespace Domain.Entities
 {
     public class Order : BaseEntity
     {
-        public string? Description { get; set; }
+        public string? Note { get; set; }
         public string Address { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public int Discount { get; set; }
+        public decimal Total { get; set; }
         public byte OrderStatus { get; set; }
 
         //// Relations

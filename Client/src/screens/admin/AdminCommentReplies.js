@@ -76,9 +76,9 @@ function AdminCommentReplies() {
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
 					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav

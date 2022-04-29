@@ -52,25 +52,25 @@ function AdminComments() {
 					apiData={comments}
 					//// Table Content
 					// Table Headings
-					tableHead={"Title"}
-					tableHead2={"Text"}
-					tableHead3={"ProductId"}
-					tableHead4={"UserId"}
+					tableHead={"Text"}
+					tableHead2={"Rating"}
+					tableHead3={"Product"}
+					tableHead4={"User"}
 					buttonHeadName={"Operations"}
 					// Table Datas
-					tableData={"title"}
-					tableData2={"text"}
-					tableData3={"productId"}
-					tableData4={"userId"}
+					tableData={"text"}
+					tableData2={"rating"}
+					tableData3={"productName"}
+					tableData4={"userUsername"}
 					// Special
 					isAdmin={true}
 					isCategories={true}
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
+					tableUpdateButton={false}
 					tableDeleteButton={true}
-					tableUpdateButton={true}
 					// Table Button Clicks
 					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav

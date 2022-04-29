@@ -17,6 +17,7 @@ const getLikes = (likeId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let data = await actionHelpers.getHelper("Likes", likeId);
+		console.log(data);
 
 		if (likeId) {
 			dispatch({ type: likeTypes.GetSingleLike, payload: data });
@@ -39,6 +40,7 @@ const createLike = (newLike, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.createHelper("Likes", newLike);
+		console.log(response);
 
 		dispatch({ type: likeTypes.CreateLike });
 
@@ -57,6 +59,7 @@ const deleteLike = (likeId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.deleteHelper("Likes", likeId);
+		console.log(response);
 
 		dispatch({ type: likeTypes.DeleteLike });
 

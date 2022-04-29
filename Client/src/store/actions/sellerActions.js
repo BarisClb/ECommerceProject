@@ -26,6 +26,7 @@ const getSellers = (sellerId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let data = await actionHelpers.getHelper("Sellers", sellerId);
+		console.log(data);
 
 		if (sellerId) {
 			dispatch({ type: sellerTypes.GetSingleSeller, payload: data });
@@ -48,6 +49,7 @@ const createSeller = (newSeller, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.createHelper("Sellers", newSeller);
+		console.log(response);
 
 		dispatch({ type: sellerTypes.CreateSeller });
 
@@ -70,6 +72,7 @@ const updateSeller = (sellerId, updatedSeller, successCallback) => {
 			sellerId,
 			updatedSeller
 		);
+		console.log(response);
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -86,6 +89,7 @@ const deleteSeller = (sellerId, successCallback) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let response = await actionHelpers.deleteHelper("Sellers", sellerId);
+		console.log(response);
 
 		dispatch({ type: sellerTypes.DeleteSeller });
 

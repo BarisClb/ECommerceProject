@@ -26,6 +26,7 @@ const getCommentReplies = (commentReplyId, successCallback) => {
 			"CommentReplies",
 			commentReplyId
 		);
+		console.log(data);
 
 		if (commentReplyId) {
 			dispatch({
@@ -57,6 +58,7 @@ const createCommentReply = (newCommentReply, successCallback) => {
 			"CommentReplies",
 			newCommentReply
 		);
+		console.log(response);
 
 		dispatch({ type: commentReplyTypes.CreateCommentReply });
 
@@ -78,11 +80,12 @@ const updateCommentReply = (
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = actionHelpers.updateHelper(
+		let response = await actionHelpers.updateHelper(
 			"CommentReplies",
 			commentReplyId,
 			updatedCommentReply
 		);
+		console.log(response);
 
 		dispatch({ type: commentReplyTypes.UpdateCommentReply });
 
@@ -104,6 +107,7 @@ const deleteCommentReply = (commentReplyId, successCallback) => {
 			"CommentReplies",
 			commentReplyId
 		);
+		console.log(response);
 
 		dispatch({ type: commentReplyTypes.DeleteCommentReply });
 

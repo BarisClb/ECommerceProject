@@ -1,60 +1,73 @@
-import React, { useState } from "react";
-import { commentReplyActions } from "../../../store/actions/commentReplyActions";
+import React, { useEffect, useState } from "react";
 import "./css/index.css";
 import "../css/index.css";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
-import { useSelector } from "react-redux";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { commonActions } from "../../../store/actions";
 
 const UpdateCommentReplyForm = (props) => {
 	// FORM DATA
-	const [idValue, setIdValue] = useState(-1);
-	const idValueUpdate = (newCommentReplyId) => {
-		setIdValue(newCommentReplyId);
-		if (newCommentReplyId >= 0) {
-			let commentReply = commentReplies.find(
-				(commentReply) =>
-					commentReply.id === Number.parseInt(newCommentReplyId)
-			);
-			setNameValue(commentReply.name);
-			setDescriptionValue(commentReply.description);
-		} else {
-			setNameValue("");
-			setDescriptionValue("");
-		}
-	};
-	const [nameValue, setNameValue] = useState("");
-	const nameValueUpdate = (newNameValue) => {
-		setNameValue(newNameValue);
-	};
-	const [descriptionValue, setDescriptionValue] = useState("");
-	const descriptionValueUpdate = (newDescriptionValue) => {
-		setDescriptionValue(newDescriptionValue);
+	const [idValue, setIdValue] = useState(0);
+	const [entityFound, setEntityFound] = useState(false);
+
+	const commentReply = useSelector((state) => state.common.EntityToUpdate);
+
+	const dispatch = useDispatch();
+	const findEntity = () => {
+		dispatch(commonActions.getEntityToUpdate("CommentReplies", idValue));
 	};
 
-	const commentReplies = useSelector(
-		(state) => state.commentReply.commentReplies
-	);
+	useEffect(() => {
+		if (commentReply.id) {
+			setIdValue(commentReply.id);
+			setTextValue(commentReply.text);
+			setProductIdValue(commentReply.productId);
+			setSellerIdValue(commentReply.sellerId);
+
+			setEntityFound(true);
+		} else {
+			setIdValue(0);
+			setTextValue("");
+			setProductIdValue(0);
+			setSellerIdValue(0);
+			setEntityFound(false);
+		}
+	}, [commentReply]);
+
+	const [textValue, setTextValue] = useState("");
+
+	const [productIdValue, setProductIdValue] = useState(0);
+	const [sellerIdValue, setSellerIdValue] = useState(0);
 
 	// Modal
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
 	const navUpdateButtonClick = () => {
-		if (
-			props.navUpdateButtonClick &&
-			idValue >= 0 &&
-			nameValue &&
-			descriptionValue
-		) {
+		if (props.navUpdateButtonClick && idValue > 0) {
+			let updatedCommentReply = {};
+			if (changeText) {
+				updatedCommentReply = {
+					...updatedCommentReply,
+					text: textValue,
+				};
+			}
+
 			props.navUpdateButtonClick(Number.parseInt(idValue), {
-				name: nameValue,
-				description: descriptionValue,
+				...updatedCommentReply,
 			});
 		}
-		setNameValue("");
-		setDescriptionValue("");
+		setIdValue(0);
+		setTextValue("");
+		setEntityFound(false);
+		setChangeText(true);
+		dispatch(commonActions.getEntityToUpdate("CommentReplies", 0));
 		toggle();
 	};
+
+	// Update or Not
+
+	const [changeText, setChangeText] = useState(true);
 
 	return (
 		<>
@@ -62,68 +75,100 @@ const UpdateCommentReplyForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="acdFormItem">
+				<ModalHeader className="modal-form-item">
 					Update CommentReply
 				</ModalHeader>
-				<ModalBody className="acdForm">
-					<div className="acdFormItem updateFormOldDescription">
-						<label htmlFor="updateForm-id" className="form-label">
-							Old CommentReply
-						</label>
-						<Input
-							type="select"
-							className="form-control form-input"
-							id="updateForm-id"
-							placeholder="CommentReply"
-							value={idValue}
-							onChange={(event) => idValueUpdate(event.target.value)}
-						>
-							<option value={-1}>Choose a CommentReply to Update</option>
-							{commentReplies ? (
-								commentReplies.map((commentReply) => {
-									return (
-										<option
-											key={commentReply.id}
-											value={commentReply.id}
-										>
-											{commentReply.name}
-										</option>
-									);
-								})
-							) : (
-								<option>No CommentReplies Found</option>
-							)}
-						</Input>
-					</div>
-					<div className="acdFormItem updateFormNewName">
-						<label htmlFor="updateForm-name" className="form-label">
-							Name
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="updateForm-name"
-							placeholder="New Name"
-							value={nameValue}
-							onChange={(event) => nameValueUpdate(event.target.value)}
-						/>
-					</div>
-					<div className="acdFormItem updateFormNewDescription">
+				<ModalBody className="modal-form">
+					{/* COMMENTREPLY ID */}
+					<div className="modal-form-item modal-form-id">
 						<label
-							htmlFor="updateForm-description"
+							htmlFor="modal-commentReply-update-form-id"
 							className="form-label"
 						>
-							Description
+							Id
+						</label>
+						<input
+							type="number"
+							className="form-control form-input"
+							id="modal-commentReply-update-form-id"
+							placeholder="Id"
+							value={idValue}
+							onChange={(event) => setIdValue(event.target.value)}
+							min="1"
+						/>
+						<button
+							className="btn btn-primary get-entity-to-update-button"
+							onClick={() => findEntity()}
+						>
+							Get CommentReply
+						</button>
+					</div>
+					{/* COMMENTREPLY DESCRIPTION */}
+					<div className="modal-form-item modal-form-text">
+						<label
+							htmlFor="modal-commentReply-update-form-text"
+							className="form-label"
+						>
+							Text
 						</label>
 						<input
 							type="text"
 							className="form-control form-input"
-							id="updateForm-description"
-							placeholder="New Description"
-							value={descriptionValue}
-							onChange={(event) =>
-								descriptionValueUpdate(event.target.value)
-							}
+							id="modal-commentReply-update-form-text"
+							placeholder="Text"
+							value={textValue}
+							onChange={(event) => setTextValue(event.target.value)}
+							disabled={!changeText}
+						/>
+						<div className="form-check">
+							<input
+								className="form-check-input"
+								type="checkbox"
+								id="modal-form-commentReply-update-text-check"
+								onChange={() => setChangeText(!changeText)}
+							/>
+							<label
+								className="form-check-label"
+								htmlFor="modal-form-commentReply-update-text-check"
+							>
+								Don't Change
+							</label>
+						</div>
+					</div>
+					{/* COMMENTREPLY CATEGORYID */}
+					<div className="modal-form-item modal-form-productId">
+						<label
+							htmlFor="modal-commentReply-update-form-productId"
+							className="form-label"
+						>
+							ProductId
+						</label>
+						<input
+							type="number"
+							className="form-control form-input"
+							id="modal-commentReply-update-form-productId"
+							placeholder="ProductId"
+							value={productIdValue}
+							min="0"
+							disabled={true}
+						/>
+					</div>
+					{/* COMMENTREPLY SELLERID */}
+					<div className="modal-form-item modal-form-sellerId">
+						<label
+							htmlFor="modal-commentReply-update-form-sellerId"
+							className="form-label"
+						>
+							SellerId
+						</label>
+						<input
+							type="number"
+							className="form-control form-input"
+							id="modal-commentReply-update-form-sellerId"
+							placeholder="SellerId"
+							value={sellerIdValue}
+							min="0"
+							disabled={true}
 						/>
 					</div>
 				</ModalBody>
@@ -131,6 +176,7 @@ const UpdateCommentReplyForm = (props) => {
 					<button
 						className="btn btn-warning form-input form-control"
 						onClick={() => navUpdateButtonClick()}
+						disabled={!entityFound}
 					>
 						Update CommentReply
 					</button>
