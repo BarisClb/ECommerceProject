@@ -1,6 +1,7 @@
 ﻿using Application.Repositories;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
+using Infrastructure.Dtos.Common;
 using Domain.Responses;
 using Domain.Entities;
 using System;
@@ -25,10 +26,10 @@ namespace Service.Services
             _categoryReadRepository = categoryReadRepository;
         }
 
-        public async Task<SuccessfulResponse<IList<CategoryReadVm>>> Get()
+        public async Task<PagedResponse<IList<CategoryReadVm>>> Get(Pagination pagination)
         {
             IList<Category> categories = _categoryReadRepository.GetAll(false).ToList();
-            IList<CategoryReadVm> mappedCategories = categories.Select(category => new CategoryReadVm
+            IList<CategoryReadVm> mappedCategories = categories.Skip((pagination.PageNumber - 1 ) * pagination.PageSize).Take(pagination.PageSize).Select(category => new CategoryReadVm
             {
                 Id = category.Id,
                 Name = category.Name,
@@ -37,7 +38,7 @@ namespace Service.Services
                 DateUpdated = category.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<CategoryReadVm>>(mappedCategories);
+            return new PagedResponse<IList<CategoryReadVm>>(mappedCategories, categories.Count, pagination.PageNumber, pagination.PageSize);
         }
 
         public async Task<BaseResponse> Get(int id)

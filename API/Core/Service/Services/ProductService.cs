@@ -45,10 +45,10 @@ namespace Service.Services
             _sellerReadRepository = sellerReadRepository;
         }
 
-        public async Task<SuccessfulResponse<IList<ProductReadVm>>> Get()
+        public async Task<PagedResponse<IList<ProductReadVm>>> Get(Pagination pagination)
         {
             IList<Product> products = _productReadRepository.GetAll(false).ToList();
-            IList<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
+            IList<ProductReadVm> mappedProducts = products.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(product => new ProductReadVm
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -63,7 +63,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<ProductReadVm>>(mappedProducts);
+            return new PagedResponse<IList<ProductReadVm>>(mappedProducts, products.Count, pagination.PageNumber, pagination.PageSize);
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -71,8 +71,9 @@ namespace Service.Services
             Product product = await _productReadRepository.GetByIdAsync(id, false);
             if (product == null)
                 return new FailResponse("Product does not exist.");
-            Category category = await _categoryReadRepository.GetByIdAsync(product.CategoryId, false);
-            Seller seller = await _sellerReadRepository.GetByIdAsync(product.SellerId, false);
+            // I can get EntityName (in a One-to-Many relationship) this way, but how to get it in a List as above?)
+            // Category category = await _categoryReadRepository.GetByIdAsync(product.CategoryId, false);
+            // Seller seller = await _sellerReadRepository.GetByIdAsync(product.SellerId, false);
 
             ProductReadVm mappedProduct = new()
             {

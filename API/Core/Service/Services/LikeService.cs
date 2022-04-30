@@ -1,6 +1,7 @@
 ﻿using Application.Repositories;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
+using Infrastructure.Dtos.Common;
 using Domain.Responses;
 using Domain.Entities;
 using System;
@@ -36,10 +37,10 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<SuccessfulResponse<IList<LikeReadVm>>> Get()
+        public async Task<PagedResponse<IList<LikeReadVm>>> Get(Pagination pagination)
         {
             IList<Like> likes = _likeReadRepository.GetAll(false).ToList();
-            IList<LikeReadVm> mappedLikes = likes.Select(like => new LikeReadVm
+            IList<LikeReadVm> mappedLikes = likes.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(like => new LikeReadVm
             {
                 Id = like.Id,
                 CommentId = like.CommentId,
@@ -51,7 +52,7 @@ namespace Service.Services
                 DateUpdated = like.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<LikeReadVm>>(mappedLikes);
+            return new PagedResponse<IList<LikeReadVm>>(mappedLikes, likes.Count, pagination.PageNumber, pagination.PageSize);
         }
 
         public async Task<BaseResponse> Get(int id)

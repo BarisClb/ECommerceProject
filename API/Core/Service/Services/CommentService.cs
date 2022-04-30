@@ -1,6 +1,7 @@
 ﻿using Application.Repositories;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
+using Infrastructure.Dtos.Common;
 using Domain.Responses;
 using Domain.Entities;
 using System;
@@ -33,10 +34,10 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<SuccessfulResponse<IList<CommentReadVm>>> Get()
+        public async Task<PagedResponse<IList<CommentReadVm>>> Get(Pagination pagination)
         {
             IList<Comment> comments = _commentReadRepository.GetAll(false).ToList();
-            IList<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
+            IList<CommentReadVm> mappedComments = comments.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(comment => new CommentReadVm
             {
                 Id = comment.Id,
                 Title = comment.Title,
@@ -50,7 +51,7 @@ namespace Service.Services
                 DateUpdated = comment.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<CommentReadVm>>(mappedComments);
+            return new PagedResponse<IList<CommentReadVm>>(mappedComments, comments.Count, pagination.PageNumber, pagination.PageSize);
         }
 
         public async Task<BaseResponse> Get(int id)

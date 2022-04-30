@@ -1,6 +1,7 @@
 ﻿using Application.Repositories;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
+using Infrastructure.Dtos.Common;
 using Application.Validators;
 using Domain.Responses;
 using Domain.Entities;
@@ -31,10 +32,10 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<SuccessfulResponse<IList<SellerReadVm>>> Get()
+        public async Task<PagedResponse<IList<SellerReadVm>>> Get(Pagination pagination)
         {
             IList<Seller> sellers = _sellerReadRepository.GetAll(false).ToList();
-            IList<SellerReadVm> mappedSellers = sellers.Select(seller => new SellerReadVm
+            IList<SellerReadVm> mappedSellers = sellers.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(seller => new SellerReadVm
             {
                 Id = seller.Id,
                 Name = seller.Name,
@@ -45,7 +46,7 @@ namespace Service.Services
                 DateUpdated = seller.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<SellerReadVm>>(mappedSellers);
+            return new PagedResponse<IList<SellerReadVm>>(mappedSellers, sellers.Count, pagination.PageNumber, pagination.PageSize);
         }
 
         public async Task<BaseResponse> Get(int id)

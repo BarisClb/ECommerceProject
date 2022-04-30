@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Dtos.Request;
+using Infrastructure.Dtos.Common;
 using Service.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] Pagination pagination)
         {
-            return Ok(await _likeService.Get());
+            return Ok(await _likeService.Get(pagination));
         }
 
         [HttpGet("{id}")]
