@@ -8,8 +8,7 @@
    ~ Dependency Injection (Microsoft.Extensions.DependencyInjection)  
    ~ CORS Options  
    ~ Dtos for Requests and Responses  
-   ~ Custom Responses  
-   ~ Moved Services from Controllers to Application Layer  
+   ~ Custom Responses   
   
    Plans:  
   
@@ -38,6 +37,7 @@
    ~ Validations:  
       - EMail Regex Check for User and Seller Accounts, when Creating and Updating.  
       - Unique Username and EMail check, for User and Seller Accounts, when Creating and Updating.  
+   ~ Moved 'EntityServices' from Controllers to Application Layer.  
    ~ Pagination.  
    ~ Sort By (Name, Price, DateCreated/Id (+Reversed)).  
    ~ Light / Dark mode for Store Front.  
