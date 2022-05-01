@@ -91,3 +91,7 @@ h5 {
 .store-navbar-light {
 	background: rgba(0, 0, 0, 0.1) !important;
 }
+
+.navbar-toggler-light {
+	border: 2px solid gray;
+}

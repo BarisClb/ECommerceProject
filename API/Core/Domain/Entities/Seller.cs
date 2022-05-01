@@ -23,7 +23,7 @@ namespace Domain.Entities
         public ICollection<Order>? Orders { get; set; }
 
         // Products
-        public ICollection<Product>? Products { get; set; }
+        public ICollection<Product> Products { get; set; }
 
     }
 }

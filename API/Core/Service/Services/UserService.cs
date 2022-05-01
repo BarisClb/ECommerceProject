@@ -39,10 +39,37 @@ namespace Service.Services
             _sellerReadRepository = sellerReadRepository;
         }
 
-        public async Task<PagedResponse<IList<UserReadVm>>> Get(Pagination pagination)
+        public async Task<SortedResponse<IList<UserReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<User> users = _userReadRepository.GetAll(false).ToList();
-            IList<UserReadVm> mappedUsers = users.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(user => new UserReadVm
+            IList<User> orderedUsers;
+
+            if (listSorting.Reverse)
+            {
+                orderedUsers = listSorting.OrderBy switch
+                {
+                    "Name" => users.OrderByDescending(u => u.Name).ToList(),
+                    "Username" => users.OrderByDescending(u => u.Username).ToList(),
+                    "EMail" => users.OrderByDescending(u => u.EMail).ToList(),
+                    // "CommentCount" => users.OrderByDescending(u => u.Comments.Count).ToList(),
+                    // "OrderCount" => users.OrderByDescending(u => u.Orders.Count).ToList(),
+                    _ => users.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedUsers = listSorting.OrderBy switch
+                {
+                    "Name" => users.OrderBy(u => u.Name).ToList(),
+                    "Username" => users.OrderBy(u => u.Username).ToList(),
+                    "EMail" => users.OrderBy(u => u.EMail).ToList(),
+                    // "CommentCount" => users.OrderBy(u => u.Comments.Count).ToList(),
+                    // "OrderCount" => users.OrderBy(u => u.Orders.Count).ToList(),
+                    _ => users,
+                };
+            }
+
+            IList<UserReadVm> mappedUsers = orderedUsers.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(user => new UserReadVm
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -54,7 +81,7 @@ namespace Service.Services
                 DateUpdated = user.DateUpdated,
             }).ToList();
 
-            return new PagedResponse<IList<UserReadVm>>(mappedUsers, users.Count, pagination.PageNumber, pagination.PageSize);
+            return new SortedResponse<IList<UserReadVm>, ListSortReadVm>(mappedUsers, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, users.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

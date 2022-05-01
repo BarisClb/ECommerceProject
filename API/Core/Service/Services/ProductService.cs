@@ -45,10 +45,37 @@ namespace Service.Services
             _sellerReadRepository = sellerReadRepository;
         }
 
-        public async Task<PagedResponse<IList<ProductReadVm>>> Get(Pagination pagination)
+        public async Task<SortedResponse<IList<ProductReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Product> products = _productReadRepository.GetAll(false).ToList();
-            IList<ProductReadVm> mappedProducts = products.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(product => new ProductReadVm
+            IList<Product> orderedProducts;
+
+            if (listSorting.Reverse)
+            {
+                orderedProducts = listSorting.OrderBy switch
+                {
+                    "Name" => products.OrderByDescending(p => p.Name).ToList(),
+                    "Price" => products.OrderByDescending(p => p.Price).ToList(),
+                    "CategoryName" => products.OrderByDescending(p => p.CategoryName).ToList(),
+                    "SellerUsername" => products.OrderByDescending(p => p.SellerUsername).ToList(),
+                    // "LikesCount" => products.OrderByDescending(p => p.Likes.Count).ToList(),
+                    _ => products.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedProducts = listSorting.OrderBy switch
+                {
+                    "Name" => products.OrderBy(p => p.Name).ToList(),
+                    "Price" => products.OrderBy(p => p.Price).ToList(),
+                    "CategoryName" => products.OrderBy(p => p.CategoryName).ToList(),
+                    "SellerUsername" => products.OrderBy(p => p.SellerUsername).ToList(),
+                    // "LikesCount" => products.OrderBy(p => p.Likes.Count).ToList(),
+                    _ => products,
+                };
+            }
+
+            IList<ProductReadVm> mappedProducts = orderedProducts.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(product => new ProductReadVm
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -63,7 +90,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new PagedResponse<IList<ProductReadVm>>(mappedProducts, products.Count, pagination.PageNumber, pagination.PageSize);
+            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

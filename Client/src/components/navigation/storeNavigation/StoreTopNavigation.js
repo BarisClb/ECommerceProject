@@ -43,7 +43,11 @@ function StoreTopNavigation() {
 					Celebi Store
 				</a>
 				<button
-					className="navbar-toggler"
+					className={`navbar-toggler ${
+						darkMode
+							? "navbar-dark"
+							: "navbar-light bg-light navbar-toggler-light"
+					}`}
 					type="button"
 					data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent"

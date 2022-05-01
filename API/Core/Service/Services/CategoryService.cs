@@ -26,10 +26,31 @@ namespace Service.Services
             _categoryReadRepository = categoryReadRepository;
         }
 
-        public async Task<PagedResponse<IList<CategoryReadVm>>> Get(Pagination pagination)
+        public async Task<SortedResponse<IList<CategoryReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Category> categories = _categoryReadRepository.GetAll(false).ToList();
-            IList<CategoryReadVm> mappedCategories = categories.Skip((pagination.PageNumber - 1 ) * pagination.PageSize).Take(pagination.PageSize).Select(category => new CategoryReadVm
+            IList<Category> orderedCategories;
+
+            if (listSorting.Reverse)
+            {
+                orderedCategories = listSorting.OrderBy switch
+                {
+                    "Name" => categories.OrderByDescending(c => c.Name).ToList(),
+                    // "ProductCount" => categories.OrderByDescending(c => c.Products.Count).ToList(),
+                    _ => categories.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedCategories = listSorting.OrderBy switch
+                {
+                    "Name" => categories.OrderBy(c => c.Name).ToList(),
+                    // "ProductCount" => categories.OrderBy(c => c.Products.Count).ToList(),
+                    _ => categories,
+                };
+            }
+
+            IList<CategoryReadVm> mappedCategories = orderedCategories.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(category => new CategoryReadVm
             {
                 Id = category.Id,
                 Name = category.Name,
@@ -38,7 +59,7 @@ namespace Service.Services
                 DateUpdated = category.DateUpdated,
             }).ToList();
 
-            return new PagedResponse<IList<CategoryReadVm>>(mappedCategories, categories.Count, pagination.PageNumber, pagination.PageSize);
+            return new SortedResponse<IList<CategoryReadVm>, ListSortReadVm>(mappedCategories, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, categories.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

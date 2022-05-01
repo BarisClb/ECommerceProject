@@ -37,10 +37,33 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<PagedResponse<IList<LikeReadVm>>> Get(Pagination pagination)
+        public async Task<SortedResponse<IList<LikeReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Like> likes = _likeReadRepository.GetAll(false).ToList();
-            IList<LikeReadVm> mappedLikes = likes.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(like => new LikeReadVm
+            IList<Like> orderedLikes;
+
+            if (listSorting.Reverse)
+            {
+                orderedLikes = listSorting.OrderBy switch
+                {
+                    "UserUserame" => likes.OrderByDescending(l => l.UserUsername).ToList(),
+                    "ProductName" => likes.OrderByDescending(l => l.ProductName).ToList(),
+                    "CommentId" => likes.OrderByDescending(l => l.CommentId).ToList(),
+                    _ => likes.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedLikes = listSorting.OrderBy switch
+                {
+                    "UserUserame" => likes.OrderBy(l => l.UserUsername).ToList(),
+                    "ProductName" => likes.OrderBy(l => l.ProductName).ToList(),
+                    "CommentId" => likes.OrderBy(l => l.CommentId).ToList(),
+                    _ => likes,
+                };
+            }
+
+            IList<LikeReadVm> mappedLikes = orderedLikes.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(like => new LikeReadVm
             {
                 Id = like.Id,
                 CommentId = like.CommentId,
@@ -52,7 +75,7 @@ namespace Service.Services
                 DateUpdated = like.DateUpdated,
             }).ToList();
 
-            return new PagedResponse<IList<LikeReadVm>>(mappedLikes, likes.Count, pagination.PageNumber, pagination.PageSize);
+            return new SortedResponse<IList<LikeReadVm>, ListSortReadVm>(mappedLikes, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, likes.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

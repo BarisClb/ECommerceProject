@@ -32,10 +32,35 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<PagedResponse<IList<SellerReadVm>>> Get(Pagination pagination)
+        public async Task<SortedResponse<IList<SellerReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Seller> sellers = _sellerReadRepository.GetAll(false).ToList();
-            IList<SellerReadVm> mappedSellers = sellers.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(seller => new SellerReadVm
+            IList<Seller> orderedSellers;
+
+            if (listSorting.Reverse)
+            {
+                orderedSellers = listSorting.OrderBy switch
+                {
+                    "Name" => sellers.OrderByDescending(s => s.Name).ToList(),
+                    "Username" => sellers.OrderByDescending(s => s.Username).ToList(),
+                    "EMail" => sellers.OrderByDescending(s => s.EMail).ToList(),
+                    // "ProductCount" => sellers.OrderByDescending(s => s.Products.Count).ToList(),
+                    _ => sellers.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedSellers = listSorting.OrderBy switch
+                {
+                    "Name" => sellers.OrderBy(s => s.Name).ToList(),
+                    "Username" => sellers.OrderBy(s => s.Username).ToList(),
+                    "EMail" => sellers.OrderBy(s => s.EMail).ToList(),
+                    // "ProductCount" => sellers.OrderBy(s => s.Products.Count).ToList(),
+                    _ => sellers,
+                };
+            }
+
+            IList<SellerReadVm> mappedSellers = orderedSellers.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(seller => new SellerReadVm
             {
                 Id = seller.Id,
                 Name = seller.Name,
@@ -46,7 +71,7 @@ namespace Service.Services
                 DateUpdated = seller.DateUpdated,
             }).ToList();
 
-            return new PagedResponse<IList<SellerReadVm>>(mappedSellers, sellers.Count, pagination.PageNumber, pagination.PageSize);
+            return new SortedResponse<IList<SellerReadVm>, ListSortReadVm>(mappedSellers, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, sellers.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

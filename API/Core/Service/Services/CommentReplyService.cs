@@ -37,10 +37,27 @@ namespace Service.Services
             _sellerReadRepository = sellerReadRepository;
         }
 
-        public async Task<PagedResponse<IList<CommentReplyReadVm>>> Get(Pagination pagination)
+        public async Task<SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<CommentReply> commentReplies = _commentReplyReadRepository.GetAll(false).ToList();
-            IList<CommentReplyReadVm> mappedCommentReplies = commentReplies.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(commentReply => new CommentReplyReadVm
+            IList<CommentReply> orderedCommentReplies;
+
+            if (listSorting.Reverse)
+            {
+                orderedCommentReplies = listSorting.OrderBy switch
+                {
+                    _ => commentReplies.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedCommentReplies = listSorting.OrderBy switch
+                {
+                    _ => commentReplies,
+                };
+            }
+
+            IList<CommentReplyReadVm> mappedCommentReplies = orderedCommentReplies.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(commentReply => new CommentReplyReadVm
             {
                 Id = commentReply.Id,
                 Text = commentReply.Text,
@@ -53,7 +70,7 @@ namespace Service.Services
                 DateUpdated = commentReply.DateUpdated,
             }).ToList();
 
-            return new PagedResponse<IList<CommentReplyReadVm>>(mappedCommentReplies, commentReplies.Count, pagination.PageNumber, pagination.PageSize);
+            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

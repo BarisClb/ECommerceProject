@@ -34,10 +34,31 @@ namespace Service.Services
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<PagedResponse<IList<CommentReadVm>>> Get(Pagination pagination)
+        public async Task<SortedResponse<IList<CommentReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Comment> comments = _commentReadRepository.GetAll(false).ToList();
-            IList<CommentReadVm> mappedComments = comments.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).Select(comment => new CommentReadVm
+            IList<Comment> orderedComments;
+
+            if (listSorting.Reverse)
+            {
+                orderedComments = listSorting.OrderBy switch
+                {
+                    "UserUserame" => comments.OrderByDescending(c => c.UserUsername).ToList(),
+                    "ProductName" => comments.OrderByDescending(c => c.ProductName).ToList(),
+                    _ => comments.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedComments = listSorting.OrderBy switch
+                {
+                    "UserUserame" => comments.OrderBy(c => c.UserUsername).ToList(),
+                    "ProductName" => comments.OrderBy(c => c.ProductName).ToList(),
+                    _ => comments,
+                };
+            }
+
+            IList<CommentReadVm> mappedComments = orderedComments.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(comment => new CommentReadVm
             {
                 Id = comment.Id,
                 Title = comment.Title,
@@ -51,7 +72,7 @@ namespace Service.Services
                 DateUpdated = comment.DateUpdated,
             }).ToList();
 
-            return new PagedResponse<IList<CommentReadVm>>(mappedComments, comments.Count, pagination.PageNumber, pagination.PageSize);
+            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -66,7 +87,7 @@ namespace Service.Services
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
-                ProductName= comment.ProductName,
+                ProductName = comment.ProductName,
                 ProductId = comment.ProductId,
                 UserUsername = comment.UserUsername,
                 UserId = comment.UserId,
@@ -112,7 +133,7 @@ namespace Service.Services
                 Title = comment.Title,
                 Text = comment.Text,
                 Rating = comment.Rating,
-                ProductName= comment.ProductName,
+                ProductName = comment.ProductName,
                 ProductId = comment.ProductId,
                 UserId = comment.UserId,
                 UserUsername = comment.UserUsername,

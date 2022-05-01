@@ -18,9 +18,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] Pagination pagination)
+        public async Task<IActionResult> Get([FromQuery] ListSortWriteVm listSorting)
         {
-            return Ok(await _sellerService.Get(pagination));
+            return Ok(await _sellerService.Get(listSorting));
         }
 
         [HttpGet("{id}")]
