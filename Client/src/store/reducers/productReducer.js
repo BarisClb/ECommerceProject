@@ -1,9 +1,6 @@
 import { productTypes } from "../types/productTypes";
 
-export default function productReducer(
-	state = { products: [], singleProduct: {} },
-	action
-) {
+export default function productReducer(state = { products: [], singleProduct: {} }, action) {
 	switch (action.type) {
 		case productTypes.GetProducts:
 			return { ...state, products: action.payload };

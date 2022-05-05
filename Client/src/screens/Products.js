@@ -28,23 +28,15 @@ const Products = () => {
 	};
 
 	const navAddProductClick = async (newProduct) => {
-		dispatch(
-			productActions.addProduct(newProduct, productActions.getProducts())
-		);
+		dispatch(productActions.addProduct(newProduct, productActions.getProducts()));
 	};
 	const navUpdateProductClick = (oldProductId, newProduct) => {
 		dispatch(
-			productActions.updateProduct(
-				oldProductId,
-				newProduct,
-				productActions.getProducts()
-			)
+			productActions.updateProduct(oldProductId, newProduct, productActions.getProducts())
 		);
 	};
 	const navDeleteProductClick = (oldProduct) => {
-		dispatch(
-			productActions.deleteProduct(oldProduct, productActions.getProducts())
-		);
+		dispatch(productActions.deleteProduct(oldProduct, productActions.getProducts()));
 	};
 
 	return (

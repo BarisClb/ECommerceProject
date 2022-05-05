@@ -75,16 +75,11 @@ const UpdateCommentReplyForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Update CommentReply
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Update CommentReply</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* COMMENTREPLY ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-commentReply-update-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-update-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -105,10 +100,7 @@ const UpdateCommentReplyForm = (props) => {
 					</div>
 					{/* COMMENTREPLY DESCRIPTION */}
 					<div className="modal-form-item modal-form-text">
-						<label
-							htmlFor="modal-commentReply-update-form-text"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-update-form-text" className="form-label">
 							Text
 						</label>
 						<input
@@ -137,10 +129,7 @@ const UpdateCommentReplyForm = (props) => {
 					</div>
 					{/* COMMENTREPLY CATEGORYID */}
 					<div className="modal-form-item modal-form-productId">
-						<label
-							htmlFor="modal-commentReply-update-form-productId"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-update-form-productId" className="form-label">
 							ProductId
 						</label>
 						<input
@@ -155,10 +144,7 @@ const UpdateCommentReplyForm = (props) => {
 					</div>
 					{/* COMMENTREPLY SELLERID */}
 					<div className="modal-form-item modal-form-sellerId">
-						<label
-							htmlFor="modal-commentReply-update-form-sellerId"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-update-form-sellerId" className="form-label">
 							SellerId
 						</label>
 						<input
@@ -180,10 +166,7 @@ const UpdateCommentReplyForm = (props) => {
 					>
 						Update CommentReply
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

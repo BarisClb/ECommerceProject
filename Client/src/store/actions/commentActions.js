@@ -25,13 +25,13 @@ const getComments = (commentId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getHelper("Comments", commentId);
-		console.log(data);
+		let response = await actionHelpers.getHelper("Comments", commentId);
+		console.log(response);
 
 		if (commentId) {
-			dispatch({ type: commentTypes.GetSingleComment, payload: data });
+			dispatch({ type: commentTypes.GetSingleComment, payload: response.data });
 		} else {
-			dispatch({ type: commentTypes.GetComments, payload: data });
+			dispatch({ type: commentTypes.GetComments, payload: response.data });
 		}
 
 		if (successCallback) {
@@ -67,11 +67,7 @@ const updateComment = (commentId, updatedComment, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.updateHelper(
-			"Comments",
-			commentId,
-			updatedComment
-		);
+		let response = await actionHelpers.updateHelper("Comments", commentId, updatedComment);
 		console.log(response);
 
 		dispatch({ type: commentTypes.UpdateComment });

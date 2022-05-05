@@ -109,10 +109,7 @@ const UpdateUserForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* USER ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-user-update-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-update-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -133,10 +130,7 @@ const UpdateUserForm = (props) => {
 					</div>
 					{/* USER NAME */}
 					<div className="modal-form-item modal-form-name">
-						<label
-							htmlFor="modal-user-update-form-name"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-update-form-name" className="form-label">
 							Name
 						</label>
 						<input
@@ -166,10 +160,7 @@ const UpdateUserForm = (props) => {
 					</div>
 					{/* USER USERNAME */}
 					<div className="modal-form-item modal-form-username">
-						<label
-							htmlFor="modal-user-update-form-username"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-update-form-username" className="form-label">
 							Username
 						</label>
 						<input
@@ -199,10 +190,7 @@ const UpdateUserForm = (props) => {
 					</div>
 					{/* USER EMAIL */}
 					<div className="modal-form-item modal-form-eMail">
-						<label
-							htmlFor="modal-user-update-form-eMail"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-update-form-eMail" className="form-label">
 							EMail
 						</label>
 						<input
@@ -232,10 +220,7 @@ const UpdateUserForm = (props) => {
 					</div>
 					{/* USER PASSWORD */}
 					<div className="modal-form-item modal-form-password">
-						<label
-							htmlFor="modal-user-update-form-password"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-update-form-password" className="form-label">
 							Password
 						</label>
 						<input
@@ -307,10 +292,7 @@ const UpdateUserForm = (props) => {
 					>
 						Update User
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

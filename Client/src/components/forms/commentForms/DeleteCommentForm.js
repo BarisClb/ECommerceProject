@@ -58,16 +58,11 @@ const DeleteCommentForm = (props) => {
 				Delete
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Delete Comment
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Delete Comment</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* COMMENT ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-comment-delete-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-delete-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -88,10 +83,7 @@ const DeleteCommentForm = (props) => {
 					</div>
 					{/* COMMENT TITLE */}
 					<div className="modal-form-item modal-form-title">
-						<label
-							htmlFor="modal-comment-delete-form-title"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-delete-form-title" className="form-label">
 							Title
 						</label>
 						<input
@@ -106,10 +98,7 @@ const DeleteCommentForm = (props) => {
 					</div>
 					{/* COMMENT TEXT */}
 					<div className="modal-form-item modal-form-text">
-						<label
-							htmlFor="modal-comment-delete-form-text"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-delete-form-text" className="form-label">
 							Text
 						</label>
 						<input
@@ -124,10 +113,7 @@ const DeleteCommentForm = (props) => {
 					</div>
 					{/* COMMENT RATING */}
 					<div className="modal-form-item modal-form-rating">
-						<label
-							htmlFor="modal-comment-delete-form-rating"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-delete-form-rating" className="form-label">
 							Rating
 						</label>
 						<input
@@ -144,10 +130,7 @@ const DeleteCommentForm = (props) => {
 					</div>
 					{/* COMMENT USERID */}
 					<div className="modal-form-item modal-form-userId">
-						<label
-							htmlFor="modal-comment-delete-form-userId"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-delete-form-userId" className="form-label">
 							UserId
 						</label>
 						<input
@@ -170,10 +153,7 @@ const DeleteCommentForm = (props) => {
 					>
 						Delete Comment
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

@@ -20,11 +20,7 @@ const StoreLayout = ({ children }) => {
 			{common.IsLoading && <Loading />}
 			<div
 				id="store-content-wrapper"
-				className={
-					darkMode
-						? "store-content-wrapper-dark"
-						: "store-content-wrapper-light"
-				}
+				className={darkMode ? "store-content-wrapper-dark" : "store-content-wrapper-light"}
 			>
 				{children}
 				<Outlet />

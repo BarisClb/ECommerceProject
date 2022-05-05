@@ -15,32 +15,19 @@ function AdminComments() {
 	const comments = useSelector((state) => state.comment.comments);
 
 	const navCreateCommentClick = async (newComment) => {
-		dispatch(
-			commentActions.createComment(newComment, commentActions.getComments())
-		);
+		dispatch(commentActions.createComment(newComment, commentActions.getComments()));
 	};
 	const navUpdateCommentClick = (commentId, updatedComment) => {
 		dispatch(
-			commentActions.updateComment(
-				commentId,
-				updatedComment,
-				commentActions.getComments()
-			)
+			commentActions.updateComment(commentId, updatedComment, commentActions.getComments())
 		);
 	};
 	const navDeleteCommentClick = (oldComment) => {
-		dispatch(
-			commentActions.deleteComment(oldComment, commentActions.getComments())
-		);
+		dispatch(commentActions.deleteComment(oldComment, commentActions.getComments()));
 	};
 
 	const tableDeleteButtonClick = (oldComment) => {
-		dispatch(
-			commentActions.deleteComment(
-				oldComment.id,
-				commentActions.getComments()
-			)
-		);
+		dispatch(commentActions.deleteComment(oldComment.id, commentActions.getComments()));
 	};
 
 	return (
@@ -75,6 +62,7 @@ function AdminComments() {
 					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Comment"}
+					navSearch={true}
 					navCreateButton={true}
 					navUpdateButton={true}
 					navDeleteButton={true}

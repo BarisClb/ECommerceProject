@@ -16,13 +16,13 @@ const getLikes = (likeId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getHelper("Likes", likeId);
-		console.log(data);
+		let response = await actionHelpers.getHelper("Likes", likeId);
+		console.log(response);
 
 		if (likeId) {
-			dispatch({ type: likeTypes.GetSingleLike, payload: data });
+			dispatch({ type: likeTypes.GetSingleLike, payload: response.data });
 		} else {
-			dispatch({ type: likeTypes.GetLikes, payload: data });
+			dispatch({ type: likeTypes.GetLikes, payload: response.data });
 		}
 
 		if (successCallback) {

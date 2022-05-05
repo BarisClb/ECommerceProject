@@ -32,13 +32,13 @@ const getOrders = (orderId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getHelper("Orders", orderId);
-		console.log(data);
+		let response = await actionHelpers.getHelper("Orders", orderId);
+		console.log(response);
 
 		if (orderId) {
-			dispatch({ type: orderTypes.GetSingleOrder, payload: data });
+			dispatch({ type: orderTypes.GetSingleOrder, payload: response.data });
 		} else {
-			dispatch({ type: orderTypes.GetOrders, payload: data });
+			dispatch({ type: orderTypes.GetOrders, payload: response.data });
 		}
 
 		if (successCallback) {
@@ -74,11 +74,7 @@ const updateOrder = (orderId, updatedOrder, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.updateHelper(
-			"Orders",
-			orderId,
-			updatedOrder
-		);
+		let response = await actionHelpers.updateHelper("Orders", orderId, updatedOrder);
 		console.log(response);
 
 		dispatch({ type: orderTypes.UpdateOrder });

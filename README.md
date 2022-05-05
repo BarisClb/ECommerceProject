@@ -2,37 +2,37 @@
   
    Project Structure:  
   
+   These are the Standards/Coding Conventions/Best Practices that I tried to follow in my code and Technologies/Libraries that I used. As I am still a beginner, I may not have implemented them perfectly. I'm still learning more about them and all the other new information while coding and creating projects!  
+  
    ~ Onion Architecture  
+   ~ OOP  
    ~ Entity Framework Core for ORM with Code First approach (Microsoft.EntityFrameworkCore)  
    ~ Sql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
    ~ Dependency Injection (Microsoft.Extensions.DependencyInjection)  
    ~ CORS Options  
    ~ Dtos for Requests and Responses  
    ~ Custom Responses   
+   ~ Password Hashing (BCrypt.Net-Next)  
   
-   Plans:  
+   Future Plans (For this project or future Projects):  
   
    1-) JWT / Authorization / Authentication  
-   2-) Password Hashing  
-   3-) Unique URLs  
-   4-) EMail Notification for Orders (It will be implemented but it will probably be disabled.)  
+   2-) Unique URLs  
+   3-) EMail Notification for Orders (It might be implemented but it will probably be disabled.)  
+   4-) Account Personal MailBox  
+   5-) Mails between Accounts  
+   6-) Notifications for Personal EMail and in Account MailBox (Replies to Comments, Comments to Products, Order Status Update...)  
+   7-) DDD with CQRS (with MediatR and AutoMapper) => I will probably implement this on the next project.  
   
-   Maybe:  
-  
-   1-) User Personal Mail  
-   2-) Mails between Users  
-   3-) Notifications for User EMail and in Personal Mail (Replies to Comments, Comments to Product, Order Status...)  
-   5-) CQRS (with MediatR and AutoMapper) => I will probably implement this on the next project.  
-  
-   Need To Check:  
+   Need To Think:  
   
    ~ More optimization for Delete/deActivate interactions. For Example; When a Product gets deleted, Orders tied to it should change to 'Status: 0', which should mean 'Cancelled', instead of being deleted along with it.  
   
    Flaws:  
   
-   ~ In 1 to Many relationships, I put 'One's 'Name' in 'Many's properties. So when I request a 'Product' entity for example, I also get the name of 'Category' it belongs to, which is a 'One' of 'Many' Products. I did it independently, as such, if the 'One's name, changes, it won't affect and 'update' for the 'Many's. They will still show the old 'Name' of the 'One'. It should be fixable with propper mapping, requesting the 'Name' of 'One' each time the 'Many' is called instead of adding it as a property.  
+   ~ In One to Many relationships, I put 'One's 'Name' in 'Many's properties. So when I request a 'Product' entity for example, I also get the name of 'Category' it belongs to, which is a 'One' of 'Many' Products. I did it independently, as such, if the 'One's name, changes, it won't affect and 'update' for the 'Many's. They will still show the old 'Name' of the 'One'. It should be fixable with propper mapping, requesting the 'Name' of 'One' each time the 'Many' is called instead of adding it as a property.  
   
-   Done:  
+   CheckList:  
   
    ~ Validations:  
       - EMail Regex Check for User and Seller Accounts, when Creating and Updating.  
@@ -41,6 +41,7 @@
    ~ Pagination.  
    ~ Sort By (Name, Price, DateCreated/Id (+Reversed)).  
    ~ Light / Dark mode for Store Front.  
+   ~ Password Hashing  
   
   Database Relations:  
   

@@ -42,35 +42,24 @@ const Header = (props) => {
 			{headerButtons && (
 				<div className="header-buttons">
 					{headerAddButton && (
-						<button
-							className="btn btn-success"
-							onClick={() => headerAddButtonClick()}
-						>
+						<button className="btn btn-success" onClick={() => headerAddButtonClick()}>
 							Add
 						</button>
 					)}
 					{headerUpdateButton && (
-						<button
-							className="btn btn-warning"
-							onClick={() => headerUpdateButtonClick()}
-						>
+						<button className="btn btn-warning" onClick={() => headerUpdateButtonClick()}>
 							Update
 						</button>
 					)}
 					{headerDeleteButton && (
-						<button
-							className="btn btn-danger"
-							onClick={() => headerDeleteButtonClick()}
-						>
+						<button className="btn btn-danger" onClick={() => headerDeleteButtonClick()}>
 							Delete
 						</button>
 					)}
 					{headerCustomButton && (
 						<button
 							className={`btn btn-${
-								headerCustomButtonColor
-									? headerCustomButtonColor
-									: "light"
+								headerCustomButtonColor ? headerCustomButtonColor : "light"
 							}`}
 							onClick={() => headerCustomButtonClick()}
 						>

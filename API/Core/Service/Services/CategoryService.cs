@@ -28,9 +28,18 @@ namespace Service.Services
 
         public async Task<SortedResponse<IList<CategoryReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
-            IList<Category> categories = _categoryReadRepository.GetAll(false).ToList();
+            // Search Word
+            IList<Category> categories;
+            if (!string.IsNullOrWhiteSpace(listSorting.SearchWord))
+            {
+                categories = _categoryReadRepository.GetWhere(c => c.Name.Contains(listSorting.SearchWord)).ToList();
+            }
+            else
+            {
+                categories = _categoryReadRepository.GetAll(false).ToList();
+            }
+            // Sort => Reverse? => OrderBy?
             IList<Category> orderedCategories;
-
             if (listSorting.Reverse)
             {
                 orderedCategories = listSorting.OrderBy switch
@@ -49,6 +58,9 @@ namespace Service.Services
                     _ => categories,
                 };
             }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = categories.Count;
 
             IList<CategoryReadVm> mappedCategories = orderedCategories.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(category => new CategoryReadVm
             {
@@ -59,7 +71,7 @@ namespace Service.Services
                 DateUpdated = category.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<CategoryReadVm>, ListSortReadVm>(mappedCategories, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, categories.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<CategoryReadVm>, ListSortReadVm>(mappedCategories, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, categories.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

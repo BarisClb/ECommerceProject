@@ -1,27 +1,13 @@
 import React from "react";
 import "./css/index.css";
-import {
-	Navbar,
-	NavbarBrand,
-	NavbarToggler,
-	Collapse,
-	Nav,
-	NavItem,
-} from "reactstrap";
+import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const OldNavigation = () => {
 	const toggle = () => {};
 	return (
 		<div>
-			<Navbar
-				color="dark"
-				dark
-				expand="md"
-				fixed=""
-				light
-				className="navi--navbar"
-			>
+			<Navbar color="dark" dark expand="md" fixed="" light className="navi--navbar">
 				<LinkContainer to="/">
 					<NavbarBrand className="white">ECommerceDuoStudy</NavbarBrand>
 				</LinkContainer>
@@ -29,14 +15,10 @@ const OldNavigation = () => {
 				<Collapse /* isOpen={toggle} */ navbar className="">
 					<Nav className="flex" navbar>
 						<LinkContainer to="/categories">
-							<NavItem className="nav-link router-link">
-								Categories
-							</NavItem>
+							<NavItem className="nav-link router-link">Categories</NavItem>
 						</LinkContainer>
 						<LinkContainer to="/products">
-							<NavItem className="nav-link router-link">
-								Products
-							</NavItem>
+							<NavItem className="nav-link router-link">Products</NavItem>
 						</LinkContainer>
 						<LinkContainer to="/cart">
 							<NavItem className="nav-link router-link">Cart</NavItem>

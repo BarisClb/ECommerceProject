@@ -18,10 +18,7 @@ const AdminLayout = ({ children }) => {
 			<AdminTopNavigation />
 			<AdminSideNavigation />
 			{common.IsLoading && <Loading />}
-			<div id="admin-content-wrapper">
-				{children}
-				<Outlet />
-			</div>
+			<div id="admin-content-wrapper">{children}</div>
 		</>
 	);
 };

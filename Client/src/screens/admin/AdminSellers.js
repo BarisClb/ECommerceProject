@@ -15,29 +15,17 @@ function AdminSellers() {
 	const sellers = useSelector((state) => state.seller.sellers);
 
 	const navCreateSellerClick = async (newSeller) => {
-		dispatch(
-			sellerActions.createSeller(newSeller, sellerActions.getSellers())
-		);
+		dispatch(sellerActions.createSeller(newSeller, sellerActions.getSellers()));
 	};
 	const navUpdateSellerClick = (sellerId, updatedSeller) => {
-		dispatch(
-			sellerActions.updateSeller(
-				sellerId,
-				updatedSeller,
-				sellerActions.getSellers()
-			)
-		);
+		dispatch(sellerActions.updateSeller(sellerId, updatedSeller, sellerActions.getSellers()));
 	};
 	const navDeleteSellerClick = (oldSeller) => {
-		dispatch(
-			sellerActions.deleteSeller(oldSeller, sellerActions.getSellers())
-		);
+		dispatch(sellerActions.deleteSeller(oldSeller, sellerActions.getSellers()));
 	};
 
 	const tableDeleteButtonClick = (oldSeller) => {
-		dispatch(
-			sellerActions.deleteSeller(oldSeller.id, sellerActions.getSellers())
-		);
+		dispatch(sellerActions.deleteSeller(oldSeller.id, sellerActions.getSellers()));
 	};
 
 	return (

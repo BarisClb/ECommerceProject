@@ -55,16 +55,11 @@ const DeleteCommentReplyForm = (props) => {
 				Delete
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Delete CommentReply
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Delete CommentReply</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* COMMENTREPLY ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-commentReply-delete-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-delete-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -85,10 +80,7 @@ const DeleteCommentReplyForm = (props) => {
 					</div>
 					{/* COMMENTREPLY TEXT */}
 					<div className="modal-form-item modal-form-text">
-						<label
-							htmlFor="modal-commentReply-delete-form-text"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-delete-form-text" className="form-label">
 							Text
 						</label>
 						<input
@@ -102,10 +94,7 @@ const DeleteCommentReplyForm = (props) => {
 					</div>
 					{/* COMMENTREPLY PRODUCTID */}
 					<div className="modal-form-item modal-form-productId">
-						<label
-							htmlFor="modal-commentReply-delete-form-productId"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-delete-form-productId" className="form-label">
 							ProductId
 						</label>
 						<input
@@ -120,10 +109,7 @@ const DeleteCommentReplyForm = (props) => {
 					</div>
 					{/* COMMENTREPLY SELLERID */}
 					<div className="modal-form-item modal-form-sellerId">
-						<label
-							htmlFor="modal-commentReply-delete-form-sellerId"
-							className="form-label"
-						>
+						<label htmlFor="modal-commentReply-delete-form-sellerId" className="form-label">
 							SellerId
 						</label>
 						<input
@@ -145,10 +131,7 @@ const DeleteCommentReplyForm = (props) => {
 					>
 						Delete CommentReply
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

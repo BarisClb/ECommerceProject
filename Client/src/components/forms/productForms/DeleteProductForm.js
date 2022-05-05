@@ -64,16 +64,11 @@ const DeleteProductForm = (props) => {
 				Delete
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Delete Product
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Delete Product</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* PRODUCT ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-product-delete-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-delete-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -94,10 +89,7 @@ const DeleteProductForm = (props) => {
 					</div>
 					{/* PRODUCT NAME */}
 					<div className="modal-form-item modal-form-name">
-						<label
-							htmlFor="modal-product-delete-form-name"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-delete-form-name" className="form-label">
 							Name
 						</label>
 						<input
@@ -111,10 +103,7 @@ const DeleteProductForm = (props) => {
 					</div>
 					{/* PRODUCT DESCRIPTION */}
 					<div className="modal-form-item modal-form-description">
-						<label
-							htmlFor="modal-product-delete-form-description"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-delete-form-description" className="form-label">
 							Description
 						</label>
 						<input
@@ -128,10 +117,7 @@ const DeleteProductForm = (props) => {
 					</div>
 					{/* PRODUCT PRICE */}
 					<div className="modal-form-item modal-form-price">
-						<label
-							htmlFor="modal-product-delete-form-price"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-delete-form-price" className="form-label">
 							Price
 						</label>
 						<input
@@ -145,10 +131,7 @@ const DeleteProductForm = (props) => {
 					</div>
 					{/* PRODUCT STOCK */}
 					<div className="modal-form-item modal-form-stock">
-						<label
-							htmlFor="modal-product-delete-form-stock"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-delete-form-stock" className="form-label">
 							Stock
 						</label>
 						<input
@@ -162,10 +145,7 @@ const DeleteProductForm = (props) => {
 					</div>
 					{/* PRODUCT CATEGORYID */}
 					<div className="modal-form-item modal-form-categoryId">
-						<label
-							htmlFor="modal-product-delete-form-categoryId"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-delete-form-categoryId" className="form-label">
 							CategoryId
 						</label>
 						<input
@@ -179,10 +159,7 @@ const DeleteProductForm = (props) => {
 					</div>
 					{/* PRODUCT SELLERID */}
 					<div className="modal-form-item modal-form-sellerId">
-						<label
-							htmlFor="modal-product-delete-form-sellerId"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-delete-form-sellerId" className="form-label">
 							SellerId
 						</label>
 						<input
@@ -203,10 +180,7 @@ const DeleteProductForm = (props) => {
 					>
 						Delete Product
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

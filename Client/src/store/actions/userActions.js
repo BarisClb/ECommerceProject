@@ -29,13 +29,13 @@ const getUsers = (userId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getHelper("Users", userId);
-		console.log(data);
+		let response = await actionHelpers.getHelper("Users", userId);
+		console.log(response);
 
 		if (userId) {
-			dispatch({ type: userTypes.GetSingleUser, payload: data });
+			dispatch({ type: userTypes.GetSingleUser, payload: response.data });
 		} else {
-			dispatch({ type: userTypes.GetUsers, payload: data });
+			dispatch({ type: userTypes.GetUsers, payload: response.data });
 		}
 
 		if (successCallback) {
@@ -71,11 +71,7 @@ const updateUser = (userId, updatedUser, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.updateHelper(
-			"Users",
-			userId,
-			updatedUser
-		);
+		let response = await actionHelpers.updateHelper("Users", userId, updatedUser);
 		console.log(response);
 
 		dispatch({ type: userTypes.UpdateUser });

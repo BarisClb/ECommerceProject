@@ -1,9 +1,6 @@
 import { userTypes } from "../types/userTypes";
 
-export default function userReducer(
-	state = { users: [], singleUser: {} },
-	action
-) {
+export default function userReducer(state = { users: [], singleUser: {} }, action) {
 	switch (action.type) {
 		case userTypes.GetUsers:
 			return { ...state, users: action.payload };

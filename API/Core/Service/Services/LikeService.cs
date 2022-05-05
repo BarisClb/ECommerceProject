@@ -40,8 +40,8 @@ namespace Service.Services
         public async Task<SortedResponse<IList<LikeReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Like> likes = _likeReadRepository.GetAll(false).ToList();
+            // Sort => Reverse? OrderBy?
             IList<Like> orderedLikes;
-
             if (listSorting.Reverse)
             {
                 orderedLikes = listSorting.OrderBy switch
@@ -62,6 +62,9 @@ namespace Service.Services
                     _ => likes,
                 };
             }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = likes.Count;
 
             IList<LikeReadVm> mappedLikes = orderedLikes.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(like => new LikeReadVm
             {
@@ -75,7 +78,7 @@ namespace Service.Services
                 DateUpdated = like.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<LikeReadVm>, ListSortReadVm>(mappedLikes, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, likes.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<LikeReadVm>, ListSortReadVm>(mappedLikes, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, likes.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

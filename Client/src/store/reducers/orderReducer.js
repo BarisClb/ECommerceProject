@@ -1,9 +1,6 @@
 import { orderTypes } from "../types/orderTypes";
 
-export default function orderReducer(
-	state = { orders: [], singleOrder: {} },
-	action
-) {
+export default function orderReducer(state = { orders: [], singleOrder: {} }, action) {
 	switch (action.type) {
 		case orderTypes.GetOrders:
 			return { ...state, orders: action.payload };

@@ -1,9 +1,6 @@
 import { commentTypes } from "../types/commentTypes";
 
-export default function commentReducer(
-	state = { comments: [], singleComment: {} },
-	action
-) {
+export default function commentReducer(state = { comments: [], singleComment: {} }, action) {
 	switch (action.type) {
 		case commentTypes.GetComments:
 			return { ...state, comments: action.payload };

@@ -30,16 +30,11 @@ const DeleteCategoryForm = (props) => {
 				Delete
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Delete Category
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Delete Category</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* CATEGORY ID */}
 					<div className="modal-form-item deleteform-id">
-						<label
-							htmlFor="modal-category-delete-form-category"
-							className="form-label"
-						>
+						<label htmlFor="modal-category-delete-form-category" className="form-label">
 							Category
 						</label>
 						<Input
@@ -72,10 +67,7 @@ const DeleteCategoryForm = (props) => {
 					>
 						Delete Category
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

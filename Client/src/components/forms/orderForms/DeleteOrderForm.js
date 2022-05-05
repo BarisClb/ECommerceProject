@@ -77,10 +77,7 @@ const DeleteOrderForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* ORDER ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-order-delete-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -101,10 +98,7 @@ const DeleteOrderForm = (props) => {
 					</div>
 					{/* ORDER STATUS */}
 					<div className="modal-form-item modal-form-orderStatus">
-						<label
-							htmlFor="modal-order-delete-form-orderStatus"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-orderStatus" className="form-label">
 							Order Status
 						</label>
 						<input
@@ -113,19 +107,14 @@ const DeleteOrderForm = (props) => {
 							id="modal-order-delete-form-orderStatus"
 							placeholder="Order Status"
 							value={orderStatusValue}
-							onChange={(event) =>
-								setOrderStatusValue(event.target.value)
-							}
+							onChange={(event) => setOrderStatusValue(event.target.value)}
 							min="0"
 							disabled={true}
 						/>
 					</div>
 					{/* ORDER NOTE */}
 					<div className="modal-form-item modal-form-note">
-						<label
-							htmlFor="modal-order-delete-form-note"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-note" className="form-label">
 							Note
 						</label>
 						<input
@@ -140,10 +129,7 @@ const DeleteOrderForm = (props) => {
 					</div>
 					{/* ORDER ADDRESS */}
 					<div className="modal-form-item modal-form-address">
-						<label
-							htmlFor="modal-order-delete-form-address"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-address" className="form-label">
 							Address
 						</label>
 						<input
@@ -158,10 +144,7 @@ const DeleteOrderForm = (props) => {
 					</div>
 					{/* ORDER PRICE */}
 					<div className="modal-form-item modal-form-price">
-						<label
-							htmlFor="modal-order-delete-form-price"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-price" className="form-label">
 							Price
 						</label>
 						<input
@@ -177,10 +160,7 @@ const DeleteOrderForm = (props) => {
 					</div>
 					{/* ORDER QUANTITY */}
 					<div className="modal-form-item modal-form-quantity">
-						<label
-							htmlFor="modal-order-delete-form-quantity"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-quantity" className="form-label">
 							Quantity
 						</label>
 						<input
@@ -196,10 +176,7 @@ const DeleteOrderForm = (props) => {
 					</div>
 					{/* ORDER DISCOUNT */}
 					<div className="modal-form-item modal-form-discount">
-						<label
-							htmlFor="modal-order-delete-form-discount"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-discount" className="form-label">
 							Discount
 						</label>
 						<input
@@ -216,10 +193,7 @@ const DeleteOrderForm = (props) => {
 					</div>
 					{/* ORDER TOTAL */}
 					<div className="modal-form-item modal-form-total">
-						<label
-							htmlFor="modal-order-delete-form-total"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-total" className="form-label">
 							Total
 						</label>
 						<input
@@ -228,19 +202,14 @@ const DeleteOrderForm = (props) => {
 							id="modal-order-delete-form-total"
 							placeholder="Total"
 							value={totalValue}
-							onChange={(event) =>
-								setOrderStatusValue(event.target.value)
-							}
+							onChange={(event) => setOrderStatusValue(event.target.value)}
 							min="0"
 							disabled={true}
 						/>
 					</div>
 					{/* ORDER USERID */}
 					<div className="modal-form-item modal-form-userId">
-						<label
-							htmlFor="modal-order-delete-form-userId"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-userId" className="form-label">
 							UserId
 						</label>
 						<input
@@ -256,10 +225,7 @@ const DeleteOrderForm = (props) => {
 					</div>
 					{/* ORDER PRODUCTID */}
 					<div className="modal-form-item modal-form-productId">
-						<label
-							htmlFor="modal-order-delete-form-productId"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-delete-form-productId" className="form-label">
 							ProductId
 						</label>
 						<input
@@ -282,10 +248,7 @@ const DeleteOrderForm = (props) => {
 					>
 						Delete Order
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

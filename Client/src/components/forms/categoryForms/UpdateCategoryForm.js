@@ -62,16 +62,11 @@ const UpdateCategoryForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Update Category
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Update Category</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* CATEGORY ID */}
 					<div className="modal-form-item modal-form-old-category">
-						<label
-							htmlFor="modal-category-update-form-category"
-							className="form-label"
-						>
+						<label htmlFor="modal-category-update-form-category" className="form-label">
 							Category
 						</label>
 						<Input
@@ -98,10 +93,7 @@ const UpdateCategoryForm = (props) => {
 					</div>
 					{/* CATEGORY NAME */}
 					<div className="modal-form-item modal-form-name">
-						<label
-							htmlFor="modal-category-update-form-name"
-							className="form-label"
-						>
+						<label htmlFor="modal-category-update-form-name" className="form-label">
 							Name
 						</label>
 						<input
@@ -131,10 +123,7 @@ const UpdateCategoryForm = (props) => {
 					</div>
 					{/* CATEGORY DESCRIPTION */}
 					<div className="modal-form-item modal-form-description">
-						<label
-							htmlFor="modal-category-update-form-description"
-							className="form-label"
-						>
+						<label htmlFor="modal-category-update-form-description" className="form-label">
 							Description
 						</label>
 						<input
@@ -143,9 +132,7 @@ const UpdateCategoryForm = (props) => {
 							id="modal-category-update-form-description"
 							placeholder="New Description"
 							value={descriptionValue}
-							onChange={(event) =>
-								setDescriptionValue(event.target.value)
-							}
+							onChange={(event) => setDescriptionValue(event.target.value)}
 							disabled={!changeDescription}
 						/>
 						<div className="form-check">
@@ -154,9 +141,7 @@ const UpdateCategoryForm = (props) => {
 								type="checkbox"
 								defaultValue
 								id="modal-form-category-update-description-check"
-								onChange={() =>
-									setChangeDescription(!changeDescription)
-								}
+								onChange={() => setChangeDescription(!changeDescription)}
 							/>
 							<label
 								className="form-check-label"
@@ -174,10 +159,7 @@ const UpdateCategoryForm = (props) => {
 					>
 						Update Category
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

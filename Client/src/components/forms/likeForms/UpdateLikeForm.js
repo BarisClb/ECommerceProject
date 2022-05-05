@@ -23,10 +23,7 @@ const UpdateLikeForm = (props) => {
 					</div>
 				</ModalBody>
 				<ModalFooter>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

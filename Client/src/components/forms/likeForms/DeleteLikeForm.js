@@ -59,10 +59,7 @@ const DeleteLikeForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* LIKE ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-like-delete-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-like-delete-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -83,10 +80,7 @@ const DeleteLikeForm = (props) => {
 					</div>
 					{/* LIKE USERID */}
 					<div className="modal-form-item modal-form-userId">
-						<label
-							htmlFor="modal-like-delete-form-userId"
-							className="form-label"
-						>
+						<label htmlFor="modal-like-delete-form-userId" className="form-label">
 							UserId
 						</label>
 						<input
@@ -101,10 +95,7 @@ const DeleteLikeForm = (props) => {
 					</div>
 					{/* LIKE COMMENTID */}
 					<div className="modal-form-item modal-form-commentId">
-						<label
-							htmlFor="modal-like-delete-form-commentId"
-							className="form-label"
-						>
+						<label htmlFor="modal-like-delete-form-commentId" className="form-label">
 							CommentId
 						</label>
 						<input
@@ -119,10 +110,7 @@ const DeleteLikeForm = (props) => {
 					</div>
 					{/* LIKE PRODUCTID */}
 					<div className="modal-form-item modal-form-productId">
-						<label
-							htmlFor="modal-like-delete-form-productId"
-							className="form-label"
-						>
+						<label htmlFor="modal-like-delete-form-productId" className="form-label">
 							ProductId
 						</label>
 						<input
@@ -144,10 +132,7 @@ const DeleteLikeForm = (props) => {
 					>
 						Delete Like
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

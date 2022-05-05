@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/actions/cartActions";
 import { Link } from "react-router-dom";
-import {
-	Dropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-	Badge,
-} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Badge } from "reactstrap";
 import "./css/index.css";
 
 const MiniCart = () => {
@@ -42,15 +36,11 @@ const MiniCart = () => {
 		<th scope="col" className="dropdown thead-buttons text-end">
 			<Dropdown isOpen={dropdown} toggle={toggle}>
 				<DropdownToggle caret onClick={() => toggle(false)}>
-					{cart && cart.length < 1
-						? `Empty Cart`
-						: `Cart (${cart.length} Items)`}
+					{cart && cart.length < 1 ? `Empty Cart` : `Cart (${cart.length} Items)`}
 				</DropdownToggle>
 				<DropdownMenu dark end>
 					<Link to="/Cart" id="miniCartLink">
-						<DropdownItem className="text-center">
-							Go to Cart
-						</DropdownItem>
+						<DropdownItem className="text-center">Go to Cart</DropdownItem>
 					</Link>
 					<DropdownItem divider />
 					{cart.map((item, index) => (

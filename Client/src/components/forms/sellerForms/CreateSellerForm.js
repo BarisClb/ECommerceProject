@@ -40,10 +40,7 @@ const CreateSellerForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* SELLER NAME */}
 					<div className="modal-form-item modal-form-name">
-						<label
-							htmlFor="modal-seller-create-form-name"
-							className="form-label"
-						>
+						<label htmlFor="modal-seller-create-form-name" className="form-label">
 							Name
 						</label>
 						<input
@@ -57,10 +54,7 @@ const CreateSellerForm = (props) => {
 					</div>
 					{/* SELLER USERNAME */}
 					<div className="modal-form-item modal-form-username">
-						<label
-							htmlFor="modal-seller-create-form-username"
-							className="form-label"
-						>
+						<label htmlFor="modal-seller-create-form-username" className="form-label">
 							Username
 						</label>
 						<input
@@ -74,10 +68,7 @@ const CreateSellerForm = (props) => {
 					</div>
 					{/* SELLER EMAIL */}
 					<div className="modal-form-item modal-form-eMail">
-						<label
-							htmlFor="modal-seller-create-form-eMail"
-							className="form-label"
-						>
+						<label htmlFor="modal-seller-create-form-eMail" className="form-label">
 							EMail
 						</label>
 						<input
@@ -91,10 +82,7 @@ const CreateSellerForm = (props) => {
 					</div>
 					{/* SELLER PASSWORD */}
 					<div className="modal-form-item modal-form-password">
-						<label
-							htmlFor="modal-seller-create-form-password"
-							className="form-label"
-						>
+						<label htmlFor="modal-seller-create-form-password" className="form-label">
 							Password
 						</label>
 						<input
@@ -114,10 +102,7 @@ const CreateSellerForm = (props) => {
 					>
 						Create Seller
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

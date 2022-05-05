@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import Table from "../../components/table/Table";
 import { useDispatch } from "react-redux";
@@ -8,19 +8,11 @@ import { useSelector } from "react-redux";
 const AdminCategories = () => {
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(categoryActions.getCategories());
-	}, []);
-
 	const categories = useSelector((state) => state.category.categories);
 
+	// Nav Button Actions
 	const navCreateCategoryClick = async (newCategory) => {
-		dispatch(
-			categoryActions.createCategory(
-				newCategory,
-				categoryActions.getCategories()
-			)
-		);
+		dispatch(categoryActions.createCategory(newCategory, categoryActions.getCategories()));
 	};
 	const navUpdateCategoryClick = (categoryId, updatedCategory) => {
 		dispatch(
@@ -32,22 +24,34 @@ const AdminCategories = () => {
 		);
 	};
 	const navDeleteCategoryClick = (oldCategory) => {
-		dispatch(
-			categoryActions.deleteCategory(
-				oldCategory,
-				categoryActions.getCategories()
-			)
-		);
+		dispatch(categoryActions.deleteCategory(oldCategory, categoryActions.getCategories()));
+	};
+	// Table Button Actions
+	const tableDeleteButtonClick = (oldCategory) => {
+		dispatch(categoryActions.deleteCategory(oldCategory.id, categoryActions.getCategories()));
+	};
+	// Nav Sort Action
+	const tableSortButtonClick = (listSortingValues) => {
+		listSorting = { ...listSortingValues };
+		dispatch(categoryActions.getSortedCategories(listSorting));
+	};
+	// Sort Default / Start values
+	const [pageSize] = useState(20);
+	let listSorting = {
+		reversed: false,
+		searchWord: "",
+		pageNumber: 1,
+		pageSize: pageSize,
+		orderBy: "Id",
 	};
 
-	const tableDeleteButtonClick = (oldCategory) => {
-		dispatch(
-			categoryActions.deleteCategory(
-				oldCategory.id,
-				categoryActions.getCategories()
-			)
-		);
-	};
+	const sortInfo = useSelector((state) => state.common.SortInfo);
+
+	useEffect(() => {
+		dispatch(categoryActions.getSortedCategories(listSorting));
+	}, []);
+
+	console.log(window.location.href.toLowerCase().includes("Admin".toLowerCase()));
 
 	return (
 		<div className="">
@@ -66,8 +70,6 @@ const AdminCategories = () => {
 					tableData2={"description"}
 					// Special
 					isAdmin={true}
-					isCategories={true}
-					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
 					tableAddButton={false}
@@ -84,6 +86,16 @@ const AdminCategories = () => {
 					navCreateButtonClick={navCreateCategoryClick}
 					navUpdateButtonClick={navUpdateCategoryClick}
 					navDeleteButtonClick={navDeleteCategoryClick}
+					// Nav Search
+					navSearch={false}
+					instaSearch={false}
+					// Nav SortBy
+					tableSortBy={true}
+					tableSortBy1={"Id"}
+					tableSortBy2={"Name"}
+					tableSortPageSize={pageSize}
+					tableSortAction={tableSortButtonClick}
+					sortInfo={sortInfo}
 				/>
 			</div>
 		</div>

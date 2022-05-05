@@ -46,16 +46,11 @@ const CreateProductForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* WARNING */}
 					<div className="modal-form-item">
-						<label className="form-label">
-							Only Seller Accounts should Create Products.
-						</label>
+						<label className="form-label">Only Seller Accounts should Create Products.</label>
 					</div>
 					{/* PRODUCT NAME */}
 					<div className="modal-form-item modal-form-name">
-						<label
-							htmlFor="modal-product-create-form-name"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-create-form-name" className="form-label">
 							Name
 						</label>
 						<input
@@ -69,10 +64,7 @@ const CreateProductForm = (props) => {
 					</div>
 					{/* PRODUCT DESCRIPTION */}
 					<div className="modal-form-item modal-form-description">
-						<label
-							htmlFor="modal-product-create-form-description"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-create-form-description" className="form-label">
 							Description
 						</label>
 						<input
@@ -81,17 +73,12 @@ const CreateProductForm = (props) => {
 							id="modal-product-create-form-description"
 							placeholder="Description"
 							value={descriptionValue}
-							onChange={(event) =>
-								setDescriptionValue(event.target.value)
-							}
+							onChange={(event) => setDescriptionValue(event.target.value)}
 						/>
 					</div>
 					{/* PRODUCTION PRICE */}
 					<div className="modal-form-item modal-form-price">
-						<label
-							htmlFor="modal-product-create-form-price"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-create-form-price" className="form-label">
 							Price
 						</label>
 						<input
@@ -106,10 +93,7 @@ const CreateProductForm = (props) => {
 					</div>
 					{/* PRODUCTION STOCK */}
 					<div className="modal-form-item modal-form-stock">
-						<label
-							htmlFor="modal-product-create-form-stock"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-create-form-stock" className="form-label">
 							Stock
 						</label>
 						<input
@@ -124,10 +108,7 @@ const CreateProductForm = (props) => {
 					</div>
 					{/* PRODUCTION CATEGORYID */}
 					<div className="modal-form-item modal-form-categoryId">
-						<label
-							htmlFor="modal-product-create-form-categoryId"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-create-form-categoryId" className="form-label">
 							CategoryId
 						</label>
 						<input
@@ -136,18 +117,13 @@ const CreateProductForm = (props) => {
 							id="modal-product-create-form-categoryId"
 							placeholder="CategoryId"
 							value={categoryIdValue}
-							onChange={(event) =>
-								setCategoryIdValue(event.target.value)
-							}
+							onChange={(event) => setCategoryIdValue(event.target.value)}
 							min="0"
 						/>
 					</div>
 					{/* PRODUCTION SELLERID */}
 					<div className="modal-form-item modal-form-sellerId">
-						<label
-							htmlFor="modal-product-create-form-sellerId"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-create-form-sellerId" className="form-label">
 							SellerId
 						</label>
 						<input
@@ -168,10 +144,7 @@ const CreateProductForm = (props) => {
 					>
 						Create Product
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

@@ -37,8 +37,8 @@ namespace Service.Services
         public async Task<SortedResponse<IList<CommentReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Comment> comments = _commentReadRepository.GetAll(false).ToList();
+            // Sort => Reverse? OrderBy?
             IList<Comment> orderedComments;
-
             if (listSorting.Reverse)
             {
                 orderedComments = listSorting.OrderBy switch
@@ -57,6 +57,9 @@ namespace Service.Services
                     _ => comments,
                 };
             }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = comments.Count;
 
             IList<CommentReadVm> mappedComments = orderedComments.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(comment => new CommentReadVm
             {
@@ -72,7 +75,7 @@ namespace Service.Services
                 DateUpdated = comment.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

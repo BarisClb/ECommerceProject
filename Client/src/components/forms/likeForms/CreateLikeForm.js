@@ -37,16 +37,11 @@ const CreateLikeForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* WARNING */}
 					<div className="modal-form-item">
-						<label className="form-label">
-							Only User Accounts should Create Likes.
-						</label>
+						<label className="form-label">Only User Accounts should Create Likes.</label>
 					</div>
 					{/* LIKE USERID */}
 					<div className="modal-form-item modal-form-userId">
-						<label
-							htmlFor="modal-like-create-form-userId"
-							className="form-label"
-						>
+						<label htmlFor="modal-like-create-form-userId" className="form-label">
 							UserId
 						</label>
 						<input
@@ -61,10 +56,7 @@ const CreateLikeForm = (props) => {
 					</div>
 					{/* LIKE COMMENTID */}
 					<div className="modal-form-item modal-form-commentId">
-						<label
-							htmlFor="modal-like-create-form-commentId"
-							className="form-label"
-						>
+						<label htmlFor="modal-like-create-form-commentId" className="form-label">
 							CommentId
 						</label>
 						<input
@@ -79,10 +71,7 @@ const CreateLikeForm = (props) => {
 					</div>
 					{/* LIKE PRODUCTID */}
 					<div className="modal-form-item modal-form-productId">
-						<label
-							htmlFor="modal-like-create-form-productId"
-							className="form-label"
-						>
+						<label htmlFor="modal-like-create-form-productId" className="form-label">
 							ProductId
 						</label>
 						<input
@@ -103,10 +92,7 @@ const CreateLikeForm = (props) => {
 					>
 						Create Like
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

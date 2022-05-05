@@ -6,4 +6,5 @@ export const commonTypes = {
 	GlobalError: "COMMON.GLOBALERROR",
 	DarkMode: "DARK_MODE_TOGGLE",
 	EntityToUpdate: "ENTITY_TO_UPDATE",
+	SortInfo: "SORT_INFO",
 };

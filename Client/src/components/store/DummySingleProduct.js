@@ -8,10 +8,7 @@ function DummySingleProduct() {
 		<div id="sinlgeproduct-content-container-wrapper" className="container">
 			<h1>DUMMY PAGE</h1>
 			<div id="sinlgeproduct-content-container" className="row">
-				<div
-					id="sinlgeproduct-gallery-container"
-					className="col-lg-6 col-md-12 col-sm-12"
-				>
+				<div id="sinlgeproduct-gallery-container" className="col-lg-6 col-md-12 col-sm-12">
 					<div
 						id="sinlgeproduct-image"
 						className="row"
@@ -20,10 +17,7 @@ function DummySingleProduct() {
 						}}
 					></div>
 				</div>
-				<div
-					id="sinlgeproduct-info-container"
-					className="col-lg-6 col-md-12 col-sm-12"
-				>
+				<div id="sinlgeproduct-info-container" className="col-lg-6 col-md-12 col-sm-12">
 					<div id="sinlgeproduct-info" className="col">
 						<div id="sinlgeproduct-name" className="row">
 							<h3>Product Name: </h3> <br /> <p>Product Name</p>

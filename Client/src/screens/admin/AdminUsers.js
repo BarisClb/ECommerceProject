@@ -18,9 +18,7 @@ function AdminUsers() {
 		dispatch(userActions.createUser(newUser, userActions.getUsers()));
 	};
 	const navUpdateUserClick = (userId, updatedUser) => {
-		dispatch(
-			userActions.updateUser(userId, updatedUser, userActions.getUsers())
-		);
+		dispatch(userActions.updateUser(userId, updatedUser, userActions.getUsers()));
 	};
 	const navDeleteUserClick = (oldUser) => {
 		dispatch(userActions.deleteUser(oldUser, userActions.getUsers()));

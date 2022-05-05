@@ -124,16 +124,11 @@ const UpdateProductForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Update Product
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Update Product</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* PRODUCT ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-product-update-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-update-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -154,10 +149,7 @@ const UpdateProductForm = (props) => {
 					</div>
 					{/* PRODUCT NAME */}
 					<div className="modal-form-item modal-form-name">
-						<label
-							htmlFor="modal-product-update-form-name"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-update-form-name" className="form-label">
 							Name
 						</label>
 						<input
@@ -187,10 +179,7 @@ const UpdateProductForm = (props) => {
 					</div>
 					{/* PRODUCT DESCRIPTION */}
 					<div className="modal-form-item modal-form-description">
-						<label
-							htmlFor="modal-product-update-form-description"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-update-form-description" className="form-label">
 							Description
 						</label>
 						<input
@@ -199,9 +188,7 @@ const UpdateProductForm = (props) => {
 							id="modal-product-update-form-description"
 							placeholder="Description"
 							value={descriptionValue}
-							onChange={(event) =>
-								setDescriptionValue(event.target.value)
-							}
+							onChange={(event) => setDescriptionValue(event.target.value)}
 							disabled={!changeDescription}
 						/>
 						<div className="form-check">
@@ -209,9 +196,7 @@ const UpdateProductForm = (props) => {
 								className="form-check-input"
 								type="checkbox"
 								id="modal-form-product-update-description-check"
-								onChange={() =>
-									setChangeDescription(!changeDescription)
-								}
+								onChange={() => setChangeDescription(!changeDescription)}
 							/>
 							<label
 								className="form-check-label"
@@ -223,10 +208,7 @@ const UpdateProductForm = (props) => {
 					</div>
 					{/* PRODUCT PRICE */}
 					<div className="modal-form-item modal-form-price">
-						<label
-							htmlFor="modal-product-update-form-price"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-update-form-price" className="form-label">
 							Price
 						</label>
 						<input
@@ -256,10 +238,7 @@ const UpdateProductForm = (props) => {
 					</div>
 					{/* PRODUCT STOCK */}
 					<div className="modal-form-item modal-form-stock">
-						<label
-							htmlFor="modal-product-update-form-stock"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-update-form-stock" className="form-label">
 							Stock
 						</label>
 						<input
@@ -289,10 +268,7 @@ const UpdateProductForm = (props) => {
 					</div>
 					{/* PRODUCT CATEGORYID */}
 					<div className="modal-form-item modal-form-categoryId">
-						<label
-							htmlFor="modal-product-update-form-categoryId"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-update-form-categoryId" className="form-label">
 							CategoryId
 						</label>
 						<input
@@ -301,9 +277,7 @@ const UpdateProductForm = (props) => {
 							id="modal-product-update-form-categoryId"
 							placeholder="CategoryId"
 							value={categoryIdValue}
-							onChange={(event) =>
-								setCategoryIdValue(event.target.value)
-							}
+							onChange={(event) => setCategoryIdValue(event.target.value)}
 							min="0"
 							disabled={!changeCategoryId}
 						/>
@@ -324,10 +298,7 @@ const UpdateProductForm = (props) => {
 					</div>
 					{/* PRODUCT SELLERID */}
 					<div className="modal-form-item modal-form-sellerId">
-						<label
-							htmlFor="modal-product-update-form-sellerId"
-							className="form-label"
-						>
+						<label htmlFor="modal-product-update-form-sellerId" className="form-label">
 							SellerId
 						</label>
 						<input
@@ -364,10 +335,7 @@ const UpdateProductForm = (props) => {
 					>
 						Update Product
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

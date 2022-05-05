@@ -40,8 +40,8 @@ namespace Service.Services
         public async Task<SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<CommentReply> commentReplies = _commentReplyReadRepository.GetAll(false).ToList();
+            // Sort => Reverse? OrderBy?
             IList<CommentReply> orderedCommentReplies;
-
             if (listSorting.Reverse)
             {
                 orderedCommentReplies = listSorting.OrderBy switch
@@ -56,6 +56,9 @@ namespace Service.Services
                     _ => commentReplies,
                 };
             }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = commentReplies.Count;
 
             IList<CommentReplyReadVm> mappedCommentReplies = orderedCommentReplies.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(commentReply => new CommentReplyReadVm
             {
@@ -70,7 +73,7 @@ namespace Service.Services
                 DateUpdated = commentReply.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

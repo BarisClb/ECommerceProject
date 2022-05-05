@@ -15,32 +15,19 @@ const AdminProducts = () => {
 	const products = useSelector((state) => state.product.products);
 
 	const navCreateProductClick = async (newProduct) => {
-		dispatch(
-			productActions.createProduct(newProduct, productActions.getProducts())
-		);
+		dispatch(productActions.createProduct(newProduct, productActions.getProducts()));
 	};
 	const navUpdateProductClick = (productId, updatedProduct) => {
 		dispatch(
-			productActions.updateProduct(
-				productId,
-				updatedProduct,
-				productActions.getProducts()
-			)
+			productActions.updateProduct(productId, updatedProduct, productActions.getProducts())
 		);
 	};
 	const navDeleteProductClick = (oldProduct) => {
-		dispatch(
-			productActions.deleteProduct(oldProduct, productActions.getProducts())
-		);
+		dispatch(productActions.deleteProduct(oldProduct, productActions.getProducts()));
 	};
 
 	const tableDeleteButtonClick = (oldProduct) => {
-		dispatch(
-			productActions.deleteProduct(
-				oldProduct.id,
-				productActions.getProducts()
-			)
-		);
+		dispatch(productActions.deleteProduct(oldProduct.id, productActions.getProducts()));
 	};
 
 	return (

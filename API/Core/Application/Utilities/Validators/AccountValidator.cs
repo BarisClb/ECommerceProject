@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Application.Validators
+namespace Application.Utilities.Validators
 {
     public static class AccountValidator
     {

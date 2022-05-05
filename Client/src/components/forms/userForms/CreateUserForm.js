@@ -48,10 +48,7 @@ const CreateUserForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* USER NAME */}
 					<div className="modal-form-item modal-form-name">
-						<label
-							htmlFor="modal-user-update-form-name"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-update-form-name" className="form-label">
 							Name
 						</label>
 						<input
@@ -65,10 +62,7 @@ const CreateUserForm = (props) => {
 					</div>
 					{/* USER USERNAME */}
 					<div className="modal-form-item modal-form-username">
-						<label
-							htmlFor="modal-user-create-form-username"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-create-form-username" className="form-label">
 							Username
 						</label>
 						<input
@@ -82,10 +76,7 @@ const CreateUserForm = (props) => {
 					</div>
 					{/* USER EMAIL */}
 					<div className="modal-form-item modal-form-email">
-						<label
-							htmlFor="modal-user-create-form-email"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-create-form-email" className="form-label">
 							EMail
 						</label>
 						<input
@@ -99,10 +90,7 @@ const CreateUserForm = (props) => {
 					</div>
 					{/* USER PASSWORD */}
 					<div className="modal-form-item modal-form-password">
-						<label
-							htmlFor="modal-user-create-form-password"
-							className="form-label"
-						>
+						<label htmlFor="modal-user-create-form-password" className="form-label">
 							Password
 						</label>
 						<input
@@ -139,10 +127,7 @@ const CreateUserForm = (props) => {
 					>
 						Create User
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

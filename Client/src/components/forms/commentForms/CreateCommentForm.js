@@ -39,22 +39,15 @@ const CreateCommentForm = (props) => {
 				Create
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Create Comment
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Create Comment</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* WARNING */}
 					<div className="modal-form-item">
-						<label className="form-label">
-							Only User Accounts should Create Comments.
-						</label>
+						<label className="form-label">Only User Accounts should Create Comments.</label>
 					</div>
 					{/* COMMENT TITLE */}
 					<div className="modal-form-item modal-form-title">
-						<label
-							htmlFor="modal-comment-create-form-title"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-create-form-title" className="form-label">
 							Title
 						</label>
 						<input
@@ -68,10 +61,7 @@ const CreateCommentForm = (props) => {
 					</div>
 					{/* COMMENT TEXT */}
 					<div className="modal-form-item modal-form-text">
-						<label
-							htmlFor="modal-comment-create-form-text"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-create-form-text" className="form-label">
 							Text
 						</label>
 						<input
@@ -85,10 +75,7 @@ const CreateCommentForm = (props) => {
 					</div>
 					{/* COMMENT RATING */}
 					<div className="modal-form-item modal-form-rating">
-						<label
-							htmlFor="modal-comment-create-form-rating"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-create-form-rating" className="form-label">
 							Rating
 						</label>
 						<input
@@ -104,10 +91,7 @@ const CreateCommentForm = (props) => {
 					</div>
 					{/* COMMENT USERID */}
 					<div className="modal-form-item modal-form-userId">
-						<label
-							htmlFor="modal-comment-create-form-userId"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-create-form-userId" className="form-label">
 							UserId
 						</label>
 						<input
@@ -122,10 +106,7 @@ const CreateCommentForm = (props) => {
 					</div>
 					{/* COMMENT PRODUCT */}
 					<div className="modal-form-item modal-form-productId">
-						<label
-							htmlFor="modal-comment-create-form-productId"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-create-form-productId" className="form-label">
 							ProductId
 						</label>
 						<input
@@ -146,10 +127,7 @@ const CreateCommentForm = (props) => {
 					>
 						Create Comment
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

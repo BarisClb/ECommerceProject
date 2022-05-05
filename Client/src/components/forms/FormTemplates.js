@@ -25,10 +25,7 @@ function FormTemplate() {
 				<ModalBody className="modal-form">
 					{/* TEXT */}
 					<div className="modal-form-item modal-form-xyz">
-						<label
-							htmlFor="modal-ABC-DEF-form-xyz"
-							className="form-label"
-						>
+						<label htmlFor="modal-ABC-DEF-form-xyz" className="form-label">
 							Xyz
 						</label>
 						<input
@@ -37,9 +34,7 @@ function FormTemplate() {
 							id="modal-ABC-DEF-form-xyz"
 							placeholder="Xyz"
 							value={onchangeValue}
-							onChange={(event) =>
-								onchangeValueUpdate(event.target.value)
-							}
+							onChange={(event) => onchangeValueUpdate(event.target.value)}
 							disabled={!changeValue}
 						/>
 						<div className="form-check">
@@ -49,20 +44,14 @@ function FormTemplate() {
 								id="modal-form-ABC-DEF-xyz-check"
 								onChange={() => setChangeValue(!changeValue)}
 							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-ABC-DEF-xyz-check"
-							>
+							<label className="form-check-label" htmlFor="modal-form-ABC-DEF-xyz-check">
 								Don't Change
 							</label>
 						</div>
 					</div>
 					{/* NUMBER */}
 					<div className="modal-form-item modal-form-xyz">
-						<label
-							htmlFor="modal-ABC-DEF-form-xyz"
-							className="form-label"
-						>
+						<label htmlFor="modal-ABC-DEF-form-xyz" className="form-label">
 							Xyz
 						</label>
 						<input
@@ -71,9 +60,7 @@ function FormTemplate() {
 							id="modal-ABC-DEF-form-xyz"
 							placeholder="Xyz"
 							value={onchangeValue}
-							onChange={(event) =>
-								onchangeValueUpdate(event.target.value)
-							}
+							onChange={(event) => onchangeValueUpdate(event.target.value)}
 							min=""
 							max=""
 							disabled={!changeValue}
@@ -85,10 +72,7 @@ function FormTemplate() {
 								id="modal-form-ABC-DEF-xyz-check"
 								onChange={() => setChangeValue(!changeValue)}
 							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-ABC-DEF-xyz-check"
-							>
+							<label className="form-check-label" htmlFor="modal-form-ABC-DEF-xyz-check">
 								Don't Change
 							</label>
 						</div>
@@ -128,10 +112,7 @@ function FormTemplate() {
 					>
 						DEF Abc
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

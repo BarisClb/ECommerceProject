@@ -28,13 +28,13 @@ const getProducts = (productId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getHelper("Products", productId);
-		console.log(data);
+		let response = await actionHelpers.getHelper("Products", productId);
+		console.log(response);
 
 		if (productId) {
-			dispatch({ type: productTypes.GetSingleProduct, payload: data });
+			dispatch({ type: productTypes.GetSingleProduct, payload: response.data });
 		} else {
-			dispatch({ type: productTypes.GetProducts, payload: data });
+			dispatch({ type: productTypes.GetProducts, payload: response.data });
 		}
 
 		if (successCallback) {
@@ -51,14 +51,10 @@ const getProductsByCategory = (categoryId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getByEntityHelper(
-			"Products",
-			"Category",
-			categoryId
-		);
-		console.log(data);
+		let response = await actionHelpers.getByEntityHelper("Products", "Category", categoryId);
+		console.log(response);
 
-		dispatch({ type: productTypes.GetProducts, payload: data });
+		dispatch({ type: productTypes.GetProducts, payload: response.data });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -74,14 +70,10 @@ const getProductsBySeller = (sellerId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getByEntityHelper(
-			"Products",
-			"Seller",
-			sellerId
-		);
-		console.log(data);
+		let response = await actionHelpers.getByEntityHelper("Products", "Seller", sellerId);
+		console.log(response);
 
-		dispatch({ type: productTypes.GetProducts, payload: data });
+		dispatch({ type: productTypes.GetProducts, payload: response.data });
 
 		if (successCallback) {
 			dispatch(successCallback);
@@ -116,11 +108,7 @@ const updateProduct = (updatedProductId, newProduct, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.updateHelper(
-			"Products",
-			updatedProductId,
-			newProduct
-		);
+		let response = await actionHelpers.updateHelper("Products", updatedProductId, newProduct);
 		console.log(response);
 
 		dispatch({ type: productTypes.UpdateProduct });

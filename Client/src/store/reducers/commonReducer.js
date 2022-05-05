@@ -1,7 +1,7 @@
 import { commonTypes } from "../types";
 
 export default function commonReducer(
-	state = { IsLoading: false, DarkMode: false, EntityToUpdate: {} },
+	state = { IsLoading: false, DarkMode: false, EntityToUpdate: {}, SortInfo: {} },
 	action
 ) {
 	switch (action.type) {
@@ -49,6 +49,12 @@ export default function commonReducer(
 			return {
 				...state,
 				EntityToUpdate: action.payload,
+			};
+
+		case commonTypes.SortInfo:
+			return {
+				...state,
+				SortInfo: action.payload,
 			};
 
 		default:

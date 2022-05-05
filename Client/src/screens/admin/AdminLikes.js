@@ -18,9 +18,7 @@ const AdminLikes = () => {
 		dispatch(likeActions.createLike(newLike, likeActions.getLikes()));
 	};
 	const navUpdateLikeClick = (likeId, updatedLike) => {
-		dispatch(
-			likeActions.updateLike(likeId, updatedLike, likeActions.getLikes())
-		);
+		dispatch(likeActions.updateLike(likeId, updatedLike, likeActions.getLikes()));
 	};
 	const navDeleteLikeClick = (oldLike) => {
 		dispatch(likeActions.deleteLike(oldLike, likeActions.getLikes()));

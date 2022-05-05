@@ -62,16 +62,11 @@ const CreateOrderForm = (props) => {
 				<ModalBody className="modal-form">
 					{/* WARNING */}
 					<div className="modal-form-item">
-						<label className="form-label">
-							Only User Accounts should Create Orders.
-						</label>
+						<label className="form-label">Only User Accounts should Create Orders.</label>
 					</div>
 					{/* ORDER NOTE */}
 					<div className="modal-form-item modal-form-note">
-						<label
-							htmlFor="modal-order-create-form-note"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-create-form-note" className="form-label">
 							Note
 						</label>
 						<input
@@ -100,10 +95,7 @@ const CreateOrderForm = (props) => {
 					</div>
 					{/* ORDER ADDRESS */}
 					<div className="modal-form-item modal-form-address">
-						<label
-							htmlFor="modal-order-create-form-address"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-create-form-address" className="form-label">
 							Address
 						</label>
 						<input
@@ -117,10 +109,7 @@ const CreateOrderForm = (props) => {
 					</div>
 					{/* ORDER PRICE */}
 					<div className="modal-form-item modal-form-price">
-						<label
-							htmlFor="modal-order-create-form-price"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-create-form-price" className="form-label">
 							Price
 						</label>
 						<input
@@ -135,10 +124,7 @@ const CreateOrderForm = (props) => {
 					</div>
 					{/* ORDER QUANTITY */}
 					<div className="modal-form-item modal-form-quantity">
-						<label
-							htmlFor="modal-order-create-form-quantity"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-create-form-quantity" className="form-label">
 							Quantity
 						</label>
 						<input
@@ -153,10 +139,7 @@ const CreateOrderForm = (props) => {
 					</div>
 					{/* ORDER DISCOUNT */}
 					<div className="modal-form-item modal-form-discount">
-						<label
-							htmlFor="modal-order-create-form-discount"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-create-form-discount" className="form-label">
 							Discount
 						</label>
 						<input
@@ -187,10 +170,7 @@ const CreateOrderForm = (props) => {
 					</div>
 					{/* ORDER USERID */}
 					<div className="modal-form-item modal-form-userId">
-						<label
-							htmlFor="modal-order-create-form-userId"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-create-form-userId" className="form-label">
 							UserId
 						</label>
 						<input
@@ -205,10 +185,7 @@ const CreateOrderForm = (props) => {
 					</div>
 					{/* ORDER PRODUCTID */}
 					<div className="modal-form-item modal-form-productId">
-						<label
-							htmlFor="modal-order-create-form-productId"
-							className="form-label"
-						>
+						<label htmlFor="modal-order-create-form-productId" className="form-label">
 							ProductId
 						</label>
 						<input
@@ -229,10 +206,7 @@ const CreateOrderForm = (props) => {
 					>
 						Create Order
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

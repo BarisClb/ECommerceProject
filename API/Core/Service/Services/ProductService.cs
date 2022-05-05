@@ -47,9 +47,18 @@ namespace Service.Services
 
         public async Task<SortedResponse<IList<ProductReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
-            IList<Product> products = _productReadRepository.GetAll(false).ToList();
+            // Search Word
+            IList<Product> products;
+            if (!string.IsNullOrWhiteSpace(listSorting.SearchWord))
+            {
+                products = _productReadRepository.GetWhere(p => p.Name.Contains(listSorting.SearchWord)).ToList();
+            }
+            else
+            {
+                products = _productReadRepository.GetAll(false).ToList();
+            }
+            // Sort => Reverse? OrderBy?
             IList<Product> orderedProducts;
-
             if (listSorting.Reverse)
             {
                 orderedProducts = listSorting.OrderBy switch
@@ -74,6 +83,9 @@ namespace Service.Services
                     _ => products,
                 };
             }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = products.Count;
 
             IList<ProductReadVm> mappedProducts = orderedProducts.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(product => new ProductReadVm
             {
@@ -90,7 +102,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

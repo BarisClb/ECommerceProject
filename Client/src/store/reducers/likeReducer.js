@@ -1,9 +1,6 @@
 import { likeTypes } from "../types/likeTypes";
 
-export default function likeReducer(
-	state = { likes: [], singleLike: {} },
-	action
-) {
+export default function likeReducer(state = { likes: [], singleLike: {} }, action) {
 	switch (action.type) {
 		case likeTypes.GetLikes:
 			return { ...state, likes: action.payload };

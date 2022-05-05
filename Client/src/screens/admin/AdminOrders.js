@@ -18,13 +18,7 @@ function AdminOrders() {
 		dispatch(orderActions.createOrder(newOrder, orderActions.getOrders()));
 	};
 	const navUpdateOrderClick = (orderId, updatedOrder) => {
-		dispatch(
-			orderActions.updateOrder(
-				orderId,
-				updatedOrder,
-				orderActions.getOrders()
-			)
-		);
+		dispatch(orderActions.updateOrder(orderId, updatedOrder, orderActions.getOrders()));
 	};
 	const navDeleteOrderClick = (oldOrder) => {
 		dispatch(orderActions.deleteOrder(oldOrder, orderActions.getOrders()));

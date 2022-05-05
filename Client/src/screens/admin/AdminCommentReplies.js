@@ -12,9 +12,7 @@ function AdminCommentReplies() {
 		dispatch(commentReplyActions.getCommentReplies());
 	}, []);
 
-	const commentReplies = useSelector(
-		(state) => state.commentReply.commentReplies
-	);
+	const commentReplies = useSelector((state) => state.commentReply.commentReplies);
 
 	const navCreateCommentReplyClick = async (newCommentReply) => {
 		dispatch(
@@ -72,7 +70,6 @@ function AdminCommentReplies() {
 					tableData4={"sellerId"}
 					// Special
 					isAdmin={true}
-					isCategories={true}
 					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}

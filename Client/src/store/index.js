@@ -16,8 +16,7 @@ export const storeManager = {
 			{ key: "root", storage },
 			createRootReducer(this.history)
 		);
-		var composeEnhancer =
-			window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+		var composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 		this.store = createStore(
 			persistedReducer,

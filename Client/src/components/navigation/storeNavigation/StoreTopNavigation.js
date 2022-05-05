@@ -14,9 +14,7 @@ function StoreTopNavigation() {
 		<div>
 			<nav
 				className={`nav nav-pills flex-column flex-sm-row ${
-					darkMode
-						? "navbar-dark bg-dark"
-						: "navbar-secondary bg-light store-nav-light"
+					darkMode ? "navbar-dark bg-dark" : "navbar-secondary bg-light store-nav-light"
 				}`}
 				id="store-top-sitenav"
 			>
@@ -34,9 +32,7 @@ function StoreTopNavigation() {
 			<nav
 				id="store-topnav-second"
 				className={`navbar navbar-expand-lg ${
-					darkMode
-						? "navbar-dark bg-dark"
-						: "navbar-secondary bg-light store-navbar-light"
+					darkMode ? "navbar-dark bg-dark" : "navbar-secondary bg-light store-navbar-light"
 				}`}
 			>
 				<a className="navbar-brand" href="/">
@@ -44,9 +40,7 @@ function StoreTopNavigation() {
 				</a>
 				<button
 					className={`navbar-toggler ${
-						darkMode
-							? "navbar-dark"
-							: "navbar-light bg-light navbar-toggler-light"
+						darkMode ? "navbar-dark" : "navbar-light bg-light navbar-toggler-light"
 					}`}
 					type="button"
 					data-bs-toggle="collapse"
@@ -57,10 +51,7 @@ function StoreTopNavigation() {
 				>
 					<span className="navbar-toggler-icon" />
 				</button>
-				<div
-					className="collapse navbar-collapse"
-					id="navbarSupportedContent"
-				>
+				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav mr-auto">
 						<li className="nav-item">
 							<a className="nav-link" href="/">
@@ -91,10 +82,7 @@ function StoreTopNavigation() {
 							onChange={() => setDarkMode(!darkMode)}
 							checked={darkMode}
 						/>
-						<label
-							className="form-check-label"
-							htmlFor="flexSwitchCheckDefault"
-						>
+						<label className="form-check-label" htmlFor="flexSwitchCheckDefault">
 							Dark Mode
 						</label>
 					</div>

@@ -1,9 +1,6 @@
 import { categoryTypes } from "../types/categoryTypes";
 
-export default function categoryReducer(
-	state = { categories: [], singleCategory: {} },
-	action
-) {
+export default function categoryReducer(state = { categories: [], singleCategory: {} }, action) {
 	switch (action.type) {
 		case categoryTypes.GetCategories:
 			return { ...state, categories: action.payload };

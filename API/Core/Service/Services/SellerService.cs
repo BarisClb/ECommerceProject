@@ -2,7 +2,7 @@
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
 using Infrastructure.Dtos.Common;
-using Application.Validators;
+using Application.Utilities.Validators;
 using Domain.Responses;
 using Domain.Entities;
 using System;
@@ -34,9 +34,18 @@ namespace Service.Services
 
         public async Task<SortedResponse<IList<SellerReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
-            IList<Seller> sellers = _sellerReadRepository.GetAll(false).ToList();
+            // Search Word
+            IList<Seller> sellers;
+            if (!string.IsNullOrWhiteSpace(listSorting.SearchWord))
+            {
+                sellers = _sellerReadRepository.GetWhere(s => s.Username.Contains(listSorting.SearchWord)).ToList();
+            }
+            else
+            {
+                sellers = _sellerReadRepository.GetAll(false).ToList();
+            }
+            // Sort => Reverse? OrderBy?
             IList<Seller> orderedSellers;
-
             if (listSorting.Reverse)
             {
                 orderedSellers = listSorting.OrderBy switch
@@ -59,6 +68,9 @@ namespace Service.Services
                     _ => sellers,
                 };
             }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = sellers.Count;
 
             IList<SellerReadVm> mappedSellers = orderedSellers.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(seller => new SellerReadVm
             {
@@ -71,7 +83,7 @@ namespace Service.Services
                 DateUpdated = seller.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<SellerReadVm>, ListSortReadVm>(mappedSellers, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, sellers.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<SellerReadVm>, ListSortReadVm>(mappedSellers, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, sellers.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

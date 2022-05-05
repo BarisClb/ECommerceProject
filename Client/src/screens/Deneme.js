@@ -8,8 +8,7 @@ import { categoryActions } from "../store/actions/categoryActions";
 const Deneme = () => {
 	const dispatch = useDispatch();
 
-	const capitalize = (word) =>
-		console.log(word[0].toUpperCase() + word.slice(1));
+	const capitalize = (word) => console.log(word[0].toUpperCase() + word.slice(1));
 
 	const helloWorld = () => console.log("Hello World");
 

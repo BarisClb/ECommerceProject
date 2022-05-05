@@ -21,6 +21,9 @@ namespace Service
 
             //// Dependency Injections
 
+            // Auth
+            services.AddScoped<AuthService>();
+
             // Category
             services.AddScoped<CategoryService>();
 

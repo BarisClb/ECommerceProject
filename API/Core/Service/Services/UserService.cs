@@ -2,7 +2,8 @@
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
 using Infrastructure.Dtos.Common;
-using Application.Validators;
+using Application.Utilities.Validators;
+using Application.Utilities.Security;
 using Domain.Responses;
 using Domain.Entities;
 using System;
@@ -41,9 +42,18 @@ namespace Service.Services
 
         public async Task<SortedResponse<IList<UserReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
-            IList<User> users = _userReadRepository.GetAll(false).ToList();
+            // Search Word
+            IList<User> users;
+            if (!string.IsNullOrWhiteSpace(listSorting.SearchWord))
+            {
+                users = _userReadRepository.GetWhere(u => u.Username.Contains(listSorting.SearchWord)).ToList();
+            }
+            else
+            {
+                users = _userReadRepository.GetAll(false).ToList();
+            }
+            // Sort => Reverse? OrderBy?
             IList<User> orderedUsers;
-
             if (listSorting.Reverse)
             {
                 orderedUsers = listSorting.OrderBy switch
@@ -68,6 +78,9 @@ namespace Service.Services
                     _ => users,
                 };
             }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = users.Count;
 
             IList<UserReadVm> mappedUsers = orderedUsers.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(user => new UserReadVm
             {
@@ -81,7 +94,7 @@ namespace Service.Services
                 DateUpdated = user.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<UserReadVm>, ListSortReadVm>(mappedUsers, new ListSortReadVm(listSorting.PageNumber, listSorting.PageSize, users.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<UserReadVm>, ListSortReadVm>(mappedUsers, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, users.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -133,7 +146,7 @@ namespace Service.Services
                 Name = modelUser.Name,
                 Username = modelUser.Username,
                 EMail = modelUser.EMail,
-                Password = modelUser.Password,
+                Password = Hash.HashPassword(modelUser.Password),
                 Admin = admin
             });
 
@@ -166,7 +179,7 @@ namespace Service.Services
                 user.EMail = modelUser.EMail;
             }
             if (modelUser.Password != null)
-                user.Password = modelUser.Password;
+                user.Password = Hash.HashPassword(modelUser.Password);
             if (modelUser.Admin != null)
                 user.Admin = (bool)modelUser.Admin;
             if (modelUser.AdminPassword != null)

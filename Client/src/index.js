@@ -40,6 +40,7 @@ import StoreSingleProduct from "./screens/store/StoreSingleProduct";
 import StoreProducts from "./screens/store/StoreProducts";
 import StoreLayout from "./components/layout/StoreLayout";
 import StoreMainPage from "./screens/store/StoreMainPage";
+import AdminMain from "./screens/admin/AdminMain";
 //#endregion
 
 ReactDOM.render(
@@ -56,13 +57,11 @@ ReactDOM.render(
 					<Route path="profile" element={<Profile />} />
 
 					{/* ADMIN SIDE */}
-					<Route path="Admin" element={<AdminLayout />}>
+
+					<Route path="Admin" element={<AdminMain />}>
 						<Route path="categories" element={<AdminCategories />} />
 						<Route path="comments" element={<AdminComments />} />
-						<Route
-							path="commentReplies"
-							element={<AdminCommentReplies />}
-						/>
+						<Route path="commentReplies" element={<AdminCommentReplies />} />
 						<Route path="likes" element={<AdminLikes />} />
 						<Route path="orders" element={<AdminOrders />} />
 						<Route path="products" element={<AdminProducts />} />
@@ -90,10 +89,7 @@ ReactDOM.render(
 						<Route path="products" element={<SellerProducts />} />
 						<Route path="orders" element={<SellerOrders />} />
 						<Route path="comments" element={<SellerComments />} />
-						<Route
-							path="commentReplies"
-							element={<SellerCommentReplies />}
-						/>
+						<Route path="commentReplies" element={<SellerCommentReplies />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

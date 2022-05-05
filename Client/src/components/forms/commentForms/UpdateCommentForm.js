@@ -91,16 +91,11 @@ const UpdateCommentForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">
-					Update Comment
-				</ModalHeader>
+				<ModalHeader className="modal-form-item">Update Comment</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* COMMENT ID */}
 					<div className="modal-form-item modal-form-id">
-						<label
-							htmlFor="modal-comment-update-form-id"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-update-form-id" className="form-label">
 							Id
 						</label>
 						<input
@@ -121,10 +116,7 @@ const UpdateCommentForm = (props) => {
 					</div>
 					{/* COMMENT TITLE */}
 					<div className="modal-form-item modal-form-title">
-						<label
-							htmlFor="modal-comment-update-form-title"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-update-form-title" className="form-label">
 							Title
 						</label>
 						<input
@@ -153,10 +145,7 @@ const UpdateCommentForm = (props) => {
 					</div>
 					{/* COMMENT TEXT */}
 					<div className="modal-form-item modal-form-text">
-						<label
-							htmlFor="modal-comment-update-form-text"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-update-form-text" className="form-label">
 							Text
 						</label>
 						<input
@@ -185,10 +174,7 @@ const UpdateCommentForm = (props) => {
 					</div>
 					{/* COMMENT RATING */}
 					<div className="modal-form-item modal-form-rating">
-						<label
-							htmlFor="modal-comment-update-form-rating"
-							className="form-label"
-						>
+						<label htmlFor="modal-comment-update-form-rating" className="form-label">
 							Rating
 						</label>
 						<input
@@ -226,10 +212,7 @@ const UpdateCommentForm = (props) => {
 					>
 						Update Comment
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={toggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
 						Close
 					</button>
 				</ModalFooter>

@@ -3,6 +3,10 @@
 	margin: 20px;
 }
 
+#table-data {
+	margin: 0;
+}
+
 .thead-buttons {
 	margin-right: 10px;
 }
@@ -62,4 +66,69 @@
 
 .modal-footer {
 	flex-wrap: nowrap !important;
+}
+
+.table-navbar-sort-by {
+	display: flex;
+	gap: 1rem;
+}
+
+.table-navbar-sort-by-left-flex {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.table-navbar-sort-by-left-top,
+.table-navbar-sort-by-left-bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.table-navbar-sort-by-left-top > label,
+.table-navbar-sort-by-left-bottom > label {
+	white-space: nowrap;
+	margin-bottom: 0;
+}
+
+.table-navbar-sort-by-left-top > select,
+.table-navbar-sort-by-left-bottom > select {
+	/* text-align: center; */
+	width: 8rem;
+	padding: 3px 6px;
+}
+
+.table-navbar-sort-by input,
+.table-navbar-sort-by button {
+	padding: 3px 6px;
+}
+
+#table-nav-pagination {
+	justify-content: center;
+}
+
+.pagination-list {
+	margin: 0;
+}
+
+.page-item.active .page-link {
+	color: #fff !important;
+	background: #f00 !important;
+}
+
+#table-nav-pagination .page-link:focus {
+	box-shadow: none !important;
+	/* border-color: transparent !important; */
+}
+
+#table-nav-pagination li {
+	margin: 0;
+}
+
+#table-nav-pagination-select-pageSize {
+	width: auto;
+	height: 34px;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }

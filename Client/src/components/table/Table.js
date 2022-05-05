@@ -99,6 +99,7 @@ const Table = (props) => {
 	const [tableCustomButtonColor2] = useState(props.tableCustomButtonColor2);
 	const [tableCustomButtonColor3] = useState(props.tableCustomButtonColor3);
 	// Nav Buttons
+	const [navButtonTitle] = useState(props.navButtonTitle);
 	const [navCreateButton] = useState(props.navCreateButton);
 	const [navUpdateButton] = useState(props.navUpdateButton);
 	const [navDeleteButton] = useState(props.navDeleteButton);
@@ -136,6 +137,7 @@ const Table = (props) => {
 	// Nav Custom Button Color
 	const [navCustomButtonColor] = useState(props.navCustomButtonColor);
 	// Nav Search
+	const [navSearch] = useState(props.navSearch);
 	const [searchValue, setSearchValue] = useState("");
 	const searchValueUpdate = (newWord) => {
 		setSearchValue(newWord);
@@ -145,9 +147,7 @@ const Table = (props) => {
 			originalApiData.filter((element) => {
 				if (tableData) {
 					if (element[tableData] != null) {
-						return element[tableData]
-							.toLowerCase()
-							.includes(searchValue.toLowerCase());
+						return element[tableData].toLowerCase().includes(searchValue.toLowerCase());
 					}
 				} else {
 					return element.toLowerCase().includes(searchValue.toLowerCase());
@@ -160,41 +160,21 @@ const Table = (props) => {
 	const navCreateForm = () => {
 		switch (isNav) {
 			case "Category":
-				return (
-					<CreateCategoryForm
-						navCreateButtonClick={navCreateButtonClick}
-					/>
-				);
+				return <CreateCategoryForm navCreateButtonClick={navCreateButtonClick} />;
 			case "Comment":
-				return (
-					<CreateCommentForm navCreateButtonClick={navCreateButtonClick} />
-				);
+				return <CreateCommentForm navCreateButtonClick={navCreateButtonClick} />;
 			case "CommentReply":
-				return (
-					<CreateCommentReplyForm
-						navCreateButtonClick={navCreateButtonClick}
-					/>
-				);
+				return <CreateCommentReplyForm navCreateButtonClick={navCreateButtonClick} />;
 			case "Like":
-				return (
-					<CreateLikeForm navCreateButtonClick={navCreateButtonClick} />
-				);
+				return <CreateLikeForm navCreateButtonClick={navCreateButtonClick} />;
 			case "Order":
-				return (
-					<CreateOrderForm navCreateButtonClick={navCreateButtonClick} />
-				);
+				return <CreateOrderForm navCreateButtonClick={navCreateButtonClick} />;
 			case "Product":
-				return (
-					<CreateProductForm navCreateButtonClick={navCreateButtonClick} />
-				);
+				return <CreateProductForm navCreateButtonClick={navCreateButtonClick} />;
 			case "Seller":
-				return (
-					<CreateSellerForm navCreateButtonClick={navCreateButtonClick} />
-				);
+				return <CreateSellerForm navCreateButtonClick={navCreateButtonClick} />;
 			case "User":
-				return (
-					<CreateUserForm navCreateButtonClick={navCreateButtonClick} />
-				);
+				return <CreateUserForm navCreateButtonClick={navCreateButtonClick} />;
 			default:
 				break;
 		}
@@ -204,41 +184,21 @@ const Table = (props) => {
 	const navUpdateForm = () => {
 		switch (isNav) {
 			case "Category":
-				return (
-					<UpdateCategoryForm
-						navUpdateButtonClick={navUpdateButtonClick}
-					/>
-				);
+				return <UpdateCategoryForm navUpdateButtonClick={navUpdateButtonClick} />;
 			case "Comment":
-				return (
-					<UpdateCommentForm navUpdateButtonClick={navUpdateButtonClick} />
-				);
+				return <UpdateCommentForm navUpdateButtonClick={navUpdateButtonClick} />;
 			case "CommentReply":
-				return (
-					<UpdateCommentReplyForm
-						navUpdateButtonClick={navUpdateButtonClick}
-					/>
-				);
+				return <UpdateCommentReplyForm navUpdateButtonClick={navUpdateButtonClick} />;
 			case "Like":
-				return (
-					<UpdateLikeForm navUpdateButtonClick={navUpdateButtonClick} />
-				);
+				return <UpdateLikeForm navUpdateButtonClick={navUpdateButtonClick} />;
 			case "Order":
-				return (
-					<UpdateOrderForm navUpdateButtonClick={navUpdateButtonClick} />
-				);
+				return <UpdateOrderForm navUpdateButtonClick={navUpdateButtonClick} />;
 			case "Product":
-				return (
-					<UpdateProductForm navUpdateButtonClick={navUpdateButtonClick} />
-				);
+				return <UpdateProductForm navUpdateButtonClick={navUpdateButtonClick} />;
 			case "Seller":
-				return (
-					<UpdateSellerForm navUpdateButtonClick={navUpdateButtonClick} />
-				);
+				return <UpdateSellerForm navUpdateButtonClick={navUpdateButtonClick} />;
 			case "User":
-				return (
-					<UpdateUserForm navUpdateButtonClick={navUpdateButtonClick} />
-				);
+				return <UpdateUserForm navUpdateButtonClick={navUpdateButtonClick} />;
 			default:
 				break;
 		}
@@ -248,41 +208,21 @@ const Table = (props) => {
 	const navDeleteForm = () => {
 		switch (isNav) {
 			case "Category":
-				return (
-					<DeleteCategoryForm
-						navDeleteButtonClick={navDeleteButtonClick}
-					/>
-				);
+				return <DeleteCategoryForm navDeleteButtonClick={navDeleteButtonClick} />;
 			case "Comment":
-				return (
-					<DeleteCommentForm navDeleteButtonClick={navDeleteButtonClick} />
-				);
+				return <DeleteCommentForm navDeleteButtonClick={navDeleteButtonClick} />;
 			case "CommentReply":
-				return (
-					<DeleteCommentReplyForm
-						navDeleteButtonClick={navDeleteButtonClick}
-					/>
-				);
+				return <DeleteCommentReplyForm navDeleteButtonClick={navDeleteButtonClick} />;
 			case "Like":
-				return (
-					<DeleteLikeForm navDeleteButtonClick={navDeleteButtonClick} />
-				);
+				return <DeleteLikeForm navDeleteButtonClick={navDeleteButtonClick} />;
 			case "Order":
-				return (
-					<DeleteOrderForm navDeleteButtonClick={navDeleteButtonClick} />
-				);
+				return <DeleteOrderForm navDeleteButtonClick={navDeleteButtonClick} />;
 			case "Product":
-				return (
-					<DeleteProductForm navDeleteButtonClick={navDeleteButtonClick} />
-				);
+				return <DeleteProductForm navDeleteButtonClick={navDeleteButtonClick} />;
 			case "Seller":
-				return (
-					<DeleteSellerForm navDeleteButtonClick={navDeleteButtonClick} />
-				);
+				return <DeleteSellerForm navDeleteButtonClick={navDeleteButtonClick} />;
 			case "User":
-				return (
-					<DeleteUserForm navDeleteButtonClick={navDeleteButtonClick} />
-				);
+				return <DeleteUserForm navDeleteButtonClick={navDeleteButtonClick} />;
 			default:
 				break;
 		}
@@ -333,6 +273,52 @@ const Table = (props) => {
 	};
 	//#endregion
 
+	//#region TableDataSort
+	// SortBy
+	const [tableSortBy] = useState(props.tableSortBy);
+	const [tableSortBy1] = useState(props.tableSortBy1);
+	const [tableSortBy2] = useState(props.tableSortBy2);
+	const [tableSortBy3] = useState(props.tableSortBy3);
+	const [tableSortBy4] = useState(props.tableSortBy4);
+
+	// Sort Values
+	const [tableSortReversed, setTableSortReversed] = useState(false);
+	const [tableSortWord, setTableSortWord] = useState("");
+	const [tableSortPageNumber, setTableSortPageNumber] = useState(1);
+	const [tableSortPageSize, setTableSortPageSize] = useState(
+		props.tableSortPageSize ? props.tableSortPageSize : 20
+	);
+	const [tableSortOrderBy, setTableSortOrderBy] = useState(null);
+
+	// Sort Actions
+
+	const sortTable = (changedData) => {
+		let sortData = {
+			reversed: tableSortReversed,
+			searchWord: tableSortWord,
+			pageNumber: tableSortPageNumber,
+			pageSize: tableSortPageSize,
+			orderBy: tableSortOrderBy,
+		};
+		if (changedData) {
+			sortData = { ...sortData, ...changedData };
+		}
+		props.tableSortAction(sortData);
+	};
+	const tableSortButtonClick = (data) => {
+		if (props.tableSortButtonClick) {
+			sortTable();
+		}
+	};
+	const tableChangePageNumber = (pageNumber) => {
+		sortTable({ pageNumber: pageNumber });
+	};
+	const tableChangePageSize = (pageSize) => {
+		sortTable({ pageSize: pageSize });
+	};
+
+	//#endregion
+
 	// UseEffect
 	// Updating the Values
 	useEffect(() => {
@@ -353,19 +339,16 @@ const Table = (props) => {
 			{isNav && (
 				<nav className="navbar table-nav navbar-light bg-secondary">
 					<div className="container-fluid">
+						{/* TABLE FORM */}
 						<div className="navbar-buttons">
-							{(navCreateButton ||
-								navUpdateButton ||
-								navDeleteButton) && <span>Operations:</span>}
+							{navButtonTitle && <span>{navButtonTitle}:</span>}
 							{navCreateButton && navCreateForm()}
 							{navUpdateButton && navUpdateForm()}
 							{navDeleteButton && navDeleteForm()}
 							{navCustomButton && (
 								<button
 									className={`btn btn-${
-										navCustomButtonColor
-											? navCustomButtonColor
-											: "light"
+										navCustomButtonColor ? navCustomButtonColor : "light"
 									}`}
 									onClick={() => navCustomButtonClick()}
 								>
@@ -373,38 +356,103 @@ const Table = (props) => {
 								</button>
 							)}
 						</div>
-						<div className="nav-search">
-							<input
-								className="form-control me-2"
-								type="search"
-								placeholder="Search"
-								aria-label="Search"
-								value={searchValue}
-								onChange={(event) =>
-									searchValueUpdate(event.target.value)
-								}
-							/>
-							{!instaSearch && (
-								<button
-									className="btn btn-primary"
-									type="submit"
-									onClick={() => searchTheWord()}
+						{/* TABLE SORT */}
+						{tableSortBy && (
+							<div className={`table-navbar-sort-by`}>
+								<div
+									className={`table-navbar-sort-by-left ${
+										navSearch !== true && "table-navbar-sort-by-left-flex"
+									}`}
 								>
-									Search
-								</button>
-							)}
-						</div>
+									<div className="table-navbar-sort-by-left-top">
+										<label htmlFor="table-sort-by-value">Sort By :</label>
+										<select
+											name="table-sort-by-value"
+											id="table-sort-by-value"
+											className="form-select"
+											value={tableSortOrderBy !== null ? tableSortOrderBy : tableSortBy1}
+											onChange={(e) => setTableSortOrderBy(e.target.value)}
+										>
+											{tableSortBy1 && (
+												<option value={tableSortBy1}>{tableSortBy1}</option>
+											)}
+											{tableSortBy2 && (
+												<option value={tableSortBy2}>{tableSortBy2}</option>
+											)}
+											{tableSortBy3 && (
+												<option value={tableSortBy3}>{tableSortBy3}</option>
+											)}
+											{tableSortBy4 && (
+												<option value={tableSortBy4}>{tableSortBy4}</option>
+											)}
+										</select>
+									</div>
+									<div className="table-navbar-sort-by-left-bottom">
+										<label htmlFor="table-sort-by-reversed">Order :</label>
+										<select
+											name="table-sort-by-reversed"
+											id="table-sort-by-reversed"
+											className="form-select"
+											value={tableSortReversed}
+											onChange={(e) => setTableSortReversed(e.target.value)}
+										>
+											<option value={false}>Oldest First</option>
+											<option value={true}>Newest First</option>
+										</select>
+									</div>
+								</div>
+								<div className="table-navbar-sort-by-right">
+									<div className="nav-search">
+										<input
+											className="form-control"
+											type="search"
+											placeholder="Search"
+											aria-label="Search"
+											value={tableSortWord}
+											onChange={(event) => setTableSortWord(event.target.value)}
+										/>
+										<button
+											className="btn btn-primary"
+											type="submit"
+											onClick={() => tableSortButtonClick()}
+										>
+											Search
+										</button>
+									</div>
+								</div>
+							</div>
+						)}
+						{/* TABLE SEARCH */}
+						{navSearch && (
+							<div className="nav-search">
+								<input
+									className="form-control me-2"
+									type="search"
+									placeholder="Search"
+									aria-label="Search"
+									value={searchValue}
+									onChange={(event) => searchValueUpdate(event.target.value)}
+								/>
+								{!instaSearch && (
+									<button
+										className="btn btn-primary"
+										type="submit"
+										onClick={() => searchTheWord()}
+									>
+										Search
+									</button>
+								)}
+							</div>
+						)}
 					</div>
 				</nav>
 			)}
 			{/* TABLE */}
-			<table className="table table-striped table-secondary">
+			<table id="table-data" className="table table-striped table-secondary">
 				<thead>
 					<tr>
 						<th scope="col">{isAdmin ? "#Id" : "#"}</th>
-						<th scope="col">{`${
-							tableHead ? tableHead : "Table Head"
-						}`}</th>
+						<th scope="col">{`${tableHead ? tableHead : "Table Head"}`}</th>
 						{/* Optional Headers */}
 						{tableHead2 && <th scope="col">{tableHead2}</th>}
 						{tableHead3 && <th scope="col">{tableHead3}</th>}
@@ -445,9 +493,7 @@ const Table = (props) => {
 											{tableUpdateButton && (
 												<button
 													className="btn btn-warning"
-													onClick={() =>
-														modalToggle(data, "Update")
-													}
+													onClick={() => modalToggle(data, "Update")}
 												>
 													Update
 												</button>
@@ -455,9 +501,7 @@ const Table = (props) => {
 											{tableDeleteButton && (
 												<button
 													className="btn btn-danger"
-													onClick={() =>
-														modalToggle(data, "Delete")
-													}
+													onClick={() => modalToggle(data, "Delete")}
 												>
 													Delete
 												</button>
@@ -469,9 +513,7 @@ const Table = (props) => {
 															? tableCustomButtonColor
 															: "secondary"
 													}`}
-													onClick={() =>
-														modalToggle((data, "CustomButton1"))
-													}
+													onClick={() => modalToggle((data, "CustomButton1"))}
 												>
 													{tableCustomButton && tableCustomButton}
 												</button>
@@ -483,12 +525,9 @@ const Table = (props) => {
 															? tableCustomButtonColor2
 															: "secondary"
 													}`}
-													onClick={() =>
-														modalToggle((data, "CustomButton2"))
-													}
+													onClick={() => modalToggle((data, "CustomButton2"))}
 												>
-													{tableCustomButton2 &&
-														tableCustomButton2}
+													{tableCustomButton2 && tableCustomButton2}
 												</button>
 											)}
 											{tableCustomButton3 && (
@@ -498,12 +537,9 @@ const Table = (props) => {
 															? tableCustomButtonColor3
 															: "secondary"
 													}`}
-													onClick={() =>
-														modalToggle((data, "CustomButton3"))
-													}
+													onClick={() => modalToggle((data, "CustomButton3"))}
 												>
-													{tableCustomButton3 &&
-														tableCustomButton3}
+													{tableCustomButton3 && tableCustomButton3}
 												</button>
 											)}
 										</td>
@@ -513,14 +549,104 @@ const Table = (props) => {
 						})}
 				</tbody>
 			</table>
+			{/* TABLE PAGINATION */}
+			<nav
+				id="table-nav-pagination"
+				className="navbar table-nav navbar-light bg-secondary"
+				aria-label="Page navigation example"
+			>
+				<ul className="pagination pagination-list">
+					<li className={`page-item ${tableSortPageNumber === 1 && "disabled"}`}>
+						<button
+							className={`page-link ${
+								tableSortPageNumber === 1
+									? "bg-secondary text-light"
+									: "bg-light text-secondary"
+							}`}
+							onClick={() => setTableSortPageNumber(tableSortPageNumber - 1)}
+						>
+							Previous
+						</button>
+					</li>
+					<li className={`page-item ${tableSortPageNumber === 1 && "bg-secondary"}`}>
+						<button
+							className={`page-link ${
+								tableSortPageNumber === 1
+									? "bg-secondary text-light"
+									: "bg-light text-secondary"
+							}`}
+							onClick={() => setTableSortPageNumber(1)}
+						>
+							1
+						</button>
+					</li>
+					<li className={`page-item ${tableSortPageNumber === 2 && "bg-secondary"}`}>
+						<button
+							className={`page-link ${
+								tableSortPageNumber === 2
+									? "bg-secondary text-light"
+									: "bg-light text-secondary"
+							}`}
+							onClick={() => setTableSortPageNumber(2)}
+						>
+							2
+						</button>
+					</li>
+					<li className={`page-item ${tableSortPageNumber === 3 && "bg-secondary"}`}>
+						<button
+							className={`page-link ${
+								tableSortPageNumber === 3
+									? "bg-secondary text-light"
+									: "bg-light text-secondary"
+							}`}
+							onClick={() => setTableSortPageNumber(3)}
+						>
+							3
+						</button>
+					</li>
+					<li className={`page-item ${tableSortPageNumber === 4 && "bg-secondary"}`}>
+						<button
+							className={`page-link ${
+								tableSortPageNumber === 4
+									? "bg-secondary text-light"
+									: "bg-light text-secondary"
+							}`}
+							onClick={() => setTableSortPageNumber(4)}
+						>
+							4
+						</button>
+					</li>
+					<li className={`page-item ${tableSortPageNumber === 4 && "disabled"}`}>
+						<button
+							className={`page-link ${
+								tableSortPageNumber === 4
+									? "bg-secondary text-light"
+									: "bg-light text-secondary"
+							}`}
+							onClick={() => setTableSortPageNumber(tableSortPageNumber + 1)}
+						>
+							Next
+						</button>
+					</li>
+				</ul>
+				<label htmlFor="table-nav-pagination-select-pageSize"></label>
+				<select
+					id="table-nav-pagination-select-pageSize"
+					className="form-select"
+					onChange={(e) => setTableSortPageSize(parseInt(e.target.value))}
+				>
+					<option disabled>Page Size</option>
+					<option value={10}>10</option>
+					<option value={15}>15</option>
+					<option value={20}>20</option>
+					<option value={25}>25</option>
+				</select>
+			</nav>
 			<Modal isOpen={modal} toggle={modalToggle} centered>
 				<ModalHeader className="modal-form-item">Add Product</ModalHeader>
 				<ModalBody className="modal-form">
 					<div className="modal-form-item d-flex">
-						<label
-							htmlFor="modal-form-confirmation"
-							className="form-label"
-						>
+						<label htmlFor="modal-form-confirmation" className="form-label">
 							Are you sure?
 						</label>
 					</div>
@@ -534,10 +660,7 @@ const Table = (props) => {
 					>
 						Yes
 					</button>
-					<button
-						className="btn btn-secondary form-input form-control"
-						onClick={modalToggle}
-					>
+					<button className="btn btn-secondary form-input form-control" onClick={modalToggle}>
 						Close
 					</button>
 				</ModalFooter>

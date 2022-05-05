@@ -21,13 +21,35 @@ const getCategories = (categoryId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let data = await actionHelpers.getHelper("Categories", categoryId);
-		console.log(data);
+		let response = await actionHelpers.getHelper("Categories", categoryId);
+		console.log(response);
 
 		if (categoryId) {
-			dispatch({ type: categoryTypes.GetSingleCategory, payload: data });
+			dispatch({ type: categoryTypes.GetSingleCategory, payload: response.data });
 		} else {
-			dispatch({ type: categoryTypes.GetCategories, payload: data });
+			dispatch({ type: categoryTypes.GetCategories, payload: response.data });
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
+	};
+};
+
+// GET SORTED CATEGORIES
+
+const getSortedCategories = (listSorting, successCallback) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let response = await actionHelpers.getSortedHelper("Categories", listSorting);
+		console.log(response);
+
+		dispatch({ type: categoryTypes.GetCategories, payload: response.data });
+		if (response.sortInfo !== undefined && response.sortInfo !== null) {
+			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
@@ -44,10 +66,7 @@ const createCategory = (newCategory, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.createHelper(
-			"Categories",
-			newCategory
-		);
+		let response = await actionHelpers.createHelper("Categories", newCategory);
 		console.log(response);
 
 		dispatch({ type: categoryTypes.CreateCategory });
@@ -66,11 +85,7 @@ const updateCategory = (categoryId, updatedCategory, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let response = await actionHelpers.updateHelper(
-			"Categories",
-			categoryId,
-			updatedCategory
-		);
+		let response = await actionHelpers.updateHelper("Categories", categoryId, updatedCategory);
 		console.log(response);
 
 		dispatch({ type: categoryTypes.UpdateCategory });
@@ -104,6 +119,7 @@ const deleteCategory = (categoryId, successCallback) => {
 
 export const categoryActions = {
 	getCategories,
+	getSortedCategories,
 	createCategory,
 	updateCategory,
 	deleteCategory,
