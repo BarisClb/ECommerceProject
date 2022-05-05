@@ -9,6 +9,7 @@ const getHelper = async (entityName, entityId) => {
 	try {
 		let response = await fetch(url);
 		let responseJson = await response.json();
+
 		if (responseJson.success) {
 			return responseJson;
 		} else {

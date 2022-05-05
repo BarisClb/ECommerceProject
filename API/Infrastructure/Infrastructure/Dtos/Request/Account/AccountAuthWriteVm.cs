@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Dtos.Common
+namespace Infrastructure.Dtos.Request
 {
     public class AccountAuthWriteVm
     {
         public string AccountType { get; set; }
-        public string? Username { get; set; }
-        public string? EMail { get; set; }
+        public string Account { get; set; }
         public string Password { get; set; }
     }
 }

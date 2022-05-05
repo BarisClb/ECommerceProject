@@ -3,6 +3,7 @@ using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
 using Infrastructure.Dtos.Common;
 using Application.Utilities.Validators;
+using Application.Utilities.Security;
 using Domain.Responses;
 using Domain.Entities;
 using System;
@@ -127,7 +128,7 @@ namespace Service.Services
                 Name = modelSeller.Name,
                 Username = modelSeller.Username,
                 EMail = modelSeller.EMail,
-                Password = modelSeller.Password
+                Password = modelSeller.Password,
             });
 
             await _sellerWriteRepository.SaveAsync();
@@ -159,7 +160,7 @@ namespace Service.Services
                 seller.EMail = modelSeller.EMail;
             }
             if (modelSeller.Password != null)
-                seller.Password = modelSeller.Password;
+                seller.Password = HashSecurity.HashPassword(modelSeller.Password);
 
             await _sellerWriteRepository.SaveAsync();
             return new SuccessfulResponse<Seller>("Seller updated.");

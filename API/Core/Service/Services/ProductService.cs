@@ -218,7 +218,7 @@ namespace Service.Services
                 DateUpdated = seller.DateUpdated,
             };
 
-            IList<CommentReadVm> mappedComments = null;
+            IList<CommentReadVm>? mappedComments = null;
             if (comments != null)
             {
                 mappedComments = comments.Select(comment => new CommentReadVm
@@ -236,7 +236,7 @@ namespace Service.Services
                 }).ToList();
             }
 
-            IList<CommentReplyReadVm> mappedCommentReplies = null;
+            IList<CommentReplyReadVm>? mappedCommentReplies = null;
             if (commentReplies != null)
             {
                 mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
@@ -253,7 +253,7 @@ namespace Service.Services
                 }).ToList();
             }
 
-            IList<LikeReadVm> mappedLikes = null;
+            IList<LikeReadVm>? mappedLikes = null;
             if (likes != null)
             {
                 mappedLikes = likes.Select(like => new LikeReadVm

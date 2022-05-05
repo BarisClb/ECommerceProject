@@ -22,7 +22,7 @@ namespace Service
             //// Dependency Injections
 
             // Auth
-            services.AddScoped<AuthService>();
+            services.AddScoped<AccountService>();
 
             // Category
             services.AddScoped<CategoryService>();

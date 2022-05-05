@@ -13,8 +13,9 @@
    ~ Dtos for Requests and Responses  
    ~ Custom Responses   
    ~ Password Hashing (BCrypt.Net-Next)  
+   ~ JWT (System.IdentityModel.Tokens.Jwt)  
   
-   Future Plans (For this project or future Projects):  
+   Future Plans (For this and future Projects):  
   
    1-) JWT / Authorization / Authentication  
    2-) Unique URLs  
@@ -43,6 +44,6 @@
    ~ Light / Dark mode for Store Front.  
    ~ Password Hashing  
   
-  Database Relations:  
+   Database Relations (Root of the Arrow represents 'One' and Tip represents 'Many'):  
   
   <img alt="Database-Relations" src="/Database/DB from 21-04-2022.jpeg">

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Utilities.Security
 {
-    public static class Hash
+    public static class HashSecurity
     {
         public static string HashPassword(string password)
         {

@@ -146,8 +146,8 @@ namespace Service.Services
                 Name = modelUser.Name,
                 Username = modelUser.Username,
                 EMail = modelUser.EMail,
-                Password = Hash.HashPassword(modelUser.Password),
-                Admin = admin
+                Password = HashSecurity.HashPassword(modelUser.Password),
+                Admin = admin,
             });
 
             await _userWriteRepository.SaveAsync();
@@ -179,7 +179,7 @@ namespace Service.Services
                 user.EMail = modelUser.EMail;
             }
             if (modelUser.Password != null)
-                user.Password = Hash.HashPassword(modelUser.Password);
+                user.Password = HashSecurity.HashPassword(modelUser.Password);
             if (modelUser.Admin != null)
                 user.Admin = (bool)modelUser.Admin;
             if (modelUser.AdminPassword != null)
