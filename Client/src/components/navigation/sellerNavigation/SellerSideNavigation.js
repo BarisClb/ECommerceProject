@@ -1,8 +1,16 @@
 import React from "react";
 import "./css/index.css";
 import "../css/index.css";
+import { useDispatch } from "react-redux";
+import { accountActions } from "../../../store/actions/accountActions";
 
 const SellerSideNavigation = () => {
+	const dispatch = useDispatch();
+
+	const logOut = () => {
+		dispatch(accountActions.accountLogOut("Seller"));
+	};
+
 	return (
 		<div
 			id="seller-sidenav"
@@ -89,10 +97,10 @@ const SellerSideNavigation = () => {
 					<li>
 						<hr className="dropdown-divider" />
 					</li>
-					<li>
-						<a className="dropdown-item" href="/">
-							Sign Out
-						</a>
+					<li onClick={logOut}>
+						<div id="seller-sidenav-logout-item" className="dropdown-item">
+							Log Out
+						</div>
 					</li>
 				</ul>
 			</div>

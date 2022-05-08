@@ -13,14 +13,15 @@ function FormTemplate() {
 	const toggle = () => setModal(!modal);
 
 	// ABC = ENTITYNAME,
-	// DEF = TYPE OF ACTION (ADD,DELETE,UPDATE),
-	// XYZ = VALUE NAME (NAME,DESCRIPTION,PRICE)(CASE SENSITIVE)
+	// DEF = TYPE OF ACTION (CREATE, UPDATE, DELETE),
+	// XYZ, Xyz = VALUE NAME (NAME, DESCRIPTION, PRICE)(CASE SENSITIVE)
 	return (
 		<>
 			<button className="btn btn-warning" onClick={toggle}>
 				DEF
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
+				{/* <form onSubmit={(e) => navXyzButtonClick(e)}> */}
 				<ModalHeader className="modal-form-item">DEF Abc</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* TEXT */}
@@ -108,6 +109,7 @@ function FormTemplate() {
 				<ModalFooter>
 					<button
 						className="btn btn-warning form-input form-control"
+						// type="submit"
 						// onClick={() => def()}
 					>
 						DEF Abc
@@ -116,6 +118,7 @@ function FormTemplate() {
 						Close
 					</button>
 				</ModalFooter>
+				{/* </form> */}
 			</Modal>
 		</>
 	);

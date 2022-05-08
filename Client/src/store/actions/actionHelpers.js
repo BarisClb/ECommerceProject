@@ -1,7 +1,9 @@
+const apiUrl = process.env.REACT_APP_API_URL;
+
 // GET
 
 const getHelper = async (entityName, entityId) => {
-	let url = `https://localhost:7000/api/${entityName}/`;
+	let url = `${apiUrl}/${entityName}/`;
 	if (entityId) {
 		url += `${entityId}`;
 	}
@@ -24,7 +26,7 @@ const getHelper = async (entityName, entityId) => {
 // GET SORTED
 
 const getSortedHelper = async (entityName, listSorting) => {
-	let url = `https://localhost:7000/api/${entityName}`;
+	let url = `${apiUrl}/${entityName}`;
 
 	// // If no sorting applied, no need for question mark.
 	// for (let i = 0; i < listSorting.length; i++) {
@@ -75,7 +77,7 @@ const getSortedHelper = async (entityName, listSorting) => {
 // GET *ENTITIES* BY *ENTITY*
 
 const getByEntityHelper = async (manyEntityName, singleEntityName, singleEntityId) => {
-	let url = `https://localhost:7000/api/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+	let url = `${apiUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
 
 	try {
 		let response = await fetch(url);
@@ -93,7 +95,7 @@ const getByEntityHelper = async (manyEntityName, singleEntityName, singleEntityI
 // CREATE
 
 const createHelper = async (entityName, newEntity) => {
-	let url = `https://localhost:7000/api/${entityName}/`;
+	let url = `${apiUrl}/${entityName}/`;
 
 	try {
 		let response = await fetch(url, {
@@ -114,7 +116,7 @@ const createHelper = async (entityName, newEntity) => {
 // UPDATE
 
 const updateHelper = async (entityName, entityId, updatedEntity) => {
-	let url = `https://localhost:7000/api/${entityName}`;
+	let url = `${apiUrl}/${entityName}`;
 
 	try {
 		let response = await fetch(url, {
@@ -136,7 +138,7 @@ const updateHelper = async (entityName, entityId, updatedEntity) => {
 // DELETE
 
 const deleteHelper = async (entityName, entityId) => {
-	let url = `https://localhost:7000/api/${entityName}/${entityId}`;
+	let url = `${apiUrl}/${entityName}/${entityId}`;
 
 	try {
 		let response = await fetch(url, {

@@ -13,7 +13,9 @@ const UpdateCommentReplyForm = (props) => {
 	const commentReply = useSelector((state) => state.common.EntityToUpdate);
 
 	const dispatch = useDispatch();
-	const findEntity = () => {
+
+	const findEntity = (e) => {
+		e.preventDefault();
 		dispatch(commonActions.getEntityToUpdate("CommentReplies", idValue));
 	};
 
@@ -23,7 +25,6 @@ const UpdateCommentReplyForm = (props) => {
 			setTextValue(commentReply.text);
 			setProductIdValue(commentReply.productId);
 			setSellerIdValue(commentReply.sellerId);
-
 			setEntityFound(true);
 		} else {
 			setIdValue(0);
@@ -43,7 +44,8 @@ const UpdateCommentReplyForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navUpdateButtonClick = () => {
+	const navUpdateButtonClick = (e) => {
+		e.preventDefault();
 		if (props.navUpdateButtonClick && idValue > 0) {
 			let updatedCommentReply = {};
 			if (changeText) {
@@ -75,101 +77,109 @@ const UpdateCommentReplyForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">Update CommentReply</ModalHeader>
-				<ModalBody className="modal-form">
-					{/* COMMENTREPLY ID */}
-					<div className="modal-form-item modal-form-id">
-						<label htmlFor="modal-commentReply-update-form-id" className="form-label">
-							Id
-						</label>
-						<input
-							type="number"
-							className="form-control form-input"
-							id="modal-commentReply-update-form-id"
-							placeholder="Id"
-							value={idValue}
-							onChange={(event) => setIdValue(event.target.value)}
-							min="1"
-						/>
-						<button
-							className="btn btn-primary get-entity-to-update-button"
-							onClick={() => findEntity()}
-						>
-							Get CommentReply
-						</button>
-					</div>
-					{/* COMMENTREPLY DESCRIPTION */}
-					<div className="modal-form-item modal-form-text">
-						<label htmlFor="modal-commentReply-update-form-text" className="form-label">
-							Text
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-commentReply-update-form-text"
-							placeholder="Text"
-							value={textValue}
-							onChange={(event) => setTextValue(event.target.value)}
-							disabled={!changeText}
-						/>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								id="modal-form-commentReply-update-text-check"
-								onChange={() => setChangeText(!changeText)}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-commentReply-update-text-check"
-							>
-								Don't Change
+				<form onSubmit={(e) => navUpdateButtonClick(e)}>
+					<ModalHeader className="modal-form-item">Update CommentReply</ModalHeader>
+					<ModalBody className="modal-form">
+						{/* COMMENTREPLY ID */}
+						<div className="modal-form-item modal-form-id">
+							<label htmlFor="modal-commentReply-update-form-id" className="form-label">
+								Id
 							</label>
+							<input
+								type="number"
+								className="form-control form-input"
+								id="modal-commentReply-update-form-id"
+								placeholder="Id"
+								value={idValue}
+								onChange={(event) => setIdValue(event.target.value)}
+								min="1"
+							/>
+							<button
+								className="btn btn-primary get-entity-to-update-button"
+								onClick={(e) => findEntity(e)}
+							>
+								Get CommentReply
+							</button>
 						</div>
-					</div>
-					{/* COMMENTREPLY CATEGORYID */}
-					<div className="modal-form-item modal-form-productId">
-						<label htmlFor="modal-commentReply-update-form-productId" className="form-label">
-							ProductId
-						</label>
-						<input
-							type="number"
-							className="form-control form-input"
-							id="modal-commentReply-update-form-productId"
-							placeholder="ProductId"
-							value={productIdValue}
-							min="0"
-							disabled={true}
-						/>
-					</div>
-					{/* COMMENTREPLY SELLERID */}
-					<div className="modal-form-item modal-form-sellerId">
-						<label htmlFor="modal-commentReply-update-form-sellerId" className="form-label">
-							SellerId
-						</label>
-						<input
-							type="number"
-							className="form-control form-input"
-							id="modal-commentReply-update-form-sellerId"
-							placeholder="SellerId"
-							value={sellerIdValue}
-							min="0"
-							disabled={true}
-						/>
-					</div>
-				</ModalBody>
-				<ModalFooter>
-					<button
-						className="btn btn-warning form-input form-control"
-						onClick={() => navUpdateButtonClick()}
-						disabled={!entityFound}
-					>
-						Update CommentReply
-					</button>
-					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
-						Close
-					</button>
-				</ModalFooter>
+						{/* COMMENTREPLY DESCRIPTION */}
+						<div className="modal-form-item modal-form-text">
+							<label htmlFor="modal-commentReply-update-form-text" className="form-label">
+								Text
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-commentReply-update-form-text"
+								placeholder="Text"
+								value={textValue}
+								onChange={(event) => setTextValue(event.target.value)}
+								disabled={!changeText}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									id="modal-form-commentReply-update-text-check"
+									onChange={() => setChangeText(!changeText)}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-commentReply-update-text-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+						{/* COMMENTREPLY CATEGORYID */}
+						<div className="modal-form-item modal-form-productId">
+							<label
+								htmlFor="modal-commentReply-update-form-productId"
+								className="form-label"
+							>
+								ProductId
+							</label>
+							<input
+								type="number"
+								className="form-control form-input"
+								id="modal-commentReply-update-form-productId"
+								placeholder="ProductId"
+								value={productIdValue}
+								min="0"
+								disabled={true}
+							/>
+						</div>
+						{/* COMMENTREPLY SELLERID */}
+						<div className="modal-form-item modal-form-sellerId">
+							<label
+								htmlFor="modal-commentReply-update-form-sellerId"
+								className="form-label"
+							>
+								SellerId
+							</label>
+							<input
+								type="number"
+								className="form-control form-input"
+								id="modal-commentReply-update-form-sellerId"
+								placeholder="SellerId"
+								value={sellerIdValue}
+								min="0"
+								disabled={true}
+							/>
+						</div>
+					</ModalBody>
+					<ModalFooter>
+						<button
+							className="btn btn-warning form-input form-control"
+							type="submit"
+							disabled={!entityFound}
+						>
+							Update CommentReply
+						</button>
+						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+							Close
+						</button>
+					</ModalFooter>
+				</form>
 			</Modal>
 		</>
 	);

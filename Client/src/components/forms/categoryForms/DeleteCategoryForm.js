@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./css/index.css";
 import "../css/index.css";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useSelector } from "react-redux";
 
 const DeleteCategoryForm = (props) => {
@@ -37,13 +37,13 @@ const DeleteCategoryForm = (props) => {
 						<label htmlFor="modal-category-delete-form-category" className="form-label">
 							Category
 						</label>
-						<Input
-							type="select"
-							className="form-control form-input"
+						<select
+							name="modal-category-delete-form-category"
+							className="form-control form-select form-input"
 							id="modal-category-delete-form-category"
 							placeholder="Category"
 							value={idValue}
-							onChange={(event) => idValueUpdate(event.target.value)}
+							onChange={(e) => idValueUpdate(e.target.value)}
 						>
 							<option value={0}>Choose A Category To Delete</option>
 							{categories[0] ? (
@@ -57,7 +57,7 @@ const DeleteCategoryForm = (props) => {
 							) : (
 								<option disabled={true}>No Categories Found</option>
 							)}
-						</Input>
+						</select>
 					</div>
 				</ModalBody>
 				<ModalFooter>

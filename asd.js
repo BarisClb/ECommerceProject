@@ -320,35 +320,16 @@ const Table = (props) => {
 		sortTable({ pageSize: pageSize });
 	};
 
-	const [pageButtons, setPageButtons] = useState([]);
+	const [pageButtons, setPageButtons] = useState([1]);
 
 	const pageButtonMapping = (totalCount = 1, pageSize = 1) => {
 		let pageNumber = Math.ceil(totalCount / pageSize);
-		let newPageButtons = [];
-
-		// If its less than 11 pages, print all of them
-		if (pageNumber < 11) {
-			for (let i = 1; i <= pageNumber; i++) {
-				newPageButtons.push(i);
+		for (let i = 2; i <= pageNumber; i++) {
+			if (pageNumber > 10 && i > 9 && i !== pageNumber) {
+				continue;
 			}
+			setPageButtons((oldArray) => [...oldArray, i]);
 		}
-		// Else, we apply logic
-		else {
-			for (let i = 1; i <= pageNumber; i++) {
-				console.log(sortInfo.pageNumber);
-				if (i < 4 || i > pageNumber - 3) {
-					newPageButtons.push(i);
-				} else if (sortInfo && i === sortInfo.pageNumber) {
-					newPageButtons.push(i);
-				} else if (newPageButtons[newPageButtons.length - 1] !== "...") {
-					console.log(newPageButtons);
-					console.log(newPageButtons[newPageButtons.length - 1]);
-					newPageButtons.push("...");
-				}
-			}
-		}
-		console.log(newPageButtons);
-		setPageButtons(() => [...newPageButtons]);
 	};
 
 	const [sortCustomPageButton, setSortCustomPageButton] = useState(9);
@@ -376,13 +357,6 @@ const Table = (props) => {
 			pageButtonMapping();
 		}
 	}, []);
-	useEffect(() => {
-		if (sortInfo) {
-			pageButtonMapping(sortInfo.totalCount, sortInfo.pageSize);
-		} else {
-			pageButtonMapping();
-		}
-	}, [sortInfo]);
 
 	return (
 		// NAV
@@ -608,7 +582,6 @@ const Table = (props) => {
 				<ul className="pagination pagination-list">
 					{/* PREVIOUS BUTTON */}
 					<li
-						key={"previous"}
 						className={`page-item ${
 							(sortInfo && sortInfo.pageNumber
 								? sortInfo.pageNumber === 1
@@ -637,15 +610,11 @@ const Table = (props) => {
 
 					{/* MAPPING BUTTONS ACCORDING TO DATA */}
 					{sortInfo && sortInfo.pageNumber ? (
-						pageButtons.map((pageNumber, index) => {
+						pageButtons.map((pageNumber) => {
 							// ADDING A SPECIAL BUTTON IF THERE ARE MORE THAN 10 PAGES
-							if (pageNumber === "...") {
+							if (pageButtons[pageButtons.length - 1] > 10 && pageNumber === 9) {
 								return (
-									<li
-										key={`...${index}`}
-										id="table-pagination-custom-page-list-item"
-										className="page-item"
-									>
+									<li id="table-pagination-custom-page-list-item" className="page-item">
 										<a
 											href="/"
 											className="d-flex align-items-center text-decoration-none dropdown-toggle page-link bg-light text-secondary"
@@ -714,13 +683,12 @@ const Table = (props) => {
 							}
 						})
 					) : (
-						<li key={1} className="page-item disabled">
+						<li className="page-item disabled">
 							<button className="page-link bg-secondary text-light">1</button>
 						</li>
 					)}
 					{/* NEXT BUTTON */}
 					<li
-						key={"next"}
 						className={`page-item ${
 							(sortInfo && sortInfo.pageNumber
 								? sortInfo.pageNumber === pageButtons[pageButtons.length - 1]

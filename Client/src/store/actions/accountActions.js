@@ -1,5 +1,8 @@
 import { commonTypes } from "../types";
 import { accountTypes } from "../types/accountTypes";
+const apiUrl = process.env.REACT_APP_API_URL;
+
+// credentials : "include" -> for cookies
 
 // ACCOUNT LOGIN
 
@@ -7,11 +10,12 @@ const accountLogIn = (accountType, accountInfo) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Account/${accountType}/`;
+		let url = `${apiUrl}/Account/LogIn/`;
 
 		try {
 			let response = await fetch(url, {
 				method: "POST",
+				credentials: "include",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					...accountInfo,
@@ -52,17 +56,21 @@ const accountVerify = (accountType) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `https://localhost:7000/api/Account/Verify?accountType=${accountType}/`;
+		let url = `${apiUrl}/Account/Verify?accountType=${accountType}`;
 
 		try {
-			let response = fetch(url);
-			let responseJson = response.json();
+			let response = await fetch(url, {
+				credentials: "include",
+			});
+			let responseJson = await response.json();
 			console.log(responseJson);
 
-			if (accountType === "User") {
-				dispatch({ type: accountTypes.UserVerify, payload: responseJson.data });
-			} else if (accountType === "Seller") {
-				dispatch({ type: accountTypes.SellerVerify, payload: responseJson.data });
+			if (responseJson.success) {
+				if (accountType === "User") {
+					dispatch({ type: accountTypes.UserVerify, payload: responseJson.data });
+				} else if (accountType === "Seller") {
+					dispatch({ type: accountTypes.SellerVerify, payload: responseJson.data });
+				}
 			}
 		} catch (error) {
 			console.log(error);
@@ -86,13 +94,14 @@ const accountLogOut = (accountType) => {
 		// // Direct approach
 		// document.cookie = "username=; expires=Thu, 22 May 1995 00:15:00 UTC; path=/;";
 
-		let url = `https://localhost:7000/api/Account/LogOut?accountType=${accountType}/`;
+		let url = `${apiUrl}/Account/LogOut?accountType=${accountType}`;
 
 		try {
 			let response = await fetch(url, {
 				method: "POST",
+				credentials: "include",
 			});
-			let responseJson = response.json();
+			let responseJson = await response.json();
 			console.log(responseJson);
 
 			if (accountType === "User") {

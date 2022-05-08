@@ -1,10 +1,21 @@
 import React from "react";
 import "./css/index.css";
 import "../css/index.css";
+import { useDispatch, useSelector } from "react-redux";
+import { commonActions } from "../../../store/actions";
+import { accountActions } from "../../../store/actions/accountActions";
 
 function AdminSideNavigation() {
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.account.user);
+
+	const logOut = () => {
+		dispatch(accountActions.accountLogOut("User"));
+	};
+
 	return (
 		<aside className="main-sidebar sidebar-dark-primary elevation-4">
+			{/* FIRST SECTION */}
 			<a href="/admin" className="brand-link adminNavTopName">
 				<img
 					src="/adminLTE/dist/img/AdminLTELogo.png"
@@ -13,23 +24,64 @@ function AdminSideNavigation() {
 				/>
 				<span className="brand-text font-weight-light">Admin Front</span>
 			</a>
-
+			{/* SECOND SECTION */}
 			<div className="sidebar">
-				<div className="user-panel mt-3 pb-3 mb-3 d-flex">
-					<div className="image">
-						<img
-							src="/adminLTE/dist/img/user2-160x160.jpg"
-							className="img-circle elevation-2"
-							alt="Admin"
-						/>
-					</div>
-					<div className="info">
-						<a href="/admin" className="d-block adminNavBottomName">
-							Admin Name
-						</a>
-					</div>
+				<div id="admin-sidebar-dropdown-wrapper" className="user-panel mt-3 pb-3 mb-3 d-flex">
+					<a
+						href="/"
+						className="d-flex align-items-center text-decoration-none dropdown-toggle"
+						id="dropdownUser1"
+						data-bs-toggle="dropdown"
+					>
+						<div className="image">
+							<img
+								src={
+									user.name
+										? "/adminLTE/dist/img/user2-160x160.jpg"
+										: "/adminLTE/dist/img/AdminLTELogo.png"
+								}
+								className="img-circle elevation-2"
+								alt="Admin"
+							/>
+						</div>
+						<div className="info">
+							<div className="d-block adminNavBottomName">
+								{user.name ? user.name : "Log In"}
+							</div>
+						</div>
+					</a>
+					{!commonActions.objectIsNullOrUndefined(user) &&
+					!commonActions.objectIsEmpty(user) ? (
+						<ul
+							className="dropdown-menu dropdown-menu-dark text-small shadow"
+							aria-labelledby="dropdownUser1"
+						>
+							<li>
+								<a className="dropdown-item" href="/admin/profile">
+									Profile
+								</a>
+							</li>
+							<li>
+								<hr className="dropdown-divider" />
+							</li>
+							<li onClick={logOut}>
+								<div className="dropdown-item">Log Out</div>
+							</li>
+						</ul>
+					) : (
+						<ul
+							className="dropdown-menu dropdown-menu-dark text-small shadow"
+							aria-labelledby="dropdownUser1"
+						>
+							<li>
+								<a className="dropdown-item" href="/admin">
+									Log In
+								</a>
+							</li>
+						</ul>
+					)}
 				</div>
-
+				{/* THIRD SECTION */}
 				<nav className="mt-2">
 					<ul
 						className="nav nav-pills nav-sidebar flex-column"

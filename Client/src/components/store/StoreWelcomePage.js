@@ -8,7 +8,7 @@ function StoreWelcomePage() {
 					<h1>Welcome to the Store Front</h1>
 				</div>
 				<div id="welcomepage-dummypage-text" className="row">
-					<h3>Here are the Dummy Pages, in case you are not working with data right now.</h3>
+					<h3>Here are some Dummy Pages, in case you are not working with data right now.</h3>
 				</div>
 				<div id="welcomepage-dummypage-links" className="row">
 					<div className="col-md-6 col-sm-12 d-flex justify-content-center">

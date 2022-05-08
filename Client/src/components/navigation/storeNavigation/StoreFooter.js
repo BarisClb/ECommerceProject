@@ -13,7 +13,7 @@ function StoreFooter() {
 			}`}
 		>
 			<div className="container">
-				<section className="footer-main py-5">
+				<section className="footer-main py-3">
 					<div className="row">
 						{/* COL 1 */}
 						<div className="col-lg col-6">

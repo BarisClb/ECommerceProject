@@ -12,7 +12,8 @@ const CreateCategoryForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navCreateButtonClick = () => {
+	const navCreateButtonClick = (e) => {
+		e.preventDefault();
 		if (props.navCreateButtonClick) {
 			props.navCreateButtonClick({
 				name: nameValue,
@@ -30,48 +31,47 @@ const CreateCategoryForm = (props) => {
 				Create
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">Create Category</ModalHeader>
-				<ModalBody className="modal-form">
-					{/* CATEGORY NAME */}
-					<div className="modal-form-item modal-form-name">
-						<label htmlFor="modal-category-create-form-name" className="form-label">
-							Name
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-category-create-form-name"
-							placeholder="Name"
-							value={nameValue}
-							onChange={(event) => setNameValue(event.target.value)}
-						/>
-					</div>
-					{/* CATEGORY DESCRIPTION */}
-					<div className="modal-form-item modal-form-description">
-						<label htmlFor="modal-category-create-form-description" className="form-label">
-							Description
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-category-create-form-description"
-							placeholder="Description"
-							value={descriptionValue}
-							onChange={(event) => setDescriptionValue(event.target.value)}
-						/>
-					</div>
-				</ModalBody>
-				<ModalFooter>
-					<button
-						className="btn btn-success form-input form-control"
-						onClick={() => navCreateButtonClick()}
-					>
-						Create Category
-					</button>
-					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
-						Close
-					</button>
-				</ModalFooter>
+				<form onSubmit={(e) => navCreateButtonClick(e)}>
+					<ModalHeader className="modal-form-item">Create Category</ModalHeader>
+					<ModalBody className="modal-form">
+						{/* CATEGORY NAME */}
+						<div className="modal-form-item modal-form-name">
+							<label htmlFor="modal-category-create-form-name" className="form-label">
+								Name
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-category-create-form-name"
+								placeholder="Name"
+								value={nameValue}
+								onChange={(event) => setNameValue(event.target.value)}
+							/>
+						</div>
+						{/* CATEGORY DESCRIPTION */}
+						<div className="modal-form-item modal-form-description">
+							<label htmlFor="modal-category-create-form-description" className="form-label">
+								Description
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-category-create-form-description"
+								placeholder="Description"
+								value={descriptionValue}
+								onChange={(event) => setDescriptionValue(event.target.value)}
+							/>
+						</div>
+					</ModalBody>
+					<ModalFooter>
+						<button className="btn btn-success form-input form-control" type="submit">
+							Create Category
+						</button>
+						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+							Close
+						</button>
+					</ModalFooter>
+				</form>
 			</Modal>
 		</>
 	);

@@ -53,6 +53,10 @@
 	margin-right: 30px;
 }
 
+#seller-sidenav-logout-item {
+	cursor: pointer;
+}
+
 @media (max-width: 766px) {
 	#seller-sidenav {
 		width: 75px;

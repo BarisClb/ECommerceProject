@@ -17,18 +17,14 @@ namespace Service.Services
 {
     public class AccountService
     {
-        readonly private ISellerWriteRepository _sellerWriteRepository;
         readonly private ISellerReadRepository _sellerReadRepository;
 
-        readonly private IUserWriteRepository _userWriteRepository;
         readonly private IUserReadRepository _userReadRepository;
 
-        public AccountService(ISellerWriteRepository sellerWriteRepository, ISellerReadRepository sellerReadRepository, IUserWriteRepository userWriteRepository, IUserReadRepository userReadRepository)
+        public AccountService(ISellerReadRepository sellerReadRepository, IUserReadRepository userReadRepository)
         {
-            _sellerWriteRepository = sellerWriteRepository;
             _sellerReadRepository = sellerReadRepository;
 
-            _userWriteRepository = userWriteRepository;
             _userReadRepository = userReadRepository;
         }
 

@@ -24,6 +24,28 @@ const toggleDarkMode = (darkMode) => {
 	};
 };
 
+const getEntityToUpdate = (entity, entityId) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		if (entityId === 0) {
+			dispatch({
+				type: commonTypes.EntityToUpdate,
+				payload: {},
+			});
+		} else {
+			let response = await actionHelpers.getHelper(entity, entityId);
+			console.log(response);
+			dispatch({
+				type: commonTypes.EntityToUpdate,
+				payload: response.data,
+			});
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+	};
+};
+
 const randomRgba = () => {
 	let randomNum1 = Math.round(Math.random() * 255);
 	let randomNum2 = Math.round(Math.random() * 255);
@@ -37,25 +59,12 @@ const randomImage = () => {
 	return `linear-gradient(315deg, ${rgb1} 33%, ${rgb2} 66%, ${rgb3} 100%)`;
 };
 
-const getEntityToUpdate = (entity, entityId) => {
-	return async (dispatch) => {
-		dispatch({ type: commonTypes.AsyncStarted });
+const objectIsNullOrUndefined = (object) => {
+	return object === null || object === undefined;
+};
 
-		if (entityId === 0) {
-			dispatch({
-				type: commonTypes.EntityToUpdate,
-				payload: {},
-			});
-		} else {
-			let data = await actionHelpers.getHelper(entity, entityId);
-			dispatch({
-				type: commonTypes.EntityToUpdate,
-				payload: data,
-			});
-		}
-
-		dispatch({ type: commonTypes.AsyncEnd });
-	};
+const objectIsEmpty = (object) => {
+	return Object.keys(object).length === 0;
 };
 
 export const commonActions = {
@@ -63,6 +72,8 @@ export const commonActions = {
 	asyncStarted,
 	asyncEnd,
 	toggleDarkMode,
-	randomImage,
 	getEntityToUpdate,
+	randomImage,
+	objectIsNullOrUndefined,
+	objectIsEmpty,
 };

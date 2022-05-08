@@ -6,14 +6,18 @@
   
    ~ Onion Architecture  
    ~ OOP  
+   ~ C# for Backend, API with ASP.Net 6  
    ~ Entity Framework Core for ORM with Code First approach (Microsoft.EntityFrameworkCore)  
-   ~ Sql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
+   ~ MsSql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
    ~ Dependency Injection (Microsoft.Extensions.DependencyInjection)  
    ~ CORS Options  
    ~ Dtos for Requests and Responses  
    ~ Custom Responses   
    ~ Password Hashing (BCrypt.Net-Next)  
    ~ JWT (System.IdentityModel.Tokens.Jwt)  
+   ~ JS for Frontend, Client with React Library  
+   ~ Redux for State Management (with Redux-Thunk and Redux-Persist)  
+   ~ Bootstrap Css Framework
   
    Future Plans (For this and future Projects):  
   
@@ -32,6 +36,7 @@
    Flaws:  
   
    ~ In One to Many relationships, I put 'One's 'Name' in 'Many's properties. So when I request a 'Product' entity for example, I also get the name of 'Category' it belongs to, which is a 'One' of 'Many' Products. I did it independently, as such, if the 'One's name, changes, it won't affect and 'update' for the 'Many's. They will still show the old 'Name' of the 'One'. It should be fixable with propper mapping, requesting the 'Name' of 'One' each time the 'Many' is called instead of adding it as a property.  
+   ~ When an Account Logs In, API sends the account data and we store it inside Redux State but it doesn't happen with 'Verify'. As such, if an account information gets 'Updated', it doesn't show until the account re-logs. API needs to send account information after each verification too, just like LogIn.  
   
    CheckList:  
   

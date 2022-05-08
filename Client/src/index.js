@@ -42,6 +42,8 @@ import StoreLayout from "./components/layout/StoreLayout";
 import StoreMainPage from "./screens/store/StoreMainPage";
 import AdminMain from "./screens/admin/AdminMain";
 //#endregion
+import LogIn from "./screens/common/LogIn";
+import Register from "./screens/common/Register";
 
 ReactDOM.render(
 	<Provider store={storeManager.createStore()}>
@@ -56,9 +58,13 @@ ReactDOM.render(
 					<Route path="deneme" element={<Deneme />} />
 					<Route path="profile" element={<Profile />} />
 
+					{/* LOGIN / REGISTER */}
+					<Route path="login" element={<LogIn />} />
+					<Route path="register" element={<Register />} />
+
 					{/* ADMIN SIDE */}
 
-					<Route path="Admin" element={<AdminMain />}>
+					<Route path="admin" element={<AdminMain />}>
 						<Route path="categories" element={<AdminCategories />} />
 						<Route path="comments" element={<AdminComments />} />
 						<Route path="commentReplies" element={<AdminCommentReplies />} />

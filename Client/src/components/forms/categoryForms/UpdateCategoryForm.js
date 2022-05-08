@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./css/index.css";
 import "../css/index.css";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useSelector } from "react-redux";
 
 const UpdateCategoryForm = (props) => {
@@ -29,7 +29,8 @@ const UpdateCategoryForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navUpdateButtonClick = () => {
+	const navUpdateButtonClick = (e) => {
+		e.preventDefault();
 		if (props.navUpdateButtonClick && idValue > 0) {
 			let updatedCategory = {};
 			if (changeName) {
@@ -62,107 +63,106 @@ const UpdateCategoryForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">Update Category</ModalHeader>
-				<ModalBody className="modal-form">
-					{/* CATEGORY ID */}
-					<div className="modal-form-item modal-form-old-category">
-						<label htmlFor="modal-category-update-form-category" className="form-label">
-							Category
-						</label>
-						<Input
-							type="select"
-							className="form-control form-input"
-							id="modal-category-update-form-category"
-							placeholder="Category"
-							value={idValue}
-							onChange={(event) => idValueUpdate(event.target.value)}
-						>
-							<option value={0}>Choose a Category to Update</option>
-							{categories[0] ? (
-								categories.map((category) => {
-									return (
-										<option key={category.id} value={category.id}>
-											{category.name}
-										</option>
-									);
-								})
-							) : (
-								<option disabled={true}>No Categories Found</option>
-							)}
-						</Input>
-					</div>
-					{/* CATEGORY NAME */}
-					<div className="modal-form-item modal-form-name">
-						<label htmlFor="modal-category-update-form-name" className="form-label">
-							Name
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-category-update-form-name"
-							placeholder="New Name"
-							value={nameValue}
-							onChange={(event) => setNameValue(event.target.value)}
-							disabled={!changeName}
-						/>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								defaultValue
-								id="modal-form-category-update-name-check"
-								onChange={() => setChangeName(!changeName)}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-category-update-name-check"
-							>
-								Don't Change
+				<form onSubmit={(e) => navUpdateButtonClick(e)}>
+					<ModalHeader className="modal-form-item">Update Category</ModalHeader>
+					<ModalBody className="modal-form">
+						{/* CATEGORY ID */}
+						<div className="modal-form-item modal-form-old-category">
+							<label htmlFor="modal-category-update-form-category" className="form-label">
+								Category
 							</label>
-						</div>
-					</div>
-					{/* CATEGORY DESCRIPTION */}
-					<div className="modal-form-item modal-form-description">
-						<label htmlFor="modal-category-update-form-description" className="form-label">
-							Description
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-category-update-form-description"
-							placeholder="New Description"
-							value={descriptionValue}
-							onChange={(event) => setDescriptionValue(event.target.value)}
-							disabled={!changeDescription}
-						/>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								defaultValue
-								id="modal-form-category-update-description-check"
-								onChange={() => setChangeDescription(!changeDescription)}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-category-update-description-check"
+							<select
+								name="modal-category-update-form-category"
+								id="modal-category-update-form-category"
+								className="form-control form-select form-input"
+								placeholder="Category"
+								value={idValue}
+								onChange={(e) => idValueUpdate(e.target.value)}
 							>
-								Don't Change
-							</label>
+								<option value={0}>Choose a Category to Update</option>
+								{categories[0] ? (
+									categories.map((category) => {
+										return (
+											<option key={category.id} value={category.id}>
+												{category.name}
+											</option>
+										);
+									})
+								) : (
+									<option disabled={true}>No Categories Found</option>
+								)}
+							</select>
 						</div>
-					</div>
-				</ModalBody>
-				<ModalFooter>
-					<button
-						className="btn btn-warning form-input form-control"
-						onClick={() => navUpdateButtonClick()}
-					>
-						Update Category
-					</button>
-					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
-						Close
-					</button>
-				</ModalFooter>
+						{/* CATEGORY NAME */}
+						<div className="modal-form-item modal-form-name">
+							<label htmlFor="modal-category-update-form-name" className="form-label">
+								Name
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-category-update-form-name"
+								placeholder="New Name"
+								value={nameValue}
+								onChange={(event) => setNameValue(event.target.value)}
+								disabled={!changeName}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									defaultValue
+									id="modal-form-category-update-name-check"
+									onChange={() => setChangeName(!changeName)}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-category-update-name-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+						{/* CATEGORY DESCRIPTION */}
+						<div className="modal-form-item modal-form-description">
+							<label htmlFor="modal-category-update-form-description" className="form-label">
+								Description
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-category-update-form-description"
+								placeholder="New Description"
+								value={descriptionValue}
+								onChange={(event) => setDescriptionValue(event.target.value)}
+								disabled={!changeDescription}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									defaultValue
+									id="modal-form-category-update-description-check"
+									onChange={() => setChangeDescription(!changeDescription)}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-category-update-description-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+					</ModalBody>
+					<ModalFooter>
+						<button className="btn btn-warning form-input form-control" type="submit">
+							Update Category
+						</button>
+						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+							Close
+						</button>
+					</ModalFooter>
+				</form>
 			</Modal>
 		</>
 	);

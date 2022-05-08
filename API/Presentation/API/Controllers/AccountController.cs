@@ -27,14 +27,21 @@ namespace API.Controllers
             {
                 // If cookie with that name exist, delete it
                 string? jwt = Request.Cookies[$"jwt{accountAuthInfo.AccountType}"];
-                if (!(jwt == null))
+                if (jwt != null)
                     Response.Cookies.Delete($"jwt{accountAuthInfo.AccountType}");
 
                 return Ok(response.Response);
             }
 
             // If it succeeds, add token as a Cookie, based on the Account Type
-            Response.Cookies.Append($"jwt{accountAuthInfo.AccountType}", response.Jwt);
+            // We need to add options if we want to Append the Cookie while working with LocalHost. If we don't, it doesn't hold the Cookie.
+            // HttpOnly prevents Client side scripts from accessing the data. 
+            Response.Cookies.Append($"jwt{accountAuthInfo.AccountType}", response.Jwt, new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+            });
             return Ok(response.Response);
         }
 
@@ -49,22 +56,6 @@ namespace API.Controllers
             return Ok(await _accountService.Verify(accountType, jwt));
         }
 
-        //[HttpGet("User")]
-        //public async Task<IActionResult> VerifyUser()
-        //{
-        //    string? jwt = Request.Cookies["jwtUser"];
-
-        //    return Ok(await _accountService.Verify("User", jwt));
-        //}
-
-        //[HttpGet("Seller")]
-        //public async Task<IActionResult> VerifySeller()
-        //{
-        //    string? jwt = Request.Cookies["jwtSeller"];
-
-        //    return Ok(await _accountService.Verify("Seller", jwt));
-        //}
-
         [HttpPost("LogOut")]
         public async Task<IActionResult> LogOut(string accountType)
         {
@@ -75,7 +66,12 @@ namespace API.Controllers
             if (jwt == null)
                 return Ok(new { success = false, message = "Cookie does not exist." });
 
-            Response.Cookies.Delete($"jwt{accountType}");
+            Response.Cookies.Delete($"jwt{accountType}", new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+            });
 
             return Ok(new { success = true, message = $"{accountType} logout successful." });
         }

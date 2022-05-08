@@ -54,7 +54,7 @@ const DeleteSellerForm = (props) => {
 
 	return (
 		<>
-			<button className="btn btn-danger	" onClick={toggle}>
+			<button className="btn btn-danger" onClick={toggle}>
 				Delete
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>

@@ -13,7 +13,9 @@ const UpdateUserForm = (props) => {
 	const user = useSelector((state) => state.common.EntityToUpdate);
 
 	const dispatch = useDispatch();
-	const findEntity = () => {
+
+	const findEntity = (e) => {
+		e.preventDefault();
 		dispatch(commonActions.getEntityToUpdate("Users", idValue));
 	};
 
@@ -47,7 +49,8 @@ const UpdateUserForm = (props) => {
 	const [modal, setModal] = useState(false);
 	const toggle = () => setModal(!modal);
 
-	const navUpdateButtonClick = () => {
+	const navUpdateButtonClick = (e) => {
+		e.preventDefault();
 		if (props.navUpdateButtonClick && idValue > 0) {
 			let updatedUser = {};
 			if (changeName) {
@@ -105,197 +108,199 @@ const UpdateUserForm = (props) => {
 				Update
 			</button>
 			<Modal isOpen={modal} toggle={toggle} centered>
-				<ModalHeader className="modal-form-item">Update User</ModalHeader>
-				<ModalBody className="modal-form">
-					{/* USER ID */}
-					<div className="modal-form-item modal-form-id">
-						<label htmlFor="modal-user-update-form-id" className="form-label">
-							Id
-						</label>
-						<input
-							type="number"
-							className="form-control form-input"
-							id="modal-user-update-form-id"
-							placeholder="Id"
-							value={idValue}
-							onChange={(event) => setIdValue(event.target.value)}
-							min="1"
-						/>
+				<form onSubmit={(e) => navUpdateButtonClick(e)}>
+					<ModalHeader className="modal-form-item">Update User</ModalHeader>
+					<ModalBody className="modal-form">
+						{/* USER ID */}
+						<div className="modal-form-item modal-form-id">
+							<label htmlFor="modal-user-update-form-id" className="form-label">
+								Id
+							</label>
+							<input
+								type="number"
+								className="form-control form-input"
+								id="modal-user-update-form-id"
+								placeholder="Id"
+								value={idValue}
+								onChange={(event) => setIdValue(event.target.value)}
+								min="1"
+							/>
+							<button
+								className="btn btn-primary get-entity-to-update-button"
+								onClick={(e) => findEntity(e)}
+							>
+								Get User
+							</button>
+						</div>
+						{/* USER NAME */}
+						<div className="modal-form-item modal-form-name">
+							<label htmlFor="modal-user-update-form-name" className="form-label">
+								Name
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-user-update-form-name"
+								placeholder="User Name"
+								value={nameValue}
+								onChange={(event) => setNameValue(event.target.value)}
+								disabled={!changeName}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									id="modal-form-user-update-name-check"
+									onChange={() => setChangeName(!changeName)}
+									checked={!changeName}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-user-update-name-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+						{/* USER USERNAME */}
+						<div className="modal-form-item modal-form-username">
+							<label htmlFor="modal-user-update-form-username" className="form-label">
+								Username
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-user-update-form-username"
+								placeholder="Username"
+								value={usernameValue}
+								onChange={(event) => setUsernameValue(event.target.value)}
+								disabled={!changeUsername}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									id="modal-form-user-update-username-check"
+									onChange={() => setChangeUsername(!changeUsername)}
+									checked={!changeUsername}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-user-update-username-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+						{/* USER EMAIL */}
+						<div className="modal-form-item modal-form-eMail">
+							<label htmlFor="modal-user-update-form-eMail" className="form-label">
+								EMail
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-user-update-form-eMail"
+								placeholder="EMail"
+								value={eMailValue}
+								onChange={(event) => seteMailValue(event.target.value)}
+								disabled={!changeeMail}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									id="modal-form-user-update-eMail-check"
+									onChange={() => setChangeeMail(!changeeMail)}
+									checked={!changeeMail}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-user-update-eMail-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+						{/* USER PASSWORD */}
+						<div className="modal-form-item modal-form-password">
+							<label htmlFor="modal-user-update-form-password" className="form-label">
+								Password
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-user-update-form-password"
+								placeholder="Password"
+								value={passwordValue}
+								onChange={(event) => setPasswordValue(event.target.value)}
+								disabled={!changePassword}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									defaultValue
+									id="modal-form-user-update-password-check"
+									onChange={() => setChangePassword(!changePassword)}
+									checked={!changePassword}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-user-update-password-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+						{/* USER ADMIN */}
+						<div className="modal-form-item modal-form-admin">
+							<label htmlFor="modal-form-admin" className="form-label">
+								Admin
+							</label>
+							<Input
+								type="select"
+								className="form-control form-input"
+								id="modal-user-create-form-admin"
+								placeholder="Admin"
+								value={adminValue}
+								onChange={(event) => setAdminValue(event.target.value)}
+								disabled={!changeAdmin}
+							>
+								<option value={false}>No</option>
+								<option value={true}>Yes</option>
+							</Input>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									defaultValue
+									id="modal-form-user-update-password-check"
+									onChange={() => setChangeAdmin(!changeAdmin)}
+									checked={!changeAdmin}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-user-update-password-check"
+								>
+									Don't Change
+								</label>
+							</div>
+						</div>
+					</ModalBody>
+					<ModalFooter>
 						<button
-							className="btn btn-primary get-entity-to-update-button"
-							onClick={() => findEntity()}
+							className="btn btn-warning form-input form-control"
+							type="submit"
+							disabled={!entityFound}
 						>
-							Get User
+							Update User
 						</button>
-					</div>
-					{/* USER NAME */}
-					<div className="modal-form-item modal-form-name">
-						<label htmlFor="modal-user-update-form-name" className="form-label">
-							Name
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-user-update-form-name"
-							placeholder="User Name"
-							value={nameValue}
-							onChange={(event) => setNameValue(event.target.value)}
-							disabled={!changeName}
-						/>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								id="modal-form-user-update-name-check"
-								onChange={() => setChangeName(!changeName)}
-								checked={!changeName}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-user-update-name-check"
-							>
-								Don't Change
-							</label>
-						</div>
-					</div>
-					{/* USER USERNAME */}
-					<div className="modal-form-item modal-form-username">
-						<label htmlFor="modal-user-update-form-username" className="form-label">
-							Username
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-user-update-form-username"
-							placeholder="Username"
-							value={usernameValue}
-							onChange={(event) => setUsernameValue(event.target.value)}
-							disabled={!changeUsername}
-						/>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								id="modal-form-user-update-username-check"
-								onChange={() => setChangeUsername(!changeUsername)}
-								checked={!changeUsername}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-user-update-username-check"
-							>
-								Don't Change
-							</label>
-						</div>
-					</div>
-					{/* USER EMAIL */}
-					<div className="modal-form-item modal-form-eMail">
-						<label htmlFor="modal-user-update-form-eMail" className="form-label">
-							EMail
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-user-update-form-eMail"
-							placeholder="EMail"
-							value={eMailValue}
-							onChange={(event) => seteMailValue(event.target.value)}
-							disabled={!changeeMail}
-						/>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								id="modal-form-user-update-eMail-check"
-								onChange={() => setChangeeMail(!changeeMail)}
-								checked={!changeeMail}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-user-update-eMail-check"
-							>
-								Don't Change
-							</label>
-						</div>
-					</div>
-					{/* USER PASSWORD */}
-					<div className="modal-form-item modal-form-password">
-						<label htmlFor="modal-user-update-form-password" className="form-label">
-							Password
-						</label>
-						<input
-							type="text"
-							className="form-control form-input"
-							id="modal-user-update-form-password"
-							placeholder="Password"
-							value={passwordValue}
-							onChange={(event) => setPasswordValue(event.target.value)}
-							disabled={!changePassword}
-						/>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								defaultValue
-								id="modal-form-user-update-password-check"
-								onChange={() => setChangePassword(!changePassword)}
-								checked={!changePassword}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-user-update-password-check"
-							>
-								Don't Change
-							</label>
-						</div>
-					</div>
-					{/* USER ADMIN */}
-					<div className="modal-form-item modal-form-admin">
-						<label htmlFor="modal-form-admin" className="form-label">
-							Admin
-						</label>
-						<Input
-							type="select"
-							className="form-control form-input"
-							id="modal-user-create-form-admin"
-							placeholder="Admin"
-							value={adminValue}
-							onChange={(event) => setAdminValue(event.target.value)}
-							disabled={!changeAdmin}
-						>
-							<option value={false}>No</option>
-							<option value={true}>Yes</option>
-						</Input>
-						<div className="form-check">
-							<input
-								className="form-check-input"
-								type="checkbox"
-								defaultValue
-								id="modal-form-user-update-password-check"
-								onChange={() => setChangeAdmin(!changeAdmin)}
-								checked={!changeAdmin}
-							/>
-							<label
-								className="form-check-label"
-								htmlFor="modal-form-user-update-password-check"
-							>
-								Don't Change
-							</label>
-						</div>
-					</div>
-				</ModalBody>
-				<ModalFooter>
-					<button
-						className="btn btn-warning form-input form-control"
-						onClick={() => navUpdateButtonClick()}
-						disabled={!entityFound}
-					>
-						Update User
-					</button>
-					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
-						Close
-					</button>
-				</ModalFooter>
+						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+							Close
+						</button>
+					</ModalFooter>
+				</form>
 			</Modal>
 		</>
 	);

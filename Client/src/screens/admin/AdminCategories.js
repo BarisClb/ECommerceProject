@@ -51,8 +51,6 @@ const AdminCategories = () => {
 		dispatch(categoryActions.getSortedCategories(listSorting));
 	}, []);
 
-	console.log(window.location.href.toLowerCase().includes("Admin".toLowerCase()));
-
 	return (
 		<div className="">
 			<Header title={"Categories"} />

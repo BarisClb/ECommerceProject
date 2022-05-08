@@ -12,3 +12,13 @@
 .adminNavBottomName {
 	text-decoration: none;
 }
+
+#admin-sidebar-dropdown-wrapper {
+	overflow: visible;
+}
+
+#admin-sidebar-dropdown-wrapper a,
+#admin-sidebar-dropdown-wrapper div {
+	color: #c2c7d0;
+	cursor: pointer;
+}

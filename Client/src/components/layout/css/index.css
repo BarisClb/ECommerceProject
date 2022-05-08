@@ -92,7 +92,7 @@
 }
 
 #store-content-wrapper {
-	min-height: calc(100vh - (80px + 312px));
+	min-height: calc(100vh - (80px + 251px));
 	display: flex;
 }
 

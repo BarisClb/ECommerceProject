@@ -106,10 +106,12 @@
 
 #table-nav-pagination {
 	justify-content: center;
+	gap: 0.5rem;
 }
 
 .pagination-list {
 	margin: 0;
+	flex-wrap: wrap;
 }
 
 .page-item.active .page-link {
@@ -127,8 +129,42 @@
 }
 
 #table-nav-pagination-select-pageSize {
-	width: auto;
+	width: 5.8rem;
 	height: 34px;
 	padding-top: 0px;
 	padding-bottom: 0px;
+}
+
+#table-pagination-custom-page-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3rem;
+}
+
+#table-pagination-custom-page-list-item > a::after {
+	display: none;
+}
+
+#table-pagination-custom-page-list-item > ul {
+	position: absolute;
+	inset: auto;
+	width: 120px !important;
+	min-width: 0 !important;
+}
+
+#table-pagination-custom-page-button > input {
+	width: 50%;
+}
+
+#table-pagination-custom-page-button > label {
+	margin: 0;
+}
+
+#table-pagination-custom-page-button > button {
+	padding: 5px 10px;
+}
+
+#table-nav-pagination-select-currentPage > p {
+	margin: 0 !important;
 }
