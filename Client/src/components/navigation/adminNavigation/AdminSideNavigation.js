@@ -74,7 +74,7 @@ function AdminSideNavigation() {
 							aria-labelledby="dropdownUser1"
 						>
 							<li>
-								<a className="dropdown-item" href="/admin">
+								<a className="dropdown-item" href="/login">
 									Log In
 								</a>
 							</li>

@@ -30,7 +30,7 @@ const DeleteUserForm = (props) => {
 	};
 
 	useEffect(() => {
-		if (user.id) {
+		if (user && user.id) {
 			setIdValue(user.id);
 			setNameValue(user.name);
 			setUsernameValue(user.username);

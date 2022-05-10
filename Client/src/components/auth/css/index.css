@@ -2,3 +2,33 @@
 	width: 350px;
 	margin: auto;
 }
+
+.forgot-password-link {
+	color: #0d6efd;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#main-authpage-content-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+#main-authpage-content {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+#main-authpage-welcome-text {
+	text-align: center;
+}
+#main-authpage-welcome-text > h1 {
+	font-size: 5rem;
+}
+#main-authpage-dummypage-links {
+	display: flex;
+}
+
+.main-authpage-dummypage-link {
+	cursor: pointer;
+}

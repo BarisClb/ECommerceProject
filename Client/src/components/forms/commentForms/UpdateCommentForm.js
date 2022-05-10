@@ -20,7 +20,7 @@ const UpdateCommentForm = (props) => {
 	};
 
 	useEffect(() => {
-		if (comment.id) {
+		if (comment && comment.id) {
 			setIdValue(comment.id);
 			setTitleValue(comment.title);
 			setTextValue(comment.text);

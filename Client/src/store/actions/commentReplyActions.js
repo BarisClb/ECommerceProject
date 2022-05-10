@@ -17,6 +17,7 @@ import { actionHelpers } from "./actionHelpers";
 // };
 
 // GET COMMENTREPLIES
+// No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
 
 const getCommentReplies = (commentReplyId, successCallback) => {
 	return async (dispatch) => {
@@ -42,6 +43,30 @@ const getCommentReplies = (commentReplyId, successCallback) => {
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
+	};
+};
+
+// GET SORTED COMMENTREPLIES
+
+const getSortedCommentReplies = (listSorting, successCallback) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let response = await actionHelpers.getSortedHelper("CommentReplies", listSorting);
+		console.log(response);
+
+		dispatch({ type: commentReplyTypes.GetCommentReplies, payload: response.data });
+		if (response.sortInfo !== undefined && response.sortInfo !== null) {
+			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
+		} else {
+			dispatch({ type: commonTypes.SortInfo, payload: {} });
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
 	};
 };
 
@@ -108,6 +133,7 @@ const deleteCommentReply = (commentReplyId, successCallback) => {
 
 export const commentReplyActions = {
 	getCommentReplies,
+	getSortedCommentReplies,
 	createCommentReply,
 	updateCommentReply,
 	deleteCommentReply,

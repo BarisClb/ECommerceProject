@@ -24,6 +24,7 @@ import { actionHelpers } from "./actionHelpers";
 // };
 
 // GET USERS
+// No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
 
 const getUsers = (userId, successCallback) => {
 	return async (dispatch) => {
@@ -43,6 +44,30 @@ const getUsers = (userId, successCallback) => {
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
+	};
+};
+
+// GET SORTED USERS
+
+const getSortedUsers = (listSorting, successCallback) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let response = await actionHelpers.getSortedHelper("Users", listSorting);
+		console.log(response);
+
+		dispatch({ type: userTypes.GetUsers, payload: response.data });
+		if (response.sortInfo !== undefined && response.sortInfo !== null) {
+			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
+		} else {
+			dispatch({ type: commonTypes.SortInfo, payload: {} });
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
 	};
 };
 
@@ -105,6 +130,7 @@ const deleteUser = (userId, successCallback) => {
 
 export const userActions = {
 	getUsers,
+	getSortedUsers,
 	createUser,
 	updateUser,
 	deleteUser,

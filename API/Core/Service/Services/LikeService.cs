@@ -46,7 +46,7 @@ namespace Service.Services
             {
                 orderedLikes = listSorting.OrderBy switch
                 {
-                    "UserUserame" => likes.OrderByDescending(l => l.UserUsername).ToList(),
+                    "UserUsername" => likes.OrderByDescending(l => l.UserUsername).ToList(),
                     "ProductName" => likes.OrderByDescending(l => l.ProductName).ToList(),
                     "CommentId" => likes.OrderByDescending(l => l.CommentId).ToList(),
                     _ => likes.Reverse().ToList(),
@@ -56,7 +56,7 @@ namespace Service.Services
             {
                 orderedLikes = listSorting.OrderBy switch
                 {
-                    "UserUserame" => likes.OrderBy(l => l.UserUsername).ToList(),
+                    "UserUsername" => likes.OrderBy(l => l.UserUsername).ToList(),
                     "ProductName" => likes.OrderBy(l => l.ProductName).ToList(),
                     "CommentId" => likes.OrderBy(l => l.CommentId).ToList(),
                     _ => likes,

@@ -58,16 +58,16 @@ const Table = (props) => {
 	const [isAdmin] = useState(props.isAdmin);
 	// Table Buttons
 	const [tableButtons] = useState(props.tableButtons);
-	const [tableAddButton] = useState(props.tableAddButton);
+	const [tableCreateButton] = useState(props.tableCreateButton);
 	const [tableUpdateButton] = useState(props.tableUpdateButton);
 	const [tableDeleteButton] = useState(props.tableDeleteButton);
 	const [tableCustomButton] = useState(props.tableCustomButton);
 	const [tableCustomButton2] = useState(props.tableCustomButton2);
 	const [tableCustomButton3] = useState(props.tableCustomButton3);
 	// Table Button Clicks / Functions
-	const tableAddButtonClick = (newData) => {
-		if (props.tableAddButtonClick) {
-			props.tableAddButtonClick(newData);
+	const tableCreateButtonClick = (newData) => {
+		if (props.tableCreateButtonClick) {
+			props.tableCreateButtonClick(newData);
 		}
 	};
 	const tableUpdateButtonClick = (oldData, newData) => {
@@ -110,7 +110,7 @@ const Table = (props) => {
 		if (props.navCreateButtonClick) {
 			props.navCreateButtonClick(newData);
 		}
-		setAddForm(!addForm);
+		setCreateForm(!createForm);
 		setUpdateForm(false);
 		setDeleteForm(false);
 	};
@@ -118,7 +118,7 @@ const Table = (props) => {
 		if (props.navUpdateButtonClick) {
 			props.navUpdateButtonClick(oldData, newData);
 		}
-		setAddForm(false);
+		setCreateForm(false);
 		setUpdateForm(!updateForm);
 		setDeleteForm(false);
 	};
@@ -126,7 +126,7 @@ const Table = (props) => {
 		if (props.navDeleteButtonClick) {
 			props.navDeleteButtonClick(oldData);
 		}
-		setAddForm(false);
+		setCreateForm(false);
 		setUpdateForm(false);
 		setDeleteForm(!deleteForm);
 	};
@@ -146,10 +146,8 @@ const Table = (props) => {
 	const searchTheWord = () => {
 		setApiData(
 			originalApiData.filter((element) => {
-				if (tableData) {
-					if (element[tableData] != null) {
-						return element[tableData].toLowerCase().includes(searchValue.toLowerCase());
-					}
+				if (tableData && element[tableData]) {
+					return element[tableData].toLowerCase().includes(searchValue.toLowerCase());
 				} else {
 					return element.toLowerCase().includes(searchValue.toLowerCase());
 				}
@@ -231,7 +229,7 @@ const Table = (props) => {
 	//#endregion
 
 	// Form Buttons
-	const [addForm, setAddForm] = useState(false);
+	const [createForm, setCreateForm] = useState(false);
 	const [updateForm, setUpdateForm] = useState(false);
 	const [deleteForm, setDeleteForm] = useState(false);
 
@@ -248,8 +246,8 @@ const Table = (props) => {
 	};
 	const modalToggle2 = () => {
 		switch (modalAction) {
-			case "Add":
-				tableAddButtonClick(modalData);
+			case "Create":
+				tableCreateButtonClick(modalData);
 				break;
 			case "Update":
 				tableUpdateButtonClick(modalData);
@@ -283,12 +281,32 @@ const Table = (props) => {
 	const [tableSortBy2] = useState(props.tableSortBy2);
 	const [tableSortBy3] = useState(props.tableSortBy3);
 	const [tableSortBy4] = useState(props.tableSortBy4);
+	const [tableSortBy5] = useState(props.tableSortBy5);
+	const [tableSortByValue1] = useState(
+		props.tableSortByValue1
+			? props.tableSortByValue1
+			: props.tableSortBy1
+			? props.tableSortBy1
+			: "Id"
+	);
+	const [tableSortByValue2] = useState(
+		props.tableSortByValue2 ? props.tableSortByValue2 : props.tableSortBy2 && props.tableSortBy2
+	);
+	const [tableSortByValue3] = useState(
+		props.tableSortByValue3 ? props.tableSortByValue3 : props.tableSortBy3 && props.tableSortBy3
+	);
+	const [tableSortByValue4] = useState(
+		props.tableSortByValue4 ? props.tableSortByValue4 : props.tableSortBy4 && props.tableSortBy4
+	);
+	const [tableSortByValue5] = useState(
+		props.tableSortByValue5 ? props.tableSortByValue5 : props.tableSortBy5 && props.tableSortBy5
+	);
 
 	// Sort Values
 	const [tableSortReversed, setTableSortReversed] = useState(false);
 	const [tableSortWord, setTableSortWord] = useState("");
-	const [tableSortPageNumber] = useState(1);
-	const [tableSortPageSize] = useState(props.tableSortPageSize ? props.tableSortPageSize : 20);
+	const [tableSortPageNumber, setTableSortPageNumber] = useState(1);
+	const [tableSortPageSize, setTableSortPageSize] = useState(20);
 	const [tableSortOrderBy, setTableSortOrderBy] = useState(null);
 
 	// Sort Actions
@@ -308,50 +326,45 @@ const Table = (props) => {
 			props.tableSortAction(sortData);
 		}
 	};
-	const tableSortButtonClick = (data) => {
-		if (props.tableSortButtonClick) {
+	const tableSortButtonClick = () => {
+		if (props.tableSortAction) {
 			sortTable();
 		}
 	};
-	const tableChangePageNumber = (pageNumber) => {
-		sortTable({ pageNumber: pageNumber });
-	};
-	const tableChangePageSize = (pageSize) => {
-		sortTable({ pageSize: pageSize });
-	};
-
+	// Pagination Buttons Mapping
 	const [pageButtons, setPageButtons] = useState([]);
 
 	const pageButtonMapping = (totalCount = 1, pageSize = 1) => {
+		// Show at least 1 page. For example; if there is no entity, don't let it show 0 / 1 = 0 pages.
+		if (totalCount === 0 || pageSize === 0) {
+			return setPageButtons(() => [1]);
+		}
 		let pageNumber = Math.ceil(totalCount / pageSize);
 		let newPageButtons = [];
 
 		// If its less than 11 pages, print all of them
 		if (pageNumber < 11) {
+			console.log(pageNumber);
 			for (let i = 1; i <= pageNumber; i++) {
 				newPageButtons.push(i);
 			}
 		}
-		// Else, we apply logic
+		// Else, apply logic
 		else {
 			for (let i = 1; i <= pageNumber; i++) {
-				console.log(sortInfo.pageNumber);
 				if (i < 4 || i > pageNumber - 3) {
 					newPageButtons.push(i);
 				} else if (sortInfo && i === sortInfo.pageNumber) {
 					newPageButtons.push(i);
 				} else if (newPageButtons[newPageButtons.length - 1] !== "...") {
-					console.log(newPageButtons);
-					console.log(newPageButtons[newPageButtons.length - 1]);
 					newPageButtons.push("...");
 				}
 			}
 		}
-		console.log(newPageButtons);
 		setPageButtons(() => [...newPageButtons]);
 	};
 
-	const [sortCustomPageButton, setSortCustomPageButton] = useState(9);
+	const [sortCustomPageButton, setSortCustomPageButton] = useState(1);
 
 	//#endregion
 
@@ -383,6 +396,9 @@ const Table = (props) => {
 			pageButtonMapping();
 		}
 	}, [sortInfo]);
+	useEffect(() => {
+		sortTable();
+	}, [tableSortPageNumber, tableSortPageSize]);
 
 	return (
 		// NAV
@@ -425,21 +441,24 @@ const Table = (props) => {
 											onChange={(e) => setTableSortOrderBy(e.target.value)}
 										>
 											{tableSortBy1 && (
-												<option value={tableSortBy1}>{tableSortBy1}</option>
+												<option value={tableSortByValue1}>{tableSortBy1}</option>
 											)}
 											{tableSortBy2 && (
-												<option value={tableSortBy2}>{tableSortBy2}</option>
+												<option value={tableSortByValue2}>{tableSortBy2}</option>
 											)}
 											{tableSortBy3 && (
-												<option value={tableSortBy3}>{tableSortBy3}</option>
+												<option value={tableSortByValue3}>{tableSortBy3}</option>
 											)}
 											{tableSortBy4 && (
-												<option value={tableSortBy4}>{tableSortBy4}</option>
+												<option value={tableSortByValue4}>{tableSortBy4}</option>
+											)}
+											{tableSortBy5 && (
+												<option value={tableSortByValue5}>{tableSortBy5}</option>
 											)}
 										</select>
 									</div>
 									<div className="table-navbar-sort-by-left-bottom">
-										<label htmlFor="table-sort-by-reversed">Order :</label>
+										<label htmlFor="table-sort-by-reversed">Reversed :</label>
 										<select
 											name="table-sort-by-reversed"
 											id="table-sort-by-reversed"
@@ -447,8 +466,8 @@ const Table = (props) => {
 											value={tableSortReversed}
 											onChange={(e) => setTableSortReversed(e.target.value)}
 										>
-											<option value={false}>Oldest First</option>
-											<option value={true}>Newest First</option>
+											<option value={false}>False</option>
+											<option value={true}>True</option>
 										</select>
 									</div>
 								</div>
@@ -457,7 +476,7 @@ const Table = (props) => {
 										<input
 											className="form-control"
 											type="search"
-											placeholder="Search"
+											placeholder="Search Word"
 											aria-label="Search"
 											value={tableSortWord}
 											onChange={(event) => setTableSortWord(event.target.value)}
@@ -532,12 +551,12 @@ const Table = (props) => {
 								{tableData4 && <td>{`${data[tableData4]}`}</td>}
 								{tableButtons && (
 									<td className="table-buttons text-end">
-										{tableAddButton && (
+										{tableCreateButton && (
 											<button
 												className="btn btn-success"
-												onClick={() => modalToggle(data, "Add")}
+												onClick={() => modalToggle(data, "Create")}
 											>
-												Add
+												Create
 											</button>
 										)}
 										{tableUpdateButton && (
@@ -626,7 +645,7 @@ const Table = (props) => {
 									: "bg-light text-secondary"
 							}`}
 							onClick={() =>
-								tableChangePageNumber(
+								setTableSortPageNumber(
 									sortInfo && sortInfo.pageNumber && sortInfo.pageNumber - 1
 								)
 							}
@@ -634,7 +653,6 @@ const Table = (props) => {
 							Previous
 						</button>
 					</li>
-
 					{/* MAPPING BUTTONS ACCORDING TO DATA */}
 					{sortInfo && sortInfo.pageNumber ? (
 						pageButtons.map((pageNumber, index) => {
@@ -676,12 +694,12 @@ const Table = (props) => {
 													onChange={(event) =>
 														setSortCustomPageButton(event.target.value)
 													}
-													min="9"
+													min="1"
 													max={pageButtons[pageButtons.length - 1]}
 												/>
 												<button
 													className="btn btn-secondary"
-													onClick={() => tableChangePageNumber(sortCustomPageButton)}
+													onClick={() => setTableSortPageNumber(sortCustomPageButton)}
 												>
 													Go to Page
 												</button>
@@ -705,7 +723,7 @@ const Table = (props) => {
 													? "bg-secondary text-light"
 													: "bg-light text-secondary"
 											}`}
-											onClick={() => tableChangePageNumber(pageNumber)}
+											onClick={() => setTableSortPageNumber(pageNumber)}
 										>
 											{pageNumber}
 										</button>
@@ -738,7 +756,7 @@ const Table = (props) => {
 									: "bg-light text-secondary"
 							}`}
 							onClick={() =>
-								tableChangePageNumber(
+								setTableSortPageNumber(
 									sortInfo && sortInfo.pageNumber && sortInfo.pageNumber + 1
 								)
 							}
@@ -750,17 +768,20 @@ const Table = (props) => {
 				<select
 					id="table-nav-pagination-select-pageSize"
 					className="form-select"
-					onChange={(e) => tableChangePageSize(parseInt(e.target.value))}
+					onChange={(e) => setTableSortPageSize(parseInt(e.target.value))}
+					value={sortInfo ? sortInfo.pageSize : 20}
 				>
 					<option disabled>Page Size</option>
+					<option value={3}>3</option>
 					<option value={10}>10</option>
 					<option value={15}>15</option>
 					<option value={20}>20</option>
 					<option value={25}>25</option>
 				</select>
 			</nav>
+			{/* TABLE DELETE BUTTON MODAL */}
 			<Modal isOpen={modal} toggle={modalToggle} centered>
-				<ModalHeader className="modal-form-item">Add Product</ModalHeader>
+				<ModalHeader className="modal-form-item">About to Delete {isNav && isNav}</ModalHeader>
 				<ModalBody className="modal-form">
 					<div className="modal-form-item d-flex">
 						<label htmlFor="modal-form-confirmation" className="form-label">

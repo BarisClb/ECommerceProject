@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 
 function FormTemplate() {
-	const [xyzValue, setXyzValue] = useState("");
 	const [onchangeValue, setOnchangeValue] = useState("");
 	const onchangeValueUpdate = (newXyzValue) => {
 		setOnchangeValue(newXyzValue);

@@ -20,7 +20,7 @@ const UpdateCommentReplyForm = (props) => {
 	};
 
 	useEffect(() => {
-		if (commentReply.id) {
+		if (commentReply && commentReply.id) {
 			setIdValue(commentReply.id);
 			setTextValue(commentReply.text);
 			setProductIdValue(commentReply.productId);

@@ -43,7 +43,7 @@ namespace Service.Services
             {
                 orderedComments = listSorting.OrderBy switch
                 {
-                    "UserUserame" => comments.OrderByDescending(c => c.UserUsername).ToList(),
+                    "UserUsername" => comments.OrderByDescending(c => c.UserUsername).ToList(),
                     "ProductName" => comments.OrderByDescending(c => c.ProductName).ToList(),
                     _ => comments.Reverse().ToList(),
                 };
@@ -52,7 +52,7 @@ namespace Service.Services
             {
                 orderedComments = listSorting.OrderBy switch
                 {
-                    "UserUserame" => comments.OrderBy(c => c.UserUsername).ToList(),
+                    "UserUsername" => comments.OrderBy(c => c.UserUsername).ToList(),
                     "ProductName" => comments.OrderBy(c => c.ProductName).ToList(),
                     _ => comments,
                 };

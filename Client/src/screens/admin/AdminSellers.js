@@ -8,30 +8,54 @@ import { useSelector } from "react-redux";
 function AdminSellers() {
 	const dispatch = useDispatch();
 
+	// Table Data
+	const sellers = useSelector((state) => state.seller.sellers);
 	useEffect(() => {
-		dispatch(sellerActions.getSellers());
+		dispatch(sellerActions.getSortedSellers(listSorting));
 	}, []);
 
-	const sellers = useSelector((state) => state.seller.sellers);
-
+	// Nav Form Actions
 	const navCreateSellerClick = async (newSeller) => {
-		dispatch(sellerActions.createSeller(newSeller, sellerActions.getSellers()));
+		dispatch(sellerActions.createSeller(newSeller, sellerActions.getSortedSellers(sortInfo)));
 	};
 	const navUpdateSellerClick = (sellerId, updatedSeller) => {
-		dispatch(sellerActions.updateSeller(sellerId, updatedSeller, sellerActions.getSellers()));
+		dispatch(
+			sellerActions.updateSeller(
+				sellerId,
+				updatedSeller,
+				sellerActions.getSortedSellers(sortInfo)
+			)
+		);
 	};
 	const navDeleteSellerClick = (oldSeller) => {
-		dispatch(sellerActions.deleteSeller(oldSeller, sellerActions.getSellers()));
+		dispatch(sellerActions.deleteSeller(oldSeller, sellerActions.getSortedSellers(sortInfo)));
 	};
 
+	// Table Side Button Actions
 	const tableDeleteButtonClick = (oldSeller) => {
-		dispatch(sellerActions.deleteSeller(oldSeller.id, sellerActions.getSellers()));
+		dispatch(sellerActions.deleteSeller(oldSeller.id, sellerActions.getSortedSellers(sortInfo)));
 	};
+
+	// Table Sort Button Action
+	const tableSortButtonClick = (listSortingValues) => {
+		listSorting = { ...listSorting, ...listSortingValues };
+		dispatch(sellerActions.getSortedSellers(listSorting));
+	};
+	// Default Sort Values
+	let listSorting = {
+		reversed: false,
+		searchWord: "",
+		pageNumber: 1,
+		pageSize: 20,
+		orderBy: "Id",
+	};
+	// Sort Data from API
+	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div className="">
+		<div id="admin-seller-page-wrapper">
 			<Header title={"Sellers"} />
-			<div className="container-fluid">
+			<div id="admin-seller-table-wrapper" className="container-fluid">
 				<Table
 					// The Data
 					apiData={sellers}
@@ -49,8 +73,6 @@ function AdminSellers() {
 					tableData4={false}
 					// Special
 					isAdmin={true}
-					isSellers={true}
-					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
 					tableAddButton={false}
@@ -67,6 +89,17 @@ function AdminSellers() {
 					navCreateButtonClick={navCreateSellerClick}
 					navUpdateButtonClick={navUpdateSellerClick}
 					navDeleteButtonClick={navDeleteSellerClick}
+					// Nav Search
+					navSearch={false}
+					instaSearch={false}
+					// Nav SortBy
+					sortInfo={sortInfo}
+					tableSortBy={true}
+					tableSortBy1={"Id"}
+					tableSortBy2={"Name"}
+					tableSortBy3={"Username"}
+					tableSortBy4={"EMail"}
+					tableSortAction={tableSortButtonClick}
 				/>
 			</div>
 		</div>

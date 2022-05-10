@@ -1,7 +1,7 @@
 import React from "react";
 import StoreWelcomePage from "../../components/store/StoreWelcomePage";
 
-function StoreMainPage() {
+function StoreMain() {
 	return (
 		<>
 			<StoreWelcomePage />
@@ -9,4 +9,4 @@ function StoreMainPage() {
 	);
 }
 
-export default StoreMainPage;
+export default StoreMain;

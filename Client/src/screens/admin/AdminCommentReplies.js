@@ -8,17 +8,18 @@ import { useSelector } from "react-redux";
 function AdminCommentReplies() {
 	const dispatch = useDispatch();
 
+	// Table Data
+	const commentReplies = useSelector((state) => state.commentReply.commentReplies);
 	useEffect(() => {
-		dispatch(commentReplyActions.getCommentReplies());
+		dispatch(commentReplyActions.getSortedCommentReplies(listSorting));
 	}, []);
 
-	const commentReplies = useSelector((state) => state.commentReply.commentReplies);
-
-	const navCreateCommentReplyClick = async (newCommentReply) => {
+	// Nav Form Actions
+	const navCreateCommentReplyClick = (newCommentReply) => {
 		dispatch(
 			commentReplyActions.createCommentReply(
 				newCommentReply,
-				commentReplyActions.getCommentReplies()
+				commentReplyActions.getSortedCommentReplies(sortInfo)
 			)
 		);
 	};
@@ -27,7 +28,7 @@ function AdminCommentReplies() {
 			commentReplyActions.updateCommentReply(
 				commentReplyId,
 				updatedCommentReply,
-				commentReplyActions.getCommentReplies()
+				commentReplyActions.getSortedCommentReplies(sortInfo)
 			)
 		);
 	};
@@ -35,24 +36,41 @@ function AdminCommentReplies() {
 		dispatch(
 			commentReplyActions.deleteCommentReply(
 				oldCommentReply,
-				commentReplyActions.getCommentReplies()
+				commentReplyActions.getSortedCommentReplies(sortInfo)
 			)
 		);
 	};
 
+	// Table Side Button Actions
 	const tableDeleteButtonClick = (oldCommentReply) => {
 		dispatch(
 			commentReplyActions.deleteCommentReply(
 				oldCommentReply.id,
-				commentReplyActions.getCommentReplies()
+				commentReplyActions.getSortedCommentReplies(sortInfo)
 			)
 		);
 	};
 
+	// Table Sort Button Action
+	const tableSortButtonClick = (listSortingValues) => {
+		listSorting = { ...listSorting, ...listSortingValues };
+		dispatch(commentReplyActions.getSortedCommentReplies(listSorting));
+	};
+	// Default Sort Values
+	let listSorting = {
+		reversed: false,
+		searchWord: "",
+		pageNumber: 1,
+		pageSize: 20,
+		orderBy: "Id",
+	};
+	// Sort Data from API
+	const sortInfo = useSelector((state) => state.common.SortInfo);
+
 	return (
-		<div className="">
+		<div id="admin-commentReply-page-wrapper">
 			<Header title={"Comment Replies"} />
-			<div className="container-fluid">
+			<div id="admin-commentReply-table-wrapper" className="container-fluid">
 				<Table
 					// The Data
 					apiData={commentReplies}
@@ -70,7 +88,6 @@ function AdminCommentReplies() {
 					tableData4={"sellerId"}
 					// Special
 					isAdmin={true}
-					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
 					tableAddButton={false}
@@ -87,6 +104,14 @@ function AdminCommentReplies() {
 					navCreateButtonClick={navCreateCommentReplyClick}
 					navUpdateButtonClick={navUpdateCommentReplyClick}
 					navDeleteButtonClick={navDeleteCommentReplyClick}
+					// Nav Search
+					navSearch={false}
+					instaSearch={false}
+					// Nav SortBy
+					sortInfo={sortInfo}
+					tableSortBy={true}
+					tableSortBy1={"Id"}
+					tableSortAction={tableSortButtonClick}
 				/>
 			</div>
 		</div>

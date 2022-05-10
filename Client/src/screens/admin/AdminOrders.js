@@ -8,30 +8,50 @@ import { useSelector } from "react-redux";
 function AdminOrders() {
 	const dispatch = useDispatch();
 
+	// Table Data
+	const orders = useSelector((state) => state.order.orders);
 	useEffect(() => {
-		dispatch(orderActions.getOrders());
+		dispatch(orderActions.getSortedOrders(listSorting));
 	}, []);
 
-	const orders = useSelector((state) => state.order.orders);
-
+	// Nav Form Actions
 	const navCreateOrderClick = async (newOrder) => {
-		dispatch(orderActions.createOrder(newOrder, orderActions.getOrders()));
+		dispatch(orderActions.createOrder(newOrder, orderActions.getSortedOrders(sortInfo)));
 	};
 	const navUpdateOrderClick = (orderId, updatedOrder) => {
-		dispatch(orderActions.updateOrder(orderId, updatedOrder, orderActions.getOrders()));
+		dispatch(
+			orderActions.updateOrder(orderId, updatedOrder, orderActions.getSortedOrders(sortInfo))
+		);
 	};
 	const navDeleteOrderClick = (oldOrder) => {
-		dispatch(orderActions.deleteOrder(oldOrder, orderActions.getOrders()));
+		dispatch(orderActions.deleteOrder(oldOrder, orderActions.getSortedOrders(sortInfo)));
 	};
 
+	// Table Side Button Actions
 	const tableDeleteButtonClick = (oldOrder) => {
-		dispatch(orderActions.deleteOrder(oldOrder.id, orderActions.getOrders()));
+		dispatch(orderActions.deleteOrder(oldOrder.id, orderActions.getSortedOrders(sortInfo)));
 	};
+
+	// Table Sort Button Action
+	const tableSortButtonClick = (listSortingValues) => {
+		listSorting = { ...listSorting, ...listSortingValues };
+		dispatch(orderActions.getSortedOrders(listSorting));
+	};
+	// Default Sort Values
+	let listSorting = {
+		reversed: false,
+		searchWord: "",
+		pageNumber: 1,
+		pageSize: 20,
+		orderBy: "Id",
+	};
+	// Sort Data from API
+	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div className="">
+		<div id="admin-order-page-wrapper">
 			<Header title={"Orders"} />
-			<div className="container-fluid">
+			<div id="admin-order-table-wrapper" className="container-fluid">
 				<Table
 					// The Data
 					apiData={orders}
@@ -49,8 +69,6 @@ function AdminOrders() {
 					tableData4={"orderStatus"}
 					// Special
 					isAdmin={true}
-					isCategories={true}
-					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
 					tableAddButton={false}
@@ -67,6 +85,20 @@ function AdminOrders() {
 					navCreateButtonClick={navCreateOrderClick}
 					navUpdateButtonClick={navUpdateOrderClick}
 					navDeleteButtonClick={navDeleteOrderClick}
+					// Nav Search
+					navSearch={false}
+					instaSearch={false}
+					// Nav SortBy
+					sortInfo={sortInfo}
+					tableSortBy={true}
+					tableSortBy1={"Id"}
+					tableSortBy2={"User"}
+					tableSortByValue2={"UserUsername"}
+					tableSortBy3={"Seller"}
+					tableSortByValue3={"SellerUsername"}
+					tableSortBy4={"OrderStatus"}
+					tableSortByValue4={"OrderStatus"}
+					tableSortAction={tableSortButtonClick}
 				/>
 			</div>
 		</div>

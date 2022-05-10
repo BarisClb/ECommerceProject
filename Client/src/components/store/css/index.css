@@ -10,13 +10,13 @@
 	flex-direction: column;
 	gap: 2rem;
 }
-#welcomepage-welcome-text {
+#store-welcomepage-welcome-text {
 	text-align: center;
 }
-#welcomepage-welcome-text > h1 {
+#store-welcomepage-welcome-text > h1 {
 	font-size: 5rem;
 }
-#welcomepage-dummypage-links {
+#store-welcomepage-dummypage-links {
 	display: flex;
 }
 

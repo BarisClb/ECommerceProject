@@ -16,6 +16,7 @@ import { actionHelpers } from "./actionHelpers";
 // };
 
 // GET CATEGORIES
+// No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
 
 const getCategories = (categoryId, successCallback) => {
 	return async (dispatch) => {
@@ -50,6 +51,8 @@ const getSortedCategories = (listSorting, successCallback) => {
 		dispatch({ type: categoryTypes.GetCategories, payload: response.data });
 		if (response.sortInfo !== undefined && response.sortInfo !== null) {
 			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
+		} else {
+			dispatch({ type: commonTypes.SortInfo, payload: {} });
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });

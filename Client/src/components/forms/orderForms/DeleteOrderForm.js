@@ -30,7 +30,7 @@ const DeleteOrderForm = (props) => {
 	};
 
 	useEffect(() => {
-		if (order.id) {
+		if (order && order.id) {
 			setIdValue(order.id);
 			setOrderStatusValue(order.orderStatus);
 			setNoteValue(order.note);

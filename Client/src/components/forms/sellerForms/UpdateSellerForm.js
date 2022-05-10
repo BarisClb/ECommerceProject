@@ -20,7 +20,7 @@ const UpdateSellerForm = (props) => {
 	};
 
 	useEffect(() => {
-		if (seller.id) {
+		if (seller && seller.id) {
 			setIdValue(seller.id);
 			setNameValue(seller.name);
 			setUsernameValue(seller.username);

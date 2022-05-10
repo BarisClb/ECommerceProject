@@ -8,30 +8,48 @@ import { useSelector } from "react-redux";
 const AdminLikes = () => {
 	const dispatch = useDispatch();
 
+	// Table Data
+	const likes = useSelector((state) => state.like.likes);
 	useEffect(() => {
-		dispatch(likeActions.getLikes());
+		dispatch(likeActions.getSortedLikes(listSorting));
 	}, []);
 
-	const likes = useSelector((state) => state.like.likes);
-
+	// Nav Form Actions
 	const navCreateLikeClick = async (newLike) => {
-		dispatch(likeActions.createLike(newLike, likeActions.getLikes()));
+		dispatch(likeActions.createLike(newLike, likeActions.getSortedLikes(sortInfo)));
 	};
 	const navUpdateLikeClick = (likeId, updatedLike) => {
-		dispatch(likeActions.updateLike(likeId, updatedLike, likeActions.getLikes()));
+		dispatch(likeActions.updateLike(likeId, updatedLike, likeActions.getSortedLikes(sortInfo)));
 	};
 	const navDeleteLikeClick = (oldLike) => {
-		dispatch(likeActions.deleteLike(oldLike, likeActions.getLikes()));
+		dispatch(likeActions.deleteLike(oldLike, likeActions.getSortedLikes(sortInfo)));
 	};
 
+	// Table Side Button Actions
 	const tableDeleteButtonClick = (oldLike) => {
-		dispatch(likeActions.deleteLike(oldLike.id, likeActions.getLikes()));
+		dispatch(likeActions.deleteLike(oldLike.id, likeActions.getSortedLikes(sortInfo)));
 	};
+
+	// Table Sort Button Action
+	const tableSortButtonClick = (listSortingValues) => {
+		listSorting = { ...listSorting, ...listSortingValues };
+		dispatch(likeActions.getSortedLikes(listSorting));
+	};
+	// Default Sort Values
+	let listSorting = {
+		reversed: false,
+		searchWord: "",
+		pageNumber: 1,
+		pageSize: 20,
+		orderBy: "Id",
+	};
+	// Sort Data from API
+	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div className="">
+		<div id="admin-like-page-wrapper">
 			<Header title={"Likes"} />
-			<div className="container-fluid">
+			<div id="admin-like-table-wrapper" className="container-fluid">
 				<Table
 					// The Data
 					apiData={likes}
@@ -47,8 +65,6 @@ const AdminLikes = () => {
 					tableData3={"userUsername"}
 					// Special
 					isAdmin={true}
-					isCategories={true}
-					instaSearch={false}
 					// Table Buttons
 					tableButtons={true}
 					tableAddButton={false}
@@ -65,6 +81,20 @@ const AdminLikes = () => {
 					navCreateButtonClick={navCreateLikeClick}
 					navUpdateButtonClick={navUpdateLikeClick}
 					navDeleteButtonClick={navDeleteLikeClick}
+					// Nav Search
+					navSearch={false}
+					instaSearch={false}
+					// Nav SortBy
+					sortInfo={sortInfo}
+					tableSortBy={true}
+					tableSortBy1={"Id"}
+					tableSortBy2={"User"}
+					tableSortByValue2={"UserUsername"}
+					tableSortBy3={"Product"}
+					tableSortByValue3={"ProductName"}
+					tableSortBy4={"Comment"}
+					tableSortByValue4={"CommentId"}
+					tableSortAction={tableSortButtonClick}
 				/>
 			</div>
 		</div>

@@ -30,7 +30,7 @@ const DeleteProductForm = (props) => {
 	};
 
 	useEffect(() => {
-		if (product.id) {
+		if (product && product.id) {
 			setIdValue(product.id);
 			setNameValue(product.name);
 			setDescriptionValue(product.description);

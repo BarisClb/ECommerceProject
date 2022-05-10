@@ -1,6 +1,7 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 
 // GET
+// No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
 
 const getHelper = async (entityName, entityId) => {
 	let url = `${apiUrl}/${entityName}/`;
@@ -38,26 +39,33 @@ const getSortedHelper = async (entityName, listSorting) => {
 
 	// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
 	// I am also giving it a default 'false' value so I don't get an error.
-	url += `?Reverse=${listSorting.reversed ? listSorting.reversed : false}`;
+	url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
 
-	// SearchWord
-	if (listSorting.searchWord !== null && listSorting.searchWord.trim() !== "") {
-		url += `&SearchWord=${listSorting.searchWord.trim()}`;
-	}
+	// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
+	if (listSorting) {
+		// SearchWord
+		if (
+			listSorting.pageNumber !== undefined &&
+			listSorting.searchWord !== null &&
+			listSorting.searchWord.trim() !== ""
+		) {
+			url += `&SearchWord=${listSorting.searchWord.trim()}`;
+		}
 
-	// PageNumber
-	if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-		url += `&PageNumber=${listSorting.pageNumber}`;
-	}
+		// PageNumber
+		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+			url += `&PageNumber=${listSorting.pageNumber}`;
+		}
 
-	// PageSize
-	if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-		url += `&PageSize=${listSorting.pageSize}`;
-	}
+		// PageSize
+		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+			url += `&PageSize=${listSorting.pageSize}`;
+		}
 
-	// OrderBy
-	if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
-		url += `&OrderBy=${listSorting.orderBy}`;
+		// OrderBy
+		if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
+			url += `&OrderBy=${listSorting.orderBy}`;
+		}
 	}
 
 	try {

@@ -26,18 +26,16 @@ function AdminMain() {
 
 	return (
 		<>
-			<AdminLayout>
-				{commonActions.objectIsEmpty(accountUser) ? (
-					"You need to log in."
-				) : !accountRoles.includes("Admin") ? (
-					"You are unathorized."
-				) : (
-					<Outlet />
-				)}
-				{/* {<Outlet acountUser={accountUser} />} */}
-				<button onClick={logIn}>Log In</button>
-				<button onClick={logOut}>Log Out</button>
-			</AdminLayout>
+			{commonActions.objectIsEmpty(accountUser) ? (
+				"You need to log in."
+			) : !accountRoles.includes("Admin") ? (
+				"You are unathorized."
+			) : (
+				<Outlet />
+			)}
+			{/* {<Outlet acountUser={accountUser} />} */}
+			<button onClick={logIn}>Log In</button>
+			<button onClick={logOut}>Log Out</button>
 		</>
 	);
 }

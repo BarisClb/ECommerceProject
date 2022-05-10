@@ -1,0 +1,11 @@
+#login-form-wrapper {
+	height: calc(100vh - (56px));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#login-form-wrapper > div {
+	position: relative;
+	top: -10vh;
+}

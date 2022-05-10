@@ -8,15 +8,15 @@ const Header = (props) => {
 
 	// Header Buttons
 	const [headerButtons] = useState(props.headerButtons);
-	const [headerAddButton] = useState(props.headerAddButton);
+	const [headerCreateButton] = useState(props.headerCreateButton);
 	const [headerUpdateButton] = useState(props.headerUpdateButton);
 	const [headerDeleteButton] = useState(props.headerDeleteButton);
 	const [headerCustomButton] = useState(props.headerCustomButton);
 	const [headerCustomButtonColor] = useState(props.headerCustomButtonColor);
 	// header Button Clicks
-	const headerAddButtonClick = () => {
-		if (props.headerAddButtonClick) {
-			props.headerAddButtonClick();
+	const headerCreateButtonClick = () => {
+		if (props.headerCreateButtonClick) {
+			props.headerCreateButtonClick();
 		}
 	};
 	const headerUpdateButtonClick = () => {
@@ -41,9 +41,9 @@ const Header = (props) => {
 			<h1>{title ? title : "Title"}</h1>
 			{headerButtons && (
 				<div className="header-buttons">
-					{headerAddButton && (
-						<button className="btn btn-success" onClick={() => headerAddButtonClick()}>
-							Add
+					{headerCreateButton && (
+						<button className="btn btn-success" onClick={() => headerCreateButtonClick()}>
+							Create
 						</button>
 					)}
 					{headerUpdateButton && (

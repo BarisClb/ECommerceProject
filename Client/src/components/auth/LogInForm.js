@@ -7,11 +7,14 @@ function LogInForm() {
 	const dispatch = useDispatch();
 
 	const [accountType, setAccountType] = useState("User");
+	const [accountName, setAccountName] = useState("");
+	const [accountPassword, setAccountPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false);
 
 	const logIn = () => {
-		let user = { accountType: "User", account: "UserName4", password: "123" };
+		let user = { accountType: accountType, account: accountName, password: accountPassword };
 
-		dispatch(accountActions.accountLogIn("User", user));
+		dispatch(accountActions.accountLogIn(accountType, user));
 	};
 
 	return (
@@ -19,10 +22,10 @@ function LogInForm() {
 			<form>
 				{/* ACCOUNT TYPE */}
 				<div className="form-outline mb-4">
-					<label htmlFor="table-sort-by-reversed">Account Type</label>
+					<label htmlFor="login-form-accountType-select">Account Type</label>
 					<select
-						name="table-sort-by-reversed"
-						id="table-sort-by-reversed"
+						name="login-form-accountType-select"
+						id="login-form-accountType-select"
 						className="form-select"
 						value={accountType}
 						onChange={(e) => setAccountType(e.target.value)}
@@ -33,19 +36,29 @@ function LogInForm() {
 				</div>
 				{/* ACCOUNT INPUT (CAN BE USERNAME OR EMAIL, PASSES EMAIL REGEX IN API) */}
 				<div className="form-outline mb-4">
-					<label className="form-label" htmlFor="form2Example1">
+					<label className="form-label" htmlFor="login-form-accountName">
 						Username or Email
 					</label>
-					<input type="text" id="form2Example1" className="form-control" />
+					<input
+						type="text"
+						id="login-form-accountName"
+						className="form-control"
+						onChange={(e) => setAccountName(e.target.value)}
+					/>
 				</div>
-				{/* Password input */}
+				{/* PASSWORD INPUT */}
 				<div className="form-outline mb-4">
-					<label className="form-label" htmlFor="form2Example2">
+					<label className="form-label" htmlFor="login-form-password">
 						Password
 					</label>
-					<input type="password" id="form2Example2" className="form-control" />
+					<input
+						type={showPassword ? "text" : "password"}
+						id="login-form-password"
+						className="form-control"
+						onChange={(e) => setAccountPassword(e.target.value)}
+					/>
 				</div>
-				{/* 2 column grid layout for inline styling */}
+				{/* PASSWORD EXTRA */}
 				<div className="row mb-4">
 					<div className="col d-flex justify-content-center">
 						{/* Checkbox */}
@@ -53,44 +66,30 @@ function LogInForm() {
 							<input
 								className="form-check-input"
 								type="checkbox"
-								defaultValue
-								id="form2Example31"
-								defaultChecked
+								id="login-form-showpassword-checkbox"
+								defaultChecked={showPassword}
+								onChange={() => setShowPassword(!showPassword)}
 							/>
-							<label className="form-check-label" htmlFor="form2Example31">
-								{" "}
-								Remember me{" "}
+							<label className="form-check-label" htmlFor="login-form-showpassword-checkbox">
+								Show Password
 							</label>
 						</div>
 					</div>
 					<div className="col">
 						{/* Simple link */}
-						<a href="#!">Forgot password?</a>
+						<div className="forgot-password-link" onClick={() => window.alert("Try 123")}>
+							Forgot password?
+						</div>
 					</div>
 				</div>
 				{/* Submit button */}
-				<button type="button" className="btn btn-primary btn-block mb-4">
+				<button
+					type="button"
+					className="btn btn-primary btn-block mb-4"
+					onClick={() => logIn()}
+				>
 					Log in
 				</button>
-				{/* Register buttons */}
-				<div className="text-center">
-					<p>
-						Not a member? <a href="#!">Register</a>
-					</p>
-					<p>or sign up with:</p>
-					<button type="button" className="btn btn-link btn-floating mx-1">
-						<i className="fab fa-facebook-f" />
-					</button>
-					<button type="button" className="btn btn-link btn-floating mx-1">
-						<i className="fab fa-google" />
-					</button>
-					<button type="button" className="btn btn-link btn-floating mx-1">
-						<i className="fab fa-twitter" />
-					</button>
-					<button type="button" className="btn btn-link btn-floating mx-1">
-						<i className="fab fa-github" />
-					</button>
-				</div>
 			</form>
 		</div>
 	);

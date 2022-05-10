@@ -30,7 +30,7 @@ const DeleteLikeForm = (props) => {
 	};
 
 	useEffect(() => {
-		if (like.id) {
+		if (like && like.id) {
 			setIdValue(like.id);
 			setUserIdValue(like.userId);
 			setCommentIdValue(like.sellerId);

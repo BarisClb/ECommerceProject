@@ -23,6 +23,7 @@ import { actionHelpers } from "./actionHelpers";
 // };
 
 // GET PRODUCTS
+// No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
 
 const getProducts = (productId, successCallback) => {
 	return async (dispatch) => {
@@ -42,6 +43,30 @@ const getProducts = (productId, successCallback) => {
 		}
 
 		dispatch({ type: commonTypes.AsyncEnd });
+	};
+};
+
+// GET SORTED PRODUCTS
+
+const getSortedProducts = (listSorting, successCallback) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let response = await actionHelpers.getSortedHelper("Products", listSorting);
+		console.log(response);
+
+		dispatch({ type: productTypes.GetProducts, payload: response.data });
+		if (response.sortInfo !== undefined && response.sortInfo !== null) {
+			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
+		} else {
+			dispatch({ type: commonTypes.SortInfo, payload: {} });
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
 	};
 };
 
@@ -142,6 +167,7 @@ const deleteProduct = (productId, successCallback) => {
 
 export const productActions = {
 	getProducts,
+	getSortedProducts,
 	getProductsByCategory,
 	getProductsBySeller,
 	createProduct,

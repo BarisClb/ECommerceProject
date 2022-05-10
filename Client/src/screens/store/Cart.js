@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MainLayout from "../components/layout/MainLayout";
-import Header from "../components/header/Header";
-import Table from "../components/table/Table";
-import { cartActions } from "../store/actions/cartActions";
+import MainLayout from "../../components/layout/MainLayout";
+import Header from "../../components/header/Header";
+import Table from "../../components/table/Table";
+import { cartActions } from "../../store/actions/cartActions";
 
 const Cart = () => {
 	// Cart

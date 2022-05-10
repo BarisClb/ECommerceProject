@@ -46,7 +46,7 @@ namespace Service.Services
             {
                 orderedOrders = listSorting.OrderBy switch
                 {
-                    "UserUserame" => orders.OrderByDescending(o => o.UserUsername).ToList(),
+                    "UserUsername" => orders.OrderByDescending(o => o.UserUsername).ToList(),
                     "SellerUsername" => orders.OrderByDescending(o => o.SellerUsername).ToList(),
                     "OrderStatus" => orders.OrderByDescending(o => o.OrderStatus).ToList(),
                     _ => orders.Reverse().ToList(),
@@ -56,7 +56,7 @@ namespace Service.Services
             {
                 orderedOrders = listSorting.OrderBy switch
                 {
-                    "UserUserame" => orders.OrderBy(o => o.UserUsername).ToList(),
+                    "UserUsername" => orders.OrderBy(o => o.UserUsername).ToList(),
                     "SellerUsername" => orders.OrderBy(o => o.SellerUsername).ToList(),
                     "OrderStatus" => orders.OrderBy(o => o.OrderStatus).ToList(),
                     _ => orders,

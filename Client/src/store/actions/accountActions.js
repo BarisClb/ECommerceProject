@@ -93,7 +93,7 @@ const accountLogOut = (accountType) => {
 
 		// // Direct approach
 		// document.cookie = "username=; expires=Thu, 22 May 1995 00:15:00 UTC; path=/;";
-
+		console.log("hey");
 		let url = `${apiUrl}/Account/LogOut?accountType=${accountType}`;
 
 		try {

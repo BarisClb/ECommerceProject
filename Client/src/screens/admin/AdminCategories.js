@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/header/Header";
 import Table from "../../components/table/Table";
 import { useDispatch } from "react-redux";
@@ -8,53 +8,63 @@ import { useSelector } from "react-redux";
 const AdminCategories = () => {
 	const dispatch = useDispatch();
 
+	// Table Data
 	const categories = useSelector((state) => state.category.categories);
+	useEffect(() => {
+		dispatch(categoryActions.getSortedCategories(listSorting));
+	}, []);
 
-	// Nav Button Actions
-	const navCreateCategoryClick = async (newCategory) => {
-		dispatch(categoryActions.createCategory(newCategory, categoryActions.getCategories()));
+	// Nav Form Actions
+	const navCreateCategoryClick = (newCategory) => {
+		dispatch(
+			categoryActions.createCategory(newCategory, categoryActions.getSortedCategories(sortInfo))
+		);
 	};
 	const navUpdateCategoryClick = (categoryId, updatedCategory) => {
 		dispatch(
 			categoryActions.updateCategory(
 				categoryId,
 				updatedCategory,
-				categoryActions.getCategories()
+				categoryActions.getSortedCategories(sortInfo)
 			)
 		);
 	};
 	const navDeleteCategoryClick = (oldCategory) => {
-		dispatch(categoryActions.deleteCategory(oldCategory, categoryActions.getCategories()));
+		dispatch(
+			categoryActions.deleteCategory(oldCategory, categoryActions.getSortedCategories(sortInfo))
+		);
 	};
-	// Table Button Actions
+
+	// Table Side Button Actions
 	const tableDeleteButtonClick = (oldCategory) => {
-		dispatch(categoryActions.deleteCategory(oldCategory.id, categoryActions.getCategories()));
+		dispatch(
+			categoryActions.deleteCategory(
+				oldCategory.id,
+				categoryActions.getSortedCategories(sortInfo)
+			)
+		);
 	};
-	// Nav Sort Action
+
+	// Table Sort Button Action
 	const tableSortButtonClick = (listSortingValues) => {
-		listSorting = { ...listSortingValues };
+		listSorting = { ...listSorting, ...listSortingValues };
 		dispatch(categoryActions.getSortedCategories(listSorting));
 	};
-	// Sort Default / Start values
-	const [pageSize] = useState(20);
+	// Default Sort Values
 	let listSorting = {
 		reversed: false,
 		searchWord: "",
 		pageNumber: 1,
-		pageSize: pageSize,
+		pageSize: 20,
 		orderBy: "Id",
 	};
-
+	// Sort Data from API
 	const sortInfo = useSelector((state) => state.common.SortInfo);
 
-	useEffect(() => {
-		dispatch(categoryActions.getSortedCategories(listSorting));
-	}, []);
-
 	return (
-		<div className="">
+		<div id="admin-category-page-wrapper">
 			<Header title={"Categories"} />
-			<div className="container-fluid">
+			<div id="admin-category-table-wrapper" className="container-fluid">
 				<Table
 					// The Data
 					apiData={categories}
@@ -88,12 +98,11 @@ const AdminCategories = () => {
 					navSearch={false}
 					instaSearch={false}
 					// Nav SortBy
+					sortInfo={sortInfo}
 					tableSortBy={true}
 					tableSortBy1={"Id"}
 					tableSortBy2={"Name"}
-					tableSortPageSize={pageSize}
 					tableSortAction={tableSortButtonClick}
-					sortInfo={sortInfo}
 				/>
 			</div>
 		</div>
