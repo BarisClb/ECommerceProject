@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
 import { commonActions } from "../../store/actions";
 import Loading from "../common/Loading";
 import AdminSideNavigation from "../navigation/adminNavigation/AdminSideNavigation";
@@ -18,10 +17,7 @@ const AdminLayout = ({ children }) => {
 			<AdminTopNavigation />
 			<AdminSideNavigation />
 			{common.IsLoading && <Loading />}
-			<div id="admin-content-wrapper">
-				{children}
-				<Outlet />
-			</div>
+			<div id="admin-content-wrapper">{children}</div>
 		</>
 	);
 };

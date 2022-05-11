@@ -59,7 +59,7 @@ function AdminComments() {
 	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div id="admin-comment-page-wrapper">
+		<div id="admin-comment-screen-wrapper">
 			<Header title={"Comments"} />
 			<div id="admin-comment-table-wrapper" className="container-fluid">
 				<Table

@@ -1,6 +1,7 @@
 import { commonTypes } from "../types";
 import { accountTypes } from "../types/accountTypes";
-const apiUrl = process.env.REACT_APP_API_URL;
+const database = process.env.REACT_APP_DATABASE;
+const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
 
 // credentials : "include" -> for cookies
 
@@ -10,7 +11,16 @@ const accountLogIn = (accountType, accountInfo) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `${apiUrl}/Account/LogIn/`;
+		// Added env variables here to easily change API
+		let url = "";
+		switch (database) {
+			case "Local":
+				url = `${apiUrl}/Account/LogIn/`;
+				break;
+
+			default:
+				break;
+		}
 
 		try {
 			let response = await fetch(url, {
@@ -56,7 +66,16 @@ const accountVerify = (accountType) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let url = `${apiUrl}/Account/Verify?accountType=${accountType}`;
+		// Added env variables here to easily change API
+		let url = "";
+		switch (database) {
+			case "Local":
+				url = `${apiUrl}/Account/Verify?accountType=${accountType}`;
+				break;
+
+			default:
+				break;
+		}
 
 		try {
 			let response = await fetch(url, {
@@ -93,8 +112,17 @@ const accountLogOut = (accountType) => {
 
 		// // Direct approach
 		// document.cookie = "username=; expires=Thu, 22 May 1995 00:15:00 UTC; path=/;";
-		console.log("hey");
-		let url = `${apiUrl}/Account/LogOut?accountType=${accountType}`;
+
+		// Added env variables here to easily change API
+		let url = "";
+		switch (database) {
+			case "Local":
+				url = `${apiUrl}/Account/LogOut?accountType=${accountType}`;
+				break;
+
+			default:
+				break;
+		}
 
 		try {
 			let response = await fetch(url, {

@@ -14,21 +14,30 @@
 	flex-direction: column;
 	margin: auto;
 }
+
 #main-authpage-content {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
 }
+
 #main-authpage-welcome-text {
 	text-align: center;
 }
+
 #main-authpage-welcome-text > h1 {
 	font-size: 5rem;
 }
-#main-authpage-dummypage-links {
+
+#main-authpage-auth-links {
 	display: flex;
 }
 
-.main-authpage-dummypage-link {
+.main-authpage-auth-link {
 	cursor: pointer;
+}
+
+#main-authpage-auth-header,
+#main-authpage-auth-text {
+	text-align: center;
 }

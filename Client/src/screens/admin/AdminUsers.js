@@ -46,7 +46,7 @@ function AdminUsers() {
 	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div id="admin-user-page-wrapper">
+		<div id="admin-user-screen-wrapper">
 			<Header title={"Users"} />
 			<div id="admin-user-table-wrapper" className="container-fluid">
 				<Table

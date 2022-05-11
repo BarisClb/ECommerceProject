@@ -68,7 +68,7 @@ function AdminCommentReplies() {
 	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div id="admin-commentReply-page-wrapper">
+		<div id="admin-commentReply-screen-wrapper">
 			<Header title={"Comment Replies"} />
 			<div id="admin-commentReply-table-wrapper" className="container-fluid">
 				<Table

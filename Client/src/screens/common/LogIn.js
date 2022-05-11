@@ -35,21 +35,33 @@ function LogIn() {
 			if (!commonActions.objectIsEmpty(user)) {
 				setUserLoggedIn(true);
 			}
-		} else if (!commonActions.objectIsNullOrUndefined(seller)) {
+		}
+		if (!commonActions.objectIsNullOrUndefined(seller)) {
 			if (!commonActions.objectIsEmpty(seller)) {
 				setSellerLoggedIn(true);
 			}
+		} else {
+			setUserLoggedIn(false);
+			setSellerLoggedIn(false);
 		}
 	}, []);
 	useEffect(() => {
 		if (!commonActions.objectIsNullOrUndefined(user)) {
 			if (!commonActions.objectIsEmpty(user)) {
 				setUserLoggedIn(true);
-			} else if (!commonActions.objectIsNullOrUndefined(seller)) {
-				if (!commonActions.objectIsEmpty(seller)) {
-					setSellerLoggedIn(true);
-				}
+			} else {
+				setUserLoggedIn(false);
 			}
+		}
+		if (!commonActions.objectIsNullOrUndefined(seller)) {
+			if (!commonActions.objectIsEmpty(seller)) {
+				setSellerLoggedIn(true);
+			} else {
+				setSellerLoggedIn(false);
+			}
+		} else {
+			setUserLoggedIn(false);
+			setSellerLoggedIn(false);
 		}
 	}, [user, seller]);
 

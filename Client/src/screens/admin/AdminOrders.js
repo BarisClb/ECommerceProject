@@ -49,7 +49,7 @@ function AdminOrders() {
 	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div id="admin-order-page-wrapper">
+		<div id="admin-order-screen-wrapper">
 			<Header title={"Orders"} />
 			<div id="admin-order-table-wrapper" className="container-fluid">
 				<Table

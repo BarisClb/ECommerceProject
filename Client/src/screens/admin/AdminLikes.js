@@ -47,7 +47,7 @@ const AdminLikes = () => {
 	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div id="admin-like-page-wrapper">
+		<div id="admin-like-screen-wrapper">
 			<Header title={"Likes"} />
 			<div id="admin-like-table-wrapper" className="container-fluid">
 				<Table

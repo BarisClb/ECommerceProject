@@ -1,11 +1,20 @@
 #login-form-wrapper {
 	height: calc(100vh - (56px));
+	padding-bottom: 56px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-#login-form-wrapper > div {
-	position: relative;
-	top: -10vh;
+#main-homescreen-wrapper {
+	height: calc(100vh - 56px);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#main-homescreen-wrapper > h1 {
+	font-size: 7rem;
+	margin-bottom: 100px;
 }

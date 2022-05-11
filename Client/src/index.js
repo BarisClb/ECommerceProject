@@ -41,20 +41,24 @@ import LogIn from "./screens/common/LogIn";
 import Register from "./screens/common/Register";
 
 import Profile from "./screens/admin/AdminProfile";
+import HomeScreen from "./screens/common/HomeScreen";
+import AdminWelcome from "./components/admin/AdminWelcome";
 
 ReactDOM.render(
 	<Provider store={storeManager.createStore()}>
 		<PersistGate loading={false} persistor={storeManager.persistor}>
 			<BrowserRouter>
 				<Routes>
+					<Route path="" element={<HomeScreen />} />
+
 					{/* LOGIN / REGISTER */}
 					<Route path="login" element={<LogIn />} />
 					<Route path="register" element={<Register />} />
 
 					{/* ADMIN SIDE */}
 
-					<Route path="admin" element={<AdminLayout />}>
-						<Route path="" element={<AdminMain />} />
+					<Route path="admin" element={<AdminMain />}>
+						<Route path="" element={<AdminWelcome />} />
 						<Route path="categories" element={<AdminCategories />} />
 						<Route path="comments" element={<AdminComments />} />
 						<Route path="commentReplies" element={<AdminCommentReplies />} />
@@ -73,11 +77,11 @@ ReactDOM.render(
 						<Route path="product=:id" element={<StoreSingleProduct />}>
 							<Route path="comments" element={<div>Comments</div>} />
 						</Route>
-						<Route path="cart" element={<Cart />} />
 						<Route path="profile" element={<Profile />}>
 							<Route path="orders" element={<Profile />} />
 							<Route path="comments" element={<Profile />} />
 						</Route>
+						<Route path="cart" element={<Cart />} />
 					</Route>
 
 					{/* SELLER SIDE */}

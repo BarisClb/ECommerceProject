@@ -1,12 +1,22 @@
-const apiUrl = process.env.REACT_APP_API_URL;
+const database = process.env.REACT_APP_DATABASE;
+const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
 
 // GET
 // No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
 
 const getHelper = async (entityName, entityId) => {
-	let url = `${apiUrl}/${entityName}/`;
-	if (entityId) {
-		url += `${entityId}`;
+	// Added env variables here to easily change API
+	let url = "";
+	switch (database) {
+		case "Local":
+			url = `${apiUrl}/${entityName}/`;
+			if (entityId) {
+				url += `${entityId}`;
+			}
+			break;
+
+		default:
+			break;
 	}
 
 	try {
@@ -27,45 +37,50 @@ const getHelper = async (entityName, entityId) => {
 // GET SORTED
 
 const getSortedHelper = async (entityName, listSorting) => {
-	let url = `${apiUrl}/${entityName}`;
+	// Added env variables here to easily change API
+	let url = "";
+	switch (database) {
+		case "Local":
+			url = `${apiUrl}/${entityName}`;
 
-	// // If no sorting applied, no need for question mark.
-	// for (let i = 0; i < listSorting.length; i++) {
-	// 	if (listSorting[i] !== null) {
-	// 		url += `?`;
-	// 		break
-	// 	}
-	// }
+			// // If no sorting applied, no need for question mark.
+			// for (let i = 0; i < listSorting.length; i++) {
+			// 	if (listSorting[i] !== null) {
+			// 		url += `?`;
+			// 		break
+			// 	}
+			// }
 
-	// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
-	// I am also giving it a default 'false' value so I don't get an error.
-	url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
+			// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
+			// I am also giving it a default 'false' value so I don't get an error.
+			url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
+			// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
+			if (listSorting) {
+				// SearchWord
+				if (
+					listSorting.pageNumber !== undefined &&
+					listSorting.searchWord !== null &&
+					listSorting.searchWord.trim() !== ""
+				) {
+					url += `&SearchWord=${listSorting.searchWord.trim()}`;
+				}
+				// PageNumber
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageNumber=${listSorting.pageNumber}`;
+				}
+				// PageSize
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageSize=${listSorting.pageSize}`;
+				}
+				// OrderBy
+				if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
+					url += `&OrderBy=${listSorting.orderBy}`;
+				}
+			}
+			break;
 
-	// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
-	if (listSorting) {
-		// SearchWord
-		if (
-			listSorting.pageNumber !== undefined &&
-			listSorting.searchWord !== null &&
-			listSorting.searchWord.trim() !== ""
-		) {
-			url += `&SearchWord=${listSorting.searchWord.trim()}`;
-		}
-
-		// PageNumber
-		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-			url += `&PageNumber=${listSorting.pageNumber}`;
-		}
-
-		// PageSize
-		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-			url += `&PageSize=${listSorting.pageSize}`;
-		}
-
-		// OrderBy
-		if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
-			url += `&OrderBy=${listSorting.orderBy}`;
-		}
+		default:
+			break;
 	}
 
 	try {
@@ -85,7 +100,16 @@ const getSortedHelper = async (entityName, listSorting) => {
 // GET *ENTITIES* BY *ENTITY*
 
 const getByEntityHelper = async (manyEntityName, singleEntityName, singleEntityId) => {
-	let url = `${apiUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+	// Added env variables here to easily change API
+	let url = "";
+	switch (database) {
+		case "Local":
+			url = `${apiUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			break;
+
+		default:
+			break;
+	}
 
 	try {
 		let response = await fetch(url);
@@ -103,7 +127,16 @@ const getByEntityHelper = async (manyEntityName, singleEntityName, singleEntityI
 // CREATE
 
 const createHelper = async (entityName, newEntity) => {
-	let url = `${apiUrl}/${entityName}/`;
+	// Added env variables here to easily change API
+	let url = "";
+	switch (database) {
+		case "Local":
+			url = `${apiUrl}/${entityName}/`;
+			break;
+
+		default:
+			break;
+	}
 
 	try {
 		let response = await fetch(url, {
@@ -124,7 +157,16 @@ const createHelper = async (entityName, newEntity) => {
 // UPDATE
 
 const updateHelper = async (entityName, entityId, updatedEntity) => {
-	let url = `${apiUrl}/${entityName}`;
+	// Added env variables here to easily change API
+	let url = "";
+	switch (database) {
+		case "Local":
+			url = `${apiUrl}/${entityName}`;
+			break;
+
+		default:
+			break;
+	}
 
 	try {
 		let response = await fetch(url, {
@@ -146,7 +188,16 @@ const updateHelper = async (entityName, entityId, updatedEntity) => {
 // DELETE
 
 const deleteHelper = async (entityName, entityId) => {
-	let url = `${apiUrl}/${entityName}/${entityId}`;
+	// Added env variables here to easily change API
+	let url = "";
+	switch (database) {
+		case "Local":
+			url = `${apiUrl}/${entityName}/${entityId}`;
+			break;
+
+		default:
+			break;
+	}
 
 	try {
 		let response = await fetch(url, {

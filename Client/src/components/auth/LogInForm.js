@@ -43,6 +43,7 @@ function LogInForm() {
 						type="text"
 						id="login-form-accountName"
 						className="form-control"
+						value={accountName}
 						onChange={(e) => setAccountName(e.target.value)}
 					/>
 				</div>
@@ -55,6 +56,7 @@ function LogInForm() {
 						type={showPassword ? "text" : "password"}
 						id="login-form-password"
 						className="form-control"
+						value={accountPassword}
 						onChange={(e) => setAccountPassword(e.target.value)}
 					/>
 				</div>
@@ -68,6 +70,7 @@ function LogInForm() {
 								type="checkbox"
 								id="login-form-showpassword-checkbox"
 								defaultChecked={showPassword}
+								value={showPassword}
 								onChange={() => setShowPassword(!showPassword)}
 							/>
 							<label className="form-check-label" htmlFor="login-form-showpassword-checkbox">

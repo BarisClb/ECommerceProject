@@ -344,7 +344,6 @@ const Table = (props) => {
 
 		// If its less than 11 pages, print all of them
 		if (pageNumber < 11) {
-			console.log(pageNumber);
 			for (let i = 1; i <= pageNumber; i++) {
 				newPageButtons.push(i);
 			}

@@ -59,7 +59,7 @@ const AdminProducts = () => {
 	const sortInfo = useSelector((state) => state.common.SortInfo);
 
 	return (
-		<div id="admin-product-page-wrapper">
+		<div id="admin-product-screen-wrapper">
 			<Header title={"Products"} />
 			<div id="admin-product-table-wrapper" className="container-fluid">
 				<Table
