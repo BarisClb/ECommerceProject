@@ -544,10 +544,34 @@ const Table = (props) => {
 							<tr key={data.id ? data.id : index}>
 								<th scope="row">{isAdmin ? data.id : index + 1}</th>
 								{/* Used Template Literals to turn Booleans into String, they are not visible otherwise */}
-								{tableData && <td>{`${data[tableData]}`}</td>}
-								{tableData2 && <td>{`${data[tableData2]}`}</td>}
-								{tableData3 && <td>{`${data[tableData3]}`}</td>}
-								{tableData4 && <td>{`${data[tableData4]}`}</td>}
+								{tableData && (
+									<td>
+										{`${data[tableData]}`.length > 50
+											? `${data[tableData]}`.substring(0, 47) + "..."
+											: `${data[tableData]}`}
+									</td>
+								)}
+								{tableData2 && (
+									<td>
+										{`${data[tableData2]}`.length > 50
+											? `${data[tableData2]}`.substring(0, 47) + "..."
+											: `${data[tableData2]}`}
+									</td>
+								)}
+								{tableData3 && (
+									<td>
+										{`${data[tableData3]}`.length > 50
+											? `${data[tableData3]}`.substring(0, 47) + "..."
+											: `${data[tableData3]}`}
+									</td>
+								)}
+								{tableData4 && (
+									<td>
+										{`${data[tableData4]}`.length > 50
+											? `${data[tableData4]}`.substring(0, 47) + "..."
+											: `${data[tableData4]}`}
+									</td>
+								)}
 								{tableButtons && (
 									<td className="table-buttons text-end">
 										{tableCreateButton && (

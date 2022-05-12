@@ -32,7 +32,9 @@ function StoreTopNavigation() {
 			<nav
 				id="store-topnav-second"
 				className={`navbar navbar-expand-lg ${
-					darkMode ? "navbar-dark bg-dark" : "navbar-secondary bg-light store-navbar-light"
+					darkMode
+						? "navbar-dark bg-dark white-link-text"
+						: "navbar-secondary bg-light store-navbar-light dark-link-text"
 				}`}
 			>
 				<a className="navbar-brand" href="/">

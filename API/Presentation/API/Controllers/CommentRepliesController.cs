@@ -42,9 +42,9 @@ namespace API.Controllers
         }
 
         [HttpGet("BySeller/{id}")]
-        public async Task<IActionResult> BySeller(int id)
+        public async Task<IActionResult> BySeller(int id, [FromQuery] ListSortWriteVm listSorting)
         {
-            return Ok(await _commentReplyService.BySeller(id));
+            return Ok(await _commentReplyService.BySeller(id, listSorting));
         }
 
         [HttpPost]

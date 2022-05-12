@@ -176,13 +176,41 @@ namespace Service.Services
             return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
         }
 
-        public async Task<BaseResponse> BySeller(int id)
+        public async Task<BaseResponse> BySeller(int id, ListSortWriteVm listSorting)
         {
             if (await _sellerReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Seller does not exist.");
 
             IList<Order> orders = _orderReadRepository.GetWhere(order => order.SellerId == id, false).ToList();
-            IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
+            // Sort => Reverse? OrderBy?
+            IList<Order> orderedOrders;
+            if (listSorting.Reverse)
+            {
+                orderedOrders = listSorting.OrderBy switch
+                {
+                    "ProductName" => orders.OrderByDescending(o => o.ProductName).ToList(),
+                    "SellerUsername" => orders.OrderByDescending(o => o.SellerUsername).ToList(),
+                    "UserUsername" => orders.OrderByDescending(o => o.UserUsername).ToList(),
+                    "OrderStatus" => orders.OrderByDescending(o => o.OrderStatus).ToList(),
+                    _ => orders.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedOrders = listSorting.OrderBy switch
+                {
+                    "ProductName" => orders.OrderBy(o => o.ProductName).ToList(),
+                    "SellerUsername" => orders.OrderBy(o => o.SellerUsername).ToList(),
+                    "UserUsername" => orders.OrderBy(o => o.UserUsername).ToList(),
+                    "OrderStatus" => orders.OrderBy(o => o.OrderStatus).ToList(),
+                    _ => orders,
+                };
+            }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = orders.Count;
+
+            IList<OrderReadVm> mappedOrders = orderedOrders.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(order => new OrderReadVm
             {
                 Id = order.Id,
                 Note = order.Note,
@@ -202,7 +230,7 @@ namespace Service.Services
                 DateUpdated = order.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
+            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Post(OrderCreateVm modelOrder)

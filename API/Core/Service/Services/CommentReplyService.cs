@@ -142,13 +142,37 @@ namespace Service.Services
             return new SuccessfulResponse<IList<CommentReplyReadVm>>(mappedCommentReplies);
         }
 
-        public async Task<BaseResponse> BySeller(int id)
+        public async Task<BaseResponse> BySeller(int id, ListSortWriteVm listSorting)
         {
             if (await _sellerReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Seller does not exist.");
 
             IList<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.SellerId == id, false).ToList();
-            IList<CommentReplyReadVm> mappedCommentReplies = commentReplies.Select(commentReply => new CommentReplyReadVm
+            // Sort => Reverse? OrderBy?
+            IList<CommentReply> orderedCommentReplies;
+            if (listSorting.Reverse)
+            {
+                orderedCommentReplies = listSorting.OrderBy switch
+                {
+                    "SellerUsername" => commentReplies.OrderByDescending(c => c.SellerUsername).ToList(),
+                    "ProductName" => commentReplies.OrderByDescending(c => c.ProductName).ToList(),
+                    _ => commentReplies.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedCommentReplies = listSorting.OrderBy switch
+                {
+                    "SellerUsername" => commentReplies.OrderBy(c => c.SellerUsername).ToList(),
+                    "ProductName" => commentReplies.OrderBy(c => c.ProductName).ToList(),
+                    _ => commentReplies,
+                };
+            }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = commentReplies.Count;
+
+            IList<CommentReplyReadVm> mappedCommentReplies = orderedCommentReplies.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(commentReply => new CommentReplyReadVm
             {
                 Id = commentReply.Id,
                 Text = commentReply.Text,
@@ -161,7 +185,7 @@ namespace Service.Services
                 DateUpdated = commentReply.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<CommentReplyReadVm>>(mappedCommentReplies);
+            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Post(CommentReplyCreateVm modelCommentReply)

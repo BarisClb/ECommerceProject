@@ -49,10 +49,10 @@ function StoreFooter() {
 							<h5 className="title"> User center </h5>
 							<ul className="list-menu border-top border-top border-top">
 								<li>
-									<a href="/"> Register </a>
+									<a href="/login"> Log in </a>
 								</li>
 								<li>
-									<a href="/"> Sign in </a>
+									<a href="/register"> Register </a>
 								</li>
 							</ul>
 						</div>

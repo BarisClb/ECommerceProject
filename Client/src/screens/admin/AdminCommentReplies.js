@@ -111,6 +111,10 @@ function AdminCommentReplies() {
 					sortInfo={sortInfo}
 					tableSortBy={true}
 					tableSortBy1={"Id"}
+					tableSortBy2={"Product"}
+					tableSortByValue2={"ProductName"}
+					tableSortBy3={"Seller"}
+					tableSortByValue3={"SellerUsername"}
 					tableSortAction={tableSortButtonClick}
 				/>
 			</div>

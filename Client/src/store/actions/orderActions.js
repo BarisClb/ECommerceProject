@@ -74,6 +74,40 @@ const getSortedOrders = (listSorting, successCallback) => {
 	};
 };
 
+// GET SORTED ORDERS BY ENTITY
+
+const getSortedOrdersByEntity = (
+	singleEntityName,
+	listSorting,
+	singleEntityId,
+	successCallback
+) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let response = await actionHelpers.getEntitiesByEntitySortedHelper(
+			"Orders",
+			singleEntityName,
+			singleEntityId,
+			listSorting
+		);
+		console.log(response);
+
+		dispatch({ type: orderTypes.GetOrders, payload: response.data });
+		if (response.sortInfo !== undefined && response.sortInfo !== null) {
+			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
+		} else {
+			dispatch({ type: commonTypes.SortInfo, payload: {} });
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
+	};
+};
+
 // ADD ORDER
 
 const createOrder = (newOrder, successCallback) => {
@@ -134,6 +168,7 @@ const deleteOrder = (orderId, successCallback) => {
 export const orderActions = {
 	getOrders,
 	getSortedOrders,
+	getSortedOrdersByEntity,
 	createOrder,
 	updateOrder,
 	deleteOrder,

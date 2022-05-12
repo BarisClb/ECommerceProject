@@ -7,11 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 import storeManager from "./store/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-//#region OldPages
-//#endregion
 //#region AdminPages
+import AdminMain from "./screens/admin/AdminMain";
+import AdminWelcome from "./components/admin/AdminWelcome";
 import AdminProfile from "./screens/admin/AdminProfile";
-import AdminLayout from "./components/layout/AdminLayout";
 import AdminCategories from "./screens/admin/AdminCategories";
 import AdminComments from "./screens/admin/AdminComments";
 import AdminCommentReplies from "./screens/admin/AdminCommentReplies";
@@ -22,27 +21,27 @@ import AdminSellers from "./screens/admin/AdminSellers";
 import AdminUsers from "./screens/admin/AdminUsers";
 //#endregion
 //#region SellerPages
-import SellerComments from "./screens/seller/SellerComments";
-import SellerOrders from "./screens/seller/SellerOrders";
-import SellerCommentReplies from "./screens/seller/SellerCommentReplies";
+import SellerMain from "./screens/seller/SellerMain";
+import SellerWelcome from "./components/seller/SellerWelcome";
 import SellerProducts from "./screens/seller/SellerProducts";
+import SellerOrders from "./screens/seller/SellerOrders";
+import SellerComments from "./screens/seller/SellerComments";
+import SellerCommentReplies from "./screens/seller/SellerCommentReplies";
 import SellerProfile from "./screens/seller/SellerProfile";
-import SellerLayout from "./components/layout/SellerLayout";
 //#endregion
 //#region StorePages
-import StoreSingleProduct from "./screens/store/StoreSingleProduct";
-import StoreProducts from "./screens/store/StoreProducts";
-import StoreLayout from "./components/layout/StoreLayout";
 import StoreMain from "./screens/store/StoreMain";
-import AdminMain from "./screens/admin/AdminMain";
+import StoreWelcomePage from "./components/store/StoreWelcomePage";
+import StoreProducts from "./screens/store/StoreProducts";
+import StoreSingleProduct from "./screens/store/StoreSingleProduct";
 import Cart from "./screens/store/Cart";
 //#endregion
+//#region CommonPages
 import LogIn from "./screens/common/LogIn";
 import Register from "./screens/common/Register";
-
 import Profile from "./screens/admin/AdminProfile";
 import HomeScreen from "./screens/common/HomeScreen";
-import AdminWelcome from "./components/admin/AdminWelcome";
+//#endregion
 
 ReactDOM.render(
 	<Provider store={storeManager.createStore()}>
@@ -71,8 +70,8 @@ ReactDOM.render(
 					</Route>
 
 					{/* STORE SIDE */}
-					<Route path="store" element={<StoreLayout />}>
-						<Route path="" element={<StoreMain />} />
+					<Route path="store" element={<StoreMain />}>
+						<Route path="" element={<StoreWelcomePage />} />
 						<Route path="category=:id" element={<StoreProducts />} />
 						<Route path="product=:id" element={<StoreSingleProduct />}>
 							<Route path="comments" element={<div>Comments</div>} />
@@ -85,11 +84,12 @@ ReactDOM.render(
 					</Route>
 
 					{/* SELLER SIDE */}
-					<Route path="seller" element={<SellerLayout />}>
+					<Route path="seller" element={<SellerMain />}>
+						<Route path="" element={<SellerWelcome />} />
 						<Route path="profile" element={<SellerProfile />} />
 						<Route path="products" element={<SellerProducts />} />
 						<Route path="orders" element={<SellerOrders />} />
-						<Route path="comments" element={<SellerComments />} />
+						{/* <Route path="comments" element={<SellerComments />} /> */}
 						<Route path="commentReplies" element={<SellerCommentReplies />} />
 					</Route>
 				</Routes>

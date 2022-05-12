@@ -26,7 +26,6 @@
 
 #store-footer li a {
 	text-decoration: none;
-	color: rgba(0, 0, 0, 0.7);
 }
 
 #store-footer h5 {
@@ -42,12 +41,13 @@
 	margin-left: 0.7rem;
 }
 
-.dark-link-text {
+.dark-link-text li a {
 	color: rgba(0, 0, 0, 0.7);
 }
 
-.white-link-text ul a {
-	color: rgba(255, 255, 255, 0.7);
+.white-link-text ul a,
+.white-link-text li a {
+	color: rgba(255, 255, 255, 0.9);
 }
 
 #store-footer .form-check {

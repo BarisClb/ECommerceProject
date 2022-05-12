@@ -92,12 +92,14 @@ function AdminOrders() {
 					sortInfo={sortInfo}
 					tableSortBy={true}
 					tableSortBy1={"Id"}
-					tableSortBy2={"User"}
-					tableSortByValue2={"UserUsername"}
+					tableSortBy2={"Product"}
+					tableSortByValue2={"ProductName"}
 					tableSortBy3={"Seller"}
 					tableSortByValue3={"SellerUsername"}
-					tableSortBy4={"OrderStatus"}
-					tableSortByValue4={"OrderStatus"}
+					tableSortBy4={"User"}
+					tableSortByValue4={"UserUsername"}
+					tableSortBy5={"OrderStatus"}
+					tableSortByValue5={"OrderStatus"}
 					tableSortAction={tableSortButtonClick}
 				/>
 			</div>

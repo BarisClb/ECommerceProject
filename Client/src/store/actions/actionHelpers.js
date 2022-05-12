@@ -99,12 +99,70 @@ const getSortedHelper = async (entityName, listSorting) => {
 
 // GET *ENTITIES* BY *ENTITY*
 
-const getByEntityHelper = async (manyEntityName, singleEntityName, singleEntityId) => {
+const getEntitiesByEntityHelper = async (manyEntityName, singleEntityName, singleEntityId) => {
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
 		case "Local":
 			url = `${apiUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			break;
+
+		default:
+			break;
+	}
+
+	try {
+		let response = await fetch(url);
+		let responseJson = await response.json();
+		if (responseJson.success) {
+			return responseJson;
+		} else {
+			return { success: false, data: [] };
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// GET *ENTITIES* BY *ENTITY* SORTED
+
+const getEntitiesByEntitySortedHelper = async (
+	manyEntityName,
+	singleEntityName,
+	singleEntityId,
+	listSorting
+) => {
+	// Added env variables here to easily change API
+	let url = "";
+	switch (database) {
+		case "Local":
+			url = `${apiUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
+			// I am also giving it a default 'false' value so I don't get an error.
+			url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
+			// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
+			if (listSorting) {
+				// SearchWord
+				if (
+					listSorting.pageNumber !== undefined &&
+					listSorting.searchWord !== null &&
+					listSorting.searchWord.trim() !== ""
+				) {
+					url += `&SearchWord=${listSorting.searchWord.trim()}`;
+				}
+				// PageNumber
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageNumber=${listSorting.pageNumber}`;
+				}
+				// PageSize
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageSize=${listSorting.pageSize}`;
+				}
+				// OrderBy
+				if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
+					url += `&OrderBy=${listSorting.orderBy}`;
+				}
+			}
 			break;
 
 		default:
@@ -212,7 +270,8 @@ const deleteHelper = async (entityName, entityId) => {
 export const actionHelpers = {
 	getHelper,
 	getSortedHelper,
-	getByEntityHelper,
+	getEntitiesByEntityHelper,
+	getEntitiesByEntitySortedHelper,
 	createHelper,
 	updateHelper,
 	deleteHelper,

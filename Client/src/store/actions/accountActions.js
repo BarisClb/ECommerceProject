@@ -90,6 +90,12 @@ const accountVerify = (accountType) => {
 				} else if (accountType === "Seller") {
 					dispatch({ type: accountTypes.SellerVerify, payload: responseJson.data });
 				}
+			} else {
+				if (accountType === "User") {
+					dispatch({ type: accountTypes.UserLogIn, payload: {} });
+				} else if (accountType === "Seller") {
+					dispatch({ type: accountTypes.SellerLogIn, payload: {} });
+				}
 			}
 		} catch (error) {
 			console.log(error);

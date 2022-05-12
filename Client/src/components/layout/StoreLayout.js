@@ -23,7 +23,6 @@ const StoreLayout = ({ children }) => {
 				className={darkMode ? "store-content-wrapper-dark" : "store-content-wrapper-light"}
 			>
 				{children}
-				<Outlet />
 			</div>
 			<StoreFooter />
 		</>

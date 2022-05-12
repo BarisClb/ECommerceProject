@@ -10,11 +10,12 @@
 	height: calc(100vh - 56px);
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 100px;
 }
 
 #main-homescreen-wrapper > h1 {
 	font-size: 7rem;
-	margin-bottom: 100px;
 }

@@ -156,13 +156,47 @@ namespace Service.Services
             return new SuccessfulResponse<IList<ProductReadVm>>(mappedProducts);
         }
 
-        public async Task<BaseResponse> BySeller(int id)
+        public async Task<BaseResponse> BySeller(int id, ListSortWriteVm listSorting)
         {
             if (await _sellerReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Seller does not exist.");
 
             IList<Product> products = _productReadRepository.GetWhere(product => product.SellerId == id, false).ToList();
-            IList<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
+            if (!string.IsNullOrWhiteSpace(listSorting.SearchWord))
+            {
+                products = products.Where(p => p.Name.Contains(listSorting.SearchWord)).ToList();
+            }
+            // Sort => Reverse? OrderBy?
+            IList<Product> orderedProducts;
+            if (listSorting.Reverse)
+            {
+                orderedProducts = listSorting.OrderBy switch
+                {
+                    "Name" => products.OrderByDescending(p => p.Name).ToList(),
+                    "Price" => products.OrderByDescending(p => p.Price).ToList(),
+                    "CategoryName" => products.OrderByDescending(p => p.CategoryName).ToList(),
+                    "SellerUsername" => products.OrderByDescending(p => p.SellerUsername).ToList(),
+                    // "LikesCount" => products.OrderByDescending(p => p.Likes.Count).ToList(),
+                    _ => products.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedProducts = listSorting.OrderBy switch
+                {
+                    "Name" => products.OrderBy(p => p.Name).ToList(),
+                    "Price" => products.OrderBy(p => p.Price).ToList(),
+                    "CategoryName" => products.OrderBy(p => p.CategoryName).ToList(),
+                    "SellerUsername" => products.OrderBy(p => p.SellerUsername).ToList(),
+                    // "LikesCount" => products.OrderBy(p => p.Likes.Count).ToList(),
+                    _ => products,
+                };
+            }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = products.Count;
+
+            IList<ProductReadVm> mappedProducts = orderedProducts.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(product => new ProductReadVm
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -177,7 +211,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<ProductReadVm>>(mappedProducts);
+            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> GetProductPage(int id)

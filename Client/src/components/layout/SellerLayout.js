@@ -18,10 +18,7 @@ const SellerLayout = ({ children }) => {
 			<SellerTopNavigation />
 			<SellerSideNavigation />
 			{common.IsLoading && <Loading />}
-			<div id="seller-content-wrapper">
-				{children}
-				<Outlet />
-			</div>
+			<div id="seller-content-wrapper">{children}</div>
 		</>
 	);
 };

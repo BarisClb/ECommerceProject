@@ -63,7 +63,7 @@ namespace Service.Services
 
                 string jwt = JwtSecurity.GenerateJwt(user.Id);
 
-                return new BaseResponseWithJwt(new SuccessfulResponse<AccountAuthReadVm>("LogIn successful.", new AccountAuthReadVm(accountAuthInfo.AccountType, user.Name, user.Username, user.EMail, roles)), jwt);
+                return new BaseResponseWithJwt(new SuccessfulResponse<AccountAuthReadVm>("LogIn successful.", new AccountAuthReadVm(accountAuthInfo.AccountType, user.Id, user.Name, user.Username, user.EMail, roles)), jwt);
             }
             else if (accountAuthInfo.AccountType == "Seller")
             {
@@ -95,7 +95,7 @@ namespace Service.Services
 
                 string jwt = JwtSecurity.GenerateJwt(seller.Id);
 
-                return new BaseResponseWithJwt(new SuccessfulResponse<AccountAuthReadVm>("LogIn successful.", new AccountAuthReadVm(accountAuthInfo.AccountType, seller.Name, seller.Username, seller.EMail, roles)), jwt);
+                return new BaseResponseWithJwt(new SuccessfulResponse<AccountAuthReadVm>("LogIn successful.", new AccountAuthReadVm(accountAuthInfo.AccountType, seller.Id, seller.Name, seller.Username, seller.EMail, roles)), jwt);
             }
 
             return new BaseResponseWithJwt(new FailResponse("Invalid Account Type."), null);
@@ -115,24 +115,24 @@ namespace Service.Services
                 User user = await _userReadRepository.GetByIdAsync(accountId, false);
                 if (user == null)
                     return new FailResponse("User does not exist.");
-                
+
                 List<string> roles = new();
                 roles.Add("User");
                 if (user.Admin)
                     roles.Add("Admin");
 
-                return new SuccessfulResponse<AccountAuthReadVm>("Verification successful.", new AccountAuthReadVm(accountType, user.Name, user.Username, user.EMail, roles));
+                return new SuccessfulResponse<AccountAuthReadVm>("Verification successful.", new AccountAuthReadVm(accountType, user.Id, user.Name, user.Username, user.EMail, roles));
             }
             else if (accountType == "Seller")
             {
                 Seller seller = await _sellerReadRepository.GetByIdAsync(accountId, false);
                 if (seller == null)
                     return new FailResponse("Seller does not exist.");
-                
+
                 List<string> roles = new();
                 roles.Add("Seller");
 
-                return new SuccessfulResponse<AccountAuthReadVm>("Verification successful.", new AccountAuthReadVm(accountType, seller.Name, seller.Username, seller.EMail, roles));
+                return new SuccessfulResponse<AccountAuthReadVm>("Verification successful.", new AccountAuthReadVm(accountType, seller.Id, seller.Name, seller.Username, seller.EMail, roles));
             }
 
             return new FailResponse("Jwt verification failed.");

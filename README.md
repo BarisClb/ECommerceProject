@@ -6,7 +6,7 @@
   
    ~ Onion Architecture  
    ~ OOP  
-   ~ C# for Backend, API with ASP.Net 6  
+   ~ C# for Backend, API with ASP.Net Core 6  
    ~ Entity Framework Core for ORM with Code First approach (Microsoft.EntityFrameworkCore)  
    ~ MsSql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
    ~ Dependency Injection (Microsoft.Extensions.DependencyInjection)  

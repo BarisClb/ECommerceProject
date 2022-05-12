@@ -1,11 +1,12 @@
 import React from "react";
 import "./css/index.css";
 import "../css/index.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { accountActions } from "../../../store/actions/accountActions";
 
 const SellerSideNavigation = () => {
 	const dispatch = useDispatch();
+	const seller = useSelector((state) => state.account.seller);
 
 	const logOut = () => {
 		dispatch(accountActions.accountLogOut("Seller"));
@@ -49,7 +50,7 @@ const SellerSideNavigation = () => {
 						</div>
 					</a>
 				</li>
-				<li className="nav-item">
+				{/* <li className="nav-item">
 					<a href="/seller/comments" className="nav-link text-white">
 						<div className="seller-sidenav-items">
 							<div>
@@ -60,7 +61,7 @@ const SellerSideNavigation = () => {
 							</div>
 						</div>
 					</a>
-				</li>
+				</li> */}
 				<li className="nav-item">
 					<a href="/seller/commentreplies" className="nav-link text-white">
 						<div className="seller-sidenav-items">
@@ -83,25 +84,37 @@ const SellerSideNavigation = () => {
 					data-bs-toggle="dropdown"
 				>
 					<i className="bi bi-person-circle" />
-					<strong className="seller-sidenav-text">Seller Name</strong>
+					<strong className="seller-sidenav-text">
+						{seller && seller.name ? seller.name : "Stranger"}
+					</strong>
 				</a>
 				<ul
 					className="dropdown-menu dropdown-menu-dark text-small shadow"
 					aria-labelledby="dropdownUser1"
 				>
-					<li>
-						<a className="dropdown-item" href="/seller/profile">
-							Profile
-						</a>
-					</li>
-					<li>
-						<hr className="dropdown-divider" />
-					</li>
-					<li onClick={logOut}>
-						<div id="seller-sidenav-logout-item" className="dropdown-item">
-							Log Out
-						</div>
-					</li>
+					{seller && seller.name ? (
+						<>
+							<li>
+								<a className="dropdown-item" href="/seller/profile">
+									Profile
+								</a>
+							</li>
+							<li>
+								<hr className="dropdown-divider" />
+							</li>
+							<li onClick={logOut}>
+								<div id="seller-sidenav-logout-item" className="dropdown-item">
+									Log Out
+								</div>
+							</li>
+						</>
+					) : (
+						<li>
+							<a className="dropdown-item" href="/login">
+								Log In
+							</a>
+						</li>
+					)}
 				</ul>
 			</div>
 		</div>

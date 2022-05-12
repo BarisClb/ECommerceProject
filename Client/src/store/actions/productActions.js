@@ -70,9 +70,9 @@ const getSortedProducts = (listSorting, successCallback) => {
 	};
 };
 
-// GET PRODUCTS BY CATEGORY
+// GET PRODUCTS BY ENTITY
 
-const getProductsByCategory = (categoryId, successCallback) => {
+const getProductsByEntity = (singleEntityName, categoryId, successCallback) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
@@ -89,22 +89,37 @@ const getProductsByCategory = (categoryId, successCallback) => {
 	};
 };
 
-// GET PRODUCTS BY SELLER
+// GET SORTED PRODUCTS BY ENTITY
 
-const getProductsBySeller = (sellerId, successCallback) => {
+const getSortedProductsByEntity = (
+	singleEntityName,
+	listSorting,
+	singleEntityId,
+	successCallback
+) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
-
-		let response = await actionHelpers.getByEntityHelper("Products", "Seller", sellerId);
+		console.log("first");
+		let response = await actionHelpers.getEntitiesByEntitySortedHelper(
+			"Products",
+			singleEntityName,
+			singleEntityId,
+			listSorting
+		);
 		console.log(response);
 
 		dispatch({ type: productTypes.GetProducts, payload: response.data });
+		if (response.sortInfo !== undefined && response.sortInfo !== null) {
+			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
+		} else {
+			dispatch({ type: commonTypes.SortInfo, payload: {} });
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
 
 		if (successCallback) {
 			dispatch(successCallback);
 		}
-
-		dispatch({ type: commonTypes.AsyncEnd });
 	};
 };
 
@@ -168,8 +183,8 @@ const deleteProduct = (productId, successCallback) => {
 export const productActions = {
 	getProducts,
 	getSortedProducts,
-	getProductsByCategory,
-	getProductsBySeller,
+	getProductsByEntity,
+	getSortedProductsByEntity,
 	createProduct,
 	updateProduct,
 	deleteProduct,

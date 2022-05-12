@@ -67,6 +67,40 @@ const getSortedComments = (listSorting, successCallback) => {
 	};
 };
 
+// GET SORTED COMMENTS BY ENTITY
+
+const getSortedCommentsByEntity = (
+	singleEntityName,
+	listSorting,
+	singleEntityId,
+	successCallback
+) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let response = await actionHelpers.getEntitiesByEntitySortedHelper(
+			"Comments",
+			singleEntityName,
+			singleEntityId,
+			listSorting
+		);
+		console.log(response);
+
+		dispatch({ type: commentTypes.GetComments, payload: response.data });
+		if (response.sortInfo !== undefined && response.sortInfo !== null) {
+			dispatch({ type: commonTypes.SortInfo, payload: response.sortInfo });
+		} else {
+			dispatch({ type: commonTypes.SortInfo, payload: {} });
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
+	};
+};
+
 // ADD COMMENT
 
 const createComment = (newComment, successCallback) => {
@@ -127,6 +161,7 @@ const deleteComment = (commentId, successCallback) => {
 export const commentActions = {
 	getComments,
 	getSortedComments,
+	getSortedCommentsByEntity,
 	createComment,
 	updateComment,
 	deleteComment,

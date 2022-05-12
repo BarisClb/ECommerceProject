@@ -2,25 +2,50 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Table from "../../components/table/Table";
-import { productActions } from "../../store/actions/productActions";
+import { orderActions } from "../../store/actions/orderActions";
 import Header from "../../components/header/Header";
 
 function SellerOrders() {
-	// Data
-	const orders = useSelector((state) => state.product.orders);
-
-	// Params
-	const { id } = useParams();
-	// Actions
 	const dispatch = useDispatch();
+
+	const seller = useSelector((state) => state.account.seller);
+
+	// Table Data
+	const orders = useSelector((state) => state.order.orders);
 	useEffect(() => {
-		if (typeof id == "number") {
-			dispatch(productActions.getOrdersBySeller(id));
-		}
+		dispatch(orderActions.getSortedOrdersByEntity("Seller", listSorting, seller.id));
 	}, []);
 
+	// Table Side Button Actions
+	const tableDeleteButtonClick = (oldOrder) => {
+		dispatch(
+			orderActions.deleteOrder(
+				oldOrder.id,
+				orderActions.getSortedOrdersByEntity("Seller", sortInfo, seller.id)
+			)
+		);
+	};
+
+	// Table Sort Button Action
+	const tableSortButtonClick = (listSortingValues) => {
+		if (seller && seller.id) {
+			listSorting = { ...listSorting, ...listSortingValues };
+			dispatch(orderActions.getSortedOrdersByEntity("Seller", listSorting, seller.id));
+		}
+	};
+	// Default Sort Values
+	let listSorting = {
+		reversed: false,
+		searchWord: "",
+		pageNumber: 1,
+		pageSize: 20,
+		orderBy: "Id",
+	};
+	// Sort Data from API
+	const sortInfo = useSelector((state) => state.common.SortInfo);
+
 	return (
-		<div className="">
+		<div className="seller-order-screen-wrapper">
 			<Header title={"Orders"} />
 			<div className="container-fluid">
 				<Table
@@ -28,37 +53,44 @@ function SellerOrders() {
 					apiData={orders}
 					// Table Content
 					// Table Headings
-					tableHead={"Product"}
-					tableHead2={"User"}
-					tableHead3={false}
-					tableHead4={false}
+					tableHead={"User"}
+					tableHead2={"Product"}
+					tableHead3={"Seller"}
+					tableHead4={"Status"}
 					buttonHeadName={"Operations"}
 					// Table Datas
-					tableData={"product"}
-					tableData2={"user"}
-					tableData3={false}
-					tableData4={false}
+					tableData={"userUsername"}
+					tableData2={"productName"}
+					tableData3={"sellerUsername"}
+					tableData4={"orderStatus"}
 					// Table Buttons
 					tableButtons={true}
-					tableAddButton={true}
+					tableAddButton={false}
 					tableUpdateButton={false}
-					tableDeleteButton={false}
-					// Table Button Actions
-					tableAddButtonClick={false}
-					tableUpdateButtonClick={false}
-					tableDeleteButtonClick={false}
+					tableDeleteButton={true}
+					// Table Button Clicks
+					tableDeleteButtonClick={tableDeleteButtonClick}
 					// Nav
 					isNav={"Order"}
-					navCreateButton={true}
-					navUpdateButton={true}
-					navDeleteButton={true}
+					navCreateButton={false}
+					navUpdateButton={false}
+					navDeleteButton={false}
 					// Nav Action
 					navCreateButtonClick={false}
 					navUpdateButtonClick={false}
 					navDeleteButtonClick={false}
-					// Special
-					isCart={false}
+					// Nav Search
+					navSearch={false}
 					instaSearch={false}
+					// Nav SortBy
+					sortInfo={sortInfo}
+					tableSortBy={true}
+					tableSortBy1={"Date"}
+					tableSortBy2={"User"}
+					tableSortByValue2={"UserUsername"}
+					tableSortBy3={"OrderStatus"}
+					tableSortByValue3={"OrderStatus"}
+					tableSortAction={tableSortButtonClick}
 				/>
 			</div>
 		</div>
