@@ -14,20 +14,19 @@
    ~ Dtos for Requests and Responses  
    ~ Custom Responses   
    ~ Password Hashing (BCrypt.Net-Next)  
-   ~ JWT (System.IdentityModel.Tokens.Jwt)  
+   ~ Jwt (System.IdentityModel.Tokens.Jwt)  
    ~ JS for Frontend, Client with React Library  
    ~ Redux for State Management (with Redux-Thunk and Redux-Persist)  
    ~ Bootstrap Css Framework
   
-   Future Plans (For this and future Projects):  
+   Future Plans (For this or future Projects):  
   
-   1-) JWT / Authorization / Authentication  
-   2-) Unique URLs  
-   3-) EMail Notification for Orders (It might be implemented but it will probably be disabled.)  
-   4-) Account Personal MailBox  
-   5-) Mails between Accounts  
-   6-) Notifications for Personal EMail and in Account MailBox (Replies to Comments, Comments to Products, Order Status Update...)  
-   7-) DDD with CQRS (with MediatR and AutoMapper) => I will probably implement this on the next project.  
+   1-) Unique URLs  
+   2-) EMail Notification for Orders (It might be implemented but it will probably be disabled.)  
+   3-) Account Personal MailBox  
+   4-) Mails between Accounts  
+   5-) Notifications for Personal EMail and in Account MailBox (Replies to Comments, Comments to Products, Order Status Update...)  
+   6-) DDD with CQRS (with MediatR and AutoMapper) => I will probably implement this on the next project.  
   
    Need To Think:  
   
@@ -48,6 +47,7 @@
    ~ Sort By (Name, Price, DateCreated/Id (+Reversed)).  
    ~ Light / Dark mode for Store Front.  
    ~ Password Hashing  
+   ~ Jwt / Authorization / Authentication  
   
    Database Relations (Root of the Arrow represents 'One' and Tip represents 'Many'):  
   

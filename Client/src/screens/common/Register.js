@@ -67,7 +67,7 @@ function Register() {
 
 	return (
 		<MainLayout>
-			<div id="login-form-wrapper">
+			<div id="register-form-wrapper">
 				{userLoggedIn || sellerLoggedIn ? (
 					<AuthNavigation user={user} seller={seller} logOut={logOut} />
 				) : (

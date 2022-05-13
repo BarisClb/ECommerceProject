@@ -26,6 +26,7 @@ const getHelper = async (entityName, entityId) => {
 		if (responseJson.success) {
 			return responseJson;
 		} else {
+			window.alert(responseJson.message);
 			return entityId ? { success: false, data: {} } : { success: false, data: [] };
 		}
 	} catch (error) {
@@ -89,6 +90,7 @@ const getSortedHelper = async (entityName, listSorting) => {
 		if (responseJson.success) {
 			return responseJson;
 		} else {
+			window.alert(responseJson.message);
 			return { success: false, data: [] };
 		}
 	} catch (error) {
@@ -117,6 +119,7 @@ const getEntitiesByEntityHelper = async (manyEntityName, singleEntityName, singl
 		if (responseJson.success) {
 			return responseJson;
 		} else {
+			window.alert(responseJson.message);
 			return { success: false, data: [] };
 		}
 	} catch (error) {
@@ -175,6 +178,7 @@ const getEntitiesByEntitySortedHelper = async (
 		if (responseJson.success) {
 			return responseJson;
 		} else {
+			window.alert(responseJson.message);
 			return { success: false, data: [] };
 		}
 	} catch (error) {
@@ -206,7 +210,12 @@ const createHelper = async (entityName, newEntity) => {
 				...newEntity,
 			}),
 		});
-		return await response.json();
+		let responseJson = await response.json();
+		if (responseJson.success) {
+			return responseJson;
+		} else {
+			window.alert(responseJson.message);
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -237,7 +246,12 @@ const updateHelper = async (entityName, entityId, updatedEntity) => {
 				...updatedEntity,
 			}),
 		});
-		return await response.json();
+		let responseJson = await response.json();
+		if (responseJson.success) {
+			return responseJson;
+		} else {
+			window.alert(responseJson.message);
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -261,7 +275,12 @@ const deleteHelper = async (entityName, entityId) => {
 		let response = await fetch(url, {
 			method: "DELETE",
 		});
-		return await response.json();
+		let responseJson = await response.json();
+		if (responseJson.success) {
+			return responseJson;
+		} else {
+			window.alert(responseJson.message);
+		}
 	} catch (error) {
 		console.log(error);
 	}

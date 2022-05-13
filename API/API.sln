@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Presentation\API\API.csproj", "{C7AE85B5-862C-4F6E-B59C-9DC17738D9E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Core\Service\Service.csproj", "{CBF68590-ECEF-4F49-934A-EB949D139A57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Core\Service\Service.csproj", "{CBF68590-ECEF-4F49-934A-EB949D139A57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

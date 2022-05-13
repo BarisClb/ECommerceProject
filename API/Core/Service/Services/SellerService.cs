@@ -109,6 +109,16 @@ namespace Service.Services
 
         public async Task<BaseResponse> Post(SellerCreateVm modelSeller)
         {
+            // Checking if the Information is Empty
+            if (String.IsNullOrWhiteSpace(modelSeller.Name))
+                return new FailResponse("Invalid Name.");
+            if (String.IsNullOrWhiteSpace(modelSeller.Username))
+                return new FailResponse("Invalid Username.");
+            if (String.IsNullOrWhiteSpace(modelSeller.EMail))
+                return new FailResponse("Invalid EMail.");
+            if (String.IsNullOrWhiteSpace(modelSeller.Password))
+                return new FailResponse("Invalid Password.");
+
             // Checking if Username and Email are Unique for both Seller and User
             if (await _sellerReadRepository.GetSingleAsync(seller => seller.Username == modelSeller.Username) != null)
                 return new FailResponse("Username already exists.");
@@ -121,7 +131,7 @@ namespace Service.Services
 
             // EMail Validation with Regex
             if (!AccountValidator.CheckEMail(modelSeller.EMail))
-                return new FailResponse("Invalid EMail.");
+                return new FailResponse("Invalid EMail format.");
 
             await _sellerWriteRepository.AddAsync(new()
             {
@@ -137,6 +147,16 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(SellerUpdateVm modelSeller)
         {
+            // Checking if the Information is Empty
+            if (modelSeller.Name != null && modelSeller.Name == "")
+                return new FailResponse("Invalid Name.");
+            if (modelSeller.Username != null && modelSeller.Username == "")
+                return new FailResponse("Invalid Username.");
+            if (modelSeller.EMail != null && modelSeller.EMail == "")
+                return new FailResponse("Invalid EMail.");
+            if (modelSeller.Password != null && modelSeller.Password == "")
+                return new FailResponse("Invalid Password.");
+
             Seller seller = await _sellerReadRepository.GetByIdAsync(modelSeller.Id);
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
@@ -155,7 +175,7 @@ namespace Service.Services
                 if (await _sellerReadRepository.GetSingleAsync(seller => seller.EMail == modelSeller.EMail) != null)
                     return new FailResponse("EMail already exists.");
                 if (!AccountValidator.CheckEMail(modelSeller.EMail))
-                    return new FailResponse("Invalid EMail.");
+                    return new FailResponse("Invalid EMail format.");
 
                 seller.EMail = modelSeller.EMail;
             }

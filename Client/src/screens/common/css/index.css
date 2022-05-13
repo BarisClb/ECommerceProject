@@ -1,4 +1,5 @@
-#login-form-wrapper {
+#login-form-wrapper,
+#register-form-wrapper {
 	height: calc(100vh - (56px));
 	padding-bottom: 56px;
 	display: flex;

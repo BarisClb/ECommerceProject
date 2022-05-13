@@ -120,6 +120,16 @@ namespace Service.Services
 
         public async Task<BaseResponse> Post(UserCreateVm modelUser)
         {
+            // Checking if the Information is Empty
+            if (String.IsNullOrWhiteSpace(modelUser.Name))
+                return new FailResponse("Invalid Name.");
+            if (String.IsNullOrWhiteSpace(modelUser.Username))
+                return new FailResponse("Invalid Username.");
+            if (String.IsNullOrWhiteSpace(modelUser.EMail))
+                return new FailResponse("Invalid EMail.");
+            if (String.IsNullOrWhiteSpace(modelUser.Password))
+                return new FailResponse("Invalid Password.");
+
             // Checking if Username and Email are Unique for both User and Seller
             if (await _userReadRepository.GetSingleAsync(user => user.Username == modelUser.Username) != null)
                 return new FailResponse("Username already exists.");
@@ -132,7 +142,7 @@ namespace Service.Services
 
             // EMail Validation with Regex
             if (!AccountValidator.CheckEMail(modelUser.EMail))
-                return new FailResponse("Invalid EMail.");
+                return new FailResponse("Invalid EMail format.");
 
             // Admin Validation with Custom Admin Password
             bool admin = false;
@@ -156,6 +166,16 @@ namespace Service.Services
 
         public async Task<BaseResponse> Put(UserUpdateVm modelUser)
         {
+            // Checking if the Information is Empty
+            if (modelUser.Name != null && modelUser.Name == "")
+                return new FailResponse("Invalid Name.");
+            if (modelUser.Username != null && modelUser.Username == "")
+                return new FailResponse("Invalid Username.");
+            if (modelUser.EMail != null && modelUser.EMail == "")
+                return new FailResponse("Invalid EMail.");
+            if (modelUser.Password != null && modelUser.Password == "")
+                return new FailResponse("Invalid Password.");
+
             User user = await _userReadRepository.GetByIdAsync(modelUser.Id);
             if (user == null)
                 return new FailResponse("User does not exist.");
@@ -174,7 +194,7 @@ namespace Service.Services
                 if (await _userReadRepository.GetSingleAsync(user => user.EMail == modelUser.EMail) != null)
                     return new FailResponse("EMail already exists.");
                 if (!AccountValidator.CheckEMail(modelUser.EMail))
-                    return new FailResponse("Invalid EMail.");
+                    return new FailResponse("Invalid EMail format.");
 
                 user.EMail = modelUser.EMail;
             }

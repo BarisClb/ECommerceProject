@@ -20,6 +20,12 @@ function LogInForm() {
 	return (
 		<div id="login-form">
 			<form>
+				{/* Register */}
+				<div className="form-outline mb-1">
+					<a className="main-authpage-auth-link nav-link" href="/register">
+						Don't have an Account? Register here.
+					</a>
+				</div>
 				{/* ACCOUNT TYPE */}
 				<div className="form-outline mb-4">
 					<label htmlFor="login-form-accountType-select">Account Type</label>
