@@ -24,6 +24,7 @@ import { actionHelpers } from "./actionHelpers";
 
 // GET PRODUCTS
 // No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
+// But still can be used for getSingleUser
 
 const getProducts = (productId, successCallback) => {
 	return async (dispatch) => {

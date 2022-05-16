@@ -18,6 +18,7 @@ import { actionHelpers } from "./actionHelpers";
 
 // GET COMMENTREPLIES
 // No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
+// But still can be used for getSingleUser
 
 const getCommentReplies = (commentReplyId, successCallback) => {
 	return async (dispatch) => {

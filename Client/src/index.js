@@ -39,8 +39,9 @@ import Cart from "./screens/store/Cart";
 //#region CommonPages
 import LogIn from "./screens/common/LogIn";
 import Register from "./screens/common/Register";
-import Profile from "./screens/admin/AdminProfile";
+import ProfilePage from "./components/common/ProfilePage";
 import HomeScreen from "./screens/common/HomeScreen";
+import StoreProfile from "./screens/store/StoreProfile";
 //#endregion
 
 ReactDOM.render(
@@ -53,6 +54,7 @@ ReactDOM.render(
 					{/* LOGIN / REGISTER */}
 					<Route path="login" element={<LogIn />} />
 					<Route path="register" element={<Register />} />
+					<Route path="profile" element={<ProfilePage />} />
 
 					{/* ADMIN SIDE */}
 
@@ -76,9 +78,9 @@ ReactDOM.render(
 						<Route path="product=:id" element={<StoreSingleProduct />}>
 							<Route path="comments" element={<div>Comments</div>} />
 						</Route>
-						<Route path="profile" element={<Profile />}>
-							<Route path="orders" element={<Profile />} />
-							<Route path="comments" element={<Profile />} />
+						<Route path="profile/:id" element={<StoreProfile />}>
+							<Route path="orders" element={<StoreProfile />} />
+							<Route path="comments" element={<StoreProfile />} />
 						</Route>
 						<Route path="cart" element={<Cart />} />
 					</Route>

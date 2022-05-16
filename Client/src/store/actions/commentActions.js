@@ -21,6 +21,7 @@ import { actionHelpers } from "./actionHelpers";
 
 // GET COMMENTS
 // No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
+// But still can be used for getSingleUser
 
 const getComments = (commentId, successCallback) => {
 	return async (dispatch) => {

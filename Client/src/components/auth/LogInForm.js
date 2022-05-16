@@ -11,7 +11,8 @@ function LogInForm() {
 	const [accountPassword, setAccountPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 
-	const logIn = () => {
+	const logIn = (e) => {
+		e.preventDefault();
 		let user = { accountType: accountType, account: accountName, password: accountPassword };
 
 		dispatch(accountActions.accountLogIn(accountType, user));
@@ -95,7 +96,7 @@ function LogInForm() {
 				<button
 					type="button"
 					className="btn btn-primary btn-block mb-4"
-					onClick={() => logIn()}
+					onClick={(e) => logIn(e)}
 				>
 					Log in
 				</button>

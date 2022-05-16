@@ -41,6 +41,7 @@ const accountLogIn = (accountType, accountInfo) => {
 					dispatch({ type: accountTypes.SellerLogIn, payload: responseJson.data });
 				}
 			} else {
+				window.alert(responseJson.message);
 				if (accountType === "User") {
 					dispatch({ type: accountTypes.UserLogIn, payload: {} });
 				} else if (accountType === "Seller") {
@@ -91,6 +92,7 @@ const accountVerify = (accountType) => {
 					dispatch({ type: accountTypes.SellerVerify, payload: responseJson.data });
 				}
 			} else {
+				window.alert(responseJson.message);
 				if (accountType === "User") {
 					dispatch({ type: accountTypes.UserLogIn, payload: {} });
 				} else if (accountType === "Seller") {

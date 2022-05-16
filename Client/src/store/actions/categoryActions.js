@@ -17,6 +17,7 @@ import { actionHelpers } from "./actionHelpers";
 
 // GET CATEGORIES
 // No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
+// But still can be used for getSingleUser
 
 const getCategories = (categoryId, successCallback) => {
 	return async (dispatch) => {

@@ -3,6 +3,7 @@ const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
 
 // GET
 // No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
+// But still can be used for getSingleUser
 
 const getHelper = async (entityName, entityId) => {
 	// Added env variables here to easily change API

@@ -1,24 +1,24 @@
 #seller-sidenav {
 	padding: 0.8rem 0.6rem !important;
+	position: fixed;
+	width: 250px;
+	height: calc(100vh);
+	overflow: hidden;
+	transition: all 0.5s ease;
+	padding-left: 10 !important;
+	padding-right: 10 !important;
+	padding-top: 50px !important;
+	top: 0;
 }
 
 #seller-topnav a {
 	font-size: 1rem;
+	z-index: 1;
 }
 
 .seller-sidebar {
 	position: relative;
 	margin-right: 250px;
-}
-
-#seller-sidenav {
-	position: absolute;
-	width: 250px;
-	height: calc(100vh - (50px));
-	overflow: hidden;
-	transition: all 0.5s ease;
-	padding-left: 10 !important;
-	padding-right: 10 !important;
 }
 
 .seller-sidenav-items {
