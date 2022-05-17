@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { accountActions } from "../../store/actions/accountActions";
 import "./css/index.css";
+import { toast } from "react-toastify";
 
 function LogInForm() {
 	const dispatch = useDispatch();
@@ -87,7 +88,7 @@ function LogInForm() {
 					</div>
 					<div className="col">
 						{/* Simple link */}
-						<div className="forgot-password-link" onClick={() => window.alert("Try 123")}>
+						<div className="forgot-password-link" onClick={() => toast("Try 123")}>
 							Forgot password?
 						</div>
 					</div>

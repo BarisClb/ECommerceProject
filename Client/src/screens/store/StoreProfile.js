@@ -25,7 +25,7 @@ function StoreProfile() {
 	return (
 		<>
 			{commonActions.objectIsNullOrUndefined(user) || commonActions.objectIsEmpty(user) ? (
-				<NotFound />
+				<NotFound page={"Profile"} />
 			) : (
 				<ProfilePage
 					account={user}

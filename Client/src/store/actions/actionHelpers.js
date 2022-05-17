@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 const database = process.env.REACT_APP_DATABASE;
 const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
 
@@ -27,7 +29,7 @@ const getHelper = async (entityName, entityId) => {
 		if (responseJson.success) {
 			return responseJson;
 		} else {
-			window.alert(responseJson.message);
+			toast.warning(responseJson.message);
 			return entityId ? { success: false, data: {} } : { success: false, data: [] };
 		}
 	} catch (error) {
@@ -91,7 +93,7 @@ const getSortedHelper = async (entityName, listSorting) => {
 		if (responseJson.success) {
 			return responseJson;
 		} else {
-			window.alert(responseJson.message);
+			toast.warning(responseJson.message);
 			return { success: false, data: [] };
 		}
 	} catch (error) {
@@ -120,7 +122,7 @@ const getEntitiesByEntityHelper = async (manyEntityName, singleEntityName, singl
 		if (responseJson.success) {
 			return responseJson;
 		} else {
-			window.alert(responseJson.message);
+			toast.warning(responseJson.message);
 			return { success: false, data: [] };
 		}
 	} catch (error) {
@@ -179,7 +181,7 @@ const getEntitiesByEntitySortedHelper = async (
 		if (responseJson.success) {
 			return responseJson;
 		} else {
-			window.alert(responseJson.message);
+			toast.warning(responseJson.message);
 			return { success: false, data: [] };
 		}
 	} catch (error) {
@@ -215,7 +217,7 @@ const createHelper = async (entityName, newEntity) => {
 		if (responseJson.success) {
 			return responseJson;
 		} else {
-			window.alert(responseJson.message);
+			toast.warning(responseJson.message);
 		}
 	} catch (error) {
 		console.log(error);
@@ -251,7 +253,7 @@ const updateHelper = async (entityName, entityId, updatedEntity) => {
 		if (responseJson.success) {
 			return responseJson;
 		} else {
-			window.alert(responseJson.message);
+			toast.warning(responseJson.message);
 		}
 	} catch (error) {
 		console.log(error);
@@ -280,7 +282,7 @@ const deleteHelper = async (entityName, entityId) => {
 		if (responseJson.success) {
 			return responseJson;
 		} else {
-			window.alert(responseJson.message);
+			toast.warning(responseJson.message);
 		}
 	} catch (error) {
 		console.log(error);

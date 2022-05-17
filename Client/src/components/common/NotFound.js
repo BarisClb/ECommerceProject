@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import MainNavigation from "../navigation/MainNavigation";
 
-function NotFound() {
-	return <div>The Page you are looking for does not exist.</div>;
+function NotFound(params) {
+	const [item] = useState(params.item);
+	const [noNav] = useState(params.noNav);
+	const [siteFront] = useState(params.siteFront);
+
+	return (
+		<>
+			{!noNav && <MainNavigation />}
+			<div
+				id="not-found-wrapper"
+				className={`${
+					!noNav
+						? "notfound-basic-page"
+						: siteFront === "Admin"
+						? "admin-notfound-page"
+						: siteFront === "Seller"
+						? "seller-notfound-page"
+						: ""
+				}`}
+			>
+				<h1>The {item ? item : "Page"} you are looking for does not exist.</h1>
+			</div>
+		</>
+	);
 }
 
 export default NotFound;

@@ -1,6 +1,10 @@
 import { productTypes } from "../types/productTypes";
 import { commonTypes } from "../types";
 import { actionHelpers } from "./actionHelpers";
+import { toast } from "react-toastify";
+
+const database = process.env.REACT_APP_DATABASE;
+const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
 
 // // ORDER VM
 
@@ -68,6 +72,46 @@ const getSortedProducts = (listSorting, successCallback) => {
 		if (successCallback) {
 			dispatch(successCallback);
 		}
+	};
+};
+
+// GET PRODUCT PAGE
+
+const getProductPage = (productId, successCallback) => {
+	return async (dispatch) => {
+		dispatch({ type: commonTypes.AsyncStarted });
+
+		let url = "";
+		switch (database) {
+			case "Local":
+				url = `${apiUrl}/Products/ProductPage?id=${productId}`;
+				break;
+
+			default:
+				break;
+		}
+
+		try {
+			let response = await fetch(url);
+			let responseJson = await response.json();
+			console.log(responseJson);
+
+			if (responseJson.success) {
+				dispatch({ type: productTypes.GetSingleProduct, payload: responseJson.data });
+			} else {
+				toast.warning(responseJson.message);
+				dispatch({ type: productTypes.GetSingleProduct, payload: {} });
+			}
+		} catch (error) {
+			console.log(error);
+			dispatch({ type: productTypes.GetSingleProduct, payload: {} });
+		}
+
+		if (successCallback) {
+			dispatch(successCallback);
+		}
+
+		dispatch({ type: commonTypes.AsyncEnd });
 	};
 };
 
@@ -184,6 +228,7 @@ const deleteProduct = (productId, successCallback) => {
 export const productActions = {
 	getProducts,
 	getSortedProducts,
+	getProductPage,
 	getProductsByEntity,
 	getSortedProductsByEntity,
 	createProduct,

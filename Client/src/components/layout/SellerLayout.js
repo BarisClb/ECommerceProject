@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { commonActions } from "../../store/actions";
 import "./css/index.css";
 import SellerSideNavigation from "../navigation/sellerNavigation/SellerSideNavigation";
-import { Outlet } from "react-router-dom";
 import SellerTopNavigation from "../navigation/sellerNavigation/SellerTopNavigation";
 import Loading from "../common/Loading";
 

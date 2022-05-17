@@ -3,6 +3,7 @@ import "./css/index.css";
 import { userActions } from "../../store/actions/userActions";
 import { sellerActions } from "../../store/actions/sellerActions";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 function RegisterForm() {
 	// // DATA
@@ -128,7 +129,7 @@ function RegisterForm() {
 					</div>
 					<div className="col">
 						{/* Simple link */}
-						<div className="forgot-password-link" onClick={() => window.alert("Try 123")}>
+						<div className="forgot-password-link" onClick={() => toast("Try 123")}>
 							Can't think of a password?
 						</div>
 					</div>
@@ -168,10 +169,7 @@ function RegisterForm() {
 							</div>
 							<div className="col">
 								{/* Simple link */}
-								<div
-									className="forgot-password-link"
-									onClick={() => window.alert("Try 123")}
-								>
+								<div className="forgot-password-link" onClick={() => toast("Try 123")}>
 									Can't remember the adminPassword?
 								</div>
 							</div>

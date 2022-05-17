@@ -1,40 +1,31 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import NotFound from "../../components/common/NotFound";
 import DummySingleProduct from "../../components/store/DummySingleProduct";
-import ProductNotFound from "../../components/store/ProductNotFound";
 import SingleProduct from "../../components/store/SingleProduct";
+import { commonActions } from "../../store/actions";
 import { productActions } from "../../store/actions/productActions";
 
 function StoreSingleProduct() {
 	// DATA
 	const { id } = useParams();
+	const productPageData = useSelector((state) => state.product.singleProduct);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(productActions.getProducts(id));
+		dispatch(productActions.getProductPage(id));
 	}, []);
-
-	// const product = useSelector((state) => state.product.singleProduct);
-
-	// DELETE AFTER MODELLING
-	const product = {
-		id: 5,
-		name: "Product Name",
-		description: "Product Description",
-		price: 1000.0,
-		stock: 100,
-	};
-
+	console.log(productPageData);
 	return (
 		<>
 			{id === "0" ? (
 				<DummySingleProduct />
-			) : product.id === undefined ? (
-				<ProductNotFound />
+			) : commonActions.objectIsEmpty(productPageData) ? (
+				<NotFound item={"Product"} noNav={true} />
 			) : (
-				<SingleProduct product={product} />
+				<SingleProduct productPageData={productPageData} />
 			)}
 		</>
 	);

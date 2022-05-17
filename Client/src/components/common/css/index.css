@@ -5,3 +5,22 @@
 .hide-me {
 	display: none !important;
 }
+
+#not-found-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.notfound-basic-page {
+	height: calc(100vh - 56px);
+}
+
+.admin-notfound-page {
+	height: calc(100vh - 57px);
+}
+
+.seller-notfound-page {
+	height: calc(100vh - 50px);
+}

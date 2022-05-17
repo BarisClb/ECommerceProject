@@ -41,6 +41,7 @@
 	margin-left: 0.7rem;
 }
 
+.dark-link-text ul a,
 .dark-link-text li a {
 	color: rgba(0, 0, 0, 0.7);
 }
@@ -79,6 +80,7 @@
 
 #store-topnav-second {
 	border-bottom: 2px solid gray;
+	overflow: hidden;
 }
 
 #store-footer {

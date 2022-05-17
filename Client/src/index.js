@@ -7,6 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 import storeManager from "./store/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.min.css";
+import { ToastContainer } from "react-toastify";
+
 //#region AdminPages
 import AdminMain from "./screens/admin/AdminMain";
 import AdminWelcome from "./components/admin/AdminWelcome";
@@ -42,6 +46,7 @@ import Register from "./screens/common/Register";
 import ProfilePage from "./components/common/ProfilePage";
 import HomeScreen from "./screens/common/HomeScreen";
 import StoreProfile from "./screens/store/StoreProfile";
+import NotFound from "./components/common/NotFound";
 //#endregion
 
 ReactDOM.render(
@@ -69,13 +74,14 @@ ReactDOM.render(
 						<Route path="sellers" element={<AdminSellers />} />
 						<Route path="users" element={<AdminUsers />} />
 						<Route path="profile" element={<AdminProfile />} />
+						<Route path="*" element={<NotFound siteFront={"Admin"} noNav={true} />} />
 					</Route>
 
 					{/* STORE SIDE */}
 					<Route path="store" element={<StoreMain />}>
 						<Route path="" element={<StoreWelcomePage />} />
-						<Route path="category=:id" element={<StoreProducts />} />
-						<Route path="product=:id" element={<StoreSingleProduct />}>
+						<Route path="category/:id" element={<StoreProducts />} />
+						<Route path="product/:id" element={<StoreSingleProduct />}>
 							<Route path="comments" element={<div>Comments</div>} />
 						</Route>
 						<Route path="profile/:id" element={<StoreProfile />}>
@@ -83,6 +89,7 @@ ReactDOM.render(
 							<Route path="comments" element={<StoreProfile />} />
 						</Route>
 						<Route path="cart" element={<Cart />} />
+						<Route path="*" element={<NotFound siteFront={"Store"} noNav={true} />} />
 					</Route>
 
 					{/* SELLER SIDE */}
@@ -93,8 +100,21 @@ ReactDOM.render(
 						<Route path="orders" element={<SellerOrders />} />
 						{/* <Route path="comments" element={<SellerComments />} /> */}
 						<Route path="commentReplies" element={<SellerCommentReplies />} />
+						<Route path="*" element={<NotFound siteFront={"Seller"} noNav={true} />} />
 					</Route>
+					<Route path="*" element={<NotFound siteFront={"None"} />} />
 				</Routes>
+				<ToastContainer
+					position="top-center"
+					autoClose={3000}
+					hideProgressBar={false}
+					newestOnTop
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss={false}
+					draggable
+					pauseOnHover
+				/>
 			</BrowserRouter>
 		</PersistGate>
 	</Provider>,

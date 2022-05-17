@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { commonActions } from "../../store/actions";
 import "./css/index.css";
-import { Outlet } from "react-router-dom";
 import StoreTopNavigation from "../navigation/storeNavigation/StoreTopNavigation";
 import StoreFooter from "../navigation/storeNavigation/StoreFooter";
 import Loading from "../common/Loading";

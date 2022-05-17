@@ -1,5 +1,7 @@
 import { commonTypes } from "../types";
 import { accountTypes } from "../types/accountTypes";
+import { toast } from "react-toastify";
+
 const database = process.env.REACT_APP_DATABASE;
 const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
 
@@ -41,7 +43,7 @@ const accountLogIn = (accountType, accountInfo) => {
 					dispatch({ type: accountTypes.SellerLogIn, payload: responseJson.data });
 				}
 			} else {
-				window.alert(responseJson.message);
+				toast.warning(responseJson.message);
 				if (accountType === "User") {
 					dispatch({ type: accountTypes.UserLogIn, payload: {} });
 				} else if (accountType === "Seller") {
@@ -92,7 +94,7 @@ const accountVerify = (accountType) => {
 					dispatch({ type: accountTypes.SellerVerify, payload: responseJson.data });
 				}
 			} else {
-				window.alert(responseJson.message);
+				toast.warning(responseJson.message);
 				if (accountType === "User") {
 					dispatch({ type: accountTypes.UserLogIn, payload: {} });
 				} else if (accountType === "Seller") {
