@@ -1,10 +1,10 @@
-.navbar-nav {
+#admin-topnav .navbar-nav {
 	display: flex !important;
 	justify-content: space-around !important;
 	flex-grow: 1;
 }
 
-.navbar-nav li:hover {
+#admin-topnav .navbar-nav li:hover {
 	cursor: pointer;
 }
 

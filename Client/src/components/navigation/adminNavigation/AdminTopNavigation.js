@@ -4,7 +4,7 @@ import "../css/index.css";
 
 function AdminTopNavigation() {
 	return (
-		<nav className="main-header navbar navbar-expand navbar-dark navbar-dark">
+		<nav id="admin-topnav" className="main-header navbar navbar-expand navbar-dark navbar-dark">
 			<ul className="navbar-nav">
 				<li className="nav-item d-none d-sm-inline-block">
 					<a href="/admin" className="nav-link">

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 function StoreFooter() {
 	const darkMode = useSelector((state) => state.common.DarkMode);
+	const user = useSelector((state) => state.account.user);
 	return (
 		<footer
 			id="store-footer"
@@ -20,15 +21,13 @@ function StoreFooter() {
 							<h5 className="title">Company</h5>
 							<ul className="list-menu border-top border-top ">
 								<li>
-									<a href="/">
-										<span>About us</span>
-									</a>
+									<a href="/store/aboutus">About Us</a>
 								</li>
 								<li>
-									<a href="/"> Career </a>
+									<a href="/store/aboutus"> Career </a>
 								</li>
 								<li>
-									<a href="/"> Rules and Terms </a>
+									<a href="/store/aboutus"> Rules and Terms </a>
 								</li>
 							</ul>
 						</div>
@@ -37,16 +36,20 @@ function StoreFooter() {
 							<h5 className="title"> Services </h5>
 							<ul className="list-menu border-top border-top border-top border-top">
 								<li>
-									<a href="/">Help Center</a>
+									<a href="/store/aboutus">Help Center</a>
 								</li>
 								<li>
-									<a href="/"> Order status </a>
+									<a
+										href={`${user.id ? "/store/profile/" + user.id + "/cart" : "/store"}`}
+									>
+										Order Status
+									</a>
 								</li>
 							</ul>
 						</div>
 						{/* COL 3 */}
-						<div className="col-lg col-6">
-							<h5 className="title"> User center </h5>
+						{/* <div className="col-lg col-6">
+							<h5 className="title"> Account </h5>
 							<ul className="list-menu border-top border-top border-top">
 								<li>
 									<a href="/login"> Log in </a>
@@ -55,28 +58,28 @@ function StoreFooter() {
 									<a href="/register"> Register </a>
 								</li>
 							</ul>
-						</div>
+						</div> */}
 						{/* COL 4 */}
 						<div className="col-lg col-6">
 							<h5 className="title">Social</h5>
 							<ul className="list-icon list-menu border-top border-top border-top">
 								<li>
-									<a href="/">
+									<a href="/store/aboutus">
 										<i className="icon fab fa-facebook" /> Facebook
 									</a>
 								</li>
 								<li>
-									<a href="/">
+									<a href="/store/aboutus">
 										<i className="icon fab fa-twitter" /> Twitter
 									</a>
 								</li>
 								<li>
-									<a href="/" className="white-link-text">
+									<a href="/store/aboutus" className="white-link-text">
 										<i className="icon fab fa-instagram" /> Instagram
 									</a>
 								</li>
 								<li>
-									<a href="/">
+									<a href="/store/aboutus">
 										<i className="icon fab fa-youtube" /> Youtube
 									</a>
 								</li>
@@ -93,7 +96,7 @@ function StoreFooter() {
 									</li>
 									<li className="mb-2">
 										<i className="icon fa fa-phone" />
-										<span>(212) 123 45 67</span>
+										<span>(012) 345 67 89</span>
 									</li>
 									<li className="mb-2">
 										<i className="icon fa fa-envelope" />

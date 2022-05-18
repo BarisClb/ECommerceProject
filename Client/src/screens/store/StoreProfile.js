@@ -21,11 +21,11 @@ function StoreProfile() {
 	const updateUser = (updatedUser) => {
 		dispatch(userActions.updateUser(user.id, updatedUser, userActions.getUsers(id)));
 	};
-	console.log(user);
+
 	return (
 		<>
 			{commonActions.objectIsNullOrUndefined(user) || commonActions.objectIsEmpty(user) ? (
-				<NotFound page={"Profile"} />
+				<NotFound item={"Profile"} noNav={true} />
 			) : (
 				<ProfilePage
 					account={user}

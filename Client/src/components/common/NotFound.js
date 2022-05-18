@@ -3,7 +3,7 @@ import MainNavigation from "../navigation/MainNavigation";
 
 function NotFound(params) {
 	const [item] = useState(params.item);
-	const [noNav] = useState(params.noNav);
+	const [noNav] = useState(params.noNav ? params.noNav : true);
 	const [siteFront] = useState(params.siteFront);
 
 	return (

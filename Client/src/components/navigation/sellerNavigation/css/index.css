@@ -1,3 +1,9 @@
+#seller-topnav .navbar-nav {
+	display: flex !important;
+	justify-content: space-around !important;
+	flex-grow: 1;
+}
+
 #seller-sidenav {
 	padding: 0.8rem 0.6rem !important;
 	position: fixed;

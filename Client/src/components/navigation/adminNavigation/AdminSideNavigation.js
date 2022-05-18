@@ -14,7 +14,7 @@ function AdminSideNavigation() {
 	};
 
 	return (
-		<aside className="main-sidebar sidebar-dark-primary elevation-4">
+		<aside id="admin-sidenav" className="main-sidebar sidebar-dark-primary elevation-4">
 			{/* FIRST SECTION */}
 			<a href="/admin" className="brand-link adminNavTopName">
 				<img

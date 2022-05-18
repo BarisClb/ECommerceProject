@@ -5,19 +5,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { commonActions } from "../../../store/actions";
 import { categoryActions } from "../../../store/actions/categoryActions";
 
-function StoreTopNavigation() {
+function StoreTopNavigation(params) {
 	const dispatch = useDispatch();
 	const darkMode = useSelector((state) => state.common.DarkMode);
 	const setDarkMode = (darkMode) => {
 		dispatch(commonActions.toggleDarkMode(darkMode));
 	};
 
+	// Profile
+	const [account, setAccount] = useState(params.account);
+	const [accountType] = useState(account.accountType && account.accountType);
+	const logOut = () => {
+		if (params.logOut) {
+			params.logOut();
+			// To refresh
+			setAccount({});
+		}
+	};
+
+	// Search
+	const [searchValue, setSearchValue] = useState("");
+
+	// Cart
+	// const [cartItems] = useSelector((state) => state.cart.currentCart);
+	const [cartItems] = useState([
+		{ id: 1, name: "Bilgisayar ve Kulaklık ve Mikrofon" },
+		{ id: 2, name: "Bilgisayar ve Kulaklık" },
+		{ id: 3, name: "Bilgisayar" },
+	]);
+
 	// Categories
 	const categories = useSelector((state) => state.category.categories);
 	useEffect(() => {
 		dispatch(categoryActions.getCategories());
 	}, []);
-	console.log(categories);
+
 	return (
 		<div>
 			{/* SITE NAVIGATION */}
@@ -37,7 +59,7 @@ function StoreTopNavigation() {
 					Seller Front
 				</a>
 			</nav>
-			{/* STORE NAVBAR */}
+			{/* STORE MAIN NAVBAR */}
 			<nav
 				id="store-topnav-first"
 				className={`navbar navbar-expand-lg ${
@@ -47,7 +69,7 @@ function StoreTopNavigation() {
 				}`}
 			>
 				<div className="container-fluid">
-					<a className="navbar-brand col-2" href="/store">
+					<a id="store-name" className="navbar-brand col-2" href="/store">
 						Celebi Store
 					</a>
 					<button
@@ -62,19 +84,128 @@ function StoreTopNavigation() {
 						<span className="navbar-toggler-icon" />
 					</button>
 					<div className="collapse navbar-collapse" id="topNav-first">
-						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
+						<ul id="store-topnav-main-items" className="navbar-nav me-auto mb-2 mb-lg-0">
 							<li className="nav-item">
 								<form className="d-flex">
 									<input
 										className="form-control me-2"
 										type="search"
-										placeholder="Search"
+										placeholder="Search Product"
 										aria-label="Search"
+										defaultValue={searchValue}
+										onChange={(e) => setSearchValue((prev) => e.target.value)}
 									/>
-									<button className="btn btn-outline-primary" type="submit">
+									<a
+										className="btn btn-outline-primary"
+										href={`/store/products/${searchValue.trim()}`}
+									>
 										Search
-									</button>
+									</a>
 								</form>
+							</li>
+							<li className="nav-item">
+								<div
+									id="store-topnav-profile-button"
+									className="store-topnav-profile dropdown"
+								>
+									<a
+										href="/"
+										className={`d-flex align-items-center text-white text-decoration-none dropdown-toggle btn ${
+											darkMode ? "btn-outline-primary" : "btn-secondary"
+										}`}
+										id="store-profile-dropdown"
+										data-bs-toggle="dropdown"
+									>
+										<i className="bi bi-person-circle mr-2" />
+										<strong className="store-topnav-text">
+											{account && account.name ? account.name : "Stranger"}
+										</strong>
+									</a>
+									<ul
+										className={`dropdown-menu text-small shadow ${
+											darkMode && "dropdown-menu-dark"
+										}`}
+										aria-labelledby="store-profile-dropdown"
+									>
+										{account && account.name ? (
+											<>
+												<li>
+													<a
+														className="dropdown-item"
+														href={`${
+															accountType === "Seller"
+																? "/seller/profile"
+																: "/store/profile/" + account.id
+														}`}
+													>
+														Profile
+													</a>
+												</li>
+												<li>
+													<hr className="dropdown-divider" />
+												</li>
+												<li
+													id="store-profile-dropdown-logout-button"
+													onClick={() => logOut()}
+												>
+													<div
+														id="store-topnav-logout-item dropdown-item"
+														className="dropdown-item"
+													>
+														Log Out
+													</div>
+												</li>
+											</>
+										) : (
+											<li>
+												<a className="dropdown-item" href="/login">
+													Log In
+												</a>
+											</li>
+										)}
+									</ul>
+								</div>
+							</li>
+							<li id="store-topnav-cart-button" className="nav-item">
+								<div className="store-topnav-cart dropdown">
+									<a
+										href="/"
+										className={`d-flex align-items-center text-white text-decoration-none dropdown-toggle btn ${
+											darkMode ? "btn-outline-primary" : "btn-secondary"
+										}`}
+										id="store-cart-dropdown"
+										data-bs-toggle="dropdown"
+									>
+										<i className="bi bi-basket mr-2" />
+										<strong className="store-topnav-text">
+											{cartItems && cartItems.length > 0
+												? cartItems.length + " Items in Cart"
+												: "Cart Empty"}
+										</strong>
+									</a>
+									<ul
+										className={`dropdown-menu text-small shadow ${
+											darkMode && "dropdown-menu-dark"
+										}`}
+										aria-labelledby="store-cart-dropdown"
+									>
+										{cartItems &&
+											cartItems.length > 0 &&
+											cartItems.map((item) => (
+												<li className="dropdown-item" key={item.id}>
+													{item.name.length > 23
+														? `${item.name}`.slice(0, 20) + "..."
+														: item.name}
+												</li>
+											))}
+
+										<li>
+											<hr className="dropdown-divider" />
+										</li>
+										<li className="dropdown-item">Go To Cart</li>
+										<li className="dropdown-item">Clear</li>
+									</ul>
+								</div>
 							</li>
 							<li className="nav-item">
 								<div className="form-check form-switch">

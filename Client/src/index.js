@@ -47,6 +47,10 @@ import ProfilePage from "./components/common/ProfilePage";
 import HomeScreen from "./screens/common/HomeScreen";
 import StoreProfile from "./screens/store/StoreProfile";
 import NotFound from "./components/common/NotFound";
+import StoreProfileCart from "./screens/store/StoreProfileCart";
+import StoreProfileComments from "./screens/store/StoreProfileComments";
+import StoreProfileAuth from "./screens/store/StoreProfileAuth";
+import StoreProductList from "./screens/store/StoreProductList";
 //#endregion
 
 ReactDOM.render(
@@ -74,22 +78,28 @@ ReactDOM.render(
 						<Route path="sellers" element={<AdminSellers />} />
 						<Route path="users" element={<AdminUsers />} />
 						<Route path="profile" element={<AdminProfile />} />
-						<Route path="*" element={<NotFound siteFront={"Admin"} noNav={true} />} />
+						<Route path="*" element={<NotFound siteFront={"Admin"} />} />
 					</Route>
 
 					{/* STORE SIDE */}
 					<Route path="store" element={<StoreMain />}>
 						<Route path="" element={<StoreWelcomePage />} />
 						<Route path="category/:id" element={<StoreProducts />} />
+						<Route path="products/:searchWord" element={<StoreProductList />} />
+						<Route path="products" element={<StoreProductList />} />
 						<Route path="product/:id" element={<StoreSingleProduct />}>
 							<Route path="comments" element={<div>Comments</div>} />
 						</Route>
-						<Route path="profile/:id" element={<StoreProfile />}>
-							<Route path="orders" element={<StoreProfile />} />
-							<Route path="comments" element={<StoreProfile />} />
+						<Route path="profile/:id" element={<StoreProfile />} />
+						<Route path="profile/:id" element={<StoreProfileAuth />}>
+							{/* <Route path="" element={<StoreProfile />} /> */}
+
+							<Route path="cart" element={<StoreProfileCart />} />
+							<Route path="orders" element={<StoreProfileCart />} />
+							<Route path="comments" element={<StoreProfileComments />} />
 						</Route>
 						<Route path="cart" element={<Cart />} />
-						<Route path="*" element={<NotFound siteFront={"Store"} noNav={true} />} />
+						<Route path="*" element={<NotFound siteFront={"Store"} />} />
 					</Route>
 
 					{/* SELLER SIDE */}
@@ -100,7 +110,7 @@ ReactDOM.render(
 						<Route path="orders" element={<SellerOrders />} />
 						{/* <Route path="comments" element={<SellerComments />} /> */}
 						<Route path="commentReplies" element={<SellerCommentReplies />} />
-						<Route path="*" element={<NotFound siteFront={"Seller"} noNav={true} />} />
+						<Route path="*" element={<NotFound siteFront={"Seller"} />} />
 					</Route>
 					<Route path="*" element={<NotFound siteFront={"None"} />} />
 				</Routes>

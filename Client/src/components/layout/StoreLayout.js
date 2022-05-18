@@ -6,22 +6,23 @@ import StoreTopNavigation from "../navigation/storeNavigation/StoreTopNavigation
 import StoreFooter from "../navigation/storeNavigation/StoreFooter";
 import Loading from "../common/Loading";
 
-const StoreLayout = ({ children }) => {
+const StoreLayout = (params) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
 	useEffect(() => {
 		dispatch(commonActions.asyncEnd());
 	}, []);
 	const darkMode = useSelector((state) => state.common.DarkMode);
+
 	return (
 		<>
-			<StoreTopNavigation />
+			<StoreTopNavigation account={params.account} logOut={params.logOut} />
 			{common.IsLoading && <Loading />}
 			<div
 				id="store-content-wrapper"
 				className={darkMode ? "store-content-wrapper-dark" : "store-content-wrapper-light"}
 			>
-				{children}
+				{params.children}
 			</div>
 			<StoreFooter />
 		</>
