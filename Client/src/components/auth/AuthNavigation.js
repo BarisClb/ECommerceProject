@@ -36,7 +36,10 @@ function AuthNavigation(params) {
 								</a>
 							</div>
 							<div className="col-md-4 col-sm-12 d-flex justify-content-center">
-								<a className="main-authpage-auth-link nav-link" href="/store/profile">
+								<a
+									className="main-authpage-auth-link nav-link"
+									href={`/store/profile/${params.user.id}`}
+								>
 									User Profile
 								</a>
 							</div>

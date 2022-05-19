@@ -4,6 +4,7 @@ import "../css/index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { commonActions } from "../../../store/actions";
 import { categoryActions } from "../../../store/actions/categoryActions";
+import { cartActions } from "../../../store/actions/cartActions";
 
 function StoreTopNavigation(params) {
 	const dispatch = useDispatch();
@@ -27,12 +28,14 @@ function StoreTopNavigation(params) {
 	const [searchValue, setSearchValue] = useState("");
 
 	// Cart
-	// const [cartItems] = useSelector((state) => state.cart.currentCart);
-	const [cartItems] = useState([
-		{ id: 1, name: "Bilgisayar ve Kulaklık ve Mikrofon" },
-		{ id: 2, name: "Bilgisayar ve Kulaklık" },
-		{ id: 3, name: "Bilgisayar" },
-	]);
+	const cartItems = useSelector((state) => state.cart.currentCart);
+
+	const clearCart = () => {
+		dispatch(cartActions.clearCart());
+	};
+	const removeFromCart = (item) => {
+		dispatch(cartActions.removeFromCart(item, cartItems));
+	};
 
 	// Categories
 	const categories = useSelector((state) => state.category.categories);
@@ -141,6 +144,37 @@ function StoreTopNavigation(params) {
 														Profile
 													</a>
 												</li>
+												{accountType === "User" && (
+													<>
+														<li>
+															<hr className="dropdown-divider" />
+														</li>
+														<li>
+															<a
+																className="dropdown-item"
+																href={`/store/profile/${account.id}/cart`}
+															>
+																Cart
+															</a>
+														</li>
+														<li>
+															<a
+																className="dropdown-item"
+																href={`/store/profile/${account.id}/orders`}
+															>
+																Orders
+															</a>
+														</li>
+														<li>
+															<a
+																className="dropdown-item"
+																href={`/store/profile/${account.id}/comments`}
+															>
+																Comments
+															</a>
+														</li>
+													</>
+												)}
 												<li>
 													<hr className="dropdown-divider" />
 												</li>
@@ -189,21 +223,57 @@ function StoreTopNavigation(params) {
 										}`}
 										aria-labelledby="store-cart-dropdown"
 									>
-										{cartItems &&
-											cartItems.length > 0 &&
-											cartItems.map((item) => (
-												<li className="dropdown-item" key={item.id}>
-													{item.name.length > 23
-														? `${item.name}`.slice(0, 20) + "..."
-														: item.name}
-												</li>
-											))}
-
+										<li className="dropdown-item">
+											<a
+												id="store-minicart-gotocart-link"
+												href={
+													accountType === "User"
+														? `/store/profile/${account.id}/cart`
+														: "/login"
+												}
+											>
+												Go To Cart
+											</a>
+										</li>
 										<li>
 											<hr className="dropdown-divider" />
 										</li>
-										<li className="dropdown-item">Go To Cart</li>
-										<li className="dropdown-item">Clear</li>
+										{cartItems && cartItems.length > 0 ? (
+											cartItems.map((item) => (
+												<li
+													className="dropdown-item cartitem-productname"
+													key={item.id}
+												>
+													<i
+														className="bi bi-trash"
+														id="trashIcon"
+														onClick={() => removeFromCart(item)}
+													></i>
+													<a
+														href={`/store/product/${item.id}`}
+														className="store-minicart-product-link"
+													>
+														{item.name.length > 23
+															? `${item.name}`.slice(0, 20) + "..."
+															: item.name}
+													</a>
+													<span className="badge bg-secondary">
+														{item.cartQuantity}
+													</span>
+												</li>
+											))
+										) : (
+											<li>No items yet!</li>
+										)}
+										<li>
+											<hr className="dropdown-divider" />
+										</li>
+										<li
+											className="dropdown-item store-minicart-clear-button"
+											onClick={() => clearCart()}
+										>
+											Clear
+										</li>
 									</ul>
 								</div>
 							</li>

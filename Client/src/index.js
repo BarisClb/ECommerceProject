@@ -51,6 +51,7 @@ import StoreProfileCart from "./screens/store/StoreProfileCart";
 import StoreProfileComments from "./screens/store/StoreProfileComments";
 import StoreProfileAuth from "./screens/store/StoreProfileAuth";
 import StoreProductList from "./screens/store/StoreProductList";
+import StoreProfileOrders from "./screens/store/StoreProfileOrders";
 //#endregion
 
 ReactDOM.render(
@@ -92,10 +93,8 @@ ReactDOM.render(
 						</Route>
 						<Route path="profile/:id" element={<StoreProfile />} />
 						<Route path="profile/:id" element={<StoreProfileAuth />}>
-							{/* <Route path="" element={<StoreProfile />} /> */}
-
 							<Route path="cart" element={<StoreProfileCart />} />
-							<Route path="orders" element={<StoreProfileCart />} />
+							<Route path="orders" element={<StoreProfileOrders />} />
 							<Route path="comments" element={<StoreProfileComments />} />
 						</Route>
 						<Route path="cart" element={<Cart />} />

@@ -19,7 +19,7 @@ function ProfilePage(props) {
 	const [accountPassword, setAccountPassword] = useState("");
 	const [accountAdmin] = useState(account && account.admin ? account.admin : false);
 	const [accountAdminPassword, setAccountAdminPassword] = useState("");
-	console.log(account);
+
 	const saveChanges = () => {
 		if (props.updateAction) {
 			let updatedInfo = {};

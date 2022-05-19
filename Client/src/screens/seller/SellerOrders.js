@@ -17,10 +17,20 @@ function SellerOrders() {
 	}, []);
 
 	// Table Side Button Actions
-	const tableDeleteButtonClick = (oldOrder) => {
+	const tableCustomButtonClick = (oldOrder) => {
 		dispatch(
-			orderActions.deleteOrder(
+			orderActions.updateOrder(
 				oldOrder.id,
+				{ orderStatus: 2 },
+				orderActions.getSortedOrdersByEntity("Seller", sortInfo, seller.id)
+			)
+		);
+	};
+	const tableCustomButton2Click = (oldOrder) => {
+		dispatch(
+			orderActions.updateOrder(
+				oldOrder.id,
+				{ orderStatus: 0 },
 				orderActions.getSortedOrdersByEntity("Seller", sortInfo, seller.id)
 			)
 		);
@@ -67,9 +77,14 @@ function SellerOrders() {
 					tableButtons={true}
 					tableAddButton={false}
 					tableUpdateButton={false}
-					tableDeleteButton={true}
-					// Table Button Clicks
-					tableDeleteButtonClick={tableDeleteButtonClick}
+					tableDeleteButton={false}
+					// Table Custom Buttons
+					tableCustomButton={"Send Order"}
+					tableCustomButton2={"Cancel Order"}
+					tableCustomButtonColor={"primary"}
+					tableCustomButtonColor2={"danger"}
+					tableCustomButtonClick={tableCustomButtonClick}
+					tableCustomButton2Click={tableCustomButton2Click}
 					// Nav
 					isNav={"Order"}
 					navCreateButton={false}

@@ -9,9 +9,9 @@ import Loading from "../common/Loading";
 const SellerLayout = ({ children }) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
-	useEffect(() => {
-		dispatch(commonActions.asyncEnd());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(commonActions.asyncEnd());
+	// }, []);
 	return (
 		<>
 			<SellerTopNavigation />

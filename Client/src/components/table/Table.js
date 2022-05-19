@@ -235,7 +235,7 @@ const Table = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const [modalData, setModalData] = useState([]);
+	const [modalData, setModalData] = useState(null);
 	const [modalAction, setModalAction] = useState("");
 
 	//#region ModalToggle
@@ -603,7 +603,7 @@ const Table = (props) => {
 												className={`btn btn-${
 													tableCustomButtonColor ? tableCustomButtonColor : "secondary"
 												}`}
-												onClick={() => modalToggle((data, "CustomButton1"))}
+												onClick={() => modalToggle(data, "CustomButton1")}
 											>
 												{tableCustomButton && tableCustomButton}
 											</button>
@@ -615,7 +615,7 @@ const Table = (props) => {
 														? tableCustomButtonColor2
 														: "secondary"
 												}`}
-												onClick={() => modalToggle((data, "CustomButton2"))}
+												onClick={() => modalToggle(data, "CustomButton2")}
 											>
 												{tableCustomButton2 && tableCustomButton2}
 											</button>
@@ -627,7 +627,7 @@ const Table = (props) => {
 														? tableCustomButtonColor3
 														: "secondary"
 												}`}
-												onClick={() => modalToggle((data, "CustomButton3"))}
+												onClick={() => modalToggle(data, "CustomButton3")}
 											>
 												{tableCustomButton3 && tableCustomButton3}
 											</button>
@@ -804,7 +804,11 @@ const Table = (props) => {
 			</nav>
 			{/* TABLE DELETE BUTTON MODAL */}
 			<Modal isOpen={modal} toggle={modalToggle} centered>
-				<ModalHeader className="modal-form-item">About to Delete {isNav && isNav}</ModalHeader>
+				{modalAction === "Delete" && (
+					<ModalHeader className="modal-form-item">
+						About to Delete {isNav && isNav}
+					</ModalHeader>
+				)}
 				<ModalBody className="modal-form">
 					<div className="modal-form-item d-flex">
 						<label htmlFor="modal-form-confirmation" className="form-label">
@@ -815,7 +819,7 @@ const Table = (props) => {
 				<ModalFooter>
 					<button
 						className={`btn btn-${
-							modalAction === "Delete" ? "danger" : "warning"
+							modalAction === "Delete" ? "danger" : "primary"
 						} form-input form-control`}
 						onClick={modalToggle2}
 					>

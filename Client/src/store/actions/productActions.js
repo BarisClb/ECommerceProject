@@ -144,7 +144,7 @@ const getSortedProductsByEntity = (
 ) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
-		console.log("first");
+
 		let response = await actionHelpers.getEntitiesByEntitySortedHelper(
 			"Products",
 			singleEntityName,

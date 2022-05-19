@@ -106,6 +106,8 @@ function AdminComments() {
 					tableSortByValue2={"UserUsername"}
 					tableSortBy3={"Product"}
 					tableSortByValue3={"ProductName"}
+					tableSortBy4={"Rating"}
+					tableSortByValue4={"Rating"}
 					tableSortAction={tableSortButtonClick}
 				/>
 			</div>

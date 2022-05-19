@@ -36,9 +36,9 @@ namespace API.Controllers
         }
 
         [HttpGet("ByUser/{id}")]
-        public async Task<IActionResult> ByUser(int id)
+        public async Task<IActionResult> ByUser(int id, [FromQuery] ListSortWriteVm listSorting)
         {
-            return Ok(await _orderService.ByUser(id));
+            return Ok(await _orderService.ByUser(id, listSorting));
         }
 
         [HttpGet("BySeller/{id}")]

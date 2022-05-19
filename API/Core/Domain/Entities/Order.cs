@@ -13,7 +13,7 @@ namespace Domain.Entities
         public string Address { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public int Discount { get; set; }
+        public int Discount { get; set; } = 0;
         public decimal Total { get; set; }
         public byte OrderStatus { get; set; }
 

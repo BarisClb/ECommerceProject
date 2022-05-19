@@ -9,9 +9,9 @@ import "./css/index.css";
 const AdminLayout = ({ children }) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
-	useEffect(() => {
-		dispatch(commonActions.asyncEnd());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(commonActions.asyncEnd());
+	// }, []);
 	return (
 		<>
 			<AdminTopNavigation />

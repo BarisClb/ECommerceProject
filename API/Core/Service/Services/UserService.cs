@@ -89,6 +89,7 @@ namespace Service.Services
                 Username = user.Username,
                 EMail = user.EMail,
                 Password = user.Password,
+                Address = user.Address,
                 Admin = user.Admin,
                 DateCreated = user.DateCreated,
                 DateUpdated = user.DateUpdated,
@@ -110,6 +111,7 @@ namespace Service.Services
                 Username = user.Username,
                 EMail = user.EMail,
                 Password = user.Password,
+                Address = user.Address,
                 Admin = user.Admin,
                 DateCreated = user.DateCreated,
                 DateUpdated = user.DateUpdated,
@@ -157,6 +159,7 @@ namespace Service.Services
                 Username = modelUser.Username,
                 EMail = modelUser.EMail,
                 Password = HashSecurity.HashPassword(modelUser.Password),
+                Address = modelUser.Address,
                 Admin = admin,
             });
 
@@ -209,6 +212,8 @@ namespace Service.Services
 
                 else { user.Admin = false; }
             }
+            if (modelUser.Address != null)
+                user.Address = modelUser.Address;
 
             await _userWriteRepository.SaveAsync();
             return new SuccessfulResponse<User>("User updated.");

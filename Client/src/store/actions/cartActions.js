@@ -6,24 +6,23 @@ import { commonTypes } from "../types";
 const addOrIncreaseCart = (product, cart) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
-		let newCart = [];
 
-		let cartItem = cart.find((item) => item.title === product.title);
+		let newCart = [];
+		let cartItem = await cart.find((item) => item.id === product.id);
 
 		if (cartItem) {
 			newCart = await cart.map((item) => {
-				if (item.title === cartItem.title) {
-					return Object.assign({}, cartItem, {
-						quantity: cartItem.quantity + 1,
-					});
+				if (item.id === cartItem.id) {
+					return { ...item, cartQuantity: item.cartQuantity + 1 };
 				}
 				return item;
 			});
 		} else {
-			newCart = [...cart, { title: product.title, quantity: 1 }];
+			newCart = [...cart, { ...product, cartQuantity: 1 }];
 		}
 
 		dispatch({ type: cartTypes.AddOrIncreaseCart, payload: newCart });
+
 		dispatch({ type: commonTypes.AsyncEnd });
 	};
 };
@@ -35,14 +34,12 @@ const reduceFromCart = (product, cart) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
 		let newCart = [];
-		let cartItem = cart.find((item) => item.title === product.title);
+		let cartItem = cart.find((item) => item.id === product.id);
 
-		if (cartItem.quantity > 1) {
+		if (cartItem.cartQuantity > 1) {
 			newCart = cart.map((item) => {
-				if (item.title === cartItem.title) {
-					return Object.assign({}, cartItem, {
-						quantity: cartItem.quantity - 1,
-					});
+				if (item.id === cartItem.id) {
+					return { ...item, cartQuantity: item.cartQuantity - 1 };
 				}
 				return item;
 			});
@@ -62,7 +59,7 @@ const removeFromCart = (product, cart) => {
 	return async (dispatch) => {
 		dispatch({ type: commonTypes.AsyncStarted });
 
-		let newCart = cart.filter((item) => item.title !== product.title);
+		let newCart = cart.filter((item) => item.id !== product.id);
 
 		dispatch({ type: cartTypes.RemoveFromCart, payload: newCart });
 

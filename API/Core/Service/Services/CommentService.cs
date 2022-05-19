@@ -45,6 +45,7 @@ namespace Service.Services
                 {
                     "UserUsername" => comments.OrderByDescending(c => c.UserUsername).ToList(),
                     "ProductName" => comments.OrderByDescending(c => c.ProductName).ToList(),
+                    "Rating" => comments.OrderByDescending(c => c.Rating).ToList(),
                     _ => comments.Reverse().ToList(),
                 };
             }
@@ -54,6 +55,7 @@ namespace Service.Services
                 {
                     "UserUsername" => comments.OrderBy(c => c.UserUsername).ToList(),
                     "ProductName" => comments.OrderBy(c => c.ProductName).ToList(),
+                    "Rating" => comments.OrderBy(c => c.Rating).ToList(),
                     _ => comments,
                 };
             }
@@ -124,13 +126,39 @@ namespace Service.Services
             return new SuccessfulResponse<IList<CommentReadVm>>(mappedComments);
         }
 
-        public async Task<BaseResponse> ByUser(int id)
+        public async Task<BaseResponse> ByUser(int id, ListSortWriteVm listSorting)
         {
             if (await _userReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("User does not exist.");
 
             IList<Comment> comments = _commentReadRepository.GetWhere(comment => comment.UserId == id, false).ToList();
-            IList<CommentReadVm> mappedComments = comments.Select(comment => new CommentReadVm
+            // Sort => Reverse? OrderBy?
+            IList<Comment> orderedComments;
+            if (listSorting.Reverse)
+            {
+                orderedComments = listSorting.OrderBy switch
+                {
+                    "UserUsername" => comments.OrderByDescending(c => c.UserUsername).ToList(),
+                    "ProductName" => comments.OrderByDescending(c => c.ProductName).ToList(),
+                    "Rating" => comments.OrderByDescending(c => c.Rating).ToList(),
+                    _ => comments.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedComments = listSorting.OrderBy switch
+                {
+                    "UserUsername" => comments.OrderBy(c => c.UserUsername).ToList(),
+                    "ProductName" => comments.OrderBy(c => c.ProductName).ToList(),
+                    "Rating" => comments.OrderBy(c => c.Rating).ToList(),
+                    _ => comments,
+                };
+            }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = comments.Count;
+
+            IList<CommentReadVm> mappedComments = orderedComments.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(comment => new CommentReadVm
             {
                 Id = comment.Id,
                 Title = comment.Title,
@@ -138,13 +166,13 @@ namespace Service.Services
                 Rating = comment.Rating,
                 ProductName = comment.ProductName,
                 ProductId = comment.ProductId,
-                UserId = comment.UserId,
                 UserUsername = comment.UserUsername,
+                UserId = comment.UserId,
                 DateCreated = comment.DateCreated,
                 DateUpdated = comment.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<CommentReadVm>>(mappedComments);
+            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Post(CommentCreateVm modelComment)

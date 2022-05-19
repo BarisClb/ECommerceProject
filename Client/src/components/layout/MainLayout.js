@@ -8,9 +8,9 @@ import "./css/index.css";
 const MainLayout = ({ children }) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
-	useEffect(() => {
-		dispatch(commonActions.asyncEnd());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(commonActions.asyncEnd());
+	// }, []);
 	return (
 		<>
 			<MainNavigation />

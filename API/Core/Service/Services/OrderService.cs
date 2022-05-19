@@ -147,13 +147,39 @@ namespace Service.Services
             return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
         }
 
-        public async Task<BaseResponse> ByUser(int id)
+        public async Task<BaseResponse> ByUser(int id, ListSortWriteVm listSorting)
         {
             if (await _userReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("User does not exist.");
 
             IList<Order> orders = _orderReadRepository.GetWhere(order => order.UserId == id, false).ToList();
-            IList<OrderReadVm> mappedOrders = orders.Select(order => new OrderReadVm
+            // Sort => Reverse? OrderBy?
+            IList<Order> orderedOrders;
+            if (listSorting.Reverse)
+            {
+                orderedOrders = listSorting.OrderBy switch
+                {
+                    "UserUsername" => orders.OrderByDescending(o => o.UserUsername).ToList(),
+                    "SellerUsername" => orders.OrderByDescending(o => o.SellerUsername).ToList(),
+                    "OrderStatus" => orders.OrderByDescending(o => o.OrderStatus).ToList(),
+                    _ => orders.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedOrders = listSorting.OrderBy switch
+                {
+                    "UserUsername" => orders.OrderBy(o => o.UserUsername).ToList(),
+                    "SellerUsername" => orders.OrderBy(o => o.SellerUsername).ToList(),
+                    "OrderStatus" => orders.OrderBy(o => o.OrderStatus).ToList(),
+                    _ => orders,
+                };
+            }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = orders.Count;
+
+            IList<OrderReadVm> mappedOrders = orderedOrders.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(order => new OrderReadVm
             {
                 Id = order.Id,
                 Note = order.Note,
@@ -173,7 +199,7 @@ namespace Service.Services
                 DateUpdated = order.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<OrderReadVm>>(mappedOrders);
+            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> BySeller(int id, ListSortWriteVm listSorting)
@@ -252,7 +278,6 @@ namespace Service.Services
             await _orderWriteRepository.AddAsync(new()
             {
                 Note = modelOrder.Note,
-                Address = modelOrder.Address,
                 Price = modelOrder.Price,
                 Quantity = modelOrder.Quantity,
                 Discount = modelOrder.Discount,
@@ -263,6 +288,7 @@ namespace Service.Services
                 SellerUsername = seller.Username,
                 Seller = seller,
                 UserUsername = user.Username,
+                Address = user.Address,
                 User = user,
             });
 
@@ -278,8 +304,6 @@ namespace Service.Services
 
             if (modelOrder.Note != null)
                 order.Note = modelOrder.Note;
-            if (modelOrder.Address != null)
-                order.Address = modelOrder.Address;
             if (modelOrder.Price != null)
                 order.Price = (decimal)modelOrder.Price;
             if (modelOrder.Quantity != null)

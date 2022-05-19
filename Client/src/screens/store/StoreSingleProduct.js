@@ -17,7 +17,7 @@ function StoreSingleProduct() {
 	useEffect(() => {
 		dispatch(productActions.getProductPage(id));
 	}, []);
-	console.log(productPageData);
+
 	return (
 		<>
 			{id === "0" ? (

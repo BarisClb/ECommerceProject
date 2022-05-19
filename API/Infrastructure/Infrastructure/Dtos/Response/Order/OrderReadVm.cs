@@ -10,7 +10,6 @@ namespace Infrastructure.Dtos.Response
     {
         public int Id { get; set; }
         public string? Note { get; set; }
-        public string Address { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public int Discount { get; set; }
@@ -21,6 +20,7 @@ namespace Infrastructure.Dtos.Response
         public string SellerUsername { get; set; }
         public int SellerId { get; set; }
         public string UserUsername { get; set; }
+        public string Address { get; set; }
         public int UserId { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }

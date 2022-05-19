@@ -9,9 +9,9 @@ import Loading from "../common/Loading";
 const StoreLayout = (params) => {
 	const dispatch = useDispatch();
 	const common = useSelector((state) => state.common);
-	useEffect(() => {
-		dispatch(commonActions.asyncEnd());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(commonActions.asyncEnd());
+	// }, []);
 	const darkMode = useSelector((state) => state.common.DarkMode);
 
 	return (

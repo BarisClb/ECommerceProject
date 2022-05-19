@@ -13,6 +13,7 @@ namespace Infrastructure.Dtos.Response
         public string Username { get; set; }
         public string EMail { get; set; }
         public string Password { get; set; }
+        public string Address { get; set; }
         public bool Admin { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
