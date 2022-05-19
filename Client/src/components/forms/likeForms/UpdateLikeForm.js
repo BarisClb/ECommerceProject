@@ -6,8 +6,10 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 const UpdateLikeForm = (props) => {
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
-
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 	return (
 		<>
 			<button className="btn btn-warning" onClick={toggle}>
@@ -23,7 +25,10 @@ const UpdateLikeForm = (props) => {
 					</div>
 				</ModalBody>
 				<ModalFooter>
-					<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+					<button
+						className="btn btn-secondary form-input form-control"
+						onClick={(e) => toggle(e)}
+					>
 						Close
 					</button>
 				</ModalFooter>

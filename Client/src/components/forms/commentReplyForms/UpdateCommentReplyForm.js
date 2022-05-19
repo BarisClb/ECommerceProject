@@ -42,8 +42,10 @@ const UpdateCommentReplyForm = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
-
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 	const navUpdateButtonClick = (e) => {
 		e.preventDefault();
 		if (props.navUpdateButtonClick && idValue > 0) {
@@ -61,15 +63,18 @@ const UpdateCommentReplyForm = (props) => {
 		}
 		setIdValue(0);
 		setTextValue("");
+
+		setChangeText(false);
+
 		setEntityFound(false);
-		setChangeText(true);
 		dispatch(commonActions.getEntityToUpdate("CommentReplies", 0));
+
 		toggle();
 	};
 
 	// Update or Not
 
-	const [changeText, setChangeText] = useState(true);
+	const [changeText, setChangeText] = useState(false);
 
 	return (
 		<>
@@ -126,7 +131,7 @@ const UpdateCommentReplyForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-commentReply-update-text-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -175,7 +180,10 @@ const UpdateCommentReplyForm = (props) => {
 						>
 							Update CommentReply
 						</button>
-						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+						<button
+							className="btn btn-secondary form-input form-control"
+							onClick={(e) => toggle(e)}
+						>
 							Close
 						</button>
 					</ModalFooter>

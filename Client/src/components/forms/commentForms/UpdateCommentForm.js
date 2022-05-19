@@ -41,7 +41,10 @@ const UpdateCommentForm = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 
 	const navUpdateButtonClick = (e) => {
 		e.preventDefault();
@@ -74,19 +77,20 @@ const UpdateCommentForm = (props) => {
 		setRatingValue(0);
 
 		setEntityFound(false);
-		setChangeTitle(true);
-		setChangeText(true);
-		setChangeRating(true);
+		setChangeTitle(false);
+		setChangeText(false);
+		setChangeRating(false);
 
 		dispatch(commonActions.getEntityToUpdate("Comments", 0));
+
 		toggle();
 	};
 
 	// Update or Not
 
-	const [changeTitle, setChangeTitle] = useState(true);
-	const [changeText, setChangeText] = useState(true);
-	const [changeRating, setChangeRating] = useState(true);
+	const [changeTitle, setChangeTitle] = useState(false);
+	const [changeText, setChangeText] = useState(false);
+	const [changeRating, setChangeRating] = useState(false);
 
 	return (
 		<>
@@ -143,7 +147,7 @@ const UpdateCommentForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-comment-update-title-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -172,7 +176,7 @@ const UpdateCommentForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-comment-update-text-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -203,7 +207,7 @@ const UpdateCommentForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-comment-update-rating-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -216,7 +220,10 @@ const UpdateCommentForm = (props) => {
 						>
 							Update Comment
 						</button>
-						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+						<button
+							className="btn btn-secondary form-input form-control"
+							onClick={(e) => toggle(e)}
+						>
 							Close
 						</button>
 					</ModalFooter>

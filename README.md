@@ -37,6 +37,7 @@
    ~ In One to Many relationships, I put 'One's 'Name' in 'Many's properties. So when I request a 'Product' entity for example, I also get the name of 'Category' it belongs to, which is a 'One' of 'Many' Products. I did it independently, as such, if the 'One's name, changes, it won't affect and 'update' for the 'Many's. They will still show the old 'Name' of the 'One'. It should be fixable with propper mapping, requesting the 'Name' of 'One' each time the 'Many' is called instead of adding it as a property.  
    ~ When an Account Logs In, API sends the account data and we store it inside Redux State but it doesn't happen with 'Verify'. As such, if an account information gets 'Updated', it doesn't show until the account re-logs. API needs to send account information after each verification too, just like LogIn.  
    ~ Order Actions for Users and Sellers, since I am using my own 'Table' component, I can't really check the Orders Status specifically ('Cancelled' or 'Received') and make a condition (Can't be updated once its 'Cancelled' or 'Received').  
+   ~ Not using the 'Discount' prop on Orders/Product at the moment.  
   
    CheckList:  
   

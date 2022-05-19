@@ -47,8 +47,10 @@ const UpdateUserForm = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
-
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 	const navUpdateButtonClick = (e) => {
 		e.preventDefault();
 		if (props.navUpdateButtonClick && idValue > 0) {
@@ -74,6 +76,7 @@ const UpdateUserForm = (props) => {
 				}
 				updatedUser = { ...updatedUser, ...admin };
 			}
+
 			props.navUpdateButtonClick(Number.parseInt(idValue), {
 				...updatedUser,
 			});
@@ -84,23 +87,26 @@ const UpdateUserForm = (props) => {
 		seteMailValue("");
 		setPasswordValue("");
 		setAdminValue(false);
+
+		setChangeName(false);
+		setChangeUsername(false);
+		setChangeeMail(false);
+		setChangePassword(false);
+		setChangeAdmin(false);
+
 		setEntityFound(false);
-		setChangeName(true);
-		setChangeUsername(true);
-		setChangeeMail(true);
-		setChangePassword(true);
-		setChangeAdmin(true);
 		dispatch(commonActions.getEntityToUpdate("Users", 0));
+
 		toggle();
 	};
 
 	// Update or Not
 
-	const [changeName, setChangeName] = useState(true);
-	const [changeUsername, setChangeUsername] = useState(true);
-	const [changeeMail, setChangeeMail] = useState(true);
-	const [changePassword, setChangePassword] = useState(true);
-	const [changeAdmin, setChangeAdmin] = useState(true);
+	const [changeName, setChangeName] = useState(false);
+	const [changeUsername, setChangeUsername] = useState(false);
+	const [changeeMail, setChangeeMail] = useState(false);
+	const [changePassword, setChangePassword] = useState(false);
+	const [changeAdmin, setChangeAdmin] = useState(false);
 
 	return (
 		<>
@@ -158,7 +164,7 @@ const UpdateUserForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-user-update-name-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -188,7 +194,7 @@ const UpdateUserForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-user-update-username-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -218,7 +224,7 @@ const UpdateUserForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-user-update-eMail-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -249,7 +255,7 @@ const UpdateUserForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-user-update-password-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -283,7 +289,7 @@ const UpdateUserForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-user-update-password-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -296,7 +302,10 @@ const UpdateUserForm = (props) => {
 						>
 							Update User
 						</button>
-						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+						<button
+							className="btn btn-secondary form-input form-control"
+							onClick={(e) => toggle(e)}
+						>
 							Close
 						</button>
 					</ModalFooter>

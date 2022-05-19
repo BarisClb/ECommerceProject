@@ -7,17 +7,25 @@ function ProfilePage(props) {
 	const [editPermission] = useState(props.editPermission ? props.editPermission : false);
 
 	// Data
-	let [account] = useState(props.account);
-	// const [updateAction] = useState(props.updateAction);
+	let [account, setAccount] = useState(props.account);
 
 	// Info Values
-	const [accountName, setAccountName] = useState(account && account.name ? account.name : "");
-	const [accountUsername, setAccountUsername] = useState(
-		account && account.username ? account.username : ""
+	const [accountName, setAccountName] = useState(
+		props.account && props.account.name ? props.account.name : ""
 	);
-	const [accountEMail, setAccountEMail] = useState(account && account.eMail ? account.eMail : "");
+	const [accountUsername, setAccountUsername] = useState(
+		props.account && props.account.username ? props.account.username : ""
+	);
+	const [accountEMail, setAccountEMail] = useState(
+		props.account && props.account.eMail ? props.account.eMail : ""
+	);
 	const [accountPassword, setAccountPassword] = useState("");
-	const [accountAdmin] = useState(account && account.admin ? account.admin : false);
+	const [accountAddress, setAccountAddress] = useState(
+		props.account && props.account.address ? props.account.address : ""
+	);
+	const [accountAdmin, setAccountAdmin] = useState(
+		props.account && props.account.admin ? props.account.admin : false
+	);
 	const [accountAdminPassword, setAccountAdminPassword] = useState("");
 
 	const saveChanges = () => {
@@ -35,6 +43,9 @@ function ProfilePage(props) {
 			if (changePassword) {
 				updatedInfo = { ...updatedInfo, password: accountPassword };
 			}
+			if (changeAddress) {
+				updatedInfo = { ...updatedInfo, address: accountAddress };
+			}
 			if (changeAdmin) {
 				updatedInfo = { ...updatedInfo, adminPassword: accountAdminPassword };
 			}
@@ -48,8 +59,20 @@ function ProfilePage(props) {
 	const [changeUsername, setChangeUsername] = useState(false);
 	const [changeEMail, setChangeEMail] = useState(false);
 	const [changePassword, setChangePassword] = useState(false);
+	const [changeAddress, setChangeAddress] = useState(false);
 	const [changeAdmin, setChangeAdmin] = useState(false);
 	const [showAdminPassword, setShowAdminPassword] = useState(false);
+	console.log(account);
+	useEffect(() => {
+		setAccount(props.account);
+		setAccountName(props.account.name);
+		setAccountUsername(props.account.username);
+		setAccountEMail(props.account.eMail);
+		setAccountPassword("");
+		setAccountAddress(props.account.address);
+		setAccountAdmin(props.account.admin);
+		setAccountAdminPassword("");
+	}, [props.account]);
 
 	return (
 		<div id="profile-info-container" className="container rounded bg-white mt-5 mb-5">
@@ -114,7 +137,7 @@ function ProfilePage(props) {
 									type="text"
 									className="form-control"
 									placeholder="Name"
-									defaultValue={accountName}
+									value={accountName}
 									onChange={(e) => setAccountName(e.target.value)}
 									disabled={!editProfile || !changeName}
 								/>
@@ -146,7 +169,7 @@ function ProfilePage(props) {
 									type="text"
 									className="form-control"
 									placeholder="Username"
-									defaultValue={accountUsername}
+									value={accountUsername}
 									onChange={(e) => setAccountUsername(e.target.value)}
 									disabled={!editProfile || !changeUsername}
 								/>
@@ -178,7 +201,7 @@ function ProfilePage(props) {
 									type="text"
 									className="form-control"
 									placeholder="Email"
-									defaultValue={accountEMail}
+									value={accountEMail}
 									onChange={(e) => setAccountEMail(e.target.value)}
 									disabled={!editProfile || !changeEMail}
 								/>
@@ -210,51 +233,19 @@ function ProfilePage(props) {
 									type="text"
 									className="form-control"
 									placeholder="New Password"
-									defaultValue={accountPassword}
+									value={accountPassword}
 									onChange={(e) => setAccountPassword(e.target.value)}
 									disabled={!editProfile || !changePassword}
 								/>
 							</div>
 							{(accountType === "Admin" || accountType === "User") && (
-								<div className="col-lg-12">
-									<div className="row">
-										<div className="col-6">
-											<label className="labels">Admin</label>
-										</div>
-										<div className="col-6">
-											<div
-												className={`form-check ml-3 ${!editProfile ? "hide-me" : ""}`}
-											>
-												<input
-													className="form-check-input"
-													type="checkbox"
-													id="profile-update-admin-check"
-													onChange={() => setChangeAdmin((prev) => !changeAdmin)}
-													checked={changeAdmin}
-												/>
-												<label
-													className="form-check-label"
-													htmlFor="profile-update-admin-check"
-												>
-													Change
-												</label>
-											</div>
-										</div>
-									</div>
-									<input
-										type="text"
-										className="form-control"
-										placeholder="Admin"
-										defaultValue={accountAdmin}
-										disabled={true}
-									/>
-									<div className={`mt-2 ${!editProfile ? "hide-me" : ""}`}>
+								<>
+									<div className="col-lg-12">
 										<div className="row">
 											<div className="col-6">
-												<label className="labels">Admin Password</label>
+												<label className="labels">Address</label>
 											</div>
 											<div className="col-6">
-												{" "}
 												<div
 													className={`form-check ml-3 ${
 														!editProfile ? "hide-me" : ""
@@ -263,31 +254,105 @@ function ProfilePage(props) {
 													<input
 														className="form-check-input"
 														type="checkbox"
-														id="profile-update-adminPassword-check"
+														id="profile-update-address-check"
 														onChange={() =>
-															setShowAdminPassword((prev) => !showAdminPassword)
+															setChangeAddress((prev) => !changeAddress)
 														}
-														checked={showAdminPassword}
+														checked={changeAddress}
 													/>
 													<label
 														className="form-check-label"
-														htmlFor="profile-update-adminPassword-check"
+														htmlFor="profile-update-address-check"
 													>
-														Show Password
+														Change
 													</label>
 												</div>
 											</div>
 										</div>
 										<input
-											type={`${showAdminPassword ? "text" : "password"}`}
+											type="text"
 											className="form-control"
-											placeholder="Admin Password"
-											defaultValue={accountAdminPassword}
-											onChange={(e) => setAccountAdminPassword(e.target.value)}
-											disabled={!editProfile || !changeAdmin}
+											placeholder="Address"
+											value={accountAddress}
+											onChange={(e) => setAccountAddress(e.target.value)}
+											disabled={!editProfile || !changeAddress}
 										/>
 									</div>
-								</div>
+									<div className="col-lg-12">
+										<div className="row">
+											<div className="col-6">
+												<label className="labels">Admin</label>
+											</div>
+											<div className="col-6">
+												<div
+													className={`form-check ml-3 ${
+														!editProfile ? "hide-me" : ""
+													}`}
+												>
+													<input
+														className="form-check-input"
+														type="checkbox"
+														id="profile-update-admin-check"
+														onChange={() => setChangeAdmin((prev) => !changeAdmin)}
+														checked={changeAdmin}
+													/>
+													<label
+														className="form-check-label"
+														htmlFor="profile-update-admin-check"
+													>
+														Change
+													</label>
+												</div>
+											</div>
+										</div>
+										<input
+											type="text"
+											className="form-control"
+											placeholder="Admin"
+											value={accountAdmin}
+											disabled={true}
+										/>
+										<div className={`mt-2 ${!editProfile ? "hide-me" : ""}`}>
+											<div className="row">
+												<div className="col-6">
+													<label className="labels">Admin Password</label>
+												</div>
+												<div className="col-6">
+													{" "}
+													<div
+														className={`form-check ml-3 ${
+															!editProfile ? "hide-me" : ""
+														}`}
+													>
+														<input
+															className="form-check-input"
+															type="checkbox"
+															id="profile-update-adminPassword-check"
+															onChange={() =>
+																setShowAdminPassword((prev) => !showAdminPassword)
+															}
+															checked={showAdminPassword}
+														/>
+														<label
+															className="form-check-label"
+															htmlFor="profile-update-adminPassword-check"
+														>
+															Show Password
+														</label>
+													</div>
+												</div>
+											</div>
+											<input
+												type={`${showAdminPassword ? "text" : "password"}`}
+												className="form-control"
+												placeholder="Admin Password"
+												value={accountAdminPassword}
+												onChange={(e) => setAccountAdminPassword(e.target.value)}
+												disabled={!editProfile || !changeAdmin}
+											/>
+										</div>
+									</div>
+								</>
 							)}
 							<div className={`mt-4 text-center ${!editProfile ? "hide-me" : ""}`}>
 								<button
@@ -314,27 +379,7 @@ function ProfilePage(props) {
 									type="text"
 									className="form-control"
 									placeholder="Phone Number"
-									defaultValue={""}
-									disabled={true}
-								/>
-							</div>
-							<div className="col-lg-12">
-								<label className="labels">Address Line 1</label>
-								<input
-									type="text"
-									className="form-control"
-									placeholder="Address Line 1"
-									defaultValue={""}
-									disabled={true}
-								/>
-							</div>
-							<div className="col-lg-12">
-								<label className="labels">Address Line 2</label>
-								<input
-									type="text"
-									className="form-control"
-									placeholder="Address Line 2"
-									defaultValue={""}
+									value={""}
 									disabled={true}
 								/>
 							</div>
@@ -344,7 +389,7 @@ function ProfilePage(props) {
 									type="text"
 									className="form-control"
 									placeholder="State"
-									defaultValue={""}
+									value={""}
 									disabled={true}
 								/>
 							</div>
@@ -354,7 +399,7 @@ function ProfilePage(props) {
 									type="text"
 									className="form-control"
 									placeholder="Country"
-									defaultValue={""}
+									value={""}
 									disabled={true}
 								/>
 							</div>

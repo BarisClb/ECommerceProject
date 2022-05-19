@@ -27,7 +27,10 @@ const UpdateCategoryForm = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 
 	const navUpdateButtonClick = (e) => {
 		e.preventDefault();
@@ -42,6 +45,7 @@ const UpdateCategoryForm = (props) => {
 					description: descriptionValue,
 				};
 			}
+
 			props.navUpdateButtonClick(Number.parseInt(idValue), {
 				...updatedCategory,
 			});
@@ -49,13 +53,17 @@ const UpdateCategoryForm = (props) => {
 		setIdValue(0);
 		setNameValue("");
 		setDescriptionValue("");
+
+		setChangeName(false);
+		setChangeDescription(false);
+
 		toggle();
 	};
 
 	// Update or Not
 
-	const [changeName, setChangeName] = useState(true);
-	const [changeDescription, setChangeDescription] = useState(true);
+	const [changeName, setChangeName] = useState(false);
+	const [changeDescription, setChangeDescription] = useState(false);
 
 	return (
 		<>
@@ -119,7 +127,7 @@ const UpdateCategoryForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-category-update-name-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -149,7 +157,7 @@ const UpdateCategoryForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-category-update-description-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -158,7 +166,10 @@ const UpdateCategoryForm = (props) => {
 						<button className="btn btn-warning form-input form-control" type="submit">
 							Update Category
 						</button>
-						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+						<button
+							className="btn btn-secondary form-input form-control"
+							onClick={(e) => toggle(e)}
+						>
 							Close
 						</button>
 					</ModalFooter>

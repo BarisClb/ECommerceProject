@@ -320,8 +320,7 @@ function StoreTopNavigation(params) {
 				</button>
 				<div className="collapse navbar-collapse" id="topNav-second">
 					<ul className="navbar-nav mr-auto">
-						{/* TOO MUCH CATEGORY, UNCOMMENT THIS WHEN FINAL PRODUCT */}
-						{/* {categories &&
+						{categories &&
 							categories.length > 0 &&
 							categories.map((category) => (
 								<li className="nav-item" key={category.id}>
@@ -329,22 +328,7 @@ function StoreTopNavigation(params) {
 										{category.name}
 									</a>
 								</li>
-							))} */}
-						<li className="nav-item">
-							<a className="nav-link" href={`/store/category/1`}>
-								PLACEHOLDER 1
-							</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link" href={`/store/category/2`}>
-								PLACEHOLDER 2
-							</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link" href={`/store/category/3`}>
-								PLACEHOLDER 3
-							</a>
-						</li>
+							))}
 					</ul>
 				</div>
 			</nav>

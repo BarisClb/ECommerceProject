@@ -8,9 +8,9 @@ import { commonActions } from "../../store/actions";
 
 function StoreProfile() {
 	// Data
-	const account = useSelector((state) => state.account.user);
-	const user = useSelector((state) => state.user.singleUser);
 	const { id } = useParams();
+	const user = useSelector((state) => state.user.singleUser);
+	const account = useSelector((state) => state.account.user);
 	useEffect(() => {
 		if (!commonActions.objectIsNullOrUndefined(user) || !commonActions.objectIsEmpty(user)) {
 			dispatch(userActions.getUsers(id));
@@ -21,7 +21,7 @@ function StoreProfile() {
 	const updateUser = (updatedUser) => {
 		dispatch(userActions.updateUser(user.id, updatedUser, userActions.getUsers(id)));
 	};
-
+	console.log(user);
 	return (
 		<>
 			{commonActions.objectIsNullOrUndefined(user) || commonActions.objectIsEmpty(user) ? (

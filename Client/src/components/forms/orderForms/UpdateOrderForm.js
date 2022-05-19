@@ -59,8 +59,10 @@ const UpdateOrderForm = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
-
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 	const navUpdateButtonClick = (e) => {
 		e.preventDefault();
 		if (props.navUpdateButtonClick && idValue > 0) {
@@ -122,29 +124,32 @@ const UpdateOrderForm = (props) => {
 		setTotalValue(0);
 		setUserIdValue(0);
 		setProductIdValue(0);
+
+		setChangeOrderStatus(false);
+		setChangeNote(false);
+		setChangeAddress(false);
+		setChangePrice(false);
+		setChangeQuantity(false);
+		setChangeDiscount(false);
+		setChangeUserId(false);
+		setChangeProductId(false);
+
 		setEntityFound(false);
-		setChangeOrderStatus(true);
-		setChangeNote(true);
-		setChangeAddress(true);
-		setChangePrice(true);
-		setChangeQuantity(true);
-		setChangeDiscount(true);
-		setChangeUserId(true);
-		setChangeProductId(true);
 		dispatch(commonActions.getEntityToUpdate("Orders", 0));
+
 		toggle();
 	};
 
 	// Update or Not
 
-	const [changeOrderStatus, setChangeOrderStatus] = useState(true);
-	const [changeNote, setChangeNote] = useState(true);
-	const [changeAddress, setChangeAddress] = useState(true);
-	const [changePrice, setChangePrice] = useState(true);
-	const [changeQuantity, setChangeQuantity] = useState(true);
-	const [changeDiscount, setChangeDiscount] = useState(true);
-	const [changeUserId, setChangeUserId] = useState(true);
-	const [changeProductId, setChangeProductId] = useState(true);
+	const [changeOrderStatus, setChangeOrderStatus] = useState(false);
+	const [changeNote, setChangeNote] = useState(false);
+	const [changeAddress, setChangeAddress] = useState(false);
+	const [changePrice, setChangePrice] = useState(false);
+	const [changeQuantity, setChangeQuantity] = useState(false);
+	const [changeDiscount, setChangeDiscount] = useState(false);
+	const [changeUserId, setChangeUserId] = useState(false);
+	const [changeProductId, setChangeProductId] = useState(false);
 
 	return (
 		<>
@@ -202,7 +207,7 @@ const UpdateOrderForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-order-update-orderStatus-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -231,7 +236,7 @@ const UpdateOrderForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-order-update-note-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -260,7 +265,7 @@ const UpdateOrderForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-order-update-address-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -290,7 +295,7 @@ const UpdateOrderForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-order-update-price-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -320,7 +325,7 @@ const UpdateOrderForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-order-update-quantity-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -397,7 +402,7 @@ const UpdateOrderForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-order-update-userId-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -427,7 +432,7 @@ const UpdateOrderForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-order-update-productId-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -440,7 +445,10 @@ const UpdateOrderForm = (props) => {
 						>
 							Update Order
 						</button>
-						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+						<button
+							className="btn btn-secondary form-input form-control"
+							onClick={(e) => toggle(e)}
+						>
 							Close
 						</button>
 					</ModalFooter>

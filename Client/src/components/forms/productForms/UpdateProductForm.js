@@ -50,8 +50,10 @@ const UpdateProductForm = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
-
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 	const navUpdateButtonClick = (e) => {
 		e.preventDefault();
 		if (props.navUpdateButtonClick && idValue > 0) {
@@ -101,25 +103,28 @@ const UpdateProductForm = (props) => {
 		setStockValue(0);
 		setCategoryIdValue(0);
 		setSellerIdValue(0);
+
+		setChangeName(false);
+		setChangeDescription(false);
+		setChangePrice(false);
+		setChangeStock(false);
+		setChangeCategoryId(false);
+		setChangeSellerId(false);
+
 		setEntityFound(false);
-		setChangeName(true);
-		setChangeDescription(true);
-		setChangePrice(true);
-		setChangeStock(true);
-		setChangeCategoryId(true);
-		setChangeSellerId(true);
 		dispatch(commonActions.getEntityToUpdate("Products", 0));
+
 		toggle();
 	};
 
 	// Update or Not
 
-	const [changeName, setChangeName] = useState(true);
-	const [changeDescription, setChangeDescription] = useState(true);
-	const [changePrice, setChangePrice] = useState(true);
-	const [changeStock, setChangeStock] = useState(true);
-	const [changeCategoryId, setChangeCategoryId] = useState(true);
-	const [changeSellerId, setChangeSellerId] = useState(true);
+	const [changeName, setChangeName] = useState(false);
+	const [changeDescription, setChangeDescription] = useState(false);
+	const [changePrice, setChangePrice] = useState(false);
+	const [changeStock, setChangeStock] = useState(false);
+	const [changeCategoryId, setChangeCategoryId] = useState(false);
+	const [changeSellerId, setChangeSellerId] = useState(false);
 
 	return (
 		<>
@@ -177,7 +182,7 @@ const UpdateProductForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-product-update-name-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -206,7 +211,7 @@ const UpdateProductForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-product-update-description-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -236,7 +241,7 @@ const UpdateProductForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-product-update-price-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -266,7 +271,7 @@ const UpdateProductForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-product-update-stock-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -296,7 +301,7 @@ const UpdateProductForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-product-update-categoryId-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -326,7 +331,7 @@ const UpdateProductForm = (props) => {
 									className="form-check-label"
 									htmlFor="modal-form-product-update-sellerId-check"
 								>
-									Don't Change
+									Change
 								</label>
 							</div>
 						</div>
@@ -339,7 +344,10 @@ const UpdateProductForm = (props) => {
 						>
 							Update Product
 						</button>
-						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+						<button
+							className="btn btn-secondary form-input form-control"
+							onClick={(e) => toggle(e)}
+						>
 							Close
 						</button>
 					</ModalFooter>

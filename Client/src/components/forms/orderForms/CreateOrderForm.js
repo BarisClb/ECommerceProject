@@ -15,8 +15,10 @@ const CreateOrderForm = (props) => {
 
 	// Modal
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
-
+	const toggle = (e) => {
+		e.preventDefault();
+		setModal(!modal);
+	};
 	const navCreateButtonClick = (e) => {
 		e.preventDefault();
 		if (props.navCreateButtonClick) {
@@ -205,7 +207,10 @@ const CreateOrderForm = (props) => {
 						<button className="btn btn-success form-input form-control" type="submit">
 							Create Order
 						</button>
-						<button className="btn btn-secondary form-input form-control" onClick={toggle}>
+						<button
+							className="btn btn-secondary form-input form-control"
+							onClick={(e) => toggle(e)}
+						>
 							Close
 						</button>
 					</ModalFooter>
