@@ -36,7 +36,7 @@ import SellerProfile from "./screens/seller/SellerProfile";
 //#region StorePages
 import StoreMain from "./screens/store/StoreMain";
 import StoreWelcomePage from "./components/store/StoreWelcomePage";
-import StoreProducts from "./screens/store/StoreProducts";
+import StoreProductsByCategory from "./screens/store/StoreProductsByCategory";
 import StoreSingleProduct from "./screens/store/StoreSingleProduct";
 import Cart from "./screens/store/Cart";
 //#endregion
@@ -52,6 +52,7 @@ import StoreProfileComments from "./screens/store/StoreProfileComments";
 import StoreProfileAuth from "./screens/store/StoreProfileAuth";
 import StoreProductList from "./screens/store/StoreProductList";
 import StoreProfileOrders from "./screens/store/StoreProfileOrders";
+import SellerSingleProduct from "./screens/seller/SellerSingleProduct";
 //#endregion
 
 ReactDOM.render(
@@ -85,7 +86,7 @@ ReactDOM.render(
 					{/* STORE SIDE */}
 					<Route path="store" element={<StoreMain />}>
 						<Route path="" element={<StoreWelcomePage />} />
-						<Route path="category/:id" element={<StoreProducts />} />
+						<Route path="category/:id" element={<StoreProductsByCategory />} />
 						<Route path="products/:searchWord" element={<StoreProductList />} />
 						<Route path="products" element={<StoreProductList />} />
 						<Route path="product/:id" element={<StoreSingleProduct />}>
@@ -105,6 +106,7 @@ ReactDOM.render(
 					<Route path="seller" element={<SellerMain />}>
 						<Route path="" element={<SellerWelcome />} />
 						<Route path="profile" element={<SellerProfile />} />
+						<Route path="product/:id" element={<SellerSingleProduct />} />
 						<Route path="products" element={<SellerProducts />} />
 						<Route path="orders" element={<SellerOrders />} />
 						{/* <Route path="comments" element={<SellerComments />} /> */}

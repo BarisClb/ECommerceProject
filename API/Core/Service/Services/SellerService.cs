@@ -1,11 +1,11 @@
 ﻿using Application.Repositories;
+using Application.Utilities.Security;
+using Application.Utilities.Validators;
+using Domain.Entities;
+using Domain.Responses;
+using Infrastructure.Dtos.Common;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
-using Infrastructure.Dtos.Common;
-using Application.Utilities.Validators;
-using Application.Utilities.Security;
-using Domain.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,6 +119,11 @@ namespace Service.Services
             if (String.IsNullOrWhiteSpace(modelSeller.Password))
                 return new FailResponse("Invalid Password.");
 
+            // Trimming
+            modelSeller.Name = modelSeller.Name.Trim();
+            modelSeller.Username = modelSeller.Username.Trim();
+            modelSeller.EMail = modelSeller.EMail.Trim();
+
             // Checking if Username and Email are Unique for both Seller and User
             if (await _sellerReadRepository.GetSingleAsync(seller => seller.Username == modelSeller.Username) != null)
                 return new FailResponse("Username already exists.");
@@ -129,9 +134,15 @@ namespace Service.Services
             if (await _userReadRepository.GetSingleAsync(user => user.EMail == modelSeller.EMail) != null)
                 return new FailResponse("EMail already exists.");
 
+            // Username Validation with Regex
+            if (EntityValidator.CheckSingleWhiteSpace(modelSeller.Username))
+                return new FailResponse("Invalid Username format.(No Whitespaces)");
             // EMail Validation with Regex
             if (!AccountValidator.CheckEMail(modelSeller.EMail))
                 return new FailResponse("Invalid EMail format.");
+            // Password Validation with Regex
+            if (EntityValidator.CheckSingleWhiteSpace(modelSeller.Password))
+                return new FailResponse("Invalid Password format.(No Whitespaces)");
 
             await _sellerWriteRepository.AddAsync(new()
             {
@@ -162,16 +173,22 @@ namespace Service.Services
                 return new FailResponse("Seller does not exist.");
 
             if (modelSeller.Name != null)
-                seller.Name = modelSeller.Name;
+                seller.Name = modelSeller.Name.Trim();
             if (modelSeller.Username != null)
             {
+                modelSeller.Username = modelSeller.Username.Trim();
+
                 if (await _sellerReadRepository.GetSingleAsync(seller => seller.Username == modelSeller.Username) != null)
                     return new FailResponse("Username already exists.");
+                if (EntityValidator.CheckSingleWhiteSpace(modelSeller.Username))
+                    return new FailResponse("Invalid Username format.(No Whitespaces)");
 
                 seller.Username = modelSeller.Username;
             }
             if (modelSeller.EMail != null)
             {
+                modelSeller.EMail = modelSeller.EMail.Trim();
+
                 if (await _sellerReadRepository.GetSingleAsync(seller => seller.EMail == modelSeller.EMail) != null)
                     return new FailResponse("EMail already exists.");
                 if (!AccountValidator.CheckEMail(modelSeller.EMail))
@@ -180,7 +197,12 @@ namespace Service.Services
                 seller.EMail = modelSeller.EMail;
             }
             if (modelSeller.Password != null)
+            {
+                if (EntityValidator.CheckSingleWhiteSpace(modelSeller.Password))
+                    return new FailResponse("Invalid Password format.(No Whitespaces)");
+
                 seller.Password = HashSecurity.HashPassword(modelSeller.Password);
+            }
 
             await _sellerWriteRepository.SaveAsync();
             return new SuccessfulResponse<Seller>("Seller updated.");

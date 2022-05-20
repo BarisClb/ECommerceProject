@@ -27,6 +27,9 @@
    4-) Mails between Accounts  
    5-) Notifications for Personal EMail and in Account MailBox (Replies to Comments, Comments to Products, Order Status Update...)  
    6-) DDD with CQRS (with MediatR and AutoMapper) => I will probably implement this on the next project.  
+   7-) Debounce for Text-Inputs  
+   8-) Infinite Scrolling  
+   9-) Breadcrumbs  
   
    Need To Think:  
   

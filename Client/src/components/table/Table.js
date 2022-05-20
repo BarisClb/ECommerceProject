@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./css/index.css";
-import MiniCart from "./MiniCart";
 //#region Create Forms
 import CreateCategoryForm from "../forms/categoryForms/CreateCategoryForm";
 import CreateCommentForm from "../forms/commentForms/CreateCommentForm";
@@ -54,7 +53,6 @@ const Table = (props) => {
 	const [tableData4] = useState(props.tableData4);
 	// Special
 	const [isNav] = useState(props.isNav);
-	const [isCart] = useState(props.isCart);
 	const [isAdmin] = useState(props.isAdmin);
 	// Table Buttons
 	const [tableButtons] = useState(props.tableButtons);
@@ -381,6 +379,7 @@ const Table = (props) => {
 		}
 	}, [searchValue]);
 
+	// Sort
 	useEffect(() => {
 		if (sortInfo) {
 			pageButtonMapping(sortInfo.totalCount, sortInfo.pageSize);
@@ -527,14 +526,10 @@ const Table = (props) => {
 						{tableHead3 && <th scope="col">{tableHead3}</th>}
 						{tableHead4 && <th scope="col">{tableHead4}</th>}
 						{/* Buttons PlaceHolder */}
-						{isCart ? (
-							<MiniCart />
-						) : (
-							tableButtons && (
-								<th scope="col" className="thead-buttons text-end">
-									{buttonHeadName ? buttonHeadName : "Operations"}
-								</th>
-							)
+						{tableButtons && (
+							<th scope="col" className="thead-buttons text-end">
+								{buttonHeadName ? buttonHeadName : "Operations"}
+							</th>
 						)}
 					</tr>
 				</thead>

@@ -1,3 +1,7 @@
+#store-top-navigation-wrapper {
+	white-space: nowrap;
+}
+
 #store-top-sitenav a {
 	padding: 0 !important;
 }

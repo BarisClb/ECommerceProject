@@ -1,9 +1,10 @@
 ﻿using Application.Repositories;
+using Application.Utilities.Validators;
+using Domain.Entities;
+using Domain.Responses;
+using Infrastructure.Dtos.Common;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
-using Infrastructure.Dtos.Common;
-using Domain.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,13 +133,47 @@ namespace Service.Services
             return new SuccessfulResponse<ProductReadVm>(mappedProduct);
         }
 
-        public async Task<BaseResponse> ByCategory(int id)
+        public async Task<BaseResponse> ByCategory(int id, ListSortWriteVm listSorting)
         {
             if (await _categoryReadRepository.GetByIdAsync(id, false) == null)
                 return new FailResponse("Category does not exist.");
 
             IList<Product> products = _productReadRepository.GetWhere(product => product.CategoryId == id, false).ToList();
-            IList<ProductReadVm> mappedProducts = products.Select(product => new ProductReadVm
+            if (!string.IsNullOrWhiteSpace(listSorting.SearchWord))
+            {
+                products = products.Where(p => p.Name.Contains(listSorting.SearchWord)).ToList();
+            }
+            // Sort => Reverse? OrderBy?
+            IList<Product> orderedProducts;
+            if (listSorting.Reverse)
+            {
+                orderedProducts = listSorting.OrderBy switch
+                {
+                    "Name" => products.OrderByDescending(p => p.Name).ToList(),
+                    "Price" => products.OrderByDescending(p => p.Price).ToList(),
+                    "CategoryName" => products.OrderByDescending(p => p.CategoryName).ToList(),
+                    "SellerUsername" => products.OrderByDescending(p => p.SellerUsername).ToList(),
+                    // "LikesCount" => products.OrderByDescending(p => p.Likes.Count).ToList(),
+                    _ => products.Reverse().ToList(),
+                };
+            }
+            else
+            {
+                orderedProducts = listSorting.OrderBy switch
+                {
+                    "Name" => products.OrderBy(p => p.Name).ToList(),
+                    "Price" => products.OrderBy(p => p.Price).ToList(),
+                    "CategoryName" => products.OrderBy(p => p.CategoryName).ToList(),
+                    "SellerUsername" => products.OrderBy(p => p.SellerUsername).ToList(),
+                    // "LikesCount" => products.OrderBy(p => p.Likes.Count).ToList(),
+                    _ => products,
+                };
+            }
+            // Pagination and Mapping
+            if (listSorting.PageSize == 0)
+                listSorting.PageSize = products.Count;
+
+            IList<ProductReadVm> mappedProducts = orderedProducts.Skip((listSorting.PageNumber - 1) * listSorting.PageSize).Take(listSorting.PageSize).Select(product => new ProductReadVm
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -153,7 +188,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new SuccessfulResponse<IList<ProductReadVm>>(mappedProducts);
+            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> BySeller(int id, ListSortWriteVm listSorting)
@@ -222,9 +257,23 @@ namespace Service.Services
             Seller seller = await _sellerReadRepository.GetByIdAsync(product.SellerId);
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
+
             IList<Comment> comments = _commentReadRepository.GetWhere(comment => comment.ProductId == id).ToList();
             IList<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.ProductId == id).ToList();
             IList<Like> likes = _likeReadRepository.GetWhere(like => like.ProductId == id).ToList();
+
+            int totalRating = 0;
+            int totalComments = comments.Count();
+            decimal avarageRating = 0;
+
+            if (totalComments > 0)
+            {
+                foreach (Comment comment in comments)
+                {
+                    totalRating += comment.Rating;
+                }
+                avarageRating = Decimal.Divide(totalRating, totalComments);
+            }
 
             ProductReadVm mappedProduct = new()
             {
@@ -233,6 +282,7 @@ namespace Service.Services
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
+                AvarageRating = avarageRating,
                 CategoryName = product.CategoryName,
                 CategoryId = product.CategoryId,
                 SellerUsername = product.SellerUsername,
@@ -325,6 +375,13 @@ namespace Service.Services
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
 
+            // Trim and Replace Multiple Whitespaces
+            modelProduct.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Name);
+            modelProduct.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Description);
+
+            if (modelProduct.Price < 0)
+                modelProduct.Price = 0;
+
             await _productWriteRepository.AddAsync(new()
             {
                 Name = modelProduct.Name,
@@ -348,9 +405,15 @@ namespace Service.Services
                 return new FailResponse("Product does not exist.");
 
             if (modelProduct.Name != null)
+            {
+                product.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Name);
                 product.Name = modelProduct.Name;
+            }
             if (modelProduct.Description != null)
+            {
+                modelProduct.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Description);
                 product.Description = modelProduct.Description;
+            }
             if (modelProduct.Price != null)
                 product.Price = (decimal)modelProduct.Price;
             if (modelProduct.Stock != null)
@@ -369,6 +432,10 @@ namespace Service.Services
                 product.Seller = seller;
                 product.SellerUsername = seller.Username;
             }
+
+            // I put this here so that it checks the rating even if the modelComment.Rating is null (even if it's not updated manualy).
+            if (modelProduct.Price < 0)
+                modelProduct.Price = 0;
 
             await _productWriteRepository.SaveAsync();
             return new SuccessfulResponse<Product>("Product updated.");

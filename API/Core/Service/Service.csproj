@@ -12,15 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Commands\Request\" />
-    <Folder Include="CQRS\Commands\Response\" />
-    <Folder Include="CQRS\Handlers\CommandHandlers\" />
-    <Folder Include="CQRS\Handlers\QueryHandlers\" />
-    <Folder Include="CQRS\Queries\Request\" />
-    <Folder Include="CQRS\Queries\Response\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="MediatR" Version="10.0.1" />

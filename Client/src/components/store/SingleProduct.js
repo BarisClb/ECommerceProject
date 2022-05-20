@@ -5,13 +5,13 @@ import { cartActions } from "../../store/actions/cartActions";
 import "./css/index.css";
 import { useDispatch, useSelector } from "react-redux";
 
-function SingleProduct(params) {
+function SingleProduct(props) {
 	// DATA
-	const product = params.productPageData.product;
-	const seller = params.productPageData.seller;
-	const comments = params.productPageData.comments;
-	const commentReplies = params.productPageData.commentReplies;
-	const likes = params.productPageData.likes;
+	const product = props.productPageData.product;
+	const seller = props.productPageData.seller;
+	const comments = props.productPageData.comments;
+	const commentReplies = props.productPageData.commentReplies;
+	const likes = props.productPageData.likes;
 
 	// User
 	const user = useSelector((state) => state.account.user);
@@ -58,25 +58,27 @@ function SingleProduct(params) {
 						<div id="singleproduct-price-stock" className="row">
 							<div className="col-sm-6">
 								<p>Price</p> <h1>{product && product.price}</h1>
+								<hr />
 							</div>
 							<div className="col-sm-6">
 								<p>Stock</p>
 								<h1>
 									{product && product.stock > 0 ? "Still in stock!" : "Out of stock."}
 								</h1>
+								<hr />
 							</div>
-							<hr />
 						</div>
 						<div id="singleproduct-seller" className="row">
 							<div className="col-sm-6">
 								<p>Product By</p>
 								<h1>{product && seller.username}</h1>
+								<hr />
 							</div>
 							<div className="col-sm-6">
 								<p>Created At</p>
 								<h1>{product && product.dateCreated.slice(0, 10)}</h1>
+								<hr />
 							</div>
-							<hr />
 						</div>
 						<div id="singleproduct-order" className="row">
 							<a

@@ -3,7 +3,8 @@ import { accountTypes } from "../types/accountTypes";
 import { toast } from "react-toastify";
 
 const database = process.env.REACT_APP_DATABASE;
-const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
+const aspNetKestrelUrl = process.env.REACT_APP_ASPNET_KESTREL_URL;
+const aspNetIisUrl = process.env.REACT_APP_ASPNET_IIS_URL;
 
 // credentials : "include" -> for cookies
 
@@ -16,8 +17,11 @@ const accountLogIn = (accountType, accountInfo) => {
 		// Added env variables here to easily change API
 		let url = "";
 		switch (database) {
-			case "Local":
-				url = `${apiUrl}/Account/LogIn/`;
+			case "Local_Kestrel":
+				url = `${aspNetKestrelUrl}/Account/LogIn/`;
+				break;
+			case "Local_IIS":
+				url = `${aspNetIisUrl}/Account/LogIn/`;
 				break;
 
 			default:
@@ -72,8 +76,11 @@ const accountVerify = (accountType) => {
 		// Added env variables here to easily change API
 		let url = "";
 		switch (database) {
-			case "Local":
-				url = `${apiUrl}/Account/Verify?accountType=${accountType}`;
+			case "Local_Kestrel":
+				url = `${aspNetKestrelUrl}/Account/Verify?accountType=${accountType}`;
+				break;
+			case "Local_IIS":
+				url = `${aspNetIisUrl}/Account/Verify?accountType=${accountType}`;
 				break;
 
 			default:
@@ -126,8 +133,11 @@ const accountLogOut = (accountType) => {
 		// Added env variables here to easily change API
 		let url = "";
 		switch (database) {
-			case "Local":
-				url = `${apiUrl}/Account/LogOut?accountType=${accountType}`;
+			case "Local_Kestrel":
+				url = `${aspNetKestrelUrl}/Account/LogOut?accountType=${accountType}`;
+				break;
+			case "Local_IIS":
+				url = `${aspNetIisUrl}/Account/LogOut?accountType=${accountType}`;
 				break;
 
 			default:

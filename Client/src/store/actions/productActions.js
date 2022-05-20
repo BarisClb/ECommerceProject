@@ -4,7 +4,8 @@ import { actionHelpers } from "./actionHelpers";
 import { toast } from "react-toastify";
 
 const database = process.env.REACT_APP_DATABASE;
-const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
+const aspNetKestrelUrl = process.env.REACT_APP_ASPNET_KESTREL_URL;
+const aspNetIisUrl = process.env.REACT_APP_ASPNET_IIS_URL;
 
 // // ORDER VM
 
@@ -83,8 +84,11 @@ const getProductPage = (productId, successCallback) => {
 
 		let url = "";
 		switch (database) {
-			case "Local":
-				url = `${apiUrl}/Products/ProductPage?id=${productId}`;
+			case "Local_Kestrel":
+				url = `${aspNetKestrelUrl}/Products/ProductPage?id=${productId}`;
+				break;
+			case "Local_IIS":
+				url = `${aspNetIisUrl}/Products/ProductPage?id=${productId}`;
 				break;
 
 			default:

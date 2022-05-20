@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 
 const database = process.env.REACT_APP_DATABASE;
-const apiUrl = process.env.REACT_APP_LOCAL_API_URL;
+const aspNetKestrelUrl = process.env.REACT_APP_ASPNET_KESTREL_URL;
+const aspNetIisUrl = process.env.REACT_APP_ASPNET_IIS_URL;
 
 // GET
 // No longer needed, since using the getSorted function without sortInfo also works as a 'getAll'
@@ -11,8 +12,14 @@ const getHelper = async (entityName, entityId) => {
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
-		case "Local":
-			url = `${apiUrl}/${entityName}/`;
+		case "Local_Kestrel":
+			url = `${aspNetKestrelUrl}/${entityName}/`;
+			if (entityId) {
+				url += `${entityId}`;
+			}
+			break;
+		case "Local_IIS":
+			url = `${aspNetIisUrl}/${entityName}/`;
 			if (entityId) {
 				url += `${entityId}`;
 			}
@@ -44,48 +51,52 @@ const getSortedHelper = async (entityName, listSorting) => {
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
-		case "Local":
-			url = `${apiUrl}/${entityName}`;
-
-			// // If no sorting applied, no need for question mark.
-			// for (let i = 0; i < listSorting.length; i++) {
-			// 	if (listSorting[i] !== null) {
-			// 		url += `?`;
-			// 		break
-			// 	}
-			// }
-
-			// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
-			// I am also giving it a default 'false' value so I don't get an error.
-			url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
-			// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
-			if (listSorting) {
-				// SearchWord
-				if (
-					listSorting.pageNumber !== undefined &&
-					listSorting.searchWord !== null &&
-					listSorting.searchWord.trim() !== ""
-				) {
-					url += `&SearchWord=${listSorting.searchWord.trim()}`;
-				}
-				// PageNumber
-				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-					url += `&PageNumber=${listSorting.pageNumber}`;
-				}
-				// PageSize
-				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-					url += `&PageSize=${listSorting.pageSize}`;
-				}
-				// OrderBy
-				if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
-					url += `&OrderBy=${listSorting.orderBy}`;
-				}
-			}
+		case "Local_Kestrel":
+			url = `${aspNetKestrelUrl}/${entityName}`;
+			break;
+		case "Local_IIS":
+			url = `${aspNetIisUrl}/${entityName}`;
 			break;
 
 		default:
 			break;
 	}
+	// // If no sorting applied, no need for question mark.
+	// for (let i = 0; i < listSorting.length; i++) {
+	// 	if (listSorting[i] !== null) {
+	// 		url += `?`;
+	// 		break
+	// 	}
+	// }
+
+	// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
+	// I am also giving it a default 'false' value so I don't get an error.
+	url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
+	// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
+	if (listSorting) {
+		// SearchWord
+		if (
+			listSorting.pageNumber !== undefined &&
+			listSorting.searchWord !== null &&
+			listSorting.searchWord.trim() !== ""
+		) {
+			url += `&SearchWord=${listSorting.searchWord.trim()}`;
+		}
+		// PageNumber
+		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+			url += `&PageNumber=${listSorting.pageNumber}`;
+		}
+		// PageSize
+		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+			url += `&PageSize=${listSorting.pageSize}`;
+		}
+		// OrderBy
+		if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
+			url += `&OrderBy=${listSorting.orderBy}`;
+		}
+	}
+	console.log(url);
+	console.log(listSorting);
 
 	try {
 		let response = await fetch(url);
@@ -108,8 +119,11 @@ const getEntitiesByEntityHelper = async (manyEntityName, singleEntityName, singl
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
-		case "Local":
-			url = `${apiUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+		case "Local_Kestrel":
+			url = `${aspNetKestrelUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			break;
+		case "Local_IIS":
+			url = `${aspNetIisUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
 			break;
 
 		default:
@@ -141,38 +155,42 @@ const getEntitiesByEntitySortedHelper = async (
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
-		case "Local":
-			url = `${apiUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
-			// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
-			// I am also giving it a default 'false' value so I don't get an error.
-			url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
-			// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
-			if (listSorting) {
-				// SearchWord
-				if (
-					listSorting.pageNumber !== undefined &&
-					listSorting.searchWord !== null &&
-					listSorting.searchWord.trim() !== ""
-				) {
-					url += `&SearchWord=${listSorting.searchWord.trim()}`;
-				}
-				// PageNumber
-				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-					url += `&PageNumber=${listSorting.pageNumber}`;
-				}
-				// PageSize
-				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-					url += `&PageSize=${listSorting.pageSize}`;
-				}
-				// OrderBy
-				if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
-					url += `&OrderBy=${listSorting.orderBy}`;
-				}
-			}
+		case "Local_Kestrel":
+			url = `${aspNetKestrelUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			break;
+		case "Local_IIS":
+			url = `${aspNetIisUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
 			break;
 
 		default:
 			break;
+	}
+
+	// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
+	// I am also giving it a default 'false' value so I don't get an error.
+	url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
+	// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
+	if (listSorting) {
+		// SearchWord
+		if (
+			listSorting.pageNumber !== undefined &&
+			listSorting.searchWord !== null &&
+			listSorting.searchWord.trim() !== ""
+		) {
+			url += `&SearchWord=${listSorting.searchWord.trim()}`;
+		}
+		// PageNumber
+		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+			url += `&PageNumber=${listSorting.pageNumber}`;
+		}
+		// PageSize
+		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+			url += `&PageSize=${listSorting.pageSize}`;
+		}
+		// OrderBy
+		if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
+			url += `&OrderBy=${listSorting.orderBy}`;
+		}
 	}
 
 	try {
@@ -195,8 +213,11 @@ const createHelper = async (entityName, newEntity) => {
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
-		case "Local":
-			url = `${apiUrl}/${entityName}/`;
+		case "Local_Kestrel":
+			url = `${aspNetKestrelUrl}/${entityName}/`;
+			break;
+		case "Local_IIS":
+			url = `${aspNetIisUrl}/${entityName}/`;
 			break;
 
 		default:
@@ -230,8 +251,11 @@ const updateHelper = async (entityName, entityId, updatedEntity) => {
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
-		case "Local":
-			url = `${apiUrl}/${entityName}`;
+		case "Local_Kestrel":
+			url = `${aspNetKestrelUrl}/${entityName}`;
+			break;
+		case "Local_IIS":
+			url = `${aspNetIisUrl}/${entityName}`;
 			break;
 
 		default:
@@ -266,8 +290,11 @@ const deleteHelper = async (entityName, entityId) => {
 	// Added env variables here to easily change API
 	let url = "";
 	switch (database) {
-		case "Local":
-			url = `${apiUrl}/${entityName}/${entityId}`;
+		case "Local_Kestrel":
+			url = `${aspNetKestrelUrl}/${entityName}/${entityId}`;
+			break;
+		case "Local_IIS":
+			url = `${aspNetIisUrl}/${entityName}/${entityId}`;
 			break;
 
 		default:

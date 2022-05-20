@@ -62,7 +62,7 @@ function ProfilePage(props) {
 	const [changeAddress, setChangeAddress] = useState(false);
 	const [changeAdmin, setChangeAdmin] = useState(false);
 	const [showAdminPassword, setShowAdminPassword] = useState(false);
-	console.log(account);
+
 	useEffect(() => {
 		setAccount(props.account);
 		setAccountName(props.account.name);

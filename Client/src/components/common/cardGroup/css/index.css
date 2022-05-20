@@ -1,0 +1,44 @@
+#cardgroup-container {
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+#cardGroup-card-random-image {
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	border-radius: 15px;
+	max-width: 250px;
+}
+
+.store-cardGroup-card {
+	overflow-wrap: anywhere;
+	border-radius: 25px;
+	padding-top: 9px;
+}
+
+.store-cardGroup-card .card-title {
+	font-weight: 600;
+}
+
+.store-cardGroup-card .card-footer h4 {
+	margin-bottom: 0px;
+}
+
+.store-cardGroup-card .card-footer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.store-cardGroup-card .card-footer::after {
+	display: none;
+}
+
+.cardgroup-container-darkMode .store-cardGroup-card {
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+.card-text {
+	border-top: 1px solid rgba(0, 0, 0, 0.125);
+}

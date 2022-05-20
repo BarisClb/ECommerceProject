@@ -11,20 +11,14 @@ namespace Application.Utilities.Validators
     {
         public static bool CheckAdmin(string adminPass)
         {
-            if (adminPass == "123")
-                return true;
-
-            return false;
+            return adminPass == "123";
         }
 
         public static bool CheckEMail(string email)
         {
             Regex emailRegex = new(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
 
-            if (emailRegex.Match(email).Success)
-                return true;
-
-            return false;
+            return emailRegex.Match(email).Success;
         }
     }
 }

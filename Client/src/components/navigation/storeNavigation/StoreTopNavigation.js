@@ -6,7 +6,7 @@ import { commonActions } from "../../../store/actions";
 import { categoryActions } from "../../../store/actions/categoryActions";
 import { cartActions } from "../../../store/actions/cartActions";
 
-function StoreTopNavigation(params) {
+function StoreTopNavigation(props) {
 	const dispatch = useDispatch();
 	const darkMode = useSelector((state) => state.common.DarkMode);
 	const setDarkMode = (darkMode) => {
@@ -14,11 +14,11 @@ function StoreTopNavigation(params) {
 	};
 
 	// Profile
-	const [account, setAccount] = useState(params.account);
+	const [account, setAccount] = useState(props.account);
 	const [accountType] = useState(account.accountType && account.accountType);
 	const logOut = () => {
-		if (params.logOut) {
-			params.logOut();
+		if (props.logOut) {
+			props.logOut();
 			// To refresh
 			setAccount({});
 		}
@@ -44,7 +44,7 @@ function StoreTopNavigation(params) {
 	}, []);
 
 	return (
-		<div>
+		<div id="store-top-navigation-wrapper">
 			{/* SITE NAVIGATION */}
 			<nav
 				className={`nav nav-pills flex-column flex-sm-row ${

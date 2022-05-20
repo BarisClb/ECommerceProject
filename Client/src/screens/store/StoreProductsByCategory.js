@@ -1,35 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CardGroup from "../../components/common/cardGroup/CardGroup";
 import NotFound from "../../components/common/NotFound";
 import SortWrapper from "../../components/common/sortWrapper/SortWrapper";
-import { commonActions } from "../../store/actions";
 import { productActions } from "../../store/actions/productActions";
+import { commonActions } from "../../store/actions/commonActions";
+import DummyProductList from "../../components/store/DummyProductList";
 
-function StoreProductList(props) {
+function StoreProductsByCategory() {
 	const dispatch = useDispatch();
-	// Data
-	const { searchWord } = useParams();
-	const products = useSelector((state) => state.product.products);
 
+	// Data
+	const { id } = useParams();
+	const products = useSelector((state) => state.product.products);
 	useEffect(() => {
-		if (searchWord) {
-			dispatch(
-				productActions.getSortedProducts({
-					...listSorting,
-					searchWord: searchWord,
-				})
-			);
-		} else {
-			dispatch(productActions.getSortedProducts(listSorting));
-		}
+		dispatch(productActions.getSortedProductsByEntity("Category", listSorting, id));
 	}, []);
 
 	// Table Sort Button Action
 	const sortButtonClick = (listSortingValues) => {
 		listSorting = { ...listSorting, ...listSortingValues };
-		dispatch(productActions.getSortedProducts(listSorting));
+		dispatch(productActions.getSortedProductsByEntity("Category", listSorting, id));
 	};
 	// Default Sort Values
 	let listSorting = {
@@ -41,9 +33,14 @@ function StoreProductList(props) {
 	};
 	// Sort Data from API
 	const sortInfo = useSelector((state) => state.common.SortInfo);
+
 	return (
 		<>
-			{commonActions.objectIsEmpty(products) ? (
+			{id === "0" ? (
+				<SortWrapper listSorting={listSorting}>
+					<DummyProductList />
+				</SortWrapper>
+			) : commonActions.objectIsEmpty(products) ? (
 				<NotFound item={"Product"} noNav={true} />
 			) : (
 				<SortWrapper
@@ -54,7 +51,7 @@ function StoreProductList(props) {
 					sortBy4={"Category"}
 					sortByValue4={"CategoryName"}
 					sortAction={sortButtonClick}
-					customPageButtonValues={[3, 6, 9, 12, 16, 20, 24]}
+					customPageButtonValues={[3, 6, 9, 12, 15, 24]}
 				>
 					<CardGroup data={products} />
 				</SortWrapper>
@@ -63,4 +60,4 @@ function StoreProductList(props) {
 	);
 }
 
-export default StoreProductList;
+export default StoreProductsByCategory;

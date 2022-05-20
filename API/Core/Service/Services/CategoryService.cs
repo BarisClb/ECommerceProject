@@ -1,9 +1,10 @@
 ﻿using Application.Repositories;
+using Application.Utilities.Validators;
+using Domain.Entities;
+using Domain.Responses;
+using Infrastructure.Dtos.Common;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
-using Infrastructure.Dtos.Common;
-using Domain.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,6 +95,10 @@ namespace Service.Services
 
         public async Task<SuccessfulResponse<Category>> Post(CategoryCreateVm modelCategory)
         {
+            // Trim and Replace Multiple Whitespaces
+            modelCategory.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Name);
+            modelCategory.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Description);
+
             await _categoryWriteRepository.AddAsync(new()
             {
                 Name = modelCategory.Name,
@@ -111,9 +116,15 @@ namespace Service.Services
                 return new FailResponse("Category does not exist.");
 
             if (modelCategory.Name != null)
+            {
+                modelCategory.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Name);
                 category.Name = modelCategory.Name;
+            }
             if (modelCategory.Description != null)
+            {
+                modelCategory.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Description);
                 category.Description = modelCategory.Description;
+            }
 
             await _categoryWriteRepository.SaveAsync();
             return new SuccessfulResponse<Category>("Category updated.");

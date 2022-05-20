@@ -4,7 +4,7 @@ import { commonActions } from "../../store/actions";
 import { accountActions } from "../../store/actions/accountActions";
 import "./css/index.css";
 
-function AuthNavigation(params) {
+function AuthNavigation(props) {
 	const dispatch = useDispatch();
 	const logOut = () => {
 		dispatch(accountActions.accountLogOut("User"));
@@ -16,9 +16,9 @@ function AuthNavigation(params) {
 				<div id="main-authpage-auth-header" className="row">
 					<h1>
 						Hello,{" "}
-						{params.user && params.user.name
-							? params.user.name
-							: params.seller && params.seller.name && params.seller.name}
+						{props.user && props.user.name
+							? props.user.name
+							: props.seller && props.seller.name && props.seller.name}
 					</h1>
 				</div>
 				<div id="main-authpage-auth-text" className="row">
@@ -28,7 +28,7 @@ function AuthNavigation(params) {
 				</div>
 				{/* Links */}
 				<div id="main-authpage-auth-links" className="row">
-					{params.user && !commonActions.objectIsEmpty(params.user) ? (
+					{props.user && !commonActions.objectIsEmpty(props.user) ? (
 						<>
 							<div className="col-md-4 col-sm-12 d-flex justify-content-center">
 								<a className="main-authpage-auth-link nav-link" href="/admin/profile">
@@ -38,7 +38,7 @@ function AuthNavigation(params) {
 							<div className="col-md-4 col-sm-12 d-flex justify-content-center">
 								<a
 									className="main-authpage-auth-link nav-link"
-									href={`/store/profile/${params.user.id}`}
+									href={`/store/profile/${props.user.id}`}
 								>
 									User Profile
 								</a>
@@ -53,7 +53,7 @@ function AuthNavigation(params) {
 					)}
 
 					<div className="col-md-4 col-sm-12 d-flex justify-content-center">
-						<div className="main-authpage-auth-link nav-link" onClick={() => params.logOut()}>
+						<div className="main-authpage-auth-link nav-link" onClick={() => props.logOut()}>
 							LogOut
 						</div>
 					</div>

@@ -27,6 +27,18 @@ const SellerSideNavigation = () => {
 			<hr />
 			<ul className="nav nav-pills flex-column mb-auto">
 				<li className="nav-item">
+					<a href="/seller/product/0" className="nav-link text-white">
+						<div className="seller-sidenav-items">
+							<div>
+								<i className="bi bi-cash" />
+							</div>
+							<div className="seller-sidenav-text">
+								<p>Create Product</p>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li className="nav-item">
 					<a href="/seller/products" className="nav-link text-white">
 						<div className="seller-sidenav-items">
 							<div>

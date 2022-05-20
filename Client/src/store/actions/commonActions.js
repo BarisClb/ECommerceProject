@@ -67,6 +67,10 @@ const objectIsEmpty = (object) => {
 	return Object.keys(object).length === 0;
 };
 
+const trimAndReplaceDoubleWs = (string) => {
+	return string.trim().replace(/\s\s+/g, " ");
+};
+
 export const commonActions = {
 	clearError,
 	asyncStarted,
@@ -76,4 +80,5 @@ export const commonActions = {
 	randomImage,
 	objectIsNullOrUndefined,
 	objectIsEmpty,
+	trimAndReplaceDoubleWs,
 };

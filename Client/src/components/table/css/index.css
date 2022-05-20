@@ -1,5 +1,4 @@
 .table-body {
-	/* margin-left: 270px !important; */
 	margin: 20px;
 }
 
@@ -94,7 +93,6 @@
 
 .table-navbar-sort-by-left-top > select,
 .table-navbar-sort-by-left-bottom > select {
-	/* text-align: center; */
 	width: 8rem;
 	padding: 3px 6px;
 }
@@ -121,7 +119,6 @@
 
 #table-nav-pagination .page-link:focus {
 	box-shadow: none !important;
-	/* border-color: transparent !important; */
 }
 
 #table-nav-pagination li {

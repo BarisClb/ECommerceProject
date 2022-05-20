@@ -1,9 +1,10 @@
 ﻿using Application.Repositories;
+using Application.Utilities.Validators;
+using Domain.Entities;
+using Domain.Responses;
+using Infrastructure.Dtos.Common;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
-using Infrastructure.Dtos.Common;
-using Domain.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,8 +186,14 @@ namespace Service.Services
             if (user == null)
                 return new FailResponse("User does not exist.");
 
+            if (modelComment.Rating < 0)
+                modelComment.Rating = 0;
             if (modelComment.Rating > 5)
                 modelComment.Rating = 5;
+
+            // Trim and Replace Multiple Whitespaces
+            modelComment.Title = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelComment.Title);
+            modelComment.Text = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelComment.Text);
 
             await _commentWriteRepository.AddAsync(new()
             {
@@ -210,12 +217,21 @@ namespace Service.Services
                 return new FailResponse("Comment does not exist.");
 
             if (modelComment.Title != null)
+            {
+                modelComment.Title = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelComment.Title);
                 comment.Title = modelComment.Title;
+            }
             if (modelComment.Text != null)
+            {
+                modelComment.Text = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelComment.Text);
                 comment.Text = modelComment.Text;
+            }
             if (modelComment.Rating != null)
                 comment.Rating = (byte)modelComment.Rating;
-            // This checks the rating even if the UpdatedRating is null (if they are updated).
+
+            // I put this here so that it checks the rating even if the modelComment.Rating is null (even if it's not updated manualy).
+            if (modelComment.Rating < 0)
+                modelComment.Rating = 0;
             if (comment.Rating > 5)
                 comment.Rating = 5;
 

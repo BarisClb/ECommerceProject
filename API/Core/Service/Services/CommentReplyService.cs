@@ -1,9 +1,10 @@
 ﻿using Application.Repositories;
+using Application.Utilities.Validators;
+using Domain.Entities;
+using Domain.Responses;
+using Infrastructure.Dtos.Common;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
-using Infrastructure.Dtos.Common;
-using Domain.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -202,6 +203,9 @@ namespace Service.Services
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
 
+            // Trim and Replace Multiple Whitespaces
+            modelCommentReply.Text = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCommentReply.Text);
+
             await _commentReplyWriteRepository.AddAsync(new()
             {
                 Text = modelCommentReply.Text,
@@ -223,7 +227,10 @@ namespace Service.Services
                 return new FailResponse("CommentReply does not exist.");
 
             if (modelCommentReply.Text != null)
+            {
+                modelCommentReply.Text = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCommentReply.Text);
                 commentReply.Text = modelCommentReply.Text;
+            }
 
             await _commentReplyWriteRepository.SaveAsync();
             return new SuccessfulResponse<CommentReply>("CommentReply updated.");

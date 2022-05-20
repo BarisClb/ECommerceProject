@@ -1,11 +1,11 @@
 import React from "react";
 import "./css/index.css";
 
-function StoreUnauthorized() {
+function UnauthorizedPage() {
 	return (
-		<div id="store-unauthorized-text">
-			<h2 className="store-unauthorized-header">
-				You don't have the authorization to view this page.
+		<div id="unauthorized-page-text">
+			<h2 className="unauthorized-page-header">
+				You don't have the Authorization to view this page.
 			</h2>
 			<div className="row">
 				<div className="col-md-6 col-sm-12 d-flex justify-content-center">
@@ -23,4 +23,4 @@ function StoreUnauthorized() {
 	);
 }
 
-export default StoreUnauthorized;
+export default UnauthorizedPage;

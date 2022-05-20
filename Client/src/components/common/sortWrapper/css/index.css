@@ -1,0 +1,126 @@
+#sortwrapper-wrapper {
+	margin: 3rem auto;
+}
+
+/* Sort Top Nav */
+
+.sortWrapper-sortNav-sort-by {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	border: 2px solid gainsboro;
+	border-radius: 25px;
+}
+
+.sortwrapper-wrapper-darkMode .sortWrapper-sortNav-sort-by {
+	border: 2px solid #6c757d;
+}
+
+.sortWrapper-sortNav-sort-by-left {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.sortWrapper-sortNav-sort-by-left-top,
+.sortWrapper-sortNav-sort-by-left-bottom {
+	display: flex;
+	gap: 2rem;
+	white-space: nowrap;
+	align-items: center;
+}
+
+.sortWrapper-sortNav-sort-by-left-top label,
+.sortWrapper-sortNav-sort-by-left-bottom label {
+	margin-bottom: 0px;
+}
+
+.sortWrapper-sortNav-sort-by-left-top select,
+.sortWrapper-sortNav-sort-by-left-bottom select {
+	min-width: 8rem;
+	padding: 3px 6px;
+}
+
+.sortWrapper-sortNav-sort-by-right input {
+	padding: 3px 6px;
+	text-indent: 10px;
+}
+
+/* Pagination */
+
+#sortWrapper-nav-pagination {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+	border-radius: 20px;
+	background-color: rgba(0, 0, 0, 0.08);
+}
+
+#sortWrapper-nav-pagination p {
+	margin-bottom: 0px;
+}
+
+#sortWrapper-nav-pagination-select-pageSize {
+	width: 5.8rem;
+	height: 34px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.sortwrapper-wrapper-darkMode select,
+.sortwrapper-wrapper-darkMode input {
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+#sortWrapper-pagination-custom-page-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3rem;
+}
+
+#sortWrapper-pagination-custom-page-list-item > a::after {
+	display: none;
+}
+
+#sortWrapper-pagination-custom-page-list-item > ul {
+	position: absolute;
+	inset: auto;
+	width: 120px !important;
+	min-width: 0 !important;
+}
+
+#sortWrapper-pagination-custom-page-button > input {
+	width: 50%;
+}
+
+#sortWrapper-pagination-custom-page-button > label {
+	margin: 0;
+}
+
+#sortWrapper-pagination-custom-page-button > button {
+	padding: 5px 10px;
+}
+
+#sortWrapper-nav-pagination-select-currentPage > p {
+	margin: 0 !important;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 991px) {
+	.sortWrapper-sortNav-sort-by {
+		gap: 0.3rem;
+	}
+}
+
+@media screen and (max-width: 521px) {
+	.sortWrapper-sortNav-sort-by-left {
+		gap: 0.3rem;
+	}
+}

@@ -1,9 +1,10 @@
 ﻿using Application.Repositories;
+using Application.Utilities.Validators;
+using Domain.Entities;
+using Domain.Responses;
+using Infrastructure.Dtos.Common;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
-using Infrastructure.Dtos.Common;
-using Domain.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -275,6 +276,10 @@ namespace Service.Services
 
             decimal total = (modelOrder.Price * modelOrder.Quantity) / 100 * (100 - modelOrder.Discount);
 
+            // Trim and Replace Multiple Whitespaces
+            if (modelOrder.Note != null)
+                modelOrder.Note = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelOrder.Note);
+
             await _orderWriteRepository.AddAsync(new()
             {
                 Note = modelOrder.Note,
@@ -303,7 +308,10 @@ namespace Service.Services
                 return new FailResponse("Order does not exist.");
 
             if (modelOrder.Note != null)
+            {
+                modelOrder.Note = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelOrder.Note);
                 order.Note = modelOrder.Note;
+            }
             if (modelOrder.Price != null)
                 order.Price = (decimal)modelOrder.Price;
             if (modelOrder.Quantity != null)

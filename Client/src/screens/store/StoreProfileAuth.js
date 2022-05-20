@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
-import StoreUnauthorized from "../../components/store/StoreUnauthorized";
+import Unauthorized from "../../components/common/UnauthorizedPage";
 
 function StoreProfileAuth() {
 	const account = useSelector((state) => state.account.user);
@@ -21,7 +21,7 @@ function StoreProfileAuth() {
 					permission={account.id && account.id === id ? true : false}
 				/>
 			) : (
-				<StoreUnauthorized />
+				<Unauthorized />
 			)}
 		</>
 	);

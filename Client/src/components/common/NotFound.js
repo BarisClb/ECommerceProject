@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import MainNavigation from "../navigation/MainNavigation";
 
-function NotFound(params) {
-	const [item] = useState(params.item);
-	const [noNav] = useState(params.noNav ? params.noNav : true);
-	const [siteFront] = useState(params.siteFront);
+function NotFound(props) {
+	const [item] = useState(props.item);
+	const [noNav] = useState(props.noNav ? props.noNav : true);
+	const [siteFront] = useState(props.siteFront);
 
 	return (
 		<>

@@ -1,11 +1,11 @@
 ﻿using Application.Repositories;
+using Application.Utilities.Security;
+using Application.Utilities.Validators;
+using Domain.Entities;
+using Domain.Responses;
+using Infrastructure.Dtos.Common;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
-using Infrastructure.Dtos.Common;
-using Application.Utilities.Validators;
-using Application.Utilities.Security;
-using Domain.Responses;
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,6 +132,12 @@ namespace Service.Services
             if (String.IsNullOrWhiteSpace(modelUser.Password))
                 return new FailResponse("Invalid Password.");
 
+            // Trimming
+            modelUser.Name = modelUser.Name.Trim();
+            modelUser.Username = modelUser.Username.Trim();
+            modelUser.EMail = modelUser.EMail.Trim();
+            modelUser.Address = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelUser.Address);
+
             // Checking if Username and Email are Unique for both User and Seller
             if (await _userReadRepository.GetSingleAsync(user => user.Username == modelUser.Username) != null)
                 return new FailResponse("Username already exists.");
@@ -142,9 +148,15 @@ namespace Service.Services
             if (await _sellerReadRepository.GetSingleAsync(seller => seller.EMail == modelUser.EMail) != null)
                 return new FailResponse("EMail already exists.");
 
+            // Username Validation with Regex
+            if (EntityValidator.CheckSingleWhiteSpace(modelUser.Username))
+                return new FailResponse("Invalid Username format.(No Whitespaces)");
             // EMail Validation with Regex
-            if (!AccountValidator.CheckEMail(modelUser.EMail))
+            if (!AccountValidator.CheckEMail(modelUser.EMail) || EntityValidator.CheckSingleWhiteSpace(modelUser.EMail))
                 return new FailResponse("Invalid EMail format.");
+            // Password Validation with Regex
+            if (EntityValidator.CheckSingleWhiteSpace(modelUser.Password))
+                return new FailResponse("Invalid Password format.(No Whitespaces)");
 
             // Admin Validation with Custom Admin Password
             bool admin = false;
@@ -182,18 +194,24 @@ namespace Service.Services
             User user = await _userReadRepository.GetByIdAsync(modelUser.Id);
             if (user == null)
                 return new FailResponse("User does not exist.");
-
+            
             if (modelUser.Name != null)
-                user.Name = modelUser.Name;
+                user.Name = modelUser.Name.Trim();
             if (modelUser.Username != null)
             {
+                modelUser.Username = modelUser.Username.Trim();
+
                 if (await _userReadRepository.GetSingleAsync(user => user.Username == modelUser.Username) != null)
                     return new FailResponse("Username already exists.");
+                if (EntityValidator.CheckSingleWhiteSpace(modelUser.Username))
+                    return new FailResponse("Invalid Username format.(No Whitespaces)");
 
                 user.Username = modelUser.Username;
             }
             if (modelUser.EMail != null)
             {
+                modelUser.EMail = modelUser.EMail.Trim();
+
                 if (await _userReadRepository.GetSingleAsync(user => user.EMail == modelUser.EMail) != null)
                     return new FailResponse("EMail already exists.");
                 if (!AccountValidator.CheckEMail(modelUser.EMail))
@@ -202,7 +220,12 @@ namespace Service.Services
                 user.EMail = modelUser.EMail;
             }
             if (modelUser.Password != null)
+            {
+                if (EntityValidator.CheckSingleWhiteSpace(modelUser.Password))
+                    return new FailResponse("Invalid Password format.(No Whitespaces)");
+
                 user.Password = HashSecurity.HashPassword(modelUser.Password);
+            }
             if (modelUser.Admin != null)
                 user.Admin = (bool)modelUser.Admin;
             if (modelUser.AdminPassword != null)
@@ -213,7 +236,9 @@ namespace Service.Services
                 else { user.Admin = false; }
             }
             if (modelUser.Address != null)
-                user.Address = modelUser.Address;
+            {
+                user.Address = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelUser.Address);
+            }
 
             await _userWriteRepository.SaveAsync();
             return new SuccessfulResponse<User>("User updated.");
