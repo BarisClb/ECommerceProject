@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { commonActions } from "../../store/actions";
 import { cartActions } from "../../store/actions/cartActions";
 import "./css/index.css";
 import { useDispatch, useSelector } from "react-redux";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function SingleProduct(props) {
 	// DATA
-	const product = props.productPageData.product;
-	const seller = props.productPageData.seller;
-	const comments = props.productPageData.comments;
-	const commentReplies = props.productPageData.commentReplies;
-	const likes = props.productPageData.likes;
+	const [product] = useState(props.productPageData.product);
+	const [seller, setSeller] = useState(props.productPageData.seller);
+	const [comments, setComments] = useState(props.productPageData.comments);
+	const [commentReplies, setCommentReplies] = useState(props.productPageData.commentReplies);
+	const [likes, setLikes] = useState(props.productPageData.likes);
+
+	useEffect(() => {
+		setSeller(props.productPageData.seller);
+		setComments(props.productPageData.comments);
+		setCommentReplies(props.productPageData.commentReplies);
+		setLikes(props.productPageData.likes);
+	}, [props.productPageData]);
 
 	// User
 	const user = useSelector((state) => state.account.user);
@@ -28,8 +36,99 @@ function SingleProduct(props) {
 		}
 	};
 
+	// Misc
+
 	const randomImage = commonActions.randomImage;
 	const darkMode = useSelector((state) => state.common.DarkMode);
+
+	//#region Modal
+
+	const [modal, setModal] = useState(false);
+	const [modalData, setModalData] = useState(null);
+	const [modalAction, setModalAction] = useState("");
+	const [modalActionType, setModalActionType] = useState("");
+	const modalToggle = (data, action, actionType) => {
+		setModalData(data);
+		setModalAction(action);
+		setModalActionType(actionType);
+		setModal(!modal);
+	};
+	const createCommentClick = (newComment) => {
+		if (props.createCommentClick) {
+			props.createCommentClick(newComment);
+		}
+	};
+	const createCommentReplyClick = (newCommentReply) => {
+		if (props.createCommentReplyClick) {
+			props.createCommentReplyClick(newCommentReply);
+		}
+	};
+	const editCommentClick = (updatedComment) => {
+		if (props.editCommentClick) {
+			props.editCommentClick(updatedComment);
+		}
+	};
+	const editCommentReplyClick = (updatedCommentReply) => {
+		if (props.editCommentReplyClick) {
+			props.editCommentReplyClick(updatedCommentReply);
+		}
+	};
+	const modalToggle2 = () => {
+		switch (modalAction) {
+			case "CreateComment":
+				createCommentClick(modalData);
+				break;
+			case "CreateCommentReply":
+				createCommentReplyClick(modalData);
+				break;
+			case "UpdateComment":
+				editCommentClick(modalData);
+				break;
+			case "UpdateCommentReply":
+				editCommentReplyClick(modalData);
+				break;
+
+			default:
+				break;
+		}
+		setModal(!modal);
+	};
+
+	const [modalTitle, setModalTitle] = useState("");
+	const [modalText, setModalText] = useState("");
+
+	//#endregion
+
+	const like = (comment) => {
+		if (commonActions.objectIsEmpty(user)) {
+			toast.warning("You need to be LoggedIn as a User to like comments.");
+		} else if (props.likeAction) {
+			props.likeAction(comment);
+		}
+	};
+
+	const dislike = (comment) => {
+		if (!commonActions.objectIsEmpty(user)) {
+			let like = likes
+				.filter((like) => like.commentId === comment.id)
+				.find((like) => like.userId === user.id);
+			if (props.dislikeAction) {
+				props.dislikeAction(like);
+			}
+		}
+	};
+
+	const writeComment = (comment) => {
+		if (!commonActions.objectIsEmpty(user)) {
+			props.writeComment(comment);
+		}
+	};
+
+	const writeCommentReply = (comment) => {
+		if (!commonActions.objectIsEmpty(user)) {
+			props.writeCommentReply(comment);
+		}
+	};
 
 	return (
 		<div id="singleproduct-content-container-wrapper" className="container">
@@ -104,7 +203,6 @@ function SingleProduct(props) {
 								<h3 className="text-success">Comments</h3>
 								<button className="btn btn-success">Write a Comment</button>
 							</div>
-
 							<hr />
 							<ul className="singleproduct-comments">
 								{comments &&
@@ -136,12 +234,41 @@ function SingleProduct(props) {
 														</a>
 														says :
 													</div>
-													<div className="singleproduct-title-reply">
-														<i className="pull-right">
-															<a href="#">
-																<small>Reply</small>
-															</a>
-														</i>
+													<div className="singleproduct-title-right-side d-flex gap-3">
+														<div className="singleproduct-title-likes d-flex align-items-center">
+															<div className="singleproduct-title-like-count mr-1">
+																{likes
+																	? likes.filter(
+																			(like) => like.commentId === comment.id
+																	  ).length
+																	: "0"}
+															</div>
+															{likes &&
+															likes
+																.filter((like) => like.commentId === comment.id)
+																.some((like) => like.userId === user.id) ? (
+																<div
+																	className="singleproduct-title-like-dislike-text"
+																	onClick={() => dislike(comment)}
+																>
+																	Dislike
+																</div>
+															) : (
+																<div
+																	className="singleproduct-title-like-dislike-text"
+																	onClick={() => like(comment)}
+																>
+																	Like
+																</div>
+															)}
+														</div>
+														<div className="singleproduct-title-reply">
+															<i className="pull-right">
+																<a href="#">
+																	<small>Reply</small>
+																</a>
+															</i>
+														</div>
 													</div>
 												</div>
 												<h5 className="singleproduct-comment-title-text">
@@ -174,7 +301,7 @@ function SingleProduct(props) {
 																</div>
 															</div>
 															<div className="singleproduct-comment-title d-flex justify-content-between">
-																<div className="singleproduct-title-user d-flex">
+																<div className="singleproduct-title-user">
 																	<p>Seller says :</p>
 																</div>
 															</div>
@@ -188,6 +315,53 @@ function SingleProduct(props) {
 					</div>
 				</div>
 			</div>
+			{/* MODALS FOR ADD/UPDATE COMMENTS */}
+			<Modal isOpen={modal} toggle={modalToggle} centered>
+				<ModalHeader className="modal-form-item">About to {modalActionType} </ModalHeader>
+				<ModalBody className="modal-form">
+					<div className="modal-form-item d-flex">
+						<label htmlFor="modal-form-confirmation" className="form-label">
+							Are you sure?
+						</label>
+					</div>
+					{/* COMMENT TITLE */}
+					<div className="modal-form-item modal-form-title">
+						<label htmlFor="modal-category-create-form-title" className="form-label">
+							Description
+						</label>
+						<input
+							type="textarea"
+							className="form-control form-input"
+							id="modal-category-create-form-title"
+							placeholder="Title"
+							value={modalTitle}
+							onChange={(event) => setModalTitle(event.target.value)}
+						/>
+					</div>
+					{/* COMMENT/REPLY TEXT */}
+					<div className="modal-form-item modal-form-text">
+						<label htmlFor="modal-category-create-form-text" className="form-label">
+							Description
+						</label>
+						<input
+							type="textarea"
+							className="form-control form-input"
+							id="modal-category-create-form-text"
+							placeholder="Text"
+							value={modalText}
+							onChange={(event) => setModalText(event.target.value)}
+						/>
+					</div>
+				</ModalBody>
+				<ModalFooter>
+					<button className={`btn btn-primary form-input form-control`} onClick={modalToggle2}>
+						Yes
+					</button>
+					<button className="btn btn-secondary form-input form-control" onClick={modalToggle}>
+						Close
+					</button>
+				</ModalFooter>
+			</Modal>
 		</div>
 	);
 }

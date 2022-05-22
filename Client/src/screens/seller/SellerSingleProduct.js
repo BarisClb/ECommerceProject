@@ -14,7 +14,7 @@ function SellerSingleProduct() {
 	useEffect(() => {
 		dispatch(productActions.getProducts(id));
 	}, []);
-	console.log(product);
+
 	return (
 		<>
 			{id === 0 || seller.id === product.sellerId ? (

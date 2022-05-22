@@ -195,6 +195,17 @@
 	}
 }
 
+.singleproduct-title-like-count {
+	color: rgb(6, 8, 143);
+	font-size: 0.95em;
+}
+
+.singleproduct-title-like-dislike-text {
+	color: rgb(6, 8, 143);
+	cursor: pointer;
+	font-size: 0.95em;
+}
+
 @media (max-width: 1199px) {
 	#singleproduct-info {
 		padding: 1rem;
