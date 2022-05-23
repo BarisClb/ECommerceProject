@@ -50,53 +50,63 @@ const getHelper = async (entityName, entityId) => {
 const getSortedHelper = async (entityName, listSorting) => {
 	// Added env variables here to easily change API
 	let url = "";
+	// Adding Base Url
 	switch (database) {
 		case "Local_Kestrel":
-			url = `${aspNetKestrelUrl}/${entityName}`;
+			url = `${aspNetKestrelUrl}/`;
 			break;
 		case "Local_IIS":
-			url = `${aspNetIisUrl}/${entityName}`;
+			url = `${aspNetIisUrl}/`;
 			break;
 
 		default:
 			break;
 	}
-	// // If no sorting applied, no need for question mark.
-	// for (let i = 0; i < listSorting.length; i++) {
-	// 	if (listSorting[i] !== null) {
-	// 		url += `?`;
-	// 		break
-	// 	}
-	// }
+	// Adding the Rest and Applying Sort
+	switch (database) {
+		case "Local_Kestrel":
+		case "Local_IIS":
+			url += `${entityName}`;
+			// // If no sorting applied, no need for question mark.
+			// for (let i = 0; i < listSorting.length; i++) {
+			// 	if (listSorting[i] !== null) {
+			// 		url += `?`;
+			// 		break
+			// 	}
+			// }
 
-	// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
-	// I am also giving it a default 'false' value so I don't get an error.
-	url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
-	// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
-	if (listSorting) {
-		// SearchWord
-		if (
-			listSorting.pageNumber !== undefined &&
-			listSorting.searchWord !== null &&
-			listSorting.searchWord.trim() !== ""
-		) {
-			url += `&SearchWord=${listSorting.searchWord.trim()}`;
-		}
-		// PageNumber
-		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-			url += `&PageNumber=${listSorting.pageNumber}`;
-		}
-		// PageSize
-		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-			url += `&PageSize=${listSorting.pageSize}`;
-		}
-		// OrderBy
-		if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
-			url += `&OrderBy=${listSorting.orderBy}`;
-		}
+			// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
+			// I am also giving it a default 'false' value so I don't get an error.
+			url += `?Reversed=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
+			// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
+			if (listSorting) {
+				// SearchWord
+				if (
+					listSorting.searchWord !== undefined &&
+					listSorting.searchWord !== null &&
+					listSorting.searchWord.trim() !== ""
+				) {
+					url += `&SearchWord=${listSorting.searchWord.trim()}`;
+				}
+				// PageNumber
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageNumber=${listSorting.pageNumber}`;
+				}
+				// PageSize
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageSize=${listSorting.pageSize}`;
+				}
+				// OrderBy
+				if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
+					url += `&OrderBy=${listSorting.orderBy}`;
+				}
+			}
+
+			break;
+
+		default:
+			break;
 	}
-	console.log(url);
-	console.log(listSorting);
 
 	try {
 		let response = await fetch(url);
@@ -154,43 +164,53 @@ const getEntitiesByEntitySortedHelper = async (
 ) => {
 	// Added env variables here to easily change API
 	let url = "";
+	// Adding Base Url
 	switch (database) {
 		case "Local_Kestrel":
-			url = `${aspNetKestrelUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			url = `${aspNetKestrelUrl}/`;
 			break;
 		case "Local_IIS":
-			url = `${aspNetIisUrl}/${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			url = `${aspNetIisUrl}/`;
 			break;
 
 		default:
 			break;
 	}
+	// Adding the Rest and Applying Sort
+	switch (database) {
+		case "Local_Kestrel":
+		case "Local_IIS":
+			url += `${manyEntityName}/By${singleEntityName}/${singleEntityId}`;
+			// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
+			// I am also giving it a default 'false' value so I don't get an error.
+			url += `?Reversed=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
+			// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
+			if (listSorting) {
+				// SearchWord
+				if (
+					listSorting.pageNumber !== undefined &&
+					listSorting.searchWord !== null &&
+					listSorting.searchWord.trim() !== ""
+				) {
+					url += `&SearchWord=${listSorting.searchWord.trim()}`;
+				}
+				// PageNumber
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageNumber=${listSorting.pageNumber}`;
+				}
+				// PageSize
+				if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
+					url += `&PageSize=${listSorting.pageSize}`;
+				}
+				// OrderBy
+				if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
+					url += `&OrderBy=${listSorting.orderBy}`;
+				}
+			}
+			break;
 
-	// Always including 'reverse?' so I don't have to make a for loop like above, for adding question mark.
-	// I am also giving it a default 'false' value so I don't get an error.
-	url += `?Reverse=${listSorting && listSorting.reversed ? listSorting.reversed : "false"}`;
-	// If there is no listSorting, it gets all the data, which replaces the previous getAll function.
-	if (listSorting) {
-		// SearchWord
-		if (
-			listSorting.pageNumber !== undefined &&
-			listSorting.searchWord !== null &&
-			listSorting.searchWord.trim() !== ""
-		) {
-			url += `&SearchWord=${listSorting.searchWord.trim()}`;
-		}
-		// PageNumber
-		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-			url += `&PageNumber=${listSorting.pageNumber}`;
-		}
-		// PageSize
-		if (listSorting.pageNumber !== undefined && listSorting.pageNumber !== null) {
-			url += `&PageSize=${listSorting.pageSize}`;
-		}
-		// OrderBy
-		if (listSorting.orderBy !== undefined && listSorting.orderBy !== null) {
-			url += `&OrderBy=${listSorting.orderBy}`;
-		}
+		default:
+			break;
 	}
 
 	try {

@@ -305,10 +305,9 @@ const Table = (props) => {
 	const [tableSortWord, setTableSortWord] = useState("");
 	const [tableSortPageNumber, setTableSortPageNumber] = useState(1);
 	const [tableSortPageSize, setTableSortPageSize] = useState(20);
-	const [tableSortOrderBy, setTableSortOrderBy] = useState(null);
+	const [tableSortOrderBy, setTableSortOrderBy] = useState("Id");
 
 	// Sort Actions
-
 	const sortTable = (changedData) => {
 		if (props.tableSortAction) {
 			let sortData = {
@@ -328,6 +327,10 @@ const Table = (props) => {
 		if (props.tableSortAction) {
 			sortTable();
 		}
+	};
+	// For QuickSorting (PageNumber and PageSize)
+	const tableQuickSort = (data) => {
+		sortTable(data);
 	};
 	// Pagination Buttons Mapping
 	const [pageButtons, setPageButtons] = useState([]);
@@ -387,6 +390,15 @@ const Table = (props) => {
 			pageButtonMapping();
 		}
 	}, []);
+
+	useEffect(() => {
+		setTableSortReversed(props.sortInfo.reversed);
+		setTableSortWord(props.sortInfo.searchWord);
+		setTableSortPageNumber(props.sortInfo.pageNumber);
+		setTableSortPageSize(props.sortInfo.pageSize);
+		setTableSortOrderBy(props.sortInfo.orderBy);
+	}, [props.sortInfo]);
+
 	useEffect(() => {
 		if (sortInfo) {
 			pageButtonMapping(sortInfo.totalCount, sortInfo.pageSize);
@@ -394,9 +406,6 @@ const Table = (props) => {
 			pageButtonMapping();
 		}
 	}, [sortInfo]);
-	useEffect(() => {
-		sortTable();
-	}, [tableSortPageNumber, tableSortPageSize]);
 
 	return (
 		// NAV
@@ -663,9 +672,9 @@ const Table = (props) => {
 									: "bg-light text-secondary"
 							}`}
 							onClick={() =>
-								setTableSortPageNumber(
-									sortInfo && sortInfo.pageNumber && sortInfo.pageNumber - 1
-								)
+								tableQuickSort({
+									pageNumber: sortInfo && sortInfo.pageNumber && sortInfo.pageNumber - 1,
+								})
 							}
 						>
 							Previous
@@ -717,7 +726,9 @@ const Table = (props) => {
 												/>
 												<button
 													className="btn btn-secondary"
-													onClick={() => setTableSortPageNumber(sortCustomPageButton)}
+													onClick={() =>
+														tableQuickSort({ pageNumber: sortCustomPageButton })
+													}
 												>
 													Go to Page
 												</button>
@@ -741,7 +752,7 @@ const Table = (props) => {
 													? "bg-secondary text-light"
 													: "bg-light text-secondary"
 											}`}
-											onClick={() => setTableSortPageNumber(pageNumber)}
+											onClick={() => tableQuickSort({ pageNumber: pageNumber })}
 										>
 											{pageNumber}
 										</button>
@@ -774,9 +785,9 @@ const Table = (props) => {
 									: "bg-light text-secondary"
 							}`}
 							onClick={() =>
-								setTableSortPageNumber(
-									sortInfo && sortInfo.pageNumber && sortInfo.pageNumber + 1
-								)
+								tableQuickSort({
+									pageNumber: sortInfo && sortInfo.pageNumber && sortInfo.pageNumber + 1,
+								})
 							}
 						>
 							Next
@@ -786,7 +797,7 @@ const Table = (props) => {
 				<select
 					id="table-nav-pagination-select-pageSize"
 					className="form-select"
-					onChange={(e) => setTableSortPageSize(parseInt(e.target.value))}
+					onChange={(e) => tableQuickSort({ pageSize: parseInt(e.target.value) })}
 					value={sortInfo ? sortInfo.pageSize : 20}
 				>
 					<option disabled>Page Size</option>

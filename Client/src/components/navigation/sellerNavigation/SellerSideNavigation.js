@@ -30,7 +30,7 @@ const SellerSideNavigation = () => {
 					<a href="/seller/product/0" className="nav-link text-white">
 						<div className="seller-sidenav-items">
 							<div>
-								<i className="bi bi-cash" />
+								<i className="bi bi-clipboard-plus" />
 							</div>
 							<div className="seller-sidenav-text">
 								<p>Create Product</p>
@@ -97,7 +97,7 @@ const SellerSideNavigation = () => {
 				>
 					<i className="bi bi-person-circle" />
 					<strong className="seller-sidenav-text">
-						{seller && seller.name ? seller.name : "Stranger"}
+						{seller && seller.name ? seller.name : "Guest"}
 					</strong>
 				</a>
 				<ul

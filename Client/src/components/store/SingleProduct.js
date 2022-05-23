@@ -9,13 +9,15 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 function SingleProduct(props) {
 	// DATA
 	const [product] = useState(props.productPageData.product);
-	const [seller, setSeller] = useState(props.productPageData.seller);
+	const [productSeller, setProductSeller] = useState(props.productPageData.seller);
 	const [comments, setComments] = useState(props.productPageData.comments);
 	const [commentReplies, setCommentReplies] = useState(props.productPageData.commentReplies);
 	const [likes, setLikes] = useState(props.productPageData.likes);
 
+	const [commentLimit, setCommentLimit] = useState(2);
+
 	useEffect(() => {
-		setSeller(props.productPageData.seller);
+		setProductSeller(props.productPageData.seller);
 		setComments(props.productPageData.comments);
 		setCommentReplies(props.productPageData.commentReplies);
 		setLikes(props.productPageData.likes);
@@ -23,6 +25,7 @@ function SingleProduct(props) {
 
 	// User
 	const user = useSelector((state) => state.account.user);
+	const seller = useSelector((state) => state.account.seller);
 
 	// Cart
 	const dispatch = useDispatch();
@@ -44,48 +47,65 @@ function SingleProduct(props) {
 	//#region Modal
 
 	const [modal, setModal] = useState(false);
-	const [modalData, setModalData] = useState(null);
-	const [modalAction, setModalAction] = useState("");
-	const [modalActionType, setModalActionType] = useState("");
-	const modalToggle = (data, action, actionType) => {
+	const [modalData, setModalData] = useState({}); // Entitty to Update/Delete
+	const [modalAction, setModalAction] = useState(""); // ActionType + EntityName
+	const [modalActionType, setModalActionType] = useState(""); // Create/Update/Delete
+
+	// Logic For Modal Content and Authorization
+	const modalToggle = (data = {}, action = "", actionType = "") => {
+		// Shortcut for Closing
+		if (commonActions.objectIsEmpty(data) && action === "" && actionType === "")
+			return setModal(!modal);
+
+		// Set Data
 		setModalData(data);
 		setModalAction(action);
 		setModalActionType(actionType);
+
+		//// CommentReply
+		// Create/Update/Delete (Since it can be only one person, I put these actions together.)
+		if (action.includes("CommentReply") && product.sellerId !== seller.id) {
+			setModal2Text(`Only the Seller of the Product can ${actionType} a Comment Reply.`);
+			setModal2(!modal2);
+			return;
+		}
+		//// Comment
+		// Create
+		if (action === "CreateComment" && commonActions.objectIsEmpty(user)) {
+			setModal2Text("You need to LogIn as a User to Comment.");
+			setModal2(!modal2);
+			return;
+		}
+		// Update/Delete
+		if ((action === "UpdateComment" || action === "DeleteComment") && data.userId !== user.id) {
+			setModal2Text(`Only the Writer of the Comment can ${actionType} the Comment.`);
+			setModal2(!modal2);
+			return;
+		}
+
 		setModal(!modal);
 	};
-	const createCommentClick = (newComment) => {
-		if (props.createCommentClick) {
-			props.createCommentClick(newComment);
-		}
-	};
-	const createCommentReplyClick = (newCommentReply) => {
-		if (props.createCommentReplyClick) {
-			props.createCommentReplyClick(newCommentReply);
-		}
-	};
-	const editCommentClick = (updatedComment) => {
-		if (props.editCommentClick) {
-			props.editCommentClick(updatedComment);
-		}
-	};
-	const editCommentReplyClick = (updatedCommentReply) => {
-		if (props.editCommentReplyClick) {
-			props.editCommentReplyClick(updatedCommentReply);
-		}
-	};
+	// To set the data that will be edited.
+	useEffect(() => {
+		if (modalData.title !== undefined) setModalTitle(modalData.title);
+		if (modalData.text !== undefined) setModalText(modalData.text);
+		if (modalData.rating !== undefined) setModalRating(modalData.rating);
+	}, [modalData]);
+
+	// Action Switches
 	const modalToggle2 = () => {
 		switch (modalAction) {
 			case "CreateComment":
-				createCommentClick(modalData);
+				createCommentClick();
 				break;
 			case "CreateCommentReply":
-				createCommentReplyClick(modalData);
+				createCommentReplyClick();
 				break;
 			case "UpdateComment":
-				editCommentClick(modalData);
+				updateCommentClick();
 				break;
 			case "UpdateCommentReply":
-				editCommentReplyClick(modalData);
+				updateCommentReplyClick();
 				break;
 
 			default:
@@ -94,8 +114,57 @@ function SingleProduct(props) {
 		setModal(!modal);
 	};
 
+	// Props Actions
+	const createCommentClick = () => {
+		if (props.createCommentClick) {
+			props.createCommentClick({
+				title: modalTitle,
+				text: modalText,
+				rating: modalRating,
+				userId: user.id,
+				productId: product.id,
+			});
+		}
+	};
+	const createCommentReplyClick = () => {
+		if (props.createCommentReplyClick) {
+			props.createCommentReplyClick({
+				text: modalText,
+				commentId: modalData.commentId,
+				productId: product.id,
+				sellerId: seller.id,
+			});
+		}
+	};
+	const updateCommentClick = () => {
+		if (props.updateCommentClick) {
+			props.updateCommentClick(modalData.id, {
+				title: modalTitle,
+				text: modalText,
+				rating: modalRating,
+			});
+		}
+	};
+	const updateCommentReplyClick = () => {
+		if (props.updateCommentReplyClick) {
+			props.updateCommentReplyClick(modalData.id, {
+				text: modalText,
+			});
+		}
+	};
+
+	// Modal Datas
 	const [modalTitle, setModalTitle] = useState("");
 	const [modalText, setModalText] = useState("");
+	const [modalRating, setModalRating] = useState(3);
+
+	// Modal 2 For Unauthorized Actions
+
+	const [modal2, setModal2] = useState(false);
+	const [modal2Text, setModal2Text] = useState("");
+	const modal2Toggle = () => {
+		setModal2(!modal2);
+	};
 
 	//#endregion
 
@@ -109,24 +178,11 @@ function SingleProduct(props) {
 
 	const dislike = (comment) => {
 		if (!commonActions.objectIsEmpty(user)) {
-			let like = likes
-				.filter((like) => like.commentId === comment.id)
-				.find((like) => like.userId === user.id);
+			let like = likes.filter((like) => like.commentId === comment.id);
+			like = like.find((like) => like.userId === user.id);
 			if (props.dislikeAction) {
 				props.dislikeAction(like);
 			}
-		}
-	};
-
-	const writeComment = (comment) => {
-		if (!commonActions.objectIsEmpty(user)) {
-			props.writeComment(comment);
-		}
-	};
-
-	const writeCommentReply = (comment) => {
-		if (!commonActions.objectIsEmpty(user)) {
-			props.writeCommentReply(comment);
 		}
 	};
 
@@ -151,7 +207,7 @@ function SingleProduct(props) {
 						</div>
 						<div id="singleproduct-description" className="row">
 							<p>Description</p> <br />
-							<h4>{product && product.description} </h4>
+							<h3>{product && product.description} </h3>
 							<hr />
 						</div>
 						<div id="singleproduct-price-stock" className="row">
@@ -170,7 +226,7 @@ function SingleProduct(props) {
 						<div id="singleproduct-seller" className="row">
 							<div className="col-sm-6">
 								<p>Product By</p>
-								<h1>{product && seller.username}</h1>
+								<h1>{product && productSeller.username}</h1>
 								<hr />
 							</div>
 							<div className="col-sm-6">
@@ -201,13 +257,24 @@ function SingleProduct(props) {
 						<div className="singleproduct-comment">
 							<div className="d-flex justify-content-between">
 								<h3 className="text-success">Comments</h3>
-								<button className="btn btn-success">Write a Comment</button>
+								<button
+									className="btn btn-success"
+									onClick={(e) =>
+										modalToggle(
+											{ title: "", text: "", rating: 3 },
+											"CreateComment",
+											"Create"
+										)
+									}
+								>
+									Write a Comment
+								</button>
 							</div>
 							<hr />
 							<ul className="singleproduct-comments">
 								{comments &&
 									comments.length > 0 &&
-									comments.map((comment) => (
+									comments.slice(0, commentLimit).map((comment) => (
 										<li className="singleproduct-comment-and-reply" key={comment.id}>
 											<div
 												className={`singleproduct-comment ${
@@ -234,8 +301,8 @@ function SingleProduct(props) {
 														</a>
 														says :
 													</div>
-													<div className="singleproduct-title-right-side d-flex gap-3">
-														<div className="singleproduct-title-likes d-flex align-items-center">
+													<div className="singleproduct-title-right-side d-flex align-items-center gap-3">
+														<div className="singleproduct-title-likes d-flex">
 															<div className="singleproduct-title-like-count mr-1">
 																{likes
 																	? likes.filter(
@@ -263,11 +330,26 @@ function SingleProduct(props) {
 															)}
 														</div>
 														<div className="singleproduct-title-reply">
-															<i className="pull-right">
-																<a href="#">
-																	<small>Reply</small>
-																</a>
-															</i>
+															<div
+																className="singleproduct-comment-reply-text"
+																onClick={() =>
+																	modalToggle(
+																		{ commentId: comment.id, text: "" },
+																		"CreateCommentReply",
+																		"Create"
+																	)
+																}
+															>
+																Reply
+															</div>
+														</div>
+														<div
+															className="singleproduct-comment-edit-text"
+															onClick={() =>
+																modalToggle(comment, "UpdateComment", "Update")
+															}
+														>
+															Edit
 														</div>
 													</div>
 												</div>
@@ -301,8 +383,20 @@ function SingleProduct(props) {
 																</div>
 															</div>
 															<div className="singleproduct-comment-title d-flex justify-content-between">
-																<div className="singleproduct-title-user">
+																<div className="singleproduct-comment-title-left">
 																	<p>Seller says :</p>
+																</div>
+																<div
+																	className="singleproduct-comment-title-right"
+																	onClick={() =>
+																		modalToggle(
+																			commentReply,
+																			"UpdateCommentReply",
+																			"Update"
+																		)
+																	}
+																>
+																	Edit
 																</div>
 															</div>
 															<p>{commentReply.text}</p>
@@ -314,50 +408,108 @@ function SingleProduct(props) {
 						</div>
 					</div>
 				</div>
+				{comments && comments.length > 0 && comments.length > commentLimit && (
+					<div className="row justify-content-center">
+						<button
+							className="btn btn-success"
+							onClick={() => setCommentLimit((prev) => prev + 2)}
+							style={{ width: "250px" }}
+						>
+							Load More Comments
+						</button>
+					</div>
+				)}
 			</div>
 			{/* MODALS FOR ADD/UPDATE COMMENTS */}
-			<Modal isOpen={modal} toggle={modalToggle} centered>
-				<ModalHeader className="modal-form-item">About to {modalActionType} </ModalHeader>
+			<Modal isOpen={modal} toggle={() => modalToggle({})} centered>
+				<ModalHeader className="modal-form-item">{modalActionType}</ModalHeader>
 				<ModalBody className="modal-form">
-					<div className="modal-form-item d-flex">
-						<label htmlFor="modal-form-confirmation" className="form-label">
-							Are you sure?
-						</label>
-					</div>
 					{/* COMMENT TITLE */}
-					<div className="modal-form-item modal-form-title">
-						<label htmlFor="modal-category-create-form-title" className="form-label">
-							Description
-						</label>
-						<input
-							type="textarea"
-							className="form-control form-input"
-							id="modal-category-create-form-title"
-							placeholder="Title"
-							value={modalTitle}
-							onChange={(event) => setModalTitle(event.target.value)}
-						/>
-					</div>
+					{modalData.title !== undefined && (
+						<div className="modal-form-item modal-form-title">
+							<label htmlFor="modal-comment-form-title" className="form-label">
+								Title
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-comment-form-title"
+								placeholder="Title"
+								value={modalTitle}
+								onChange={(event) => setModalTitle(event.target.value)}
+							/>
+						</div>
+					)}
 					{/* COMMENT/REPLY TEXT */}
-					<div className="modal-form-item modal-form-text">
-						<label htmlFor="modal-category-create-form-text" className="form-label">
-							Description
-						</label>
-						<input
-							type="textarea"
-							className="form-control form-input"
-							id="modal-category-create-form-text"
-							placeholder="Text"
-							value={modalText}
-							onChange={(event) => setModalText(event.target.value)}
-						/>
-					</div>
+					{modalData.text !== undefined && (
+						<div className="modal-form-item modal-form-text">
+							<label htmlFor="modal-comment-form-text" className="form-label">
+								Text
+							</label>
+							<textarea
+								type="textarea"
+								className="form-control form-input"
+								id="modal-comment-form-text"
+								placeholder="Text"
+								value={modalText}
+								onChange={(event) => setModalText(event.target.value)}
+							/>
+						</div>
+					)}
+					{/* COMMENT RATING */}
+					{modalData.rating !== undefined && (
+						<div className="modal-form-item modal-form-rating">
+							<label htmlFor="modal-comment-form-rating" className="form-label">
+								Rating
+							</label>
+							<input
+								type="number"
+								className="form-control form-input"
+								id="modal-comment-form-rating"
+								placeholder="Rating"
+								value={modalRating}
+								onChange={(event) => setModalRating(event.target.value)}
+								min={1}
+								max={5}
+							/>
+						</div>
+					)}
 				</ModalBody>
 				<ModalFooter>
-					<button className={`btn btn-primary form-input form-control`} onClick={modalToggle2}>
-						Yes
+					<button
+						className={`btn btn-${
+							modalActionType === "Create"
+								? "success"
+								: modalActionType === "Update"
+								? "warning"
+								: modalActionType === "Delete"
+								? "danger"
+								: "primary"
+						} form-input form-control`}
+						onClick={modalToggle2}
+					>
+						{modalActionType}
 					</button>
-					<button className="btn btn-secondary form-input form-control" onClick={modalToggle}>
+					<button
+						className="btn btn-secondary form-input form-control"
+						onClick={() => modalToggle()}
+					>
+						Close
+					</button>
+				</ModalFooter>
+			</Modal>
+			{/* MODALS FOR UNAUTHORIZED ACTIONS */}
+			<Modal isOpen={modal2} toggle={() => modal2Toggle()} centered>
+				<ModalHeader className="modal-form-item">Unauthorized Action</ModalHeader>
+				<ModalBody className="modal-form">
+					{/* TEXT */}
+					{modal2Text ? modal2Text : "You are not Authorized for this Action."}
+				</ModalBody>
+				<ModalFooter>
+					<button
+						className="btn btn-secondary form-input form-control"
+						onClick={() => modal2Toggle()}
+					>
 						Close
 					</button>
 				</ModalFooter>

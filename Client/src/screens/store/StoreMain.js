@@ -25,8 +25,13 @@ function StoreMain() {
 	};
 
 	useEffect(() => {
-		setAccount(!commonActions.objectIsEmpty(account) ? account.accountType : "");
-	}, [user, seller]);
+		if (!commonActions.objectIsEmpty(user)) {
+			dispatch(accountActions.accountVerify("User"));
+		}
+		if (!commonActions.objectIsEmpty(seller)) {
+			dispatch(accountActions.accountVerify("Seller"));
+		}
+	}, []);
 
 	return (
 		<StoreLayout account={account} logOut={logOut}>

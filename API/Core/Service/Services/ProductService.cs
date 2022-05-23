@@ -58,9 +58,9 @@ namespace Service.Services
             {
                 products = _productReadRepository.GetAll(false).ToList();
             }
-            // Sort => Reverse? OrderBy?
+            // Sort => Reversed? OrderBy?
             IList<Product> orderedProducts;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedProducts = listSorting.OrderBy switch
                 {
@@ -103,7 +103,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -143,9 +143,9 @@ namespace Service.Services
             {
                 products = products.Where(p => p.Name.Contains(listSorting.SearchWord)).ToList();
             }
-            // Sort => Reverse? OrderBy?
+            // Sort => Reversed? OrderBy?
             IList<Product> orderedProducts;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedProducts = listSorting.OrderBy switch
                 {
@@ -188,7 +188,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> BySeller(int id, ListSortWriteVm listSorting)
@@ -201,9 +201,9 @@ namespace Service.Services
             {
                 products = products.Where(p => p.Name.Contains(listSorting.SearchWord)).ToList();
             }
-            // Sort => Reverse? OrderBy?
+            // Sort => Reversed? OrderBy?
             IList<Product> orderedProducts;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedProducts = listSorting.OrderBy switch
                 {
@@ -246,7 +246,7 @@ namespace Service.Services
                 DateUpdated = product.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<ProductReadVm>, ListSortReadVm>(mappedProducts, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, products.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> GetProductPage(int id)

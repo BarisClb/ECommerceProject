@@ -41,16 +41,19 @@
 	border-radius: 10px;
 }
 
-#singleproduct-image,
-#singleproduct-info {
+#singleproduct-image {
 	height: 500px;
+}
+
+#singleproduct-info {
+	min-height: 500px;
 }
 
 #singleproduct-info {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 #singleproduct-info p {
@@ -70,6 +73,13 @@
 #singleproduct-order button,
 #singleproduct-order a {
 	width: 40%;
+}
+
+#singleproduct-content-container h1,
+#singleproduct-content-container h2,
+#singleproduct-content-container h3,
+#singleproduct-content-container h4 {
+	overflow-wrap: break-word;
 }
 
 /* Single Product Comment Section */
@@ -136,32 +146,15 @@
 	border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.singleproduct-comment ul.comments ul {
-	list-style-type: none;
-	padding: 0;
-	margin-left: 85px;
-}
-
-.singleproduct-comment-form {
-	padding-left: 15%;
-	padding-right: 15%;
-	padding-top: 40px;
-}
-
-.singleproduct-comment h3,
-.singleproduct-comment-form h3 {
-	font-size: 26px;
-	line-height: 30px;
-	font-weight: 800;
-}
-
-.singleproduct-title-user {
+.singleproduct-title-user,
+.singleproduct-comment-title-left {
 	display: flex;
 	gap: 10px;
 	margin-left: 1rem;
 }
 
-.singleproduct-title-user p {
+.singleproduct-title-user p,
+.singleproduct-comment-title-left p {
 	margin-bottom: 0px;
 }
 
@@ -187,6 +180,11 @@
 	border-radius: 15px !important;
 }
 
+#modal-comment-form-text {
+	height: 10rem;
+	resize: none;
+}
+
 @media (min-width: 1200px) {
 	#singleproduct-gallery-container,
 	#singleproduct-info-container {
@@ -196,12 +194,25 @@
 }
 
 .singleproduct-title-like-count {
-	color: rgb(6, 8, 143);
+	color: rgb(5, 10, 145);
 	font-size: 0.95em;
 }
 
 .singleproduct-title-like-dislike-text {
-	color: rgb(6, 8, 143);
+	color: rgb(5, 10, 145);
+	cursor: pointer;
+	font-size: 0.95em;
+}
+
+.singleproduct-comment-reply-text {
+	color: rgb(6, 165, 60);
+	cursor: pointer;
+	font-size: 0.95em;
+}
+
+.singleproduct-comment-edit-text,
+.singleproduct-comment-title-right {
+	color: rgb(140, 165, 5);
 	cursor: pointer;
 	font-size: 0.95em;
 }

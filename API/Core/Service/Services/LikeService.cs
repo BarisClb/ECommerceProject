@@ -42,7 +42,7 @@ namespace Service.Services
             IList<Like> likes = _likeReadRepository.GetAll(false).ToList();
             // Sort => Reverse? OrderBy?
             IList<Like> orderedLikes;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedLikes = listSorting.OrderBy switch
                 {
@@ -78,7 +78,7 @@ namespace Service.Services
                 DateUpdated = like.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<LikeReadVm>, ListSortReadVm>(mappedLikes, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, likes.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<LikeReadVm>, ListSortReadVm>(mappedLikes, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, likes.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

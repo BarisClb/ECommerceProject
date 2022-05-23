@@ -36,7 +36,7 @@ function SortWrapper(props) {
 	const [sortWord, setTableSortWord] = useState("");
 	const [sortPageNumber, setTableSortPageNumber] = useState(1);
 	const [sortPageSize, setTableSortPageSize] = useState(20);
-	const [sortOrderBy, setTableSortOrderBy] = useState(null);
+	const [sortOrderBy, setTableSortOrderBy] = useState("Id");
 
 	// Sort Actions
 
@@ -59,6 +59,10 @@ function SortWrapper(props) {
 		if (props.sortAction) {
 			sortTable();
 		}
+	};
+	// For QuickSorting (PageNumber and PageSize)
+	const tableQuickSort = (data) => {
+		sortTable(data);
 	};
 	// Pagination Buttons Mapping
 	const [pageButtons, setPageButtons] = useState([]);
@@ -106,6 +110,15 @@ function SortWrapper(props) {
 			pageButtonMapping();
 		}
 	}, []);
+
+	useEffect(() => {
+		setTableSortReversed(props.sortInfo.reversed);
+		setTableSortWord(props.sortInfo.searchWord);
+		setTableSortPageNumber(props.sortInfo.pageNumber);
+		setTableSortPageSize(props.sortInfo.pageSize);
+		setTableSortOrderBy(props.sortInfo.orderBy);
+	}, [props.sortInfo]);
+
 	useEffect(() => {
 		if (sortInfo) {
 			pageButtonMapping(sortInfo.totalCount, sortInfo.pageSize);
@@ -113,9 +126,6 @@ function SortWrapper(props) {
 			pageButtonMapping();
 		}
 	}, [sortInfo]);
-	useEffect(() => {
-		sortTable();
-	}, [sortPageNumber, sortPageSize]);
 
 	return (
 		<div
@@ -209,9 +219,9 @@ function SortWrapper(props) {
 									: "bg-light text-secondary"
 							}`}
 							onClick={() =>
-								setTableSortPageNumber(
-									sortInfo && sortInfo.pageNumber && sortInfo.pageNumber - 1
-								)
+								tableQuickSort({
+									pageNumber: sortInfo && sortInfo.pageNumber && sortInfo.pageNumber - 1,
+								})
 							}
 						>
 							Previous
@@ -263,7 +273,9 @@ function SortWrapper(props) {
 												/>
 												<button
 													className="btn btn-secondary"
-													onClick={() => setTableSortPageNumber(sortCustomPageButton)}
+													onClick={() =>
+														tableQuickSort({ pageNumber: sortCustomPageButton })
+													}
 												>
 													Go to Page
 												</button>
@@ -287,7 +299,7 @@ function SortWrapper(props) {
 													? "bg-secondary text-light"
 													: "bg-light text-secondary"
 											}`}
-											onClick={() => setTableSortPageNumber(pageNumber)}
+											onClick={() => tableQuickSort({ pageNumber: pageNumber })}
 										>
 											{pageNumber}
 										</button>
@@ -320,9 +332,9 @@ function SortWrapper(props) {
 									: "bg-light text-secondary"
 							}`}
 							onClick={() =>
-								setTableSortPageNumber(
-									sortInfo && sortInfo.pageNumber && sortInfo.pageNumber + 1
-								)
+								tableQuickSort({
+									pageNumber: sortInfo && sortInfo.pageNumber && sortInfo.pageNumber + 1,
+								})
 							}
 						>
 							Next
@@ -332,7 +344,7 @@ function SortWrapper(props) {
 				<select
 					id="sortWrapper-nav-pagination-select-pageSize"
 					className="form-select"
-					onChange={(e) => setTableSortPageSize(parseInt(e.target.value))}
+					onChange={(e) => tableQuickSort({ pageSize: parseInt(e.target.value) })}
 					value={sortInfo ? sortInfo.pageSize : 24}
 				>
 					<option disabled>Page Size</option>

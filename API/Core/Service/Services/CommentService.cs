@@ -40,7 +40,7 @@ namespace Service.Services
             IList<Comment> comments = _commentReadRepository.GetAll(false).ToList();
             // Sort => Reverse? OrderBy?
             IList<Comment> orderedComments;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedComments = listSorting.OrderBy switch
                 {
@@ -78,7 +78,7 @@ namespace Service.Services
                 DateUpdated = comment.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -135,7 +135,7 @@ namespace Service.Services
             IList<Comment> comments = _commentReadRepository.GetWhere(comment => comment.UserId == id, false).ToList();
             // Sort => Reverse? OrderBy?
             IList<Comment> orderedComments;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedComments = listSorting.OrderBy switch
                 {
@@ -173,7 +173,7 @@ namespace Service.Services
                 DateUpdated = comment.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<CommentReadVm>, ListSortReadVm>(mappedComments, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, comments.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Post(CommentCreateVm modelComment)

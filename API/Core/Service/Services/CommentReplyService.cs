@@ -43,7 +43,7 @@ namespace Service.Services
             IList<CommentReply> commentReplies = _commentReplyReadRepository.GetAll(false).ToList();
             // Sort => Reverse? OrderBy?
             IList<CommentReply> orderedCommentReplies;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedCommentReplies = listSorting.OrderBy switch
                 {
@@ -74,7 +74,7 @@ namespace Service.Services
                 DateUpdated = commentReply.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -151,7 +151,7 @@ namespace Service.Services
             IList<CommentReply> commentReplies = _commentReplyReadRepository.GetWhere(commentReply => commentReply.SellerId == id, false).ToList();
             // Sort => Reverse? OrderBy?
             IList<CommentReply> orderedCommentReplies;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedCommentReplies = listSorting.OrderBy switch
                 {
@@ -186,7 +186,7 @@ namespace Service.Services
                 DateUpdated = commentReply.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<CommentReplyReadVm>, ListSortReadVm>(mappedCommentReplies, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, commentReplies.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Post(CommentReplyCreateVm modelCommentReply)

@@ -49,16 +49,40 @@ function StoreSingleProduct() {
 		}
 	};
 
-	const writeComment = (comment) => {
+	const createComment = (comment) => {
 		if (!commonActions.objectIsEmpty(user)) {
 			dispatch(commentActions.createComment(comment, productActions.getProductPage(id)));
 		}
 	};
 
-	const writeCommentReply = (commentReply) => {
+	const createCommentReply = (commentReply) => {
 		if (!commonActions.objectIsEmpty(seller)) {
 			dispatch(
 				commentReplyActions.createCommentReply(commentReply, productActions.getProductPage(id))
+			);
+		}
+	};
+
+	const updateComment = (commentId, updatedComment) => {
+		if (!commonActions.objectIsEmpty(user)) {
+			dispatch(
+				commentActions.updateComment(
+					commentId,
+					updatedComment,
+					productActions.getProductPage(id)
+				)
+			);
+		}
+	};
+
+	const updateCommentReply = (commentReplyId, updatedCommentReply) => {
+		if (!commonActions.objectIsEmpty(seller)) {
+			dispatch(
+				commentReplyActions.updateCommentReply(
+					commentReplyId,
+					updatedCommentReply,
+					productActions.getProductPage(id)
+				)
 			);
 		}
 	};
@@ -74,8 +98,10 @@ function StoreSingleProduct() {
 					productPageData={productPageData}
 					likeAction={likeAction}
 					dislikeAction={dislikeAction}
-					writeComment={writeComment}
-					writeCommentReply={writeCommentReply}
+					createCommentClick={createComment}
+					createCommentReplyClick={createCommentReply}
+					updateCommentClick={updateComment}
+					updateCommentReplyClick={updateCommentReply}
 				/>
 			)}
 		</>

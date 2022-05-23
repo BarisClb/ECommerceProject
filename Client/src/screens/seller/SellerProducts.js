@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Table from "../../components/table/Table";
 import Header from "../../components/header/Header";
 import { productActions } from "../../store/actions/productActions";
+import { useNavigate } from "react-router-dom";
 
 function SellerProducts() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const seller = useSelector((state) => state.account.seller);
 
@@ -16,10 +18,13 @@ function SellerProducts() {
 	}, []);
 
 	// Table Side Button Actions
-	const tableDeleteButtonClick = (oldCommentReply) => {
+	const tableUpdateButtonClick = (product) => {
+		navigate(`/seller/product/${product.id}`);
+	};
+	const tableDeleteButtonClick = (product) => {
 		dispatch(
-			productActions.deleteCommentReply(
-				oldCommentReply.id,
+			productActions.deleteProduct(
+				product.id,
 				productActions.getSortedProductsByEntity("Seller", sortInfo, seller.id)
 			)
 		);
@@ -34,7 +39,7 @@ function SellerProducts() {
 	};
 	// Default Sort Values
 	let listSorting = {
-		reversed: false,
+		reversed: true,
 		searchWord: "",
 		pageNumber: 1,
 		pageSize: 20,
@@ -65,10 +70,12 @@ function SellerProducts() {
 					// Table Buttons
 					tableButtons={true}
 					tableAddButton={false}
-					tableUpdateButton={false}
+					tableUpdateButton={true}
 					tableDeleteButton={true}
 					// Table Button Clicks
+					tableUpdateButtonClick={tableUpdateButtonClick}
 					tableDeleteButtonClick={tableDeleteButtonClick}
+					// Table Custom Buttons
 					// Nav
 					isNav={"Product"}
 					navCreateButton={false}

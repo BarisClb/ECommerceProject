@@ -13,7 +13,7 @@ namespace Infrastructure.Dtos.Common
         public string SearchWord { get => searchWord; set => searchWord = string.IsNullOrWhiteSpace(value) ? "" : value; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 0;
-        public bool Reverse { get; set; } = false;
+        public bool Reversed { get; set; } = false;
         public string OrderBy { get; set; } = "DateCreated";
     }
 }

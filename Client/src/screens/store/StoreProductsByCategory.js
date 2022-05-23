@@ -25,7 +25,7 @@ function StoreProductsByCategory() {
 	};
 	// Default Sort Values
 	let listSorting = {
-		reversed: false,
+		reversed: true,
 		searchWord: "",
 		pageNumber: 1,
 		pageSize: 24,

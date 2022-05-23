@@ -9,15 +9,17 @@ import { accountActions } from "../../store/actions/accountActions";
 function SellerMain() {
 	const dispatch = useDispatch();
 
-	const accountSeller = useSelector((state) => state.account.seller);
-	const accountRoles = accountSeller.roles;
+	const seller = useSelector((state) => state.account.seller);
+	const accountRoles = seller.roles;
 	useEffect(() => {
-		dispatch(accountActions.accountVerify("Seller"));
+		if (!commonActions.objectIsEmpty(seller)) {
+			dispatch(accountActions.accountVerify("Seller"));
+		}
 	}, []);
 
 	return (
 		<SellerLayout>
-			{(accountSeller && commonActions.objectIsEmpty(accountSeller)) ||
+			{(seller && commonActions.objectIsEmpty(seller)) ||
 			(accountRoles && !accountRoles.includes("Seller")) ? (
 				<SellerWelcome />
 			) : (

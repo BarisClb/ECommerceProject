@@ -121,7 +121,7 @@ function StoreTopNavigation(props) {
 									>
 										<i className="bi bi-person-circle mr-2" />
 										<strong className="store-topnav-text">
-											{account && account.name ? account.name : "Stranger"}
+											{account && account.name ? account.name : "Guest"}
 										</strong>
 									</a>
 									<ul

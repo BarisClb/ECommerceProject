@@ -87,10 +87,10 @@ function ProfilePage(props) {
 							alt="Profile"
 						/>
 						<span className="font-weight-bold mt-2">
-							{account && account.name ? account.name : "Stranger Name"}
+							{account && account.name ? account.name : "Guest Name"}
 						</span>
 						<span className="text-black-50">
-							{account && account.eMail ? account.eMail : "Stranger EMail"}
+							{account && account.eMail ? account.eMail : "Guest EMail"}
 						</span>
 						<div className={`mt-3 ${!editPermission ? "hide-me" : ""}`}>
 							<button

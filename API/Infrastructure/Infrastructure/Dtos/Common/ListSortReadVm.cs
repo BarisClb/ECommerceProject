@@ -12,16 +12,16 @@ namespace Infrastructure.Dtos.Common
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        public bool Reverse { get; set; }
+        public bool Reversed { get; set; }
         public string OrderBy { get; set; }
 
-        public ListSortReadVm(string searchWord, int pageNumber, int pageSize, int totalCount, bool reverse , string orderBy)
+        public ListSortReadVm(string searchWord, int pageNumber, int pageSize, int totalCount, bool reversed , string orderBy)
         {
             SearchWord = searchWord;
             PageNumber = pageNumber;
             PageSize = pageSize;
             TotalCount = totalCount;
-            Reverse = reverse;
+            Reversed = reversed;
             OrderBy = orderBy;
         }
     }

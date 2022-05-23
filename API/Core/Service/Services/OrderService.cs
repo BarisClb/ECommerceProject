@@ -41,9 +41,9 @@ namespace Service.Services
         public async Task<SortedResponse<IList<OrderReadVm>, ListSortReadVm>> Get(ListSortWriteVm listSorting)
         {
             IList<Order> orders = _orderReadRepository.GetAll(false).ToList();
-            // Sort => Reverse? OrderBy?
+            // Sort => Reversed? OrderBy?
             IList<Order> orderedOrders;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedOrders = listSorting.OrderBy switch
                 {
@@ -87,7 +87,7 @@ namespace Service.Services
                 DateUpdated = order.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)
@@ -154,9 +154,9 @@ namespace Service.Services
                 return new FailResponse("User does not exist.");
 
             IList<Order> orders = _orderReadRepository.GetWhere(order => order.UserId == id, false).ToList();
-            // Sort => Reverse? OrderBy?
+            // Sort => Reversed? OrderBy?
             IList<Order> orderedOrders;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedOrders = listSorting.OrderBy switch
                 {
@@ -200,7 +200,7 @@ namespace Service.Services
                 DateUpdated = order.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> BySeller(int id, ListSortWriteVm listSorting)
@@ -209,9 +209,9 @@ namespace Service.Services
                 return new FailResponse("Seller does not exist.");
 
             IList<Order> orders = _orderReadRepository.GetWhere(order => order.SellerId == id, false).ToList();
-            // Sort => Reverse? OrderBy?
+            // Sort => Reversed? OrderBy?
             IList<Order> orderedOrders;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedOrders = listSorting.OrderBy switch
                 {
@@ -257,7 +257,7 @@ namespace Service.Services
                 DateUpdated = order.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<OrderReadVm>, ListSortReadVm>(mappedOrders, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, orders.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Post(OrderCreateVm modelOrder)

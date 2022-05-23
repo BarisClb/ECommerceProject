@@ -1,7 +1,6 @@
 import { likeTypes } from "../types/likeTypes";
 import { commonTypes } from "../types";
 import { actionHelpers } from "./actionHelpers";
-import { productActions } from "./productActions";
 
 // // LIKE VM
 

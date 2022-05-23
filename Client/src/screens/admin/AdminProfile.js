@@ -6,7 +6,7 @@ import { userActions } from "../../store/actions/userActions";
 
 const AdminProfile = () => {
 	// Data
-	const user = useSelector((state) => state.account.user);
+	const user = useSelector((state) => state.user.singleUser);
 	useEffect(() => {
 		if (commonActions.objectIsNullOrUndefined(user) || commonActions.objectIsEmpty(user)) {
 			dispatch(userActions.getUsers(user.id));

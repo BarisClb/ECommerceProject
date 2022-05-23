@@ -54,7 +54,7 @@ namespace Service.Services
             }
             // Sort => Reverse? OrderBy?
             IList<User> orderedUsers;
-            if (listSorting.Reverse)
+            if (listSorting.Reversed)
             {
                 orderedUsers = listSorting.OrderBy switch
                 {
@@ -95,7 +95,7 @@ namespace Service.Services
                 DateUpdated = user.DateUpdated,
             }).ToList();
 
-            return new SortedResponse<IList<UserReadVm>, ListSortReadVm>(mappedUsers, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, users.Count, listSorting.Reverse, listSorting.OrderBy));
+            return new SortedResponse<IList<UserReadVm>, ListSortReadVm>(mappedUsers, new ListSortReadVm(listSorting.SearchWord, listSorting.PageNumber, listSorting.PageSize, users.Count, listSorting.Reversed, listSorting.OrderBy));
         }
 
         public async Task<BaseResponse> Get(int id)

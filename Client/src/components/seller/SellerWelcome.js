@@ -13,7 +13,7 @@ function SellerWelcome() {
 				Hello,{" "}
 				{accountSeller && !commonActions.objectIsEmpty(accountSeller)
 					? accountSeller.name
-					: "Stranger"}
+					: "Guest"}
 			</h1>
 			<h3>
 				{accountSeller && commonActions.objectIsEmpty(accountSeller)

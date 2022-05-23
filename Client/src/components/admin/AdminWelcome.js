@@ -11,9 +11,7 @@ function AdminWelcome() {
 		<div id="admin-welcome-component-wrapper">
 			<h1>
 				Hello,{" "}
-				{accountUser && !commonActions.objectIsEmpty(accountUser)
-					? accountUser.name
-					: "Stranger"}
+				{accountUser && !commonActions.objectIsEmpty(accountUser) ? accountUser.name : "Guest"}
 			</h1>
 			<h3>
 				{accountUser && commonActions.objectIsEmpty(accountUser)

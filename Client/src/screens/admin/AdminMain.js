@@ -9,15 +9,17 @@ import { accountActions } from "../../store/actions/accountActions";
 function AdminMain() {
 	const dispatch = useDispatch();
 
-	const accountUser = useSelector((state) => state.account.user);
-	const accountRoles = accountUser.roles;
+	const user = useSelector((state) => state.account.user);
+	const accountRoles = user.roles;
 	useEffect(() => {
-		dispatch(accountActions.accountVerify("User"));
+		if (!commonActions.objectIsEmpty(user)) {
+			dispatch(accountActions.accountVerify("User"));
+		}
 	}, []);
 
 	return (
 		<AdminLayout>
-			{(accountUser && commonActions.objectIsEmpty(accountUser)) ||
+			{(user && commonActions.objectIsEmpty(user)) ||
 			(accountRoles && !accountRoles.includes("Admin")) ? (
 				<AdminWelcome />
 			) : (

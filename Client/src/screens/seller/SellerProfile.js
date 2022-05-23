@@ -6,7 +6,7 @@ import { sellerActions } from "../../store/actions/sellerActions";
 
 function SellerProfile() {
 	// Data
-	const seller = useSelector((state) => state.account.seller);
+	const seller = useSelector((state) => state.seller.singleSeller);
 	useEffect(() => {
 		if (commonActions.objectIsNullOrUndefined(seller) || commonActions.objectIsEmpty(seller)) {
 			dispatch(sellerActions.getSellers(seller.id));

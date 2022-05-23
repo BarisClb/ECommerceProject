@@ -46,7 +46,7 @@ function AdminSideNavigation() {
 						</div>
 						<div className="info">
 							<div className="d-block adminNavBottomName">
-								{user.name ? user.name : "Stranger"}
+								{user.name ? user.name : "Guest"}
 							</div>
 						</div>
 					</a>
