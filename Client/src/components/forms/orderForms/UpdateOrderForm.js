@@ -135,9 +135,8 @@ const UpdateOrderForm = (props) => {
 		setChangeProductId(false);
 
 		setEntityFound(false);
-		dispatch(commonActions.getEntityToUpdate("Orders", 0));
 
-		toggle();
+		setModal(!modal);
 	};
 
 	// Update or Not

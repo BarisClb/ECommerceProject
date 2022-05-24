@@ -34,7 +34,8 @@ const CreateCommentForm = (props) => {
 		setRatingValue(0);
 		setUserIdValue(0);
 		setProductIdValue(0);
-		toggle();
+
+		setModal(!modal);
 	};
 
 	return (

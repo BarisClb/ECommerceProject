@@ -26,6 +26,7 @@ const UpdateUserForm = (props) => {
 			setUsernameValue(user.username);
 			seteMailValue(user.eMail);
 			setPasswordValue(user.password);
+			setAddressValue(user.address);
 			setAdminValue(user.admin);
 			setEntityFound(true);
 		} else {
@@ -34,6 +35,7 @@ const UpdateUserForm = (props) => {
 			setUsernameValue("");
 			seteMailValue("");
 			setPasswordValue("");
+			setAddressValue("");
 			setAdminValue(false);
 			setEntityFound(false);
 		}
@@ -43,6 +45,7 @@ const UpdateUserForm = (props) => {
 	const [usernameValue, setUsernameValue] = useState("");
 	const [eMailValue, seteMailValue] = useState("");
 	const [passwordValue, setPasswordValue] = useState("");
+	const [addressValue, setAddressValue] = useState("");
 	const [adminValue, setAdminValue] = useState(false);
 
 	// Modal
@@ -67,6 +70,9 @@ const UpdateUserForm = (props) => {
 			if (changePassword) {
 				updatedUser = { ...updatedUser, password: passwordValue };
 			}
+			if (changeAddress) {
+				updatedUser = { ...updatedUser, address: addressValue };
+			}
 			if (changeAdmin) {
 				// Boolean Value turns into String when I put it inside object as a variable, so I added this.
 				let admin = { admin: false };
@@ -86,18 +92,19 @@ const UpdateUserForm = (props) => {
 		setUsernameValue("");
 		seteMailValue("");
 		setPasswordValue("");
+		setAddressValue("");
 		setAdminValue(false);
 
 		setChangeName(false);
 		setChangeUsername(false);
 		setChangeeMail(false);
 		setChangePassword(false);
+		setChangeAddress(false);
 		setChangeAdmin(false);
 
 		setEntityFound(false);
-		dispatch(commonActions.getEntityToUpdate("Users", 0));
 
-		toggle();
+		setModal(!modal);
 	};
 
 	// Update or Not
@@ -106,6 +113,7 @@ const UpdateUserForm = (props) => {
 	const [changeUsername, setChangeUsername] = useState(false);
 	const [changeeMail, setChangeeMail] = useState(false);
 	const [changePassword, setChangePassword] = useState(false);
+	const [changeAddress, setChangeAddress] = useState(false);
 	const [changeAdmin, setChangeAdmin] = useState(false);
 
 	return (
@@ -158,7 +166,6 @@ const UpdateUserForm = (props) => {
 									type="checkbox"
 									id="modal-form-user-update-name-check"
 									onChange={() => setChangeName(!changeName)}
-									checked={!changeName}
 								/>
 								<label
 									className="form-check-label"
@@ -188,7 +195,6 @@ const UpdateUserForm = (props) => {
 									type="checkbox"
 									id="modal-form-user-update-username-check"
 									onChange={() => setChangeUsername(!changeUsername)}
-									checked={!changeUsername}
 								/>
 								<label
 									className="form-check-label"
@@ -218,7 +224,6 @@ const UpdateUserForm = (props) => {
 									type="checkbox"
 									id="modal-form-user-update-eMail-check"
 									onChange={() => setChangeeMail(!changeeMail)}
-									checked={!changeeMail}
 								/>
 								<label
 									className="form-check-label"
@@ -249,11 +254,40 @@ const UpdateUserForm = (props) => {
 									defaultValue
 									id="modal-form-user-update-password-check"
 									onChange={() => setChangePassword(!changePassword)}
-									checked={!changePassword}
 								/>
 								<label
 									className="form-check-label"
 									htmlFor="modal-form-user-update-password-check"
+								>
+									Change
+								</label>
+							</div>
+						</div>
+						{/* USER ADDRESS */}
+						<div className="modal-form-item modal-form-address">
+							<label htmlFor="modal-user-update-form-address" className="form-label">
+								Address
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-user-update-form-address"
+								placeholder="Address"
+								value={addressValue}
+								onChange={(event) => setAddressValue(event.target.value)}
+								disabled={!changeAddress}
+							/>
+							<div className="form-check">
+								<input
+									className="form-check-input"
+									type="checkbox"
+									defaultValue
+									id="modal-form-user-update-address-check"
+									onChange={() => setChangeAddress(!changeAddress)}
+								/>
+								<label
+									className="form-check-label"
+									htmlFor="modal-form-user-update-address-check"
 								>
 									Change
 								</label>
@@ -281,13 +315,12 @@ const UpdateUserForm = (props) => {
 									className="form-check-input"
 									type="checkbox"
 									defaultValue
-									id="modal-form-user-update-password-check"
+									id="modal-form-user-update-admin-check"
 									onChange={() => setChangeAdmin(!changeAdmin)}
-									checked={!changeAdmin}
 								/>
 								<label
 									className="form-check-label"
-									htmlFor="modal-form-user-update-password-check"
+									htmlFor="modal-form-user-update-admin-check"
 								>
 									Change
 								</label>

@@ -81,9 +81,9 @@ const UpdateCommentForm = (props) => {
 		setChangeText(false);
 		setChangeRating(false);
 
-		dispatch(commonActions.getEntityToUpdate("Comments", 0));
+		setEntityFound(false);
 
-		toggle();
+		setModal(!modal);
 	};
 
 	// Update or Not

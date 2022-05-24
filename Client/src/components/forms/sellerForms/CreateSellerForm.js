@@ -30,7 +30,8 @@ const CreateSellerForm = (props) => {
 		setUsernameValue("");
 		setEMailValue("");
 		setPasswordValue("");
-		toggle();
+
+		setModal(!modal);
 	};
 
 	return (

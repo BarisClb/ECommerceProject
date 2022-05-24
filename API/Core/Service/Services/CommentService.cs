@@ -186,6 +186,12 @@ namespace Service.Services
             if (user == null)
                 return new FailResponse("User does not exist.");
 
+            // Checking if the Information is Empty
+            if (String.IsNullOrWhiteSpace(modelComment.Title))
+                return new FailResponse("Invalid Title.");
+            if (String.IsNullOrWhiteSpace(modelComment.Text))
+                return new FailResponse("Invalid Text.");
+
             if (modelComment.Rating < 0)
                 modelComment.Rating = 0;
             if (modelComment.Rating > 5)
@@ -219,11 +225,17 @@ namespace Service.Services
             if (modelComment.Title != null)
             {
                 modelComment.Title = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelComment.Title);
+                if (modelComment.Title == "")
+                    return new FailResponse("Invalid Title.");
+
                 comment.Title = modelComment.Title;
             }
             if (modelComment.Text != null)
             {
                 modelComment.Text = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelComment.Text);
+                if (modelComment.Text == "")
+                    return new FailResponse("Invalid Text.");
+
                 comment.Text = modelComment.Text;
             }
             if (modelComment.Rating != null)

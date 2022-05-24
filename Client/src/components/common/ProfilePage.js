@@ -4,10 +4,12 @@ import "./css/index.css";
 function ProfilePage(props) {
 	const [accountType] = useState(props.accountType && props.accountType);
 	const [editProfile, setEditProfile] = useState(false);
-	const [editPermission] = useState(props.editPermission ? props.editPermission : false);
+	const [editPermission, setEditPermission] = useState(
+		props.editPermission ? props.editPermission : false
+	);
 
 	// Data
-	let [account, setAccount] = useState(props.account);
+	const [account, setAccount] = useState(props.account);
 
 	// Info Values
 	const [accountName, setAccountName] = useState(
@@ -72,6 +74,7 @@ function ProfilePage(props) {
 		setAccountAddress(props.account.address);
 		setAccountAdmin(props.account.admin);
 		setAccountAdminPassword("");
+		setEditPermission(props.editPermission ? props.editPermission : false);
 	}, [props.account]);
 
 	return (

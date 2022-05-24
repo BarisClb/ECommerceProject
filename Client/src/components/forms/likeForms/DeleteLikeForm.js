@@ -21,7 +21,10 @@ const DeleteLikeForm = (props) => {
 			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
 		setIdValue(0);
-		toggle();
+
+		setEntityFound(false);
+
+		setModal(!modal);
 	};
 
 	const dispatch = useDispatch();

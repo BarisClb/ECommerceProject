@@ -48,7 +48,7 @@ function StoreFooter() {
 							</ul>
 						</div>
 						{/* COL 3 */}
-						{/* <div className="col-lg col-6">
+						<div className="col-lg col-6">
 							<h5 className="title"> Account </h5>
 							<ul className="list-menu border-top border-top border-top">
 								<li>
@@ -58,7 +58,7 @@ function StoreFooter() {
 									<a href="/register"> Register </a>
 								</li>
 							</ul>
-						</div> */}
+						</div>
 						{/* COL 4 */}
 						<div className="col-lg col-6">
 							<h5 className="title">Social</h5>
@@ -94,13 +94,13 @@ function StoreFooter() {
 										<i className="icon fa fa-map-marker" />
 										<span>Istanbul, Turkey</span>
 									</li>
-									<li className="mb-2">
+									{/* <li className="mb-2">
 										<i className="icon fa fa-phone" />
 										<span>(012) 345 67 89</span>
-									</li>
+									</li> */}
 									<li className="mb-2">
 										<i className="icon fa fa-envelope" />
-										<span>baris@celebi.com</span>
+										<span>avbariscelebi@gmail.com</span>
 									</li>
 								</ul>
 							</article>

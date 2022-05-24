@@ -47,12 +47,16 @@
    ~ Validations:  
       - EMail Regex Check for User and Seller Accounts, when Creating and Updating.  
       - Unique Username and EMail check, for User and Seller Accounts, when Creating and Updating.  
-   ~ Moved 'EntityServices' from Controllers to a new (Service) Layer.  
-   ~ Pagination.  
-   ~ Sort By (Name, Price, DateCreated/Id (+Reversed)).  
+      - Checking if the necessary input is Empty or not.  
+      - Many more misc. checks (CreateCommentReply -> Comment belongs to the same Product? To User? Product belongs to the Seller?).  
+   ~ Moved 'EntityServices' from Controllers to a new Layer(Service).  
+   ~ Pagination. Added to the Table Component and to a seperate one.  
+   ~ Sort By (Name, Price, DateCreated/Id (+Reversed)). Added to the Table Component and to a seperate one.  
    ~ Light / Dark mode for Store Front.  
-   ~ Password Hashing  
-   ~ Jwt / Authorization / Authentication  
+   ~ Password Hashing.  
+   ~ Jwt / Authorization / Authentication ; Full Auth for Admin and Seller fronts, partial for Store.  
+   ~ Added .env file for API Connections and Switch Cases for Actions.  
+   ~ Dummy Pages in Store, so User can check the ProductList and SingleProduct page layout even if there isn't an API connection.  
   
    Database Relations (Root of the Arrow represents 'One' and Tip represents 'Many'):  
   

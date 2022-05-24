@@ -131,6 +131,8 @@ namespace Service.Services
                 return new FailResponse("Invalid EMail.");
             if (String.IsNullOrWhiteSpace(modelUser.Password))
                 return new FailResponse("Invalid Password.");
+            if (String.IsNullOrWhiteSpace(modelUser.Address))
+                return new FailResponse("Invalid Address.");
 
             // Trimming
             modelUser.Name = modelUser.Name.Trim();
@@ -153,7 +155,7 @@ namespace Service.Services
                 return new FailResponse("Invalid Username format.(No Whitespaces)");
             // EMail Validation with Regex
             if (!AccountValidator.CheckEMail(modelUser.EMail) || EntityValidator.CheckSingleWhiteSpace(modelUser.EMail))
-                return new FailResponse("Invalid EMail format.");
+                return new FailResponse("Invalid EMail format.(example@example.com)");
             // Password Validation with Regex
             if (EntityValidator.CheckSingleWhiteSpace(modelUser.Password))
                 return new FailResponse("Invalid Password format.(No Whitespaces)");
@@ -182,19 +184,21 @@ namespace Service.Services
         public async Task<BaseResponse> Put(UserUpdateVm modelUser)
         {
             // Checking if the Information is Empty
-            if (modelUser.Name != null && modelUser.Name == "")
+            if (modelUser.Name != null && modelUser.Name.Trim() == "")
                 return new FailResponse("Invalid Name.");
-            if (modelUser.Username != null && modelUser.Username == "")
+            if (modelUser.Username != null && modelUser.Username.Trim() == "")
                 return new FailResponse("Invalid Username.");
-            if (modelUser.EMail != null && modelUser.EMail == "")
+            if (modelUser.EMail != null && modelUser.EMail.Trim() == "")
                 return new FailResponse("Invalid EMail.");
-            if (modelUser.Password != null && modelUser.Password == "")
+            if (modelUser.Password != null && modelUser.Password.Trim() == "")
                 return new FailResponse("Invalid Password.");
+            if (modelUser.Address != null && modelUser.Address.Trim() == "")
+                return new FailResponse("Invalid Address.");
 
             User user = await _userReadRepository.GetByIdAsync(modelUser.Id);
             if (user == null)
                 return new FailResponse("User does not exist.");
-            
+
             if (modelUser.Name != null)
                 user.Name = modelUser.Name.Trim();
             if (modelUser.Username != null)
@@ -226,6 +230,10 @@ namespace Service.Services
 
                 user.Password = HashSecurity.HashPassword(modelUser.Password);
             }
+            if (modelUser.Address != null)
+            {
+                user.Address = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelUser.Address);
+            }
             if (modelUser.Admin != null)
                 user.Admin = (bool)modelUser.Admin;
             if (modelUser.AdminPassword != null)
@@ -234,10 +242,6 @@ namespace Service.Services
                     user.Admin = true;
 
                 else { user.Admin = false; }
-            }
-            if (modelUser.Address != null)
-            {
-                user.Address = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelUser.Address);
             }
 
             await _userWriteRepository.SaveAsync();

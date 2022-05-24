@@ -93,8 +93,14 @@ namespace Service.Services
             return new SuccessfulResponse<CategoryReadVm>("Category created.", mappedCategory);
         }
 
-        public async Task<SuccessfulResponse<Category>> Post(CategoryCreateVm modelCategory)
+        public async Task<BaseResponse> Post(CategoryCreateVm modelCategory)
         {
+            // Checking if the Information is Empty
+            if (String.IsNullOrWhiteSpace(modelCategory.Name))
+                return new FailResponse("Invalid Name.");
+            if (String.IsNullOrWhiteSpace(modelCategory.Description))
+                return new FailResponse("Invalid Description.");
+
             // Trim and Replace Multiple Whitespaces
             modelCategory.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Name);
             modelCategory.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Description);
@@ -118,11 +124,17 @@ namespace Service.Services
             if (modelCategory.Name != null)
             {
                 modelCategory.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Name);
+                if (modelCategory.Name == "")
+                    return new FailResponse("Invalid Name.");
+
                 category.Name = modelCategory.Name;
             }
             if (modelCategory.Description != null)
             {
                 modelCategory.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCategory.Description);
+                if (modelCategory.Description == "")
+                    return new FailResponse("Invalid Description.");
+
                 category.Description = modelCategory.Description;
             }
 

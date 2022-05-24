@@ -38,7 +38,6 @@ import StoreMain from "./screens/store/StoreMain";
 import StoreWelcomePage from "./components/store/StoreWelcomePage";
 import StoreProductsByCategory from "./screens/store/StoreProductsByCategory";
 import StoreSingleProduct from "./screens/store/StoreSingleProduct";
-import Cart from "./screens/store/Cart";
 //#endregion
 //#region CommonPages
 import LogIn from "./screens/common/LogIn";
@@ -53,6 +52,7 @@ import StoreProfileAuth from "./screens/store/StoreProfileAuth";
 import StoreProductList from "./screens/store/StoreProductList";
 import StoreProfileOrders from "./screens/store/StoreProfileOrders";
 import SellerSingleProduct from "./screens/seller/SellerSingleProduct";
+import StoreAboutUs from "./screens/store/StoreAboutUs";
 //#endregion
 
 ReactDOM.render(
@@ -68,7 +68,6 @@ ReactDOM.render(
 					<Route path="profile" element={<ProfilePage />} />
 
 					{/* ADMIN SIDE */}
-
 					<Route path="admin" element={<AdminMain />}>
 						<Route path="" element={<AdminWelcome />} />
 						<Route path="categories" element={<AdminCategories />} />
@@ -98,7 +97,7 @@ ReactDOM.render(
 							<Route path="orders" element={<StoreProfileOrders />} />
 							<Route path="comments" element={<StoreProfileComments />} />
 						</Route>
-						<Route path="cart" element={<Cart />} />
+						<Route path="aboutus" element={<StoreAboutUs />} />
 						<Route path="*" element={<NotFound siteFront={"Store"} />} />
 					</Route>
 
@@ -113,7 +112,7 @@ ReactDOM.render(
 						<Route path="commentReplies" element={<SellerCommentReplies />} />
 						<Route path="*" element={<NotFound siteFront={"Seller"} />} />
 					</Route>
-					<Route path="*" element={<NotFound siteFront={"None"} />} />
+					<Route path="*" element={<NotFound siteFront={"None"} noNav={false} />} />
 				</Routes>
 				<ToastContainer
 					position="top-center"

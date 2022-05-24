@@ -25,7 +25,8 @@ const CreateCategoryForm = (props) => {
 		}
 		setNameValue("");
 		setDescriptionValue("");
-		toggle();
+
+		setModal(!modal);
 	};
 
 	return (

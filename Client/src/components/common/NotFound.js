@@ -3,9 +3,10 @@ import MainNavigation from "../navigation/MainNavigation";
 
 function NotFound(props) {
 	const [item] = useState(props.item);
-	const [noNav] = useState(props.noNav ? props.noNav : true);
+	const [noNav] = useState(props.noNav !== undefined ? props.noNav : true);
 	const [siteFront] = useState(props.siteFront);
-
+	console.log(noNav);
+	console.log(siteFront);
 	return (
 		<>
 			{!noNav && <MainNavigation />}

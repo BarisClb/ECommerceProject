@@ -112,11 +112,13 @@ function SortWrapper(props) {
 	}, []);
 
 	useEffect(() => {
-		setTableSortReversed(props.sortInfo.reversed);
-		setTableSortWord(props.sortInfo.searchWord);
-		setTableSortPageNumber(props.sortInfo.pageNumber);
-		setTableSortPageSize(props.sortInfo.pageSize);
-		setTableSortOrderBy(props.sortInfo.orderBy);
+		if (props.sortInfo) {
+			setTableSortReversed(props.sortInfo.reversed);
+			setTableSortWord(props.sortInfo.searchWord);
+			setTableSortPageNumber(props.sortInfo.pageNumber);
+			setTableSortPageSize(props.sortInfo.pageSize);
+			setTableSortOrderBy(props.sortInfo.orderBy);
+		}
 	}, [props.sortInfo]);
 
 	useEffect(() => {

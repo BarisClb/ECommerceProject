@@ -19,7 +19,10 @@ const DeleteUserForm = (props) => {
 			props.navDeleteButtonClick(Number.parseInt(user.id));
 		}
 		setIdValue(0);
-		toggle();
+
+		setEntityFound(false);
+
+		setModal(!modal);
 	};
 
 	const user = useSelector((state) => state.common.EntityToUpdate);
@@ -36,6 +39,7 @@ const DeleteUserForm = (props) => {
 			setUsernameValue(user.username);
 			setEMailValue(user.eMail);
 			setPasswordValue(user.password);
+			setAddressValue(user.address);
 			setAdminValue(user.admin);
 			setEntityFound(true);
 		} else {
@@ -44,6 +48,7 @@ const DeleteUserForm = (props) => {
 			setUsernameValue("");
 			setEMailValue("");
 			setPasswordValue("");
+			setAddressValue("");
 			setAdminValue(false);
 			setEntityFound(false);
 		}
@@ -53,6 +58,7 @@ const DeleteUserForm = (props) => {
 	const [usernameValue, setUsernameValue] = useState("");
 	const [eMailValue, setEMailValue] = useState("");
 	const [passwordValue, setPasswordValue] = useState("");
+	const [addressValue, setAddressValue] = useState("");
 	const [adminValue, setAdminValue] = useState(false);
 
 	return (
@@ -137,6 +143,20 @@ const DeleteUserForm = (props) => {
 							id="modal-user-delete-form-password"
 							placeholder="Password"
 							value={passwordValue}
+							disabled={true}
+						/>
+					</div>
+					{/* USER ADDRESS */}
+					<div className="modal-form-item modal-form-address">
+						<label htmlFor="modal-user-delete-form-address" className="form-label">
+							Address
+						</label>
+						<input
+							type="text"
+							className="form-control form-input"
+							id="modal-user-delete-form-address"
+							placeholder="Address"
+							value={addressValue}
 							disabled={true}
 						/>
 					</div>

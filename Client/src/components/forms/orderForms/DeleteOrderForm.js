@@ -21,7 +21,10 @@ const DeleteOrderForm = (props) => {
 			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
 		setIdValue(-1);
-		toggle();
+
+		setEntityFound(false);
+
+		setModal(!modal);
 	};
 
 	const dispatch = useDispatch();

@@ -36,7 +36,8 @@ const CreateProductForm = (props) => {
 		setStockValue(0);
 		setCategoryIdValue(0);
 		setSellerIdValue(0);
-		toggle();
+
+		setModal(!modal);
 	};
 
 	return (

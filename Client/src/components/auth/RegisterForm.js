@@ -15,6 +15,7 @@ function RegisterForm() {
 	const [passwordValue, setPasswordValue] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 	// User Only
+	const [addressValue, setAddressValue] = useState("");
 	const [adminPasswordValue, setAdminPasswordValue] = useState("");
 	const [showAdminPassword, setShowAdminPassword] = useState(false);
 
@@ -29,7 +30,13 @@ function RegisterForm() {
 			password: passwordValue,
 		};
 		if (accountType === "User") {
-			dispatch(userActions.createUser({ ...registerInfo, adminPassword: adminPasswordValue }));
+			dispatch(
+				userActions.createUser({
+					...registerInfo,
+					adminPassword: adminPasswordValue,
+					address: addressValue,
+				})
+			);
 		} else if (accountType === "Seller") {
 			dispatch(sellerActions.createSeller(registerInfo));
 		}
@@ -134,12 +141,27 @@ function RegisterForm() {
 						</div>
 					</div>
 				</div>
+				{/* ADDRESS FOR USERS INPUT */}
+				{accountType === "User" && (
+					<div className="form-outline mb-4">
+						<label className="form-label" htmlFor="login-form-address">
+							Address
+						</label>
+						<textarea
+							type="text"
+							id="login-form-address"
+							className="form-control"
+							value={addressValue}
+							onChange={(e) => setAddressValue(e.target.value)}
+						/>
+					</div>
+				)}
 				{/* ADMIN PASSWORD FOR USERS INPUT */}
 				{accountType === "User" && (
 					<>
 						<div className="form-outline mb-4">
 							<label className="form-label" htmlFor="login-form-adminPassword">
-								Password
+								Admin Password
 							</label>
 							<input
 								type={showAdminPassword ? "text" : "password"}

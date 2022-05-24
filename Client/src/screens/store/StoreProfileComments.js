@@ -15,7 +15,15 @@ function StoreProfileComments() {
 	// Table Data
 	const comments = useSelector((state) => state.comment.comments);
 	useEffect(() => {
-		dispatch(commentActions.getSortedCommentsByEntity("User", listSorting, id));
+		// Adding pageSize and reversed as a default value here
+		// This one is a conditional one, we can also make it outside of a condition
+		if (sortInfo.pageSize === undefined) {
+			sortInfo = { ...sortInfo, pageSize: 24 };
+		}
+		if (sortInfo.reversed === undefined) {
+			sortInfo = { ...sortInfo, reversed: true };
+		}
+		dispatch(commentActions.getSortedCommentsByEntity("User", sortInfo, id));
 	}, []);
 
 	// Table Side Button Actions
@@ -23,26 +31,30 @@ function StoreProfileComments() {
 		dispatch(
 			commentActions.deleteComment(
 				oldComment.id,
-				commentActions.getSortedCommentsByEntity("User", listSorting, id)
+				commentActions.getSortedCommentsByEntity("User", sortInfo, id)
 			)
 		);
 	};
 
 	// Table Sort Button Action
 	const tableSortButtonClick = (listSortingValues) => {
-		listSorting = { ...listSorting, ...listSortingValues };
-		dispatch(commentActions.getSortedCommentsByEntity("User", listSorting, id));
+		sortInfo = { ...sortInfo, ...listSortingValues };
+		dispatch(commentActions.getSortedCommentsByEntity("User", sortInfo, id));
 	};
-	// Default Sort Values
-	let listSorting = {
-		reversed: false,
-		searchWord: "",
-		pageNumber: 1,
-		pageSize: 20,
-		orderBy: "Id",
-	};
+
 	// Sort Data from API
-	const sortInfo = useSelector((state) => state.common.SortInfo);
+	let sortInfo = useSelector((state) => state.common.SortInfo);
+
+	// Used this as a starting, default value, before getting the SortInfo from the API but it causes the SortInfo to revert back to this after every reload(and also the action, to refresh data.) So, I put an alternative above(useEffect).
+
+	//// Default Sort Values
+	// let listSorting = {
+	// 	reversed: true,
+	// 	searchWord: "",
+	// 	pageNumber: 1,
+	// 	pageSize: 20,
+	// 	orderBy: "Id",
+	// };
 
 	return (
 		<div

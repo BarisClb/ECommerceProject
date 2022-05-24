@@ -27,7 +27,7 @@ function DummySingleProduct() {
 						</div>
 						<div id="singleproduct-description" className="row">
 							<p>Description</p> <br />
-							<h4>Product Description </h4>
+							<h3>Product Description </h3>
 							<hr />
 						</div>
 						<div id="singleproduct-price-stock" className="row">
@@ -37,24 +37,29 @@ function DummySingleProduct() {
 							</div>
 							<div className="col-sm-6">
 								<p>Stock</p>
-								<h1>Stock Status</h1>
+								<h1>Product Stock</h1>
 								<hr />
 							</div>
 						</div>
 						<div id="singleproduct-seller" className="row">
 							<div className="col-sm-6">
 								<p>Product By</p>
-								<h1>Seller Username</h1>
+								<h1>Seller Name</h1>
 								<hr />
 							</div>
 							<div className="col-sm-6">
 								<p>Created At</p>
-								<h1>Date Created</h1>
+								<h1>Product Date</h1>
 								<hr />
 							</div>
 						</div>
 						<div id="singleproduct-order" className="row">
-							<a className="btn btn-primary" href={`/store/product/0`} role="button">
+							<a
+								className="btn btn-primary"
+								href={`/store/product/0`}
+								role="button"
+								disabled={true}
+							>
 								Order Now!
 							</a>
 							<button className="btn btn-success">Add to Cart</button>
@@ -76,50 +81,124 @@ function DummySingleProduct() {
 									<div className={`singleproduct-comment ${darkMode ? "dark-theme" : ""}`}>
 										<div className="singleproduct-comment-top-title d-flex justify-content-between">
 											<div className="singleproduct-title-date">
-												Written : 'Comment Date Created' / Updated : 'Comment Date
-												Updated'
+												Written : Comment Date Created / Updated : Comment Date Updated
 											</div>
 											<div className="singleproduct-title-rating">
-												<div className="singleproduct-rating">
-													Rating : Comment Rating / 5
-												</div>
+												<div className="singleproduct-rating">Rating : Rating / 5</div>
 											</div>
 										</div>
 										<div className="singleproduct-comment-title d-flex justify-content-between">
 											<div className="singleproduct-title-user">
-												<a href={`/store/product/0`}>Username</a>
+												<a href={`/store/product/0`} disabled={true}>
+													UserName
+												</a>
 												says :
 											</div>
-											<div className="singleproduct-title-reply">
-												<i className="pull-right">
-													<a href="/store/product/0">
-														<small>Reply</small>
-													</a>
-												</i>
+											<div className="singleproduct-title-right-side d-flex align-items-center gap-3">
+												<div className="singleproduct-title-likes d-flex">
+													<div className="singleproduct-title-like-count mr-1">
+														Like/Dislike : 0
+													</div>
+												</div>
+												<div className="singleproduct-title-reply">
+													<div className="singleproduct-comment-reply-text">Reply</div>
+												</div>
+												<div className="singleproduct-comment-edit-text">Edit</div>
 											</div>
 										</div>
 										<h5 className="singleproduct-comment-title-text">Comment Title</h5>
 										<p className="singleproduct-comment-text-text">Comment Text</p>
 									</div>
-
 									<div className={`singleproduct-reply ${darkMode ? "dark-theme" : ""}`}>
 										<div className="singleproduct-reply-top-title d-flex justify-content-between">
 											<div className="singleproduct-title-date">
-												Written : 'CommentReply Date Created' / Updated : 'CommentReply
-												Date Updated'
+												Written : CommentReply Date Created / Updated : CommentReply
+												Date Updated
 											</div>
 										</div>
 										<div className="singleproduct-comment-title d-flex justify-content-between">
-											<div className="singleproduct-title-user d-flex">
+											<div className="singleproduct-comment-title-left">
 												<p>Seller says :</p>
 											</div>
+											<div className="singleproduct-comment-title-right">Edit</div>
 										</div>
 										<p>CommentReply Text</p>
+									</div>
+								</li>
+								<li className="singleproduct-comment-and-reply">
+									<div className={`singleproduct-comment ${darkMode ? "dark-theme" : ""}`}>
+										<div className="singleproduct-comment-top-title d-flex justify-content-between">
+											<div className="singleproduct-title-date">
+												Written : Comment Date Created / Updated : Comment Date Updated
+											</div>
+											<div className="singleproduct-title-rating">
+												<div className="singleproduct-rating">Rating : Rating / 5</div>
+											</div>
+										</div>
+										<div className="singleproduct-comment-title d-flex justify-content-between">
+											<div className="singleproduct-title-user">
+												<a href={`/store/product/0`} disabled={true}>
+													UserName
+												</a>
+												says :
+											</div>
+											<div className="singleproduct-title-right-side d-flex align-items-center gap-3">
+												<div className="singleproduct-title-likes d-flex">
+													<div className="singleproduct-title-like-count mr-1">
+														Like/Dislike : 0
+													</div>
+												</div>
+												<div className="singleproduct-title-reply">
+													<div className="singleproduct-comment-reply-text">Reply</div>
+												</div>
+												<div className="singleproduct-comment-edit-text">Edit</div>
+											</div>
+										</div>
+										<h5 className="singleproduct-comment-title-text">Comment Title</h5>
+										<p className="singleproduct-comment-text-text">Comment Text</p>
+									</div>
+								</li>
+								<li className="singleproduct-comment-and-reply">
+									<div className={`singleproduct-comment ${darkMode ? "dark-theme" : ""}`}>
+										<div className="singleproduct-comment-top-title d-flex justify-content-between">
+											<div className="singleproduct-title-date">
+												Written : Comment Date Created / Updated : Comment Date Updated
+											</div>
+											<div className="singleproduct-title-rating">
+												<div className="singleproduct-rating">Rating : Rating / 5</div>
+											</div>
+										</div>
+										<div className="singleproduct-comment-title d-flex justify-content-between">
+											<div className="singleproduct-title-user">
+												<a href={`/store/product/0`} disabled={true}>
+													UserName
+												</a>
+												says :
+											</div>
+											<div className="singleproduct-title-right-side d-flex align-items-center gap-3">
+												<div className="singleproduct-title-likes d-flex">
+													<div className="singleproduct-title-like-count mr-1">
+														Like/Dislike : 0
+													</div>
+												</div>
+												<div className="singleproduct-title-reply">
+													<div className="singleproduct-comment-reply-text">Reply</div>
+												</div>
+												<div className="singleproduct-comment-edit-text">Edit</div>
+											</div>
+										</div>
+										<h5 className="singleproduct-comment-title-text">Comment Title</h5>
+										<p className="singleproduct-comment-text-text">Comment Text</p>
 									</div>
 								</li>
 							</ul>
 						</div>
 					</div>
+				</div>
+				<div className="row justify-content-center">
+					<button className="btn btn-success" style={{ width: "250px" }}>
+						Load More Comments
+					</button>
 				</div>
 			</div>
 		</div>

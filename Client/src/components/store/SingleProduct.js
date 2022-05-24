@@ -8,7 +8,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function SingleProduct(props) {
 	// DATA
-	const [product] = useState(props.productPageData.product);
+	const [product, setProduct] = useState(props.productPageData.product);
 	const [productSeller, setProductSeller] = useState(props.productPageData.seller);
 	const [comments, setComments] = useState(props.productPageData.comments);
 	const [commentReplies, setCommentReplies] = useState(props.productPageData.commentReplies);
@@ -17,6 +17,7 @@ function SingleProduct(props) {
 	const [commentLimit, setCommentLimit] = useState(2);
 
 	useEffect(() => {
+		setProduct(props.productPageData.product);
 		setProductSeller(props.productPageData.seller);
 		setComments(props.productPageData.comments);
 		setCommentReplies(props.productPageData.commentReplies);
@@ -503,7 +504,9 @@ function SingleProduct(props) {
 				<ModalHeader className="modal-form-item">Unauthorized Action</ModalHeader>
 				<ModalBody className="modal-form">
 					{/* TEXT */}
-					{modal2Text ? modal2Text : "You are not Authorized for this Action."}
+					<label className="form-label">
+						<h5>{modal2Text ? modal2Text : "You are not Authorized for this Action."}</h5>
+					</label>
 				</ModalBody>
 				<ModalFooter>
 					<button

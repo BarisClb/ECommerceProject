@@ -67,9 +67,8 @@ const UpdateCommentReplyForm = (props) => {
 		setChangeText(false);
 
 		setEntityFound(false);
-		dispatch(commonActions.getEntityToUpdate("CommentReplies", 0));
 
-		toggle();
+		setModal(!modal);
 	};
 
 	// Update or Not

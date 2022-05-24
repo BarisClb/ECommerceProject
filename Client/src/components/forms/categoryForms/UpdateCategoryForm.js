@@ -57,7 +57,7 @@ const UpdateCategoryForm = (props) => {
 		setChangeName(false);
 		setChangeDescription(false);
 
-		toggle();
+		setModal(!modal);
 	};
 
 	// Update or Not

@@ -11,7 +11,12 @@ const AdminLikes = () => {
 	// Table Data
 	const likes = useSelector((state) => state.like.likes);
 	useEffect(() => {
-		dispatch(likeActions.getSortedLikes(listSorting));
+		// Adding pageSize as a default value here
+		// This one is a conditional one, we can also make it outside of a condition
+		if (sortInfo.pageSize === undefined) {
+			sortInfo = { ...sortInfo, pageSize: 20 };
+		}
+		dispatch(likeActions.getSortedLikes(sortInfo));
 	}, []);
 
 	// Nav Form Actions
@@ -32,19 +37,23 @@ const AdminLikes = () => {
 
 	// Table Sort Button Action
 	const tableSortButtonClick = (listSortingValues) => {
-		listSorting = { ...listSorting, ...listSortingValues };
-		dispatch(likeActions.getSortedLikes(listSorting));
+		sortInfo = { ...sortInfo, ...listSortingValues };
+		dispatch(likeActions.getSortedLikes(sortInfo));
 	};
-	// Default Sort Values
-	let listSorting = {
-		reversed: false,
-		searchWord: "",
-		pageNumber: 1,
-		pageSize: 20,
-		orderBy: "Id",
-	};
+
 	// Sort Data from API
-	const sortInfo = useSelector((state) => state.common.SortInfo);
+	let sortInfo = useSelector((state) => state.common.SortInfo);
+
+	// Used this as a starting, default value, before getting the SortInfo from the API but it causes the SortInfo to revert back to this after every reload(and also the action, to refresh data.) So, I put an alternative above(useEffect).
+
+	//// Default Sort Values
+	// let listSorting = {
+	// 	reversed: false,
+	// 	searchWord: "",
+	// 	pageNumber: 1,
+	// 	pageSize: 20,
+	// 	orderBy: "Id",
+	// };
 
 	return (
 		<div id="admin-like-screen-wrapper">

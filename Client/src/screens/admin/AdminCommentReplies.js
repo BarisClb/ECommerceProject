@@ -11,7 +11,12 @@ function AdminCommentReplies() {
 	// Table Data
 	const commentReplies = useSelector((state) => state.commentReply.commentReplies);
 	useEffect(() => {
-		dispatch(commentReplyActions.getSortedCommentReplies(listSorting));
+		// Adding pageSize as a default value here
+		// This one is a conditional one, we can also make it outside of a condition
+		if (sortInfo.pageSize === undefined) {
+			sortInfo = { ...sortInfo, pageSize: 20 };
+		}
+		dispatch(commentReplyActions.getSortedCommentReplies(sortInfo));
 	}, []);
 
 	// Nav Form Actions
@@ -53,19 +58,22 @@ function AdminCommentReplies() {
 
 	// Table Sort Button Action
 	const tableSortButtonClick = (listSortingValues) => {
-		listSorting = { ...listSorting, ...listSortingValues };
-		dispatch(commentReplyActions.getSortedCommentReplies(listSorting));
+		sortInfo = { ...sortInfo, ...listSortingValues };
+		dispatch(commentReplyActions.getSortedCommentReplies(sortInfo));
 	};
-	// Default Sort Values
-	let listSorting = {
-		reversed: false,
-		searchWord: "",
-		pageNumber: 1,
-		pageSize: 20,
-		orderBy: "Id",
-	};
-	// Sort Data from API
-	const sortInfo = useSelector((state) => state.common.SortInfo);
+
+	let sortInfo = useSelector((state) => state.common.SortInfo);
+
+	// Used this as a starting, default value, before getting the SortInfo from the API but it causes the SortInfo to revert back to this after every reload(and also the action, to refresh data.) So, I put an alternative above(useEffect).
+
+	//// Default Sort Values
+	// let listSorting = {
+	// 	reversed: false,
+	// 	searchWord: "",
+	// 	pageNumber: 1,
+	// 	pageSize: 20,
+	// 	orderBy: "Id",
+	// };
 
 	return (
 		<div id="admin-commentReply-screen-wrapper">

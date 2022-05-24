@@ -162,6 +162,9 @@ namespace Service.Services
             if (product == null)
                 return new FailResponse("Product does not exist.");
 
+            if (comment.ProductId != product.Id)
+                return new FailResponse("Comment does not belong to that Product.");
+
             await _likeWriteRepository.AddAsync(new()
             {
                 UserUsername = user.Username,

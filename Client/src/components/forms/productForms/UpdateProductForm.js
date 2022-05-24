@@ -112,9 +112,8 @@ const UpdateProductForm = (props) => {
 		setChangeSellerId(false);
 
 		setEntityFound(false);
-		dispatch(commonActions.getEntityToUpdate("Products", 0));
 
-		toggle();
+		setModal(!modal);
 	};
 
 	// Update or Not
@@ -176,7 +175,6 @@ const UpdateProductForm = (props) => {
 									type="checkbox"
 									id="modal-form-product-update-name-check"
 									onChange={() => setChangeName(!changeName)}
-									checked={!changeName}
 								/>
 								<label
 									className="form-check-label"

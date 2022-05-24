@@ -22,7 +22,8 @@ const DeleteCategoryForm = (props) => {
 			props.navDeleteButtonClick(Number.parseInt(idValue));
 		}
 		setIdValue(0);
-		toggle();
+
+		setModal(!modal);
 	};
 	return (
 		<>

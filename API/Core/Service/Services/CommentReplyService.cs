@@ -203,6 +203,15 @@ namespace Service.Services
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
 
+            if (product.SellerId != seller.Id)
+                return new FailResponse("Product does not belong to that Seller.");
+            if (comment.ProductId!= product.Id)
+                return new FailResponse("Comment does not belong to that Product.");
+
+            // Checking if the Information is Empty
+            if (String.IsNullOrWhiteSpace(modelCommentReply.Text))
+                return new FailResponse("Invalid Text.");
+
             // Trim and Replace Multiple Whitespaces
             modelCommentReply.Text = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCommentReply.Text);
 
@@ -229,6 +238,9 @@ namespace Service.Services
             if (modelCommentReply.Text != null)
             {
                 modelCommentReply.Text = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelCommentReply.Text);
+                if (modelCommentReply.Text == "")
+                    return new FailResponse("Invalid Title.");
+
                 commentReply.Text = modelCommentReply.Text;
             }
 

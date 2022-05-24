@@ -81,9 +81,8 @@ const UpdateSellerForm = (props) => {
 		setChangePassword(false);
 
 		setEntityFound(false);
-		dispatch(commonActions.getEntityToUpdate("Sellers", 0));
 
-		toggle();
+		setModal(!modal);
 	};
 
 	// Update or Not
@@ -143,7 +142,6 @@ const UpdateSellerForm = (props) => {
 									type="checkbox"
 									id="modal-form-seller-update-name-check"
 									onChange={() => setChangeName(!changeName)}
-									checked={!changeName}
 								/>
 								<label
 									className="form-check-label"
@@ -173,7 +171,6 @@ const UpdateSellerForm = (props) => {
 									type="checkbox"
 									id="modal-form-seller-update-username-check"
 									onChange={() => setChangeUsername(!changeUsername)}
-									checked={!changeUsername}
 								/>
 								<label
 									className="form-check-label"
@@ -203,7 +200,6 @@ const UpdateSellerForm = (props) => {
 									type="checkbox"
 									id="modal-form-seller-update-eMail-check"
 									onChange={() => setChangeeMail(!changeeMail)}
-									checked={!changeeMail}
 								/>
 								<label
 									className="form-check-label"
@@ -234,7 +230,6 @@ const UpdateSellerForm = (props) => {
 									defaultValue
 									id="modal-form-seller-update-password-check"
 									onChange={() => setChangePassword(!changePassword)}
-									checked={!changePassword}
 								/>
 								<label
 									className="form-check-label"

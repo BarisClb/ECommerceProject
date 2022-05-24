@@ -48,8 +48,11 @@ const CreateOrderForm = (props) => {
 		setDiscountValue(0);
 		setUserIdValue(0);
 		setProductIdValue(0);
+
 		setChangeNote(true);
-		toggle();
+		setChangeDiscount(true);
+
+		setModal(!modal);
 	};
 
 	const [changeNote, setChangeNote] = useState(true);

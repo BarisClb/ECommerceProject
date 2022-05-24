@@ -28,10 +28,12 @@ const CreateCommentReplyForm = (props) => {
 			});
 		}
 		setTextValue("");
+
 		setCommentIdValue(0);
 		setProductIdValue(0);
 		setSellerIdValue(0);
-		toggle();
+
+		setModal(!modal);
 	};
 
 	return (

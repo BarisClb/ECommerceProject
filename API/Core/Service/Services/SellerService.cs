@@ -125,8 +125,8 @@ namespace Service.Services
             modelSeller.EMail = modelSeller.EMail.Trim();
 
             // Checking if Username and Email are Unique for both Seller and User
-            if (await _sellerReadRepository.GetSingleAsync(seller => seller.Username == modelSeller.Username) != null)
-                return new FailResponse("Username already exists.");
+            if (await _sellerReadRepository.GetSingleAsync(seller => seller.Name == modelSeller.Name) != null)
+                return new FailResponse("Name already exists.");
             if (await _userReadRepository.GetSingleAsync(user => user.Username == modelSeller.Username) != null)
                 return new FailResponse("Username already exists.");
             if (await _sellerReadRepository.GetSingleAsync(seller => seller.EMail == modelSeller.EMail) != null)
@@ -149,7 +149,7 @@ namespace Service.Services
                 Name = modelSeller.Name,
                 Username = modelSeller.Username,
                 EMail = modelSeller.EMail,
-                Password = modelSeller.Password,
+                Password = HashSecurity.HashPassword(modelSeller.Password),
             });
 
             await _sellerWriteRepository.SaveAsync();

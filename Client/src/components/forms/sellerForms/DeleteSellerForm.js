@@ -19,7 +19,10 @@ const DeleteSellerForm = (props) => {
 			props.navDeleteButtonClick(Number.parseInt(seller.id));
 		}
 		setIdValue(0);
-		toggle();
+
+		setEntityFound(false);
+
+		setModal(!modal);
 	};
 
 	const seller = useSelector((state) => state.common.EntityToUpdate);

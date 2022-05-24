@@ -15,7 +15,15 @@ function StoreProfileOrders() {
 	// Table Data
 	const orders = useSelector((state) => state.order.orders);
 	useEffect(() => {
-		dispatch(orderActions.getSortedOrdersByEntity("User", listSorting, id));
+		// Adding pageSize and reversed as a default value here
+		// This one is a conditional one, we can also make it outside of a condition
+		if (sortInfo.pageSize === undefined) {
+			sortInfo = { ...sortInfo, pageSize: 24 };
+		}
+		if (sortInfo.reversed === undefined) {
+			sortInfo = { ...sortInfo, reversed: true };
+		}
+		dispatch(orderActions.getSortedOrdersByEntity("User", sortInfo, id));
 	}, []);
 
 	// Table Side Button Actions
@@ -24,7 +32,7 @@ function StoreProfileOrders() {
 			orderActions.updateOrder(
 				oldOrder.id,
 				{ orderStatus: 3 },
-				orderActions.getSortedOrdersByEntity("User", listSorting, id)
+				orderActions.getSortedOrdersByEntity("User", sortInfo, id)
 			)
 		);
 	};
@@ -33,26 +41,30 @@ function StoreProfileOrders() {
 			orderActions.updateOrder(
 				oldOrder.id,
 				{ orderStatus: 0 },
-				orderActions.getSortedOrdersByEntity("User", listSorting, id)
+				orderActions.getSortedOrdersByEntity("User", sortInfo, id)
 			)
 		);
 	};
 
 	// Table Sort Button Action
 	const tableSortButtonClick = (listSortingValues) => {
-		listSorting = { ...listSorting, ...listSortingValues };
-		dispatch(orderActions.getSortedOrdersByEntity("User", listSorting, id));
+		sortInfo = { ...sortInfo, ...listSortingValues };
+		dispatch(orderActions.getSortedOrdersByEntity("User", sortInfo, id));
 	};
-	// Default Sort Values
-	let listSorting = {
-		reversed: false,
-		searchWord: "",
-		pageNumber: 1,
-		pageSize: 20,
-		orderBy: "Id",
-	};
+
 	// Sort Data from API
-	const sortInfo = useSelector((state) => state.common.SortInfo);
+	let sortInfo = useSelector((state) => state.common.SortInfo);
+
+	// Used this as a starting, default value, before getting the SortInfo from the API but it causes the SortInfo to revert back to this after every reload(and also the action, to refresh data.) So, I put an alternative above(useEffect).
+
+	//// Default Sort Values
+	// let listSorting = {
+	// 	reversed: true,
+	// 	searchWord: "",
+	// 	pageNumber: 1,
+	// 	pageSize: 20,
+	// 	orderBy: "Id",
+	// };
 
 	return (
 		<div id="store-profile-orders-screen-wrapper" style={{ flexGrow: "1", marginBottom: "3rem" }}>

@@ -375,6 +375,12 @@ namespace Service.Services
             if (seller == null)
                 return new FailResponse("Seller does not exist.");
 
+            // Checking if the Information is Empty
+            if (String.IsNullOrWhiteSpace(modelProduct.Name))
+                return new FailResponse("Invalid Name.");
+            if (String.IsNullOrWhiteSpace(modelProduct.Description))
+                return new FailResponse("Invalid Description.");
+
             // Trim and Replace Multiple Whitespaces
             modelProduct.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Name);
             modelProduct.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Description);
@@ -407,11 +413,17 @@ namespace Service.Services
             if (modelProduct.Name != null)
             {
                 product.Name = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Name);
+                if (modelProduct.Name == "")
+                    return new FailResponse("Invalid Name.");
+
                 product.Name = modelProduct.Name;
             }
             if (modelProduct.Description != null)
             {
                 modelProduct.Description = EntityValidator.TrimAndReplaceMultipleWhitespaces(modelProduct.Description);
+                if (modelProduct.Description == "")
+                    return new FailResponse("Invalid Description.");
+
                 product.Description = modelProduct.Description;
             }
             if (modelProduct.Price != null)

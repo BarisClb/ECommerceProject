@@ -9,6 +9,7 @@ const CreateUserForm = (props) => {
 	const [usernameValue, setUsernameValue] = useState("");
 	const [eMailValue, setEMailValue] = useState("");
 	const [passwordValue, setPasswordValue] = useState("");
+	const [addressValue, setAddressValue] = useState("");
 	const [adminValue, setAdminValue] = useState(false);
 
 	// Modal
@@ -30,6 +31,7 @@ const CreateUserForm = (props) => {
 				username: usernameValue,
 				eMail: eMailValue,
 				password: passwordValue,
+				address: addressValue,
 				...admin,
 			});
 		}
@@ -37,8 +39,10 @@ const CreateUserForm = (props) => {
 		setUsernameValue("");
 		setEMailValue("");
 		setPasswordValue("");
+		setAddressValue("");
 		setAdminValue(false);
-		toggle();
+
+		setModal(!modal);
 	};
 
 	return (
@@ -104,6 +108,20 @@ const CreateUserForm = (props) => {
 								placeholder="Password"
 								value={passwordValue}
 								onChange={(event) => setPasswordValue(event.target.value)}
+							/>
+						</div>
+						{/* USER ADDRESS */}
+						<div className="modal-form-item modal-form-address">
+							<label htmlFor="modal-user-create-form-address" className="form-label">
+								Address
+							</label>
+							<input
+								type="text"
+								className="form-control form-input"
+								id="modal-user-create-form-address"
+								placeholder="Address"
+								value={addressValue}
+								onChange={(event) => setAddressValue(event.target.value)}
 							/>
 						</div>
 						{/* USER ADMIN */}

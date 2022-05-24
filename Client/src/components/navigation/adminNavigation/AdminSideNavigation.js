@@ -35,11 +35,7 @@ function AdminSideNavigation() {
 					>
 						<div className="image">
 							<img
-								src={
-									user.name
-										? "/adminLTE/dist/img/user2-160x160.jpg"
-										: "/adminLTE/dist/img/AdminLTELogo.png"
-								}
+								src={user.name ? "/logo192.png" : "/adminLTE/dist/img/AdminLTELogo.png"}
 								className="img-circle elevation-2"
 								alt="Admin"
 							/>

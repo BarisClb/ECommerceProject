@@ -28,7 +28,8 @@ const CreateLikeForm = (props) => {
 		setUserIdValue(0);
 		setCommentIdValue(0);
 		setProductIdValue(0);
-		toggle();
+
+		setModal(!modal);
 	};
 
 	return (
