@@ -227,7 +227,7 @@ function SingleProduct(props) {
 						<div id="singleproduct-seller" className="row">
 							<div className="col-sm-6">
 								<p>Product By</p>
-								<h1>{product && productSeller.username}</h1>
+								<h1>{productSeller && productSeller.name}</h1>
 								<hr />
 							</div>
 							<div className="col-sm-6">
