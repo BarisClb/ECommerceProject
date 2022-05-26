@@ -1,34 +1,35 @@
 # ECommerceProject  
   
-   # Table of Content  
-  
    - [Project Structure](#project-structure)  
-   - [CheckList](#check-list)  
-   - [Future Plans](#future-plans)
-   - [Need To Think](#need-to-think)
-   - [Flaws](#flaws)
-   - [Database Relations](#database-relations)
+   - [CheckList](#checklist)  
+   - [Future Plans](#future-plans)  
+   - [Need To Think](#need-to-think)  
+   - [Flaws](#flaws)  
+   - [Database Relations](#database-relations)  
+   - [Starting the Project](#starting-the-project)  
   
    #### Project Structure:  
   
    These are the Standards/Coding Conventions/Best Practices that I tried to follow in my code and Technologies/Libraries that I used. As I am still a beginner, I may not have implemented them perfectly. I'm still learning more about them and all the other new information while coding and creating projects!  
   
    ~ OOP  
-   - API  
-   ~ Onion Architecture  
-   ~ C# for Backend, API with ASP.Net Core 6  
-   ~ Entity Framework Core for ORM with Code First approach (Microsoft.EntityFrameworkCore)  
-   ~ MsSql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
-   ~ Dependency Injection (Microsoft.Extensions.DependencyInjection)  
-   ~ CORS Options  
-   ~ Dtos for Requests and Responses  
-   ~ Custom Responses   
-   ~ Password Hashing (BCrypt.Net-Next)  
-   ~ Jwt (System.IdentityModel.Tokens.Jwt)  
-   - Client  
-   ~ JS for Frontend, Client with React Library  
-   ~ Redux for State Management (with Redux-Thunk and Redux-Persist)  
-   ~ Bootstrap Css Framework  
+   ~ SOLID Principles  
+   ~ Clean Code  
+   ~ API  
+     ~ Onion Architecture  
+     ~ C# for Backend, API with ASP.Net Core 6  
+     ~ Entity Framework Core for ORM with Code First approach (Microsoft.EntityFrameworkCore)  
+     ~ MsSql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
+     ~ Dependency Injection (Microsoft.Extensions.DependencyInjection)  
+     ~ CORS Options  
+     ~ Dtos for Requests and Responses  
+     ~ Custom Responses   
+     ~ Password Hashing (BCrypt.Net-Next)  
+     ~ Jwt (System.IdentityModel.Tokens.Jwt)  
+   ~ Client  
+     ~ JS for Frontend, Client with React Library  
+     ~ Redux for State Management (with Redux-Thunk and Redux-Persist)  
+     ~ Bootstrap Css Framework  
   
    #### CheckList:  
   
@@ -57,7 +58,8 @@
    ~ ProductCommentSection, only UserAccounts can Create and Like comments. CommentReply system (only the Seller of the Product is authorized to Create). Edit feature for Comments and CommentReplies, only for the writer.  
    ~ Added toastify for alerts.  
   
-   #### Future Plans (For this or future Projects):  
+   #### Future Plans:  
+   (For this or future Projects)  
   
    1-) Unique URLs  
    2-) EMail Notification for Orders (It might be implemented but it will probably be disabled.)  
@@ -80,7 +82,11 @@
    ~ Order Actions for Users and Sellers, since I am using my own 'Table' component, I can't really check the Orders Status specifically ('Cancelled' or 'Received') and make a condition (Can't be updated once its 'Cancelled' or 'Received').  
    ~ Not using the 'Discount' prop on Orders/Product at the moment.  
   
-   #### Database Relations 
-   ~ (Root of the Arrow represents 'One' and Tip represents 'Many'):  
+   #### Database Relations:  
+   ~ (Root of the Arrow represents 'One' and Tip represents 'Many').  
   
   <img alt="Database-Relations" src="/Database/DB from 21-04-2022.jpeg">
+  
+   #### Starting The Project:  
+  
+   
