@@ -16,20 +16,20 @@
    ~ SOLID Principles  
    ~ Clean Code  
    ~ API  
-     ~ Onion Architecture  
-     ~ C# for Backend, API with ASP.Net Core 6  
-     ~ Entity Framework Core for ORM with Code First approach (Microsoft.EntityFrameworkCore)  
-     ~ MsSql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
-     ~ Dependency Injection (Microsoft.Extensions.DependencyInjection)  
-     ~ CORS Options  
-     ~ Dtos for Requests and Responses  
-     ~ Custom Responses   
-     ~ Password Hashing (BCrypt.Net-Next)  
-     ~ Jwt (System.IdentityModel.Tokens.Jwt)  
+     - Onion Architecture  
+     - C# for Backend, API with ASP.Net Core 6  
+     - Entity Framework Core for ORM with Code First approach (Microsoft.EntityFrameworkCore)  
+     - MsSql Server for Database (Microsoft.EntityFrameworkCore.SqlServer)  
+     - Dependency Injection (Microsoft.Extensions.DependencyInjection)  
+     - CORS Options  
+     - Dtos for Requests and Responses  
+     - Custom Responses   
+     - Password Hashing (BCrypt.Net-Next)  
+     - Jwt (System.IdentityModel.Tokens.Jwt)  
    ~ Client  
-     ~ JS for Frontend, Client with React Library  
-     ~ Redux for State Management (with Redux-Thunk and Redux-Persist)  
-     ~ Bootstrap Css Framework  
+     - JS for Frontend, Client with React Library  
+     - Redux for State Management (with Redux-Thunk and Redux-Persist)  
+     - Bootstrap Css Framework  
   
    #### CheckList:  
   
