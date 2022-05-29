@@ -113,6 +113,7 @@
    - Database  
   
      - Eğer isterseniz, Microsoft SQL Server Management Studio kullanarak benim hazırladığım içerisinde Sahte-Veriler olan hazır database dosyasını kullanabilirsiniz.  
+       - Öncelikle dosyaların isimlerindeki "-example-" yazısını silin, geriye sadece "ECommerceProjectDB" ve "ECommerceProjectDB_log" yazısı kalsın (ayrıca da uzantı ismi, .mdf ve .ldf). Bunu, Git'in değişiklikleri takip etmemesi için yapıyoruz.  
        - Microsoft SQL Server Management Studio programına gidin ve '(localdb)\MSSQLLocalDB'e bağlanın(Connect). Eğer hata alıyorsanız, bilgisayarınızda 'cmd'yi açın, 'sqllocaldb info' yazın. Eğer 'MSSQLLocalDB' yazısını gördüyseniz, 'sqllocaldb start MSSQLLocalDB' yazın. Şimdi Microsoft SQL Server Management Studio programına tekrar gidin ve '(localdb)\MSSQLLocalDB'e tekrar bağlanmaya(Connect) çalışın. Yine işe yaramadıysa, Aldığınız hatayı Google'da aratın veya aşağıda yazdığım şekilde kendi database dosyanızı yaratın.  
        - Eğer bağlandıysanız, '(localdb)\MSSQLLocalDB' altındaki 'Databases'e sağ tıklayın ve Bağla'ya(Attach) tıklayın, ECommerceProject/Database klasörü içerisine eklediğim Database dosyasını bulun ve 'Bağla'yın.  
        - Başarılı oluysanız, kurduğunuz API ve Client bu database i kullanıyor olmalı.  

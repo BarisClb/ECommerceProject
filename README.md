@@ -117,6 +117,7 @@
    - Database  
   
      - Use Microsoft SQL Server Management Studio if you want to use the Database I put with Dummy Data.  
+       - First of all, delete the "-example-" text from the names of the files, until only "ECommerceProjectDB" and "ECommerceProjectDB_log" are left (also the extension names, .mdf and .ldf). We do this so that git doesn't track the changes (for committing).  
        - Go to the Microsoft SQL Server Management Studio and connect to '(localdb)\MSSQLLocalDB'. If you can't, open up the "cmd" in your computer, type 'sqllocaldb info'. If you can see the 'MSSQLLocalDB', write 'sqllocaldb start MSSQLLocalDB'. Now go back to the Microsoft SQL Server Management Studio and try to connect to '(localdb)\MSSQLLocalDB' again. If it didn't work, Google the error it gives or create your own Database by following the below step.  
        - If you are connected, right click on the 'Databases' under '(localdb)\MSSQLLocalDB' and click 'Attach', find the Database file inside ECommerceProject/Database folder and attach it.  
        - Now you should be using the Dummy Data and the database.  
